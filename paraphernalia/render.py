@@ -11,7 +11,7 @@ class FakeUniform:
 
 
 VERTEX_SHADER = """
-    #version 300 es
+    #version 330
     in vec2 vx;
     out vec2 uv;
 
