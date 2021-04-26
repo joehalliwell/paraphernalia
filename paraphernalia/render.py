@@ -24,12 +24,12 @@ VERTEX_SHADER = """
 
 @click.command()
 @click.argument("fragment_shader", type=click.File("r"))
-@click.option("--fps", type=float, default=25.0)
-@click.option("--duration", type=float, default=30.0)
 @click.option("--width", type=int, default=1024)
 @click.option("--height", type=int, default=1024)
-@click.option("--quality", type=int, default=6)
-def main(fragment_shader, fps, duration, width, height, quality):
+@click.option("--fps", type=float, default=25.0)
+@click.option("--duration", type=float, default=30.0)
+@click.option("--quality", type=int, default=5)
+def main(fragment_shader, width, height, fps, duration, quality):
 
     # TODO: Detect version and adapt
 
@@ -64,7 +64,7 @@ def main(fragment_shader, fps, duration, width, height, quality):
     fbo = ctx.framebuffer(color_attachments=[ctx.texture((width, height), 4)])
     fbo.use()
     with imageio.get_writer("output.mp4", fps=fps, quality=quality) as writer:
-        for frame in tqdm(range(duration * fps - 1)):
+        for frame in tqdm(range(int(duration * fps) - 1)):
             u_time.value = frame / fps
             ctx.clear(1.0, 1.0, 1.0)
             vao.render(moderngl.TRIANGLE_STRIP)
