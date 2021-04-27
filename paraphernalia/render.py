@@ -1,9 +1,22 @@
+import logging
+import sys
+import traceback
+from pathlib import Path
+from time import time
+
 import click
 import imageio
 import moderngl
 import numpy as np
+from moderngl_window import create_window_from_settings, settings
 from PIL import Image
 from tqdm import tqdm
+
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s"
+)
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
 
 class FakeUniform:
@@ -22,6 +35,90 @@ VERTEX_SHADER = """
     """
 
 
+class Renderer:
+    def __init__(self, ctx, fragment_shader, resolution=(100, 100), duration=0) -> None:
+        self.ctx = ctx
+        self.prog = ctx.program(
+            vertex_shader=VERTEX_SHADER, fragment_shader=fragment_shader
+        )
+
+        vertices = np.array([-1.0, -1.0, -1.0, 1.0, 1.0, -1.0, 1.0, 1.0])
+        self.vbo = self.ctx.buffer(vertices.astype("f4"))
+        self.vao = self.ctx.simple_vertex_array(self.prog, self.vbo, "vx")
+
+        # Uniforms
+        self.u_time = self.prog.get("u_time", FakeUniform())
+        self.u_time.value = 0
+
+        self.u_resolution = self.prog.get("u_resolution", FakeUniform())
+        self.u_resolution.value = resolution
+
+        self.u_duration = self.prog.get("u_duration", FakeUniform())
+        self.u_duration.value = duration
+
+        self.u_mouse = self.prog.get("u_mouse", FakeUniform())
+        self.u_mouse.value = (0, 0)
+
+        # TODO: buffers, absolute time
+
+    def render(self, time):
+        self.u_time.value = time
+        self.ctx.clear(0.0, 1.0, 0.0)
+        self.vao.render(moderngl.TRIANGLE_STRIP)
+
+
+@click.command()
+@click.argument("fragment_shader", type=click.Path(exists=True, readable=True))
+@click.option("--width", type=int, default=1024)
+@click.option("--height", type=int, default=1024)
+@click.option("--duration", type=float, default=0)
+@click.option("--speed", type=float, default=1.0)
+@click.option("--scale", type=float, default=1.0)
+@click.option("--watch/--no-watch", default=True)
+def preview(fragment_shader, width, height, duration, speed, scale, watch):
+    fragment_shader = Path(fragment_shader)
+    settings.WINDOW.update(
+        {
+            "gl_version": (3, 3),
+            "title": fragment_shader.name,
+            "size": (width, height),
+            "aspect_ratio": 1.0,
+            "resizable": False,
+        }
+    )
+
+    window = create_window_from_settings()
+    last_mtime = -1
+    renderer = None
+    start = time()
+
+    while not window.is_closing:
+        # Watch the file and reload as needed
+        mtime = fragment_shader.stat().st_mtime
+        if mtime > last_mtime:
+            logging.info(f"Loading {fragment_shader}")
+            try:
+                renderer = Renderer(
+                    window.ctx,
+                    fragment_shader=fragment_shader.open("r").read(),
+                    resolution=window.size,
+                    duration=duration,
+                )
+            except Exception as e:
+                logging.exception(f"Failed to load {fragment_shader}")
+                if renderer is None:
+                    logging.critical("Aborting")
+                    sys.exit(1)
+            last_mtime = mtime
+
+        renderer.u_mouse.value = window._mouse_pos
+
+        window.use()
+        elapsed = (time() - start) * speed
+        renderer.render(elapsed % duration if duration > 0 else elapsed)
+        window.swap_buffers()
+
+
 @click.command()
 @click.argument("fragment_shader", type=click.File("r"))
 @click.option("--width", type=int, default=1024)
@@ -29,7 +126,7 @@ VERTEX_SHADER = """
 @click.option("--fps", type=float, default=25.0)
 @click.option("--duration", type=float, default=30.0)
 @click.option("--quality", type=int, default=5)
-def main(fragment_shader, width, height, fps, duration, quality):
+def render(fragment_shader, width, height, fps, duration, quality):
 
     # TODO: Detect version and adapt
 
@@ -41,40 +138,27 @@ def main(fragment_shader, width, height, fps, duration, quality):
         libegl="libEGL.so.1",
     )
 
-    prog = ctx.program(
-        vertex_shader=VERTEX_SHADER, fragment_shader=fragment_shader.read()
+    renderer = Renderer(
+        ctx,
+        fragment_shader=fragment_shader.read(),
+        resolution=(width, height),
+        duration=duration,
     )
-
-    # A simple plane to draw on
-    vertices = np.array([-1.0, -1.0, -1.0, 1.0, 1.0, -1.0, 1.0, 1.0])
-    vbo = ctx.buffer(vertices.astype("f4"))
-    vao = ctx.simple_vertex_array(prog, vbo, "vx")
-
-    # Uniforms
-    u_time = prog.get("u_time", FakeUniform())
-    u_time.value = 0
-
-    u_resolution = prog.get("u_resolution", FakeUniform())
-    u_resolution.value = (width, height)
-
-    u_mouse = prog.get("u_mouse", FakeUniform())
-    u_mouse.value = (0, 0)
 
     # Main render loop
     fbo = ctx.framebuffer(color_attachments=[ctx.texture((width, height), 4)])
     fbo.use()
     with imageio.get_writer("output.mp4", fps=fps, quality=quality) as writer:
         for frame in tqdm(range(int(duration * fps) - 1)):
-            u_time.value = frame / fps
-            ctx.clear(1.0, 1.0, 1.0)
-            vao.render(moderngl.TRIANGLE_STRIP)
+            renderer.render(frame / fps)
 
             # Write video frame
             data = fbo.read(components=3)
             image = Image.frombytes("RGB", fbo.size, data)
             image = image.transpose(Image.FLIP_TOP_BOTTOM)
             writer.append_data(np.array(image))
+    logging.info("Complete")
 
 
 if __name__ == "__main__":
-    main()
+    preview()
