@@ -5,6 +5,7 @@ from pathlib import Path
 from time import time
 
 import click
+from click import decorators
 import imageio
 import moderngl
 import numpy as np
@@ -37,6 +38,11 @@ VERTEX_SHADER = """
 
 class Renderer:
     def __init__(self, ctx, fragment_shader, resolution=(100, 100), duration=0) -> None:
+        """
+        Core logic for rendering fragment shaders, shared across
+        render and preview functions.
+        """
+
         self.ctx = ctx
         self.prog = ctx.program(
             vertex_shader=VERTEX_SHADER, fragment_shader=fragment_shader
@@ -62,6 +68,11 @@ class Renderer:
         # TODO: buffers, absolute time
 
     def render(self, time):
+        """Draw to the currently bound framebuffer
+
+        Args:
+            time (float): Elapsed time in seconds
+        """
         self.u_time.value = time
         self.ctx.clear(0.0, 1.0, 0.0)
         self.vao.render(moderngl.TRIANGLE_STRIP)
@@ -69,13 +80,40 @@ class Renderer:
 
 @click.command()
 @click.argument("fragment_shader", type=click.Path(exists=True, readable=True))
-@click.option("--width", type=int, default=1024)
-@click.option("--height", type=int, default=1024)
-@click.option("--duration", type=float, default=0)
-@click.option("--speed", type=float, default=1.0)
-@click.option("--scale", type=float, default=1.0)
-@click.option("--watch/--no-watch", default=True)
-def preview(fragment_shader, width, height, duration, speed, scale, watch):
+@click.option("--width", type=int, default=1024, help="Target width", show_default=True)
+@click.option(
+    "--height", type=int, default=1024, help="Target height", show_default=True
+)
+@click.option(
+    "--duration",
+    type=float,
+    default=30,
+    help="Target duration, loop if > 0",
+    show_default=True,
+)
+@click.option(
+    "--speed",
+    type=float,
+    default=1.0,
+    help="Multiplier for elapsed time",
+)
+@click.option(
+    "--watch/--no-watch",
+    default=True,
+    help="Automatically reload when shader changes on disk",
+)
+@click.option("--scale", type=float, default=1.0, help="TODO", show_default=True)
+def preview(
+    fragment_shader,
+    width,
+    height,
+    duration,
+    speed,
+    watch,
+    scale,
+):
+    loop = duration <= 0
+
     fragment_shader = Path(fragment_shader)
     settings.WINDOW.update(
         {
@@ -89,12 +127,14 @@ def preview(fragment_shader, width, height, duration, speed, scale, watch):
 
     window = create_window_from_settings()
     last_mtime = -1
+    mtime = 0
     renderer = None
     start = time()
 
     while not window.is_closing:
         # Watch the file and reload as needed
-        mtime = fragment_shader.stat().st_mtime
+        if watch:
+            mtime = fragment_shader.stat().st_mtime
         if mtime > last_mtime:
             logging.info(f"Loading {fragment_shader}")
             try:
@@ -110,12 +150,15 @@ def preview(fragment_shader, width, height, duration, speed, scale, watch):
                     logging.critical("Aborting")
                     sys.exit(1)
             last_mtime = mtime
+            # If looping, then
+            if loop:
+                start = time()
 
         renderer.u_mouse.value = window._mouse_pos
 
         window.use()
         elapsed = (time() - start) * speed
-        renderer.render(elapsed % duration if duration > 0 else elapsed)
+        renderer.render(elapsed % duration if loop else elapsed)
         window.swap_buffers()
 
 
