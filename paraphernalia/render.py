@@ -112,7 +112,7 @@ def preview(
     watch,
     scale,
 ):
-    loop = duration <= 0
+    loop = duration > 0
 
     fragment_shader = Path(fragment_shader)
     settings.WINDOW.update(
