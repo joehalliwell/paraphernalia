@@ -13,11 +13,13 @@ pyrr = "^0.10.3"
 tqdm = "^4.59.0"
 imageio = "^2.9.0"
 imageio-ffmpeg = "^0.4.3"
+torch = "^1.9.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
 isort = "^5.8.0"
 black = "^20.8b1"
+ipykernel = "^5.5.5"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
