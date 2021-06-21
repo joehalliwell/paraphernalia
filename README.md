@@ -9,5 +9,9 @@ A collection of tools for making digital art
 ### render
 
 - Support all/more Book of Shaders uniforms
-- Support shadertoy uniforms (see https://github.com/iY0Yi/ShaderBoy)
-- Add preview mode? 
+- Support all shadertoy uniforms (see https://github.com/iY0Yi/ShaderBoy)
+- Support buffers
+
+## jupyter
+
+- Detect if running in Colaboratory and adjust accordingly
