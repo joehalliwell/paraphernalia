@@ -10,12 +10,8 @@ from IPython.display import display, Audio, Javascript, HTML
 DEFAULT_DING = "https://freesound.org/data/previews/80/80921_1022651-lq.ogg"
 COMPLETE_DING = "https://freesound.org/data/previews/122/122255_1074082-lq.mp3"
 
-
-class InvisibleAudio(Audio):
-    def _repr_html_(self):
-        audio = super()._repr_html_()
-        html = f'<div style="display:none">{audio}</div>'
-        return html
+# HACK: Wait for a bit for the message to arrive then clean up
+CLEANUP_DELAY = 0.2
 
 
 def ding(url=DEFAULT_DING):
@@ -27,7 +23,7 @@ def ding(url=DEFAULT_DING):
     }})();
     """
     handle = display(Javascript(widget), display_id=True)
-    time.sleep(0.1)
+    time.sleep(CLEANUP_DELAY)
     handle.update(Javascript(""))
 
 
@@ -43,5 +39,5 @@ def say(text):
     }})();
     """
     handle = display(Javascript(widget), display_id=True)
-    time.sleep(0.1)
+    time.sleep(CLEANUP_DELAY)
     handle.update(Javascript(""))
