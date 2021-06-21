@@ -6,14 +6,11 @@ import torchvision.transforms as T
 
 
 class DALL_E(torch.nn.Module):
-    def __init__(self, tau=1.0, start=None):
+    def __init__(self, tau=0.1, start=None, batch_size=1):
         """
-        Image generator based on OpenAI's DALL-E release
+        Image generator based on OpenAI's DALL-E release.
         """
-        import dall_e
-
         super(DALL_E, self).__init__()
-        self.tau = tau
         self.decoder = dall_e.load_model(
             str(download("https://cdn.openai.com/dall-e/decoder.pkl")), "cuda"
         )
@@ -21,34 +18,53 @@ class DALL_E(torch.nn.Module):
             str(download("https://cdn.openai.com/dall-e/encoder.pkl")), "cuda"
         )
 
+        self.tau = tau
+        self.batch_size = batch_size
+
         if start is None:
-            start = torch.randn(1, 3, 512, 512) * 0.5 + 0.5
+            z = torch.randn(1, 8192, 64, 64)
+        else:
+            z = self.encode(start)
 
-        z = self.encode(start)
-        # print(torch.min(z), torch.max(z), torch.mean(z), torch.std(z))
         self.z = torch.nn.Parameter(z.cuda())
-
-        self.log_uniform = torch.log(torch.full((1, 64 * 64, 8192), 1.0 / 8192).cuda())
 
     def forward(self):
         return self.generate()
 
-    def generate(self, z=None):
+    def generate(self, z=None, tau=None, batch_size=None):
+        """
+        Generate a batch of images.
+        """
         if z is None:
             z = self.z
-        z = torch.nn.functional.gumbel_softmax(z, dim=1, tau=self.tau)
-        # z = torch.nn.functional.softmax(self.z, dim=1)
+        if tau is None:
+            tau = self.tau
+        if batch_size is None:
+            batch_size = self.batch_size
 
-        buf = self.decoder(z)
+        # TODO: Vary tau across batch?
+        z = torch.nn.functional.log_softmax(z, dim=1)
+        samples = torch.cat(
+            [
+                torch.nn.functional.gumbel_softmax(z, dim=1, tau=tau)
+                for _ in range(batch_size)
+            ]
+        )
+        samples = samples.float()
+
+        buf = self.decoder(samples)
+        buf = buf.float()
         buf = torch.sigmoid(buf.float()[:, :3])
         buf = dall_e.unmap_pixels(buf)
         return buf
 
-    def generate_image(self, z=None):
-        if z is None:
-            z = self.z
+    def generate_image(self, **kwargs):
+        """
+        Convenience to generate a single PIL image.
+        """
         with torch.no_grad():
-            return T.ToPILImage(mode="RGB")(self.generate(z)[0])
+            img = self.generate(batch_size=1, **kwargs)[0]
+            return T.ToPILImage(mode="RGB")(img)
 
     def encode(self, img):
         """
