@@ -5,7 +5,7 @@ description = "A collection of tools for making art"
 authors = ["Joe Halliwell <joe.halliwell@gmail.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.7"
 moderngl = "^5.6.4"
 moderngl-window = "^2.3.0"
 click = "^7.1.2"
