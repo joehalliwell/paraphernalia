@@ -6,7 +6,7 @@ import torchvision.transforms as T
 
 
 class DALL_E(torch.nn.Module):
-    def __init__(self, tau=0.1, start=None, batch_size=1):
+    def __init__(self, tau=0.1, start=None, batch_size=1, latent=64):
         """
         Image generator based on OpenAI's DALL-E release.
         """
@@ -20,13 +20,22 @@ class DALL_E(torch.nn.Module):
 
         self.tau = tau
         self.batch_size = batch_size
+        self.latent = latent
 
+        # Initialization mode
         if start is None:
-            z = torch.randn(1, 8192, 64, 64)
+            z = torch.nn.functional.one_hot(
+                torch.full((latent, latent), 666), num_classes=8192
+            )
+            z = z.permute(2, 0, 1).unsqueeze(0).float().cuda()
         else:
             z = self.encode(start)
 
-        self.z = torch.nn.Parameter(z.cuda())
+        # Ensure scaling is consistent
+        z = torch.nn.functional.log_softmax(z, dim=1)
+        z += torch.randn(1, 8192, self.latent, self.latent).cuda()
+
+        self.z = torch.nn.Parameter(z)
 
     def forward(self):
         return self.generate()
@@ -42,8 +51,7 @@ class DALL_E(torch.nn.Module):
         if batch_size is None:
             batch_size = self.batch_size
 
-        # TODO: Vary tau across batch?
-        z = torch.nn.functional.log_softmax(z, dim=1)
+        # Create batch_size samples
         samples = torch.cat(
             [
                 torch.nn.functional.gumbel_softmax(z, dim=1, tau=tau)
@@ -71,7 +79,7 @@ class DALL_E(torch.nn.Module):
         Encode an image or tensor.
         """
         if isinstance(img, PIL.Image.Image):
-            img = PIL.ImageOps.pad(img, (512, 512))
+            img = PIL.ImageOps.pad(img, (self.latent * 8, self.latent * 8))
             img = torch.unsqueeze(T.ToTensor()(img), 0)
 
         with torch.no_grad():
@@ -79,15 +87,3 @@ class DALL_E(torch.nn.Module):
             z = self.encoder(img)
 
         return z.detach().clone()
-
-    def compute_loss(self):
-        """
-        Experimental regularization loss: stay close to uniform
-        Not used.
-        """
-        log_z = torch.nn.functional.log_softmax(self.z, dim=1)
-        log_z = einops.rearrange(log_z, "b n hw -> b hw n")
-        loss = torch.nn.functional.kl_div(
-            log_z, self.log_uniform, reduction="batchmean", log_target=True
-        )
-        return loss
