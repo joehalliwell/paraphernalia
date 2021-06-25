@@ -11,7 +11,7 @@ DEFAULT_DING = "https://freesound.org/data/previews/80/80921_1022651-lq.ogg"
 COMPLETE_DING = "https://freesound.org/data/previews/122/122255_1074082-lq.mp3"
 
 # HACK: Wait for a bit for the message to arrive then clean up
-CLEANUP_DELAY = 0.2
+CLEANUP_DELAY = 0.3
 
 
 def ding(url=DEFAULT_DING):

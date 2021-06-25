@@ -1,4 +1,5 @@
 from paraphernalia.utils import download
+import dall_e
 import torch
 import PIL
 import torchvision.transforms as T

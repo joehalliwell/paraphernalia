@@ -1,8 +1,7 @@
 from paraphernalia.utils import download
-import einops
 import torch
-import PIL
 import torchvision.transforms as T
+import clip
 
 
 class CLIP(torch.nn.Module):
@@ -11,6 +10,11 @@ class CLIP(torch.nn.Module):
         chops: augmentation operations
         """
         super(CLIP, self).__init__()
+        if model not in clip.available_models():
+            raise ValueError(
+                f"Invalid model. Must be one of: {clip.available_models()}"
+            )
+
         self.encoder, _ = clip.load(model)
         self.transform = T.Compose(
             [
