@@ -7,6 +7,29 @@ from urllib.parse import urlparse
 from tqdm import tqdm
 
 
+def get_cuda_version():
+    """Returns a version string e.g. 10.0"""
+    return [
+        s
+        for s in subprocess.check_output(["nvcc", "--version"])
+        .decode("UTF-8")
+        .split(", ")
+        if s.startswith("release")
+    ][0].split(" ")[-1]
+
+
+def step_down(steps, iterations):
+    """
+    Step down generator. TODO: Add value checks
+    steps: the number of plateaus
+    iterations: the total number of iterations over which to step down from 1.0 to 0.0
+    """
+    i = iterations
+    while True:
+        i -= 1
+        yield max(0, int(i / iterations * steps) / (steps - 1))
+
+
 def cache_home():
     """
     Get the cache home for paraphernalia ensuring it exists.
