@@ -26,8 +26,10 @@ def say(text):
     run_once(
         f"""
         if (window.speechSynthesis) {{
-            var synth = window.speechSynthesis;
-            synth.speak(new window.SpeechSynthesisUtterance('{text}'));
+            let u = window.SpeechSynthesisUtterance('{text}');
+            u.voice = window.speechSynthesis.getVoices().filter(v => v.lang.search("US") != -1)[0] || null;
+            u.pitch = 0.8;
+            window.speechSynthesis.speak(u);
         }}
         """
     )
