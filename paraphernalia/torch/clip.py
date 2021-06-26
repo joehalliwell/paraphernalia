@@ -10,20 +10,32 @@ class CLIP(torch.nn.Module):
 
     _WINDOW_SIZE = 224
 
-    def __init__(self, text, detail_text=None, macro=0.5, chops=32, model="ViT-B/32"):
+    def __init__(
+        self,
+        text,
+        detail_text=None,
+        use_tiling=True,
+        macro=0.5,
+        chops=32,
+        model="ViT-B/32",
+    ):
         """
         A CLIP-based perceptor that evaluates how well an image fits with
         on or more target text prompts. Perception is batched for efficiency.
 
         text: str
-          the text prompt to use in general
+            the text prompt to use in general
 
         detail_text: str
-          a text prompt to use for micro perception, defaults to "A fragment
-          of a picture of {text}"
+            a text prompt to use for micro perception, defaults to "A fragment
+            of a picture of {text}"
+
+        use_tiling: bool
+            if true, add an optimla tiling of pixel-perfect perceptors into the
+            mix
 
         chops: int
-          augmentation operations
+            augmentation operations
         """
         super(CLIP, self).__init__()
         if detail_text is None:
@@ -39,10 +51,12 @@ class CLIP(torch.nn.Module):
 
         self.text = text
         self.detail_text = detail_text
+        self.use_tiling = use_tiling
         self.chops = chops
         self.macro = macro
 
-        # General input transformation
+        # General input transformation, compare with the transform returned
+        # as the second item by clip.load()
         self.transform = T.Compose(
             [
                 T.CenterCrop(size=self._WINDOW_SIZE),
@@ -62,7 +76,10 @@ class CLIP(torch.nn.Module):
         self.encoded_text = self.encode_text(text)
         self.encoded_detail_text = self.encode_text(detail_text)
 
-    def encode_text(self, text):
+    def encode_text(self, text: str):
+        """
+        Encode text. Returns a detached tensor.
+        """
         text = clip.tokenize(text).cuda()
         text = self.encoder.encode_text(text)
         text = text.detach().clone()
@@ -95,10 +112,11 @@ class CLIP(torch.nn.Module):
             batch.append(self.micro_transform(img))
             text_batch.append(self.encoded_detail_text)
 
-        # Foveal stuff
-        fovea = tile(img, self._WINDOW_SIZE)
-        batch.append(fovea)
-        text_batch += [self.encoded_detail_text] * fovea.shape[0]
+        # Tiling of pixel-perfect chops
+        if self.use_tiling:
+            tiling = tile(img, self._WINDOW_SIZE)
+            batch.append(tiling)
+            text_batch += [self.encoded_detail_text] * tiling.shape[0]
 
         batch = [self.transform(img) for img in batch]
         batch = torch.cat(batch, 0)

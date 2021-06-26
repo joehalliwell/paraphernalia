@@ -1,114 +1,94 @@
-import clip
+import dall_e
+import PIL
 import torch
 import torchvision.transforms as T
 
 from paraphernalia.utils import download
 
 
-class CLIP(torch.nn.Module):
-    def __init__(
-        self,
-        text,
-        detail_text=None,
-        use_fovea=True,
-        chops=32,
-        macro=0.5,
-        model="ViT-B/32",
-    ):
+class DALL_E(torch.nn.Module):
+    def __init__(self, tau=1.0, start=None, batch_size=1, latent=64):
         """
-        A CLIP-based perceptor that evaluates how well an image fits with
-        on or more target text prompts. Perception is batched for efficiency.
-
-        text: str
-          the text prompt to use in general
-
-        detail_text: str
-          a text prompt to use for micro perception, defaults to "A fragment
-          of a picture of {text}"
-
-        chops: int
-          augmentation operations
+        Image generator based on OpenAI's DALL-E release.
         """
-        super(CLIP, self).__init__()
-        if detail_text is None:
-            detail_text = f"A fragment of a picture of {text}"
+        super(DALL_E, self).__init__()
+        self.decoder = dall_e.load_model(
+            str(download("https://cdn.openai.com/dall-e/decoder.pkl")), "cuda"
+        )
+        self.encoder = dall_e.load_model(
+            str(download("https://cdn.openai.com/dall-e/encoder.pkl")), "cuda"
+        )
 
-        if model not in clip.available_models():
-            raise ValueError(
-                f"Invalid model. Must be one of: {clip.available_models()}"
+        self.tau = tau
+        self.batch_size = batch_size
+        self.latent = latent
+
+        # Initialization mode
+        if start is None:
+            # Nice terrazzo style noise
+            z = torch.nn.functional.one_hot(
+                torch.randint(7000, 7050, (latent, latent)), num_classes=8192
             )
+            z = z.permute(2, 0, 1).unsqueeze(0).float()
+            z = z.cuda()
+        else:
+            z = self.encode(start)
 
-        if chops < 0:
-            raise ValueError("Chops must be a strictly positive integer")
-
-        self.text = text
-        self.detail_text = detail_text
-        self.chops = chops
-        self.macro = macro
-        self.use_fovea = use_fovea
-
-        # General input transformation
-        self.window_size = 224  # Unlikely to change, but really linked to model
-        self.transform = T.Compose(
-            [
-                T.CenterCrop(size=self.window_size),
-                T.Normalize(
-                    mean=(0.48145466, 0.4578275, 0.40821073),
-                    std=(0.26862954, 0.26130258, 0.27577711),
-                ),
-            ]
+        # Force one-hot!
+        z = torch.argmax(z, axis=1)
+        z = (
+            torch.nn.functional.one_hot(z, num_classes=self.encoder.vocab_size)
+            .permute(0, 3, 1, 2)
+            .float()
         )
+        self.z = torch.nn.Parameter(z)
 
-        self.macro_transform = T.RandomResizedCrop(
-            size=self.window_size, scale=(0.8, 1.0), ratio=(1.0, 1.0)
-        )
-        self.micro_transform = T.RandomCrop(size=self.window_size)
+    def forward(self):
+        return self.generate()
 
-        self.encoder, _ = clip.load(model)
+    def generate(self, z=None, tau=None, batch_size=None):
+        """
+        Generate a batch of images.
+        """
+        if z is None:
+            z = self.z
+        if tau is None:
+            tau = self.tau
+        if batch_size is None:
+            batch_size = self.batch_size
+
+        # Create batch_size samples
+        samples = []
+        for _ in range(batch_size):
+            d = torch.nn.functional.gumbel_softmax(z * 20.5, dim=1, tau=tau)
+            samples.append(d)
+
+        samples = torch.cat(samples).float()
+
+        buf = self.decoder(samples)
+        buf = buf.float()
+        buf = torch.sigmoid(buf.float()[:, :3])
+        buf = dall_e.unmap_pixels(buf)
+        return buf
+
+    def generate_image(self, **kwargs):
+        """
+        Convenience to generate a single PIL image within a no_grad block.
+        """
         with torch.no_grad():
-            self.encoded_text = self.encode_text(text)
-            self.encoded_detail_text = self.encode_text(detail_text)
+            img = self.generate(batch_size=1, **kwargs)[0]
+            return T.ToPILImage(mode="RGB")(img)
 
-    def encode_text(self, text):
-        text = clip.tokenize(text).cuda()
-        text = self.encoder.encode_text(text)
-        text = text.detach().clone()
-        return text
-
-    def encode_image(self, batch):
-        return self.encoder.encode_image(batch)
-
-    def augment(self, img):
-        img = self.cropper(img)
-        return img
-
-    def forward(self, img):
+    def encode(self, img):
         """
-        TODO:
-          - Don't bother with this stuff if img.size < window
-          - Enable micro/macro weighting beyond what we get natually from chops
-          - Add foveal tiling
+        Encode an image or tensor.
         """
-        macro_ops = int(self.macro * self.chops)  # if img.size > window else 0
-        micro_ops = int(self.chops - macro_ops)
-        assert self.chops == (macro_ops + micro_ops)
+        if isinstance(img, PIL.Image.Image):
+            img = PIL.ImageOps.pad(img, (self.latent * 8, self.latent * 8))
+            img = torch.unsqueeze(T.ToTensor()(img), 0)
 
-        batch = []
-        text_batch = []
+        with torch.no_grad():
+            img = dall_e.map_pixels(img).cuda()
+            z = self.encoder(img)
 
-        for _ in range(macro_ops):
-            batch.append(self.macro_transform(img))
-            text_batch.append(self.encoded_text)
-
-        for _ in range(micro_ops):
-            batch.append(self.micro_transform(img))
-            text_batch.append(self.encoded_detail_text)
-
-        batch = [self.transform(img) for img in batch]
-        batch = torch.cat(batch, 0)
-        batch = self.encode_image(batch)
-
-        text_batch = torch.cat(text_batch, 0)
-
-        loss = 1.0 - torch.cosine_similarity(text_batch, batch).mean()
-        return loss
+        return z.detach().clone()
