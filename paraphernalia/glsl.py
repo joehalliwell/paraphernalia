@@ -91,27 +91,14 @@ class Renderer:
     help="Target duration, loop if > 0",
     show_default=True,
 )
-@click.option(
-    "--speed",
-    type=float,
-    default=1.0,
-    help="Multiplier for elapsed time",
-)
+@click.option("--speed", type=float, default=1.0, help="Multiplier for elapsed time")
 @click.option(
     "--watch/--no-watch",
     default=True,
     help="Automatically reload when shader changes on disk",
 )
 @click.option("--scale", type=float, default=1.0, help="TODO", show_default=True)
-def preview(
-    fragment_shader,
-    width,
-    height,
-    duration,
-    speed,
-    watch,
-    scale,
-):
+def preview(fragment_shader, width, height, duration, speed, watch, scale):
     loop = duration > 0
 
     fragment_shader = Path(fragment_shader)
@@ -175,10 +162,7 @@ def render(fragment_shader, width, height, fps, duration, quality):
 
     # EGL
     ctx = moderngl.create_context(
-        standalone=True,
-        backend="egl",
-        libgl="libGL.so.1",
-        libegl="libEGL.so.1",
+        standalone=True, backend="egl", libgl="libGL.so.1", libegl="libEGL.so.1"
     )
 
     renderer = Renderer(
