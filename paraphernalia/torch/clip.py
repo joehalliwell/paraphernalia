@@ -1,36 +1,66 @@
-from paraphernalia.utils import download
+import clip
 import torch
 import torchvision.transforms as T
-import clip
+
+from paraphernalia.torch import tile
+from paraphernalia.utils import download
 
 
 class CLIP(torch.nn.Module):
-    def __init__(self, text, chops=32, model="ViT-B/32"):
+
+    _WINDOW_SIZE = 224
+
+    def __init__(self, text, detail_text=None, macro=0.5, chops=32, model="ViT-B/32"):
         """
-        chops: augmentation operations
+        A CLIP-based perceptor that evaluates how well an image fits with
+        on or more target text prompts. Perception is batched for efficiency.
+
+        text: str
+          the text prompt to use in general
+
+        detail_text: str
+          a text prompt to use for micro perception, defaults to "A fragment
+          of a picture of {text}"
+
+        chops: int
+          augmentation operations
         """
         super(CLIP, self).__init__()
+        if detail_text is None:
+            detail_text = f"A fragment of a picture of {text}"
+
         if model not in clip.available_models():
             raise ValueError(
                 f"Invalid model. Must be one of: {clip.available_models()}"
             )
 
-        self.encoder, _ = clip.load(model)
+        if chops < 0:
+            raise ValueError("Chops must be a strictly positive integer")
+
+        self.text = text
+        self.detail_text = detail_text
+        self.chops = chops
+        self.macro = macro
+
+        # General input transformation
         self.transform = T.Compose(
             [
-                # T.Resize(size=224, interpolation=PIL.Image.BICUBIC),
-                T.CenterCrop(size=224),
+                T.CenterCrop(size=self._WINDOW_SIZE),
                 T.Normalize(
                     mean=(0.48145466, 0.4578275, 0.40821073),
                     std=(0.26862954, 0.26130258, 0.27577711),
                 ),
             ]
         )
-        self.cropper = T.RandomResizedCrop(size=224, scale=(0.8, 1.0), ratio=(1.0, 1.0))
-        self.text = text
+        self.macro_transform = T.RandomResizedCrop(
+            size=self._WINDOW_SIZE, scale=(0.8, 1.0), ratio=(1.0, 1.0)
+        )
+        self.micro_transform = T.RandomCrop(size=self._WINDOW_SIZE)
+
+        # Encode text
+        self.encoder, _ = clip.load(model)
         self.encoded_text = self.encode_text(text)
-        self.chops = chops
-        self.macro = 1.0
+        self.encoded_detail_text = self.encode_text(detail_text)
 
     def encode_text(self, text):
         text = clip.tokenize(text).cuda()
@@ -41,24 +71,40 @@ class CLIP(torch.nn.Module):
     def encode_image(self, batch):
         return self.encoder.encode_image(batch)
 
-    def augment(self, img):
-        img = self.cropper(img)
-        return img
+    def forward(self, img, mask=None):
+        """
+        TODO:
+          - Don't bother with this stuff if img.size < window
+          - Enable micro/macro weighting beyond what we get natually from chops
+          - Add foveal tiling
+        """
+        macro_ops = int(self.macro * self.chops)  # if img.size > window else 0
+        micro_ops = int(self.chops - macro_ops)
+        assert self.chops == (macro_ops + micro_ops)
 
-    def forward(self, img):
         batch = []
-        macro_ops = int(self.macro * self.chops)
-        batch += [self.augment(img) for _ in range(macro_ops)]
-        batch += [
-            T.RandomCrop(
-                224,
-            )(img)
-            for _ in range(self.chops - macro_ops)
-        ]
+        text_batch = []
+
+        # Large random chops to manage composition and counteract aliasing
+        for _ in range(macro_ops):
+            batch.append(self.macro_transform(img))
+            text_batch.append(self.encoded_text)
+
+        # Small random pixel-perfect chops to focus on fine details
+        for _ in range(micro_ops):
+            batch.append(self.micro_transform(img))
+            text_batch.append(self.encoded_detail_text)
+
+        # Foveal stuff
+        fovea = tile(img, self._WINDOW_SIZE)
+        batch.append(fovea)
+        text_batch += [self.encoded_detail_text] * fovea.shape[0]
 
         batch = [self.transform(img) for img in batch]
         batch = torch.cat(batch, 0)
         batch = self.encode_image(batch)
 
-        loss = 1.0 - torch.cosine_similarity(self.encoded_text, batch)
+        text_batch = torch.cat(text_batch, 0)
+
+        loss = 1.0 - torch.cosine_similarity(text_batch, batch).mean()
         return loss

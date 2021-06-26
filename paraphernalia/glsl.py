@@ -5,10 +5,10 @@ from pathlib import Path
 from time import time
 
 import click
-from click import decorators
 import imageio
 import moderngl
 import numpy as np
+from click import decorators
 from moderngl_window import create_window_from_settings, settings
 from PIL import Image
 from tqdm import tqdm

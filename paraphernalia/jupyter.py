@@ -2,7 +2,8 @@
 Tools for notebook-based work
 """
 import time
-from IPython.display import display, Javascript
+
+from IPython.display import Javascript, display
 
 # TODO: Assign credit for samples!
 DEFAULT_DING = "https://freesound.org/data/previews/80/80921_1022651-lq.ogg"

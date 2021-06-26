@@ -1,9 +1,9 @@
 import os
-import xdg
-from pathlib import Path
 import urllib.request
+from pathlib import Path
 from urllib.parse import urlparse
 
+import xdg
 from tqdm import tqdm
 
 
