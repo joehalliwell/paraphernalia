@@ -4,8 +4,6 @@ Tools for notebook-based work
 import time
 from IPython.display import display, Audio, Javascript, HTML
 
-# Audio routines from https://stackoverflow.com/questions/17323336/automatically-play-sound-in-ipython-notebook
-
 # TODO: Assign credit for samples!
 DEFAULT_DING = "https://freesound.org/data/previews/80/80921_1022651-lq.ogg"
 COMPLETE_DING = "https://freesound.org/data/previews/122/122255_1074082-lq.mp3"
