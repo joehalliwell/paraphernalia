@@ -14,9 +14,9 @@ class CLIP(torch.nn.Module):
         self,
         text,
         detail_text=None,
-        use_tiling=True,
+        use_tiling=False,
         macro=0.5,
-        chops=32,
+        chops=16,
         model="ViT-B/32",
     ):
         """
@@ -59,7 +59,7 @@ class CLIP(torch.nn.Module):
         # as the second item by clip.load()
         self.transform = T.Compose(
             [
-                T.CenterCrop(size=self._WINDOW_SIZE),
+                # T.CenterCrop(size=self._WINDOW_SIZE),
                 T.Normalize(
                     mean=(0.48145466, 0.4578275, 0.40821073),
                     std=(0.26862954, 0.26130258, 0.27577711),
@@ -67,7 +67,7 @@ class CLIP(torch.nn.Module):
             ]
         )
         self.macro_transform = T.RandomResizedCrop(
-            size=self._WINDOW_SIZE, scale=(0.8, 1.0), ratio=(1.0, 1.0)
+            size=self._WINDOW_SIZE, scale=(0.95, 1.0), ratio=(1.0, 1.0)
         )
         self.micro_transform = T.RandomCrop(size=self._WINDOW_SIZE)
 
@@ -93,14 +93,22 @@ class CLIP(torch.nn.Module):
         TODO:
           - Don't bother with this stuff if img.size < window
           - Enable micro/macro weighting beyond what we get natually from chops
-          - Add foveal tiling
         """
-        macro_ops = int(self.macro * self.chops)  # if img.size > window else 0
-        micro_ops = int(self.chops - macro_ops)
-        assert self.chops == (macro_ops + micro_ops)
+
+        b, c, h, w = img.shape
+
+        # Special case for starter batches
+        if h == self._WINDOW_SIZE and w == self._WINDOW_SIZE:
+            return 1.0 - torch.cosine_similarity(
+                self.encoded_text, self.encode_image(img)
+            )
 
         batch = []
         text_batch = []
+
+        macro_ops = int(self.macro * self.chops)  # if img.size > window else 0
+        micro_ops = int(self.chops - macro_ops)
+        assert self.chops == (macro_ops + micro_ops)
 
         # Large random chops to manage composition and counteract aliasing
         for _ in range(macro_ops):
@@ -124,5 +132,5 @@ class CLIP(torch.nn.Module):
 
         text_batch = torch.cat(text_batch, 0)
 
-        loss = 1.0 - torch.cosine_similarity(text_batch, batch).mean()
+        loss = 1.0 - torch.cosine_similarity(text_batch, batch)
         return loss
