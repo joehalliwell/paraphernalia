@@ -8,7 +8,9 @@ from tqdm import tqdm
 
 
 def get_cuda_version():
-    """Returns a version string e.g. 10.0"""
+    """
+    Return the CUDA version string e.g. 10.0
+    """
     return [
         s
         for s in subprocess.check_output(["nvcc", "--version"])
@@ -20,10 +22,20 @@ def get_cuda_version():
 
 def step_down(steps, iterations):
     """
-    Step down generator. TODO: Add value checks
+    Step down generator.
+
+    TODO:
+    - Add value checks
+    - Think about how to do this kind of think more generically (sin, saw etc.)
+
     steps: the number of plateaus
     iterations: the total number of iterations over which to step down from 1.0 to 0.0
     """
+    if steps <= 0:
+        raise ValueError("Steps must be >= 0")
+    if iterations <= 0:
+        raise ValueError("Iteration must be >= 0")
+
     i = iterations
     while True:
         i -= 1
@@ -41,6 +53,9 @@ def cache_home():
 
 
 def download(url, target=None, overwrite=False):
+    """
+    Download ``url`` to local disk and return the Path to which it was written.
+    """
     if target is None:
         name = urlparse(url).path
         name = os.path.basename(name)
