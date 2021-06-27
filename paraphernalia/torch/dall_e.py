@@ -1,10 +1,12 @@
-import dall_e
 import PIL
 import torch
 import torchvision.transforms as T
 from torchvision.utils import make_grid
 
+
 from paraphernalia.utils import download
+
+import dall_e
 
 
 class DALL_E(torch.nn.Module):
@@ -14,6 +16,10 @@ class DALL_E(torch.nn.Module):
     def __init__(self, tau=1.0, start=None, batch_size=1, latent=64, magic=20.5):
         """
         Image generator based on OpenAI's DALL-E release.
+
+        batch_size: int
+          How many independent latent vectors to use in parallel. This has a
+          huge impact on memory use.
 
         magic: float
           A magic constant used to stabilize the learning rate. Too high and it
