@@ -1,9 +1,9 @@
+import clip
 import torch
 import torchvision.transforms as T
-import clip
 
-from paraphernalia.utils import download
 from paraphernalia.torch import tile
+from paraphernalia.utils import download
 
 
 class CLIP(torch.nn.Module):

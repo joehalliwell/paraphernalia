@@ -1,12 +1,10 @@
+import dall_e
 import PIL
 import torch
 import torchvision.transforms as T
 from torchvision.utils import make_grid
 
-
 from paraphernalia.utils import download
-
-import dall_e
 
 
 class DALL_E(torch.nn.Module):
