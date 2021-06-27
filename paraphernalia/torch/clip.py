@@ -1,9 +1,9 @@
-import clip
 import torch
 import torchvision.transforms as T
+import clip
 
-from paraphernalia.torch import tile
 from paraphernalia.utils import download
+from paraphernalia.torch import tile
 
 
 class CLIP(torch.nn.Module):
@@ -21,7 +21,9 @@ class CLIP(torch.nn.Module):
     ):
         """
         A CLIP-based perceptor that evaluates how well an image fits with
-        on or more target text prompts. Perception is batched for efficiency.
+        on or more target text prompt. Uses multiple scales to prevent
+        aliasing effects, and allow high-resolution images to be processed.
+
 
         text: str
             the text prompt to use in general
@@ -89,7 +91,7 @@ class CLIP(torch.nn.Module):
         return self.encoder.encode_image(batch)
 
     def lenses(self, img):
-        b, c, h, w = img.shape
+        batch_size, c, h, w = img.shape
 
         # Special case for starter batches
         if h == self._WINDOW_SIZE and w == self._WINDOW_SIZE:
@@ -101,8 +103,6 @@ class CLIP(torch.nn.Module):
         macro_ops = int(self.macro * self.chops)
         micro_ops = int(self.chops - macro_ops)
         assert self.chops == (macro_ops + micro_ops)
-
-        # print(macro_ops, micro_ops, self.use_tiling)
 
         # Large random chops to manage composition and counteract aliasing
         for _ in range(macro_ops):
@@ -117,25 +117,35 @@ class CLIP(torch.nn.Module):
         # Tiling of pixel-perfect chops
         if self.use_tiling:
             tiling = tile(img, self._WINDOW_SIZE)
+            num_tiles = tiling.shape[0] // batch_size
             batch.append(tiling)
-            text_batch += [self.encoded_detail_text] * tiling.shape[0]
+            text_batch += [self.encoded_detail_text] * num_tiles
 
         batch = torch.cat(batch, 0)
 
         text_batch = torch.cat(text_batch, 0)
+        text_batch = text_batch.repeat(batch_size, 1)
         return batch, text_batch
 
-    def forward(self, img, mask=None):
+    def forward(self, img):
         """
+        Returns one loss for each image in the provided batch
+
         TODO:
-          - Don't bother with this stuff if img.size < window
           - Enable micro/macro weighting beyond what we get natually from chops
+          - Add some kind of masking
         """
+
+        batch_size = img.shape[0]
 
         img_batch, text_batch = self.lenses(img)
         img_batch = self.transform(img_batch)
         img_batch = self.encode_image(img_batch)
 
-        # FIXME: Really this should be a loss per image
-        loss = 1.0 - torch.cosine_similarity(text_batch, img_batch)
-        return loss
+        losses = 1.0 - torch.cosine_similarity(img_batch, text_batch)
+
+        # Split into a section per original batch
+        per_image = torch.cat(
+            [t.mean().unsqueeze(0) for t in torch.chunk(losses, batch_size)]
+        )
+        return per_image
