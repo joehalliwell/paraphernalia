@@ -16,7 +16,7 @@ class CLIP(torch.nn.Module):
         detail_text=None,
         use_tiling=False,
         macro=0.5,
-        chops=16,
+        chops=32,
         model="ViT-B/32",
     ):
         """
@@ -39,7 +39,7 @@ class CLIP(torch.nn.Module):
         """
         super(CLIP, self).__init__()
         if detail_text is None:
-            detail_text = f"A fragment of a picture of {text}"
+            detail_text = f"Part of a picture of {text}"
 
         if model not in clip.available_models():
             raise ValueError(
@@ -88,27 +88,21 @@ class CLIP(torch.nn.Module):
     def encode_image(self, batch):
         return self.encoder.encode_image(batch)
 
-    def forward(self, img, mask=None):
-        """
-        TODO:
-          - Don't bother with this stuff if img.size < window
-          - Enable micro/macro weighting beyond what we get natually from chops
-        """
-
+    def lenses(self, img):
         b, c, h, w = img.shape
 
         # Special case for starter batches
         if h == self._WINDOW_SIZE and w == self._WINDOW_SIZE:
-            return 1.0 - torch.cosine_similarity(
-                self.encoded_text, self.encode_image(img)
-            )
+            return self.transform(img), self.encoded_text
 
         batch = []
         text_batch = []
 
-        macro_ops = int(self.macro * self.chops)  # if img.size > window else 0
+        macro_ops = int(self.macro * self.chops)
         micro_ops = int(self.chops - macro_ops)
         assert self.chops == (macro_ops + micro_ops)
+
+        # print(macro_ops, micro_ops, self.use_tiling)
 
         # Large random chops to manage composition and counteract aliasing
         for _ in range(macro_ops):
@@ -126,11 +120,22 @@ class CLIP(torch.nn.Module):
             batch.append(tiling)
             text_batch += [self.encoded_detail_text] * tiling.shape[0]
 
-        batch = [self.transform(img) for img in batch]
         batch = torch.cat(batch, 0)
-        batch = self.encode_image(batch)
 
         text_batch = torch.cat(text_batch, 0)
+        return batch, text_batch
 
-        loss = 1.0 - torch.cosine_similarity(text_batch, batch)
+    def forward(self, img, mask=None):
+        """
+        TODO:
+          - Don't bother with this stuff if img.size < window
+          - Enable micro/macro weighting beyond what we get natually from chops
+        """
+
+        img_batch, text_batch = self.lenses(img)
+        img_batch = self.transform(img_batch)
+        img_batch = self.encode_image(img_batch)
+
+        # FIXME: Really this should be a loss per image
+        loss = 1.0 - torch.cosine_similarity(text_batch, img_batch)
         return loss

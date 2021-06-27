@@ -20,14 +20,18 @@ class DALL_E(torch.nn.Module):
           won't learn.
         """
         super(DALL_E, self).__init__()
-        self.decoder = dall_e.load_model(
-            str(download("https://cdn.openai.com/dall-e/decoder.pkl")), "cuda"
-        )
+
+        if batch_size < 1:
+            raise ValueError("batch_size must be >0")
 
         self.tau = tau
         self.batch_size = batch_size
         self.latent = latent
         self.magic = magic
+
+        self.decoder = dall_e.load_model(
+            str(download("https://cdn.openai.com/dall-e/decoder.pkl")), "cuda"
+        )
 
         # Initialization mode
         if start is None:
