@@ -65,7 +65,7 @@ class CLIP(torch.nn.Module):
                 T.Normalize(
                     mean=(0.48145466, 0.4578275, 0.40821073),
                     std=(0.26862954, 0.26130258, 0.27577711),
-                ),
+                )
             ]
         )
         self.macro_transform = T.RandomResizedCrop(
@@ -91,18 +91,18 @@ class CLIP(torch.nn.Module):
         return self.encoder.encode_image(batch)
 
     def lenses(self, img):
+        macro = self.macro
         batch_size, c, h, w = img.shape
 
-        # Special case for starter batches
-        if h == self._WINDOW_SIZE and w == self._WINDOW_SIZE:
-            return self.transform(img), self.encoded_text
-
-        batch = []
-        text_batch = []
+        if h < self._WINDOW_SIZE and w < self._WINDOW_SIZE:
+            macro = 1.0
 
         macro_ops = int(self.macro * self.chops)
         micro_ops = int(self.chops - macro_ops)
         assert self.chops == (macro_ops + micro_ops)
+
+        batch = []
+        text_batch = []
 
         # Large random chops to manage composition and counteract aliasing
         for _ in range(macro_ops):

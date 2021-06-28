@@ -11,17 +11,13 @@ class DALL_E(torch.nn.Module):
 
     _NUM_CLASSES = 8192
 
-    def __init__(self, tau=1.0, start=None, batch_size=1, latent=64, magic=20.5):
+    def __init__(self, tau=1.0, start=None, batch_size=1, latent=64, hard=False):
         """
         Image generator based on OpenAI's DALL-E release.
 
         batch_size: int
           How many independent latent vectors to use in parallel. This has a
           huge impact on memory use.
-
-        magic: float
-          A magic constant used to stabilize the learning rate. Too high and it
-          won't learn.
         """
         super(DALL_E, self).__init__()
 
@@ -31,7 +27,7 @@ class DALL_E(torch.nn.Module):
         self.tau = tau
         self.batch_size = batch_size
         self.latent = latent
-        self.magic = magic
+        self.hard = hard
 
         self.decoder = dall_e.load_model(
             str(download("https://cdn.openai.com/dall-e/decoder.pkl")), "cuda"
@@ -41,10 +37,11 @@ class DALL_E(torch.nn.Module):
         if start is None:
             # Nice terrazzo style noise
             z = torch.nn.functional.one_hot(
-                torch.randint(7000, 7050, (batch_size, latent, latent)),
+                torch.randint(0, self._NUM_CLASSES, (batch_size, latent, latent)),
                 num_classes=self._NUM_CLASSES,
             )
-            z = z.permute(0, 3, 1, 2).float()
+            z = z.permute(0, 3, 1, 2)
+
         else:
             z = self.encode(start)
             z = torch.cat([z.detach().clone() for _ in range(batch_size)])
@@ -56,12 +53,13 @@ class DALL_E(torch.nn.Module):
             .permute(0, 3, 1, 2)
             .float()
         )
+        z = torch.log(z + 0.01 / self._NUM_CLASSES)
         self.z = torch.nn.Parameter(z)
 
     def forward(self):
         return self.generate()
 
-    def generate(self, z=None, tau=None):
+    def generate(self, z=None, tau=None, hard=None):
         """
         Generate a batch of images.
         """
@@ -69,13 +67,14 @@ class DALL_E(torch.nn.Module):
             z = self.z
         if tau is None:
             tau = self.tau
+        if hard is None:
+            hard = self.hard
 
-        samples = torch.nn.functional.gumbel_softmax(z * self.magic, dim=1, tau=tau)
+        samples = torch.nn.functional.gumbel_softmax(z, dim=1, tau=tau, hard=hard)
 
         buf = self.decoder(samples)
-        buf = buf.float()
-        buf = torch.sigmoid(buf.float()[:, :3])
-        buf = dall_e.unmap_pixels(buf)
+        buf = torch.sigmoid(buf[:, :3])
+        buf = dall_e.unmap_pixels(buf.float())
         return buf
 
     def generate_image(self, **kwargs):
