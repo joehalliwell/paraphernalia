@@ -14,7 +14,7 @@ class CLIP(torch.nn.Module):
         self,
         text,
         detail_text=None,
-        use_tiling=False,
+        use_tiling=True,
         macro=0.5,
         chops=32,
         model="ViT-B/32",
@@ -41,7 +41,7 @@ class CLIP(torch.nn.Module):
         """
         super(CLIP, self).__init__()
         if detail_text is None:
-            detail_text = f"Part of a picture of {text}"
+            detail_text = f"Detail from a picture of {text}"
 
         if model not in clip.available_models():
             raise ValueError(
