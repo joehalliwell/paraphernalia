@@ -14,3 +14,23 @@ def tile(img, size):
         .reshape(-1, c, size, size)
     )
     return tiles
+
+
+def overtile(img, tile_size):
+    b, c, h, w = img.shape
+    if isinstance(tile_size, int):
+        th = tile_size
+        tw = tile_size
+    else:
+        th = int(tile_size[0])
+        tw = int(tile_size[1])
+
+    nh = int(h // th) + 1
+    nw = int(w // tw) + 1
+
+    batch = []
+    for top in [i * (h - th) / (nh - 1) for i in range(nh)]:
+        for left in [i * (w - tw) / (nw - 1) for i in range(nw)]:
+            batch.append(T.functional.crop(img, int(top), int(left), th, tw))
+
+    return torch.cat(batch, 0)
