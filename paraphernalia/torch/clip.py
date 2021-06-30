@@ -2,7 +2,7 @@ import clip
 import torch
 import torchvision.transforms as T
 
-from paraphernalia.torch import tile
+from paraphernalia.torch import overtile
 from paraphernalia.utils import download
 
 
@@ -33,7 +33,7 @@ class CLIP(torch.nn.Module):
             of a picture of {text}"
 
         use_tiling: bool
-            if true, add an optimla tiling of pixel-perfect perceptors into the
+            if true, add an optimal tiling of near-pixel-perfect perceptors into the
             mix
 
         chops: int
@@ -42,6 +42,7 @@ class CLIP(torch.nn.Module):
         super(CLIP, self).__init__()
         if detail_text is None:
             detail_text = f"Detail from a picture of {text}"
+            # detail_text = text
 
         if model not in clip.available_models():
             raise ValueError(
@@ -71,7 +72,10 @@ class CLIP(torch.nn.Module):
         self.macro_transform = T.RandomResizedCrop(
             size=self._WINDOW_SIZE, scale=(0.95, 1.0), ratio=(1.0, 1.0)
         )
-        self.micro_transform = T.RandomCrop(size=self._WINDOW_SIZE)
+        self.micro_transform = T.RandomResizedCrop(
+            size=self._WINDOW_SIZE, scale=(0.1, 0.5), ratio=(1.0, 1.0)
+        )
+        # Was previously RandomCrop
 
         # Encode text
         self.encoder, _ = clip.load(model)
@@ -114,9 +118,11 @@ class CLIP(torch.nn.Module):
             batch.append(self.micro_transform(img))
             text_batch.append(self.encoded_detail_text)
 
-        # Tiling of pixel-perfect chops
+        # Tiling of near-pixel-perfect chops
         if self.use_tiling:
-            tiling = tile(img, self._WINDOW_SIZE)
+            # tiling = tile(img, self._WINDOW_SIZE)
+            tiling = overtile(img, int(self._WINDOW_SIZE * 1.1))
+            tiling = self.macro_transform(tiling)
             num_tiles = tiling.shape[0] // batch_size
             batch.append(tiling)
             text_batch += [self.encoded_detail_text] * num_tiles
@@ -132,7 +138,7 @@ class CLIP(torch.nn.Module):
         Returns one loss for each image in the provided batch
 
         TODO:
-          - Enable micro/macro weighting beyond what we get natually from chops
+          - Enable micro/macro weighting beyond what we get naturally from chops
           - Add some kind of masking
         """
 

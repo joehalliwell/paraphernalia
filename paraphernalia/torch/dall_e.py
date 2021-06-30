@@ -11,13 +11,19 @@ class DALL_E(torch.nn.Module):
 
     _NUM_CLASSES = 8192
 
-    def __init__(self, tau=1.0, start=None, batch_size=1, latent=64, hard=False):
+    def __init__(
+        self, tau=1.0, z=None, start=None, batch_size=1, latent=64, hard=False
+    ):
         """
-        Image generator based on OpenAI's DALL-E release.
+        Image generator based on OpenAI's release of the discrete VAE component
+        of DALL-E. Many parameters can be overridden via method arguments, so
+        are best considered defaults.
 
         batch_size: int
           How many independent latent vectors to use in parallel. This has a
           huge impact on memory use.
+
+
         """
         super(DALL_E, self).__init__()
 
@@ -33,7 +39,21 @@ class DALL_E(torch.nn.Module):
             str(download("https://cdn.openai.com/dall-e/decoder.pkl")), "cuda"
         )
 
-        # Initialization mode
+        # Initialize the state tensor
+        # Option 1: From a provided tensor
+        if z is not None:
+            if start is not None:
+                raise ValueError("If providing z, don't provide start image")
+            if len(z.shape) == 3:
+                z = z.unsqueeze(0)
+            if len(z.shape) is not 4:
+                raise ValueError("z must be rank 4 (b, c, h, w)")
+            z = torch.nn.functional.interpolate(z, size=(latent, latent))
+            # TODO: Handle batch size
+            self.z = torch.nn.Parameter(z)
+            return
+
+        # Option 2: Random noise (this doesn't work very well)
         if start is None:
             # Nice terrazzo style noise
             z = torch.nn.functional.one_hot(
@@ -42,11 +62,12 @@ class DALL_E(torch.nn.Module):
             )
             z = z.permute(0, 3, 1, 2)
 
+        # Option 3: A provided PIL or Tensor image
         else:
             z = self.encode(start)
             z = torch.cat([z.detach().clone() for _ in range(batch_size)])
 
-        # Force one-hot!
+        # Force to look like one-hot logits
         z = torch.argmax(z, axis=1).cuda()
         z = (
             torch.nn.functional.one_hot(z, num_classes=self._NUM_CLASSES)
