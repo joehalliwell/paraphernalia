@@ -18,6 +18,17 @@ def tile(img, size):
 
 
 def overtile(img, tile_size):
+    """
+    Generate an overlapping tiling that covers ``img``.
+
+    Args:
+        img (Tensor): An image tensor (b, c, h, w)
+        tile_size (Union[int, Tuple[int,int]]): The size of the tile, either
+            a single int or a pair
+
+    Returns:
+        Tensor: A batch of tiles of size ``tile_size`` covering img
+    """
     b, c, h, w = img.shape
     if isinstance(tile_size, int):
         th = tile_size
