@@ -102,6 +102,17 @@ optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [[package]]
+name = "colour"
+version = "0.1.5"
+description = "converts and manipulates various color representation (HSL, RVB, web, X11, ...)"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.extras]
+test = ["nose"]
+
+[[package]]
 name = "decorator"
 version = "5.0.9"
 description = "Decorators for Humans"
@@ -787,7 +798,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=1.2.3)", "pytest-flake8", "pyt
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7"
-content-hash = "d20deb5889472c13026d32c64a6edbb2e1ef92564bcfe050fdffebe0a53f575c"
+content-hash = "c1d4a650ec3e0e0ba20b9925a3d63ed81a7708899a3bde11924b9a088371e340"
 
 [metadata.files]
 appdirs = [
@@ -875,6 +886,10 @@ click = [
 colorama = [
     {file = "colorama-0.4.4-py2.py3-none-any.whl", hash = "sha256:9f47eda37229f68eee03b24b9748937c7dc3868f906e8ba69fbcbdd3bc5dc3e2"},
     {file = "colorama-0.4.4.tar.gz", hash = "sha256:5941b2b48a20143d2267e95b1c2a7603ce057ee39fd88e7329b0c292aa16869b"},
+]
+colour = [
+    {file = "colour-0.1.5-py2.py3-none-any.whl", hash = "sha256:33f6db9d564fadc16e59921a56999b79571160ce09916303d35346dddc17978c"},
+    {file = "colour-0.1.5.tar.gz", hash = "sha256:af20120fefd2afede8b001fbef2ea9da70ad7d49fafdb6489025dae8745c3aee"},
 ]
 decorator = [
     {file = "decorator-5.0.9-py3-none-any.whl", hash = "sha256:6e5c199c16f7a9f0e3a61a4a54b3d27e7dad0dbdde92b944426cb20914376323"},
@@ -990,6 +1005,7 @@ moderngl = [
     {file = "moderngl-5.6.4.tar.gz", hash = "sha256:8c6d04559f5e3bf75a18525cd46d213c0f3a8409363718978e6de691bdb551fb"},
 ]
 moderngl-window = [
+    {file = "moderngl-window-2.3.0.tar.gz", hash = "sha256:310035e524ffcdaedcc951844bb78a5baf16735d18c05e21791501e925161e2e"},
     {file = "moderngl_window-2.3.0-py3-none-any.whl", hash = "sha256:79056e6b6a1e8c540031166d2ec308a40806baf461e5d492730966c3cf372a31"},
 ]
 more-itertools = [
