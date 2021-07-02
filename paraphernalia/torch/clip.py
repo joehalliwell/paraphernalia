@@ -1,6 +1,9 @@
+from typing import Optional
+
 import clip
 import torch
 import torchvision.transforms as T
+from torch.functional import Tensor
 
 from paraphernalia.torch import overtile
 from paraphernalia.utils import download
@@ -12,16 +15,17 @@ class CLIP(torch.nn.Module):
 
     def __init__(
         self,
-        text,
-        detail_text=None,
-        use_tiling=True,
-        macro=0.5,
-        chops=32,
-        model="ViT-B/32",
+        text: str,
+        detail_text: Optional[str] = None,
+        use_tiling: bool = True,
+        macro: float = 0.5,
+        chops: int = 32,
+        model: str = "ViT-B/32",
+        device: Optional[str] = None,
     ):
         """
         A CLIP-based perceptor that evaluates how well an image fits with
-        on or more target text prompt. Uses multiple scales to prevent
+        on or more target text prompts. Uses multiple scales to prevent
         aliasing effects, and allow high-resolution images to be processed.
 
 
@@ -40,9 +44,6 @@ class CLIP(torch.nn.Module):
             augmentation operations
         """
         super(CLIP, self).__init__()
-        if detail_text is None:
-            detail_text = f"Detail from a picture of {text}"
-            # detail_text = text
 
         if model not in clip.available_models():
             raise ValueError(
@@ -51,6 +52,12 @@ class CLIP(torch.nn.Module):
 
         if chops < 0:
             raise ValueError("Chops must be a strictly positive integer")
+
+        if detail_text is None:
+            detail_text = f"Detail from a picture of {text}"
+
+        if device is None:
+            device = "cuda" if torch.cuda.is_available() else "cpu"
 
         self.text = text
         self.detail_text = detail_text
@@ -75,26 +82,26 @@ class CLIP(torch.nn.Module):
         self.micro_transform = T.RandomResizedCrop(
             size=self._WINDOW_SIZE, scale=(0.1, 0.5), ratio=(1.0, 1.0)
         )
-        # Was previously RandomCrop
 
         # Encode text
-        self.encoder, _ = clip.load(model)
+        self.device = torch.device(device)
+        self.encoder, _ = clip.load(model, device=self.device)
         self.encoded_text = self.encode_text(text)
         self.encoded_detail_text = self.encode_text(detail_text)
 
-    def encode_text(self, text: str):
+    def encode_text(self, text: str) -> Tensor:
         """
         Encode text. Returns a detached tensor.
         """
-        text = clip.tokenize(text).cuda()
+        text = clip.tokenize(text).to(self.device)
         text = self.encoder.encode_text(text)
         text = text.detach().clone()
         return text
 
-    def encode_image(self, batch):
+    def encode_image(self, batch: Tensor) -> Tensor:
         return self.encoder.encode_image(batch)
 
-    def lenses(self, img):
+    def lenses(self, img: Tensor) -> Tensor:
         macro = self.macro
         batch_size, c, h, w = img.shape
 
@@ -133,9 +140,9 @@ class CLIP(torch.nn.Module):
         text_batch = text_batch.repeat(batch_size, 1)
         return batch, text_batch
 
-    def forward(self, img):
+    def forward(self, img: Tensor) -> Tensor:
         """
-        Returns one loss for each image in the provided batch
+        Returns one loss for each image in the provided batch.
 
         TODO:
           - Enable micro/macro weighting beyond what we get naturally from chops
