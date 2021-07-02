@@ -27,3 +27,5 @@ For developers: `poetry install`
 
 - Device independence
 - overtile() should support configurable overlap
+- Support multiple prompts/anti-prompts for CLIP
+- Add SIREN and BigGAN generators
