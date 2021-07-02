@@ -13,17 +13,23 @@ For developers: `poetry install`
 
 ## TODOs
 
-### render
+### General
+
+- Tests
+- Documentation
+- Judicious type hints
+
+### glsl
 
 - Support all/more Book of Shaders uniforms
 - Support all Shadertoy uniforms (see https://github.com/iY0Yi/ShaderBoy)
 - Support buffers
 
-## jupyter
+### jupyter
 
 - Detect if running in Colaboratory and adjust accordingly
 
-## torch
+### torch
 
 - Device independence
 - overtile() should support configurable overlap

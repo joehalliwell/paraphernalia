@@ -26,7 +26,7 @@ def step_down(steps, iterations):
 
     TODO:
     - Add value checks
-    - Think about how to do this kind of think more generically (sin, saw etc.)
+    - Think about how to do this kind of thing more generically (sin, saw etc.)
 
     steps: the number of plateaus
     iterations: the total number of iterations over which to step down from 1.0 to 0.0
