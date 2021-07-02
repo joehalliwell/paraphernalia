@@ -22,3 +22,8 @@ For developers: `poetry install`
 ## jupyter
 
 - Detect if running in Colaboratory and adjust accordingly
+
+## torch
+
+- Device independence
+- overtile() should support configurable overlap
