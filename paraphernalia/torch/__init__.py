@@ -1,8 +1,28 @@
+from typing import Optional, Tuple
 import torch
+from torch import Tensor
 import torchvision.transforms as T
 
 
-def tile(img, size):
+def grid(steps: int, dimensions: Optional[int] = 2) -> Tensor:
+    """
+    Generate a rank-2 tensor of co-ordinates in the hypercube of the specified
+    dimension.
+
+    Args:
+        steps: Number of steps per side
+        dimensions: The dimensionality of the hypercube. Defaults to 2.
+
+    Returns:
+        A rank-2 tensor of the coordinates
+    """
+    axes = [torch.linspace(-1, 1, steps) for _ in range(dimensions)]
+    grid = torch.stack(torch.meshgrid(*axes), dim=-1)
+    grid = grid.reshape(-1, dimensions)
+    return grid
+
+
+def tile(img: Tensor, size: int) -> Tensor:
     """
     Tile img with squares of side size. Any cut off at the edge is ignored.
     """
@@ -17,7 +37,7 @@ def tile(img, size):
     return tiles
 
 
-def overtile(img, tile_size):
+def overtile(img: Tensor, tile_size: Tuple[int, int]) -> Tensor:
     """
     Generate an overlapping tiling that covers ``img``.
 

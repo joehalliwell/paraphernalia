@@ -5,14 +5,22 @@ import torchvision.transforms as T
 from torchvision.utils import make_grid
 
 from paraphernalia.utils import download
+from paraphernalia.torch.generator import Generator
 
 
-class DALL_E(torch.nn.Module):
+class DALL_E(Generator):
 
     _NUM_CLASSES = 8192
 
     def __init__(
-        self, tau=1.0, z=None, start=None, batch_size=1, latent=64, hard=False
+        self,
+        tau=1.0,
+        z=None,
+        start=None,
+        batch_size=1,
+        latent=64,
+        hard=False,
+        device=None,
     ):
         """
         Image generator based on OpenAI's release of the discrete VAE component
@@ -25,7 +33,7 @@ class DALL_E(torch.nn.Module):
 
 
         """
-        super(DALL_E, self).__init__()
+        super(DALL_E, self).__init__(device)
 
         if batch_size < 1:
             raise ValueError("batch_size must be >0")
@@ -36,7 +44,7 @@ class DALL_E(torch.nn.Module):
         self.hard = hard
 
         self.decoder = dall_e.load_model(
-            str(download("https://cdn.openai.com/dall-e/decoder.pkl")), "cuda"
+            str(download("https://cdn.openai.com/dall-e/decoder.pkl")), self.device
         )
 
         # Initialize the state tensor
@@ -98,14 +106,6 @@ class DALL_E(torch.nn.Module):
         buf = dall_e.unmap_pixels(buf.float())
         return buf
 
-    def generate_image(self, **kwargs):
-        """
-        Convenience to generate a single PIL image within a no_grad block.
-        """
-        with torch.no_grad():
-            imgs = self.generate(**kwargs)
-            return T.functional.to_pil_image(make_grid(imgs, nrow=4, padding=10))
-
     def encode(self, img):
         """
         Encode an image or tensor.
@@ -116,9 +116,9 @@ class DALL_E(torch.nn.Module):
 
         with torch.no_grad():
             encoder = dall_e.load_model(
-                str(download("https://cdn.openai.com/dall-e/encoder.pkl")), "cuda"
+                str(download("https://cdn.openai.com/dall-e/encoder.pkl")), self.device
             )
-            img = dall_e.map_pixels(img).cuda()
+            img = dall_e.map_pixels(img).to(self.device)
             z = encoder(img)
 
         return z.detach().clone()
