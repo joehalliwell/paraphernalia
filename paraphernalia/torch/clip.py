@@ -1,11 +1,9 @@
 import logging
-import random
 from typing import List, Optional, Union
 
 import clip
 import torch
 import torchvision.transforms as T
-from torch._C import TensorType
 from torch.functional import Tensor
 
 from paraphernalia.torch import overtile, regroup
