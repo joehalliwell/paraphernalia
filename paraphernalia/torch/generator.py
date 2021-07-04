@@ -9,7 +9,7 @@ from torchvision.utils import make_grid
 
 class Generator(nn.Module, metaclass=ABCMeta):
     """
-    Base class for generators.
+    Base class for (image) generators.
     """
 
     def __init__(self, device: Union[str, torch.device]):

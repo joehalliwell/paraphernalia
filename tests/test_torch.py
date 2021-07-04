@@ -2,7 +2,7 @@ import pytest
 import torch
 from torch.tensor import Tensor
 
-from paraphernalia.torch import grid, overtile
+from paraphernalia.torch import grid, overtile, regroup
 
 
 def test_grid():
@@ -20,17 +20,32 @@ def test_overtile():
 
     # No overlap -- just a regular chessboard tiling
     tiles = overtile(batch, tile_size=2, overlap=0)
+    tiles = torch.cat(tiles)
     assert tiles.shape == (4, 2, 2, 2)
 
     # 0.5 overlap
     tiles = overtile(batch, tile_size=2, overlap=0.5)
+    tiles = torch.cat(tiles)
     assert tiles.shape == (9, 2, 2, 2)
 
     # One big tile
     tiles = overtile(batch, tile_size=4, overlap=0.5)
+    tiles = torch.cat(tiles)
     assert tiles.shape == (1, 2, 4, 4)
     assert torch.equal(batch, tiles)
 
     # Overlap is too big
     with pytest.raises(ValueError):
         overtile(batch, tile_size=2, overlap=1.0)
+
+
+def test_regroup():
+    img = torch.cat([torch.full((1, 3, 2, 2), i) for i in range(4)])
+
+    # Check prior state
+    assert img.shape == (4, 3, 2, 2)
+    assert img[2, 0, 0, 0] == 2.0
+
+    regrouped = regroup([img, img])  # 2x identity transformation
+    assert regrouped.shape == (4 * 2, 3, 2, 2)
+    assert regrouped[2, 0, 0, 0] == 1.0

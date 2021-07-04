@@ -1,4 +1,4 @@
-from typing import Optional, Tuple, Union
+from typing import List, Optional, Tuple, Union
 
 import torch
 import torchvision.transforms as T
@@ -43,7 +43,7 @@ def tile(img: Tensor, size: int) -> Tensor:
 
 def overtile(
     img: Tensor, tile_size: Union[int, Tuple[int, int]], overlap: float = 0.5
-) -> Tensor:
+) -> List[Tensor]:
     """
     TODO: Rename
     Generate an overlapping tiling that covers ``img``.
@@ -55,7 +55,7 @@ def overtile(
             0.5, where two tiles cover every pixel except at the edges.
 
     Returns:
-        Tensor: A batch of tiles of size ``tile_size`` covering img
+        List[Tensor]: A list of image batches of size ``tile_size`` covering img
     """
 
     b, c, h, w = img.shape
@@ -72,4 +72,31 @@ def overtile(
         for left in divide(w, tw, overlap * tw):
             batch.append(T.functional.crop(img, int(top), int(left), th, tw))
 
-    return torch.cat(batch, 0)
+    return batch
+
+
+def regroup(img: List[Tensor]) -> Tensor:
+    """
+    Concatenate several image batches, regrouping them so that
+    a single image is contiguous in the resulting batch.
+
+    TODO: Is this part of torch under a different name?
+
+    Args:
+        img (List[Tensor]): A list of identically shaped image batches
+
+    Returns:
+        Tensor: A concatenation into a single image batch grouped
+            so that each image in the source batches forms a contiguous block
+            in the new batch
+    """
+    batch_size = img[0].shape[0]
+
+    # If the batch size is 1, just concatenate
+    if batch_size == 1:
+        return torch.cat(img)
+
+    # Otherwise shuffle things around
+    img = torch.stack(img, 1)
+    img = torch.flatten(img, start_dim=0, end_dim=1)
+    return img

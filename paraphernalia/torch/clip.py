@@ -5,9 +5,10 @@ from typing import List, Optional, Union
 import clip
 import torch
 import torchvision.transforms as T
+from torch._C import TensorType
 from torch.functional import Tensor
 
-from paraphernalia.torch import overtile
+from paraphernalia.torch import overtile, regroup
 
 logger = logging.getLogger(__name__)
 
@@ -151,63 +152,66 @@ class CLIP(torch.nn.Module):
         batch = self.transform(batch)
         return self.encoder.encode_image(batch)
 
-    def lenses(self, img: Tensor) -> Tensor:
-        macro = self.macro
-        batch_size, c, h, w = img.shape
+    def get_macro(self, img: Tensor) -> Tensor:
+        n = int(self.macro * self.chops)
+        return regroup([self.macro_transform(img) for _ in range(n)])
 
-        if h < self._WINDOW_SIZE and w < self._WINDOW_SIZE:
-            macro = 1.0
-
-        macro_ops = int(self.macro * self.chops)
-        micro_ops = int(self.chops - macro_ops)
-        assert self.chops == (macro_ops + micro_ops)
-
-        batch = []
-        text_batch = []
-
-        # Large random chops to manage composition and counteract aliasing
-        for _ in range(macro_ops):
-            batch.append(self.macro_transform(img))
-            text_batch.append(self.prompts[0].unsqueeze(0))
+    def get_micro(self, img: Tensor) -> Tensor:
+        n = self.chops - int(self.macro * self.chops)
+        micro_batch = []
 
         # Small random pixel-perfect chops to focus on fine details
-        for _ in range(micro_ops):
-            batch.append(self.micro_transform(img))
-            text_batch.append(self.detail_prompts[0].unsqueeze(0))
+        micro_batch.extend(self.micro_transform(img) for _ in range(n))
 
-        # Tiling of near-pixel-perfect chops
+        # (Optionally) Tiling of near-pixel-perfect chops
         if self.use_tiling:
-            # tiling = tile(img, self._WINDOW_SIZE)
-            tiling = overtile(img, int(self._WINDOW_SIZE * 1.1))
-            tiling = self.macro_transform(tiling)
-            num_tiles = tiling.shape[0] // batch_size
-            batch.append(tiling)
-            text_batch += [self.detail_prompts[0].unsqueeze(0)] * num_tiles
+            tiling = overtile(img, int(self._WINDOW_SIZE * 1.1), 0.1)
+            micro_batch.extend(self.macro_transform(tile) for tile in tiling)
 
-        batch = torch.cat(batch, 0)
+        return regroup(micro_batch)
 
-        text_batch = torch.cat(text_batch, 0)
-        text_batch = text_batch.repeat(batch_size, 1)
-        return batch, text_batch
+    def get_similarity(self, imgs: Tensor, prompts: Tensor, batch_size: int) -> Tensor:
+        """
+        Compute the average similarity between a combined but contiguous
+        batch of images and set of prompts.
+
+        Args:
+            imgs (Tensor): [description]
+            prompts (Tensor): [description]
+            batch_size (int): [description]
+
+        Returns:
+            [type]: [description]
+        """
+        assert imgs.shape[0] % batch_size == 0  # Must be a multiple
+        encoded = self.encode_image(imgs)
+        similarity = torch.cosine_similarity(encoded, prompts)
+        means = [chunk.mean() for chunk in torch.chunk(similarity, chunks=batch_size)]
+        return torch.Tensor(means)
 
     def forward(self, img: Tensor) -> Tensor:
         """
-        Returns one similarity (0, 1) for each image in the provided batch.
+        Returns a similarity (0, 1) for each image in the provided batch.
 
         TODO:
           - Enable micro/macro weighting beyond what we get naturally from chops
           - Add some kind of masking
+
+        Args:
+            img (Tensor): A (b, c, h, w) image tensor
+
+        Returns:
+            Tensor: A vector of size b
         """
-
         batch_size = img.shape[0]
-
-        img_batch, text_batch = self.lenses(img)
-        img_batch = self.encode_image(img_batch)
-
-        losses = torch.cosine_similarity(img_batch, text_batch)
-
-        # Split into a section per original batch
-        per_image = torch.cat(
-            [t.mean().unsqueeze(0) for t in torch.chunk(losses, batch_size)]
+        macro_batch = self.get_macro(img)
+        prompt_similarity = self.get_similarity(
+            macro_batch, self.prompts, batch_size=batch_size
         )
-        return per_image
+
+        micro_batch = self.get_micro(img)
+        detail_similarity = self.get_similarity(
+            micro_batch, self.detail_prompts, batch_size=batch_size
+        )
+
+        return prompt_similarity + detail_similarity
