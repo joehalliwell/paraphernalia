@@ -14,6 +14,39 @@ TextOrTexts = Union[str, List[str]]
 
 
 class CLIP(torch.nn.Module):
+    """
+    A CLIP-based perceptor that evaluates how well an image fits with
+    on or more target text prompts.
+
+    The underlying model is limited to (224, 224) resolution, so this
+    class presents it with multiple perspectives on an image:
+        - Macro: random crops of 90-100% of the image, used to counteract aliasing
+        - Micro: small near-pixel-perfect crops, and an optional tiling to enable
+          the fine details of high-resolution images to be processed.
+
+    A lot of internals are exposed via methods to facilitate debugging and
+    experimentation.
+
+    prompt:
+        the text prompt to use in general
+
+    anti_prompt:
+        a description to avoid
+
+    detail:
+        a text prompt to use for micro-perception, defaults to "A detail from
+        a picture of {prompt}"
+
+    anti_detail:
+        a description to avoid for micro-perception
+
+    use_tiling: bool
+        if true, add a covering of near-pixel-perfect perceptors into the
+        mix
+
+    chops: int
+        augmentation operations
+    """
 
     _WINDOW_SIZE = 224
     _DETAIL_PROMPT_TEMPLATE = "Detail from a picture of {prompt}"
@@ -30,32 +63,6 @@ class CLIP(torch.nn.Module):
         model: str = "ViT-B/32",
         device: Optional[str] = None,
     ):
-        """
-        A CLIP-based perceptor that evaluates how well an image fits with
-        on or more target text prompts. Uses multiple scales to prevent
-        aliasing effects, and allow high-resolution images to be processed.
-
-
-        prompt:
-            the text prompt to use in general
-
-        anti_prompt:
-            a description to avoid
-
-        detail:
-            a text prompt to use for micro-perception, defaults to "A detail from
-            a picture of {prompt}"
-
-        anti_detail:
-            a description to avoid for micro-perception
-
-        use_tiling: bool
-            if true, add a covering of near-pixel-perfect perceptors into the
-            mix
-
-        chops: int
-            augmentation operations
-        """
         super(CLIP, self).__init__()
 
         # Value checks
