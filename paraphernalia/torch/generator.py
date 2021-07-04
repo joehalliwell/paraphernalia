@@ -1,4 +1,6 @@
 from abc import ABCMeta, abstractmethod
+from typing import Union
+
 import torch
 import torch.nn as nn
 import torchvision.transforms as T
@@ -10,7 +12,7 @@ class Generator(nn.Module, metaclass=ABCMeta):
     Base class for generators.
     """
 
-    def __init__(self, device):
+    def __init__(self, device: Union[str, torch.device]):
         super(Generator, self).__init__()
         if device is None:
             device = "cuda" if torch.cuda.is_available() else "cpu"

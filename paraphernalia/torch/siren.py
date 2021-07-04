@@ -1,20 +1,32 @@
 import math
+from typing import Optional, Union
+
 import torch
 import torch.nn as nn
 import torchvision.transforms as T
 from torchvision.utils import make_grid
+
 from paraphernalia.torch.generator import Generator
 from paraphernalia.utils import grid
 
 
 class Siren(Generator):
-    def __init__(self, size, omega=5.0, features=64, hidden_layers=8, device=None):
+    def __init__(
+        self,
+        size: int,
+        omega: Optional[float] = 5.0,
+        features: Optional[int] = 64,
+        hidden_layers: Optional[int] = 8,
+        device: Optional[Union[str, torch.device]] = None,
+    ):
         """See https://vsitzmann.github.io/siren/
 
         Args:
-            size ([type]): [description]
-            omega (float, optional): [description]. Defaults to 5.0.
-            features (int, optional): [description]. Defaults to 64.
+            size: Target size (square for now)
+            omega: Fudge factor/weight multiplier. High (around 30) is good for
+                image fitting. Lower values seem better for CLIP-guided
+                generation. Defaults to 5.0.
+            features: [description]. Defaults to 64.
             hidden_layers (int, optional): [description]. Defaults to 8.
             device ([type], optional): [description]. Defaults to None.
         """
@@ -23,7 +35,12 @@ class Siren(Generator):
         self.size = size
         self.omega = omega
         self.dimensions = 2
-        self.grid = grid(self.size, dimensions=self.dimensions).detach().to(self.device)
+        self.grid = (
+            grid(self.size, dimensions=self.dimensions)
+            .detach()
+            .view(-1, self.dimensions)
+            .to(self.device)
+        )
 
         submodules = nn.ModuleList()
 
@@ -54,7 +71,12 @@ class Siren(Generator):
         if size == self.size:
             x = self.grid
         else:
-            x = grid(size, dimensions=self.dimensions).detach().to(self.device)
+            x = (
+                grid(size, dimensions=self.dimensions)
+                .detach()
+                .view(-1, self.dimensions)
+                .to(self.device)
+            )
         for i, module in enumerate(self.submodules):
             x = module(x)
             if i == len(self.submodules) - 1:

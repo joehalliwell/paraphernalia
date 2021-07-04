@@ -1,11 +1,12 @@
+from typing import Optional, Union
+
 import dall_e
 import PIL
 import torch
 import torchvision.transforms as T
-from torchvision.utils import make_grid
 
-from paraphernalia.utils import download
 from paraphernalia.torch.generator import Generator
+from paraphernalia.utils import download
 
 
 class DALL_E(Generator):
@@ -14,7 +15,7 @@ class DALL_E(Generator):
 
     def __init__(
         self,
-        tau=1.0,
+        tau: Optional[float] = 1.0,
         z=None,
         start=None,
         batch_size=1,
@@ -61,8 +62,13 @@ class DALL_E(Generator):
             self.z = torch.nn.Parameter(z)
             return
 
-        # Option 2: Random noise (this doesn't work very well)
-        if start is None:
+        # Option 2: A provided PIL or Tensor image
+        elif start is not None:
+            z = self.encode(start)
+            z = torch.cat([z.detach().clone() for _ in range(batch_size)])
+
+        # Option 3: Random noise (this doesn't work very well)
+        else:
             # Nice terrazzo style noise
             z = torch.nn.functional.one_hot(
                 torch.randint(0, self._NUM_CLASSES, (batch_size, latent, latent)),
@@ -70,19 +76,15 @@ class DALL_E(Generator):
             )
             z = z.permute(0, 3, 1, 2)
 
-        # Option 3: A provided PIL or Tensor image
-        else:
-            z = self.encode(start)
-            z = torch.cat([z.detach().clone() for _ in range(batch_size)])
-
-        # Force to look like one-hot logits
-        z = torch.argmax(z, axis=1).cuda()
+        # Move to device and force to look like one-hot logits
+        z = z.to(self.device)
+        z = torch.argmax(z, axis=1)
         z = (
             torch.nn.functional.one_hot(z, num_classes=self._NUM_CLASSES)
             .permute(0, 3, 1, 2)
             .float()
         )
-        z = torch.log(z + 0.01 / self._NUM_CLASSES)
+        z = torch.log(z + 0.001 / self._NUM_CLASSES)
         self.z = torch.nn.Parameter(z)
 
     def forward(self):
@@ -106,7 +108,7 @@ class DALL_E(Generator):
         buf = dall_e.unmap_pixels(buf.float())
         return buf
 
-    def encode(self, img):
+    def encode(self, img: Union[PIL.Image.Image, torch.Tensor]):
         """
         Encode an image or tensor.
         """
@@ -118,7 +120,8 @@ class DALL_E(Generator):
             encoder = dall_e.load_model(
                 str(download("https://cdn.openai.com/dall-e/encoder.pkl")), self.device
             )
-            img = dall_e.map_pixels(img).to(self.device)
+            img = img.to(self.device)
+            img = dall_e.map_pixels(img)
             z = encoder(img)
 
         return z.detach().clone()

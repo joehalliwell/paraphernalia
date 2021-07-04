@@ -20,6 +20,33 @@ def get_cuda_version():
     ][0].split(" ")[-1]
 
 
+def divide(whole: int, part: int, min_overlap: int = 0) -> list[int]:
+    """
+    Divide ``whole`` into several ``part``-sized chunks which overlap by
+    at least ``min_overlap``.
+
+    Args:
+        whole (int): The length the subdivide
+        part (int): The size of the chunk
+        min_overlap (int, optional): The minimum overlap between chunks.
+            Defaults to 0 i.e. chunks won't overlap unless required.
+
+    Returns:
+        list[int]: A list of chunk offset
+    """
+    if part > whole:
+        raise ValueError(f"Part must be smaller than whole ({part} > {whole})")
+
+    if min_overlap >= part:
+        raise ValueError(
+            f"Overlap must be strictly smaller than part ({min_overlap} >= {part})"
+        )
+
+    parts = int((whole - min_overlap) / (part - min_overlap))
+    stride = (whole - part) / (parts - 1) if parts > 1 else 1
+    return [int(i * stride) for i in range(parts)]
+
+
 def step_down(steps, iterations):
     """
     Step down generator.
