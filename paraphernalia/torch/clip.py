@@ -174,12 +174,12 @@ class CLIP(torch.nn.Module):
         batch of images and set of prompts.
 
         Args:
-            imgs (Tensor): [description]
-            prompts (Tensor): [description]
-            batch_size (int): [description]
+            imgs (Tensor): A combined-but-contiguous image batch with shape (batch_size * t, c, h, w)
+            prompts (Tensor): A tensor of prompt embeddings with shape (n, 512)
+            batch_size (int): The size of the original image batch
 
         Returns:
-            [type]: [description]
+            Tensor: A tensor of average similarities with shape (batch_size,)
         """
         assert imgs.shape[0] % batch_size == 0  # Must be a multiple
         encoded = self.encode_image(imgs)
