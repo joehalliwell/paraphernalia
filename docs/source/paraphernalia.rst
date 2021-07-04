@@ -1,0 +1,45 @@
+paraphernalia package
+=====================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   paraphernalia.torch
+
+Submodules
+----------
+
+paraphernalia.glsl module
+-------------------------
+
+.. automodule:: paraphernalia.glsl
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+paraphernalia.jupyter module
+----------------------------
+
+.. automodule:: paraphernalia.jupyter
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+paraphernalia.utils module
+--------------------------
+
+.. automodule:: paraphernalia.utils
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: paraphernalia
+   :members:
+   :undoc-members:
+   :show-inheritance:
