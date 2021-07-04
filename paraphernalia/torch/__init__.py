@@ -1,4 +1,3 @@
-import math
 from typing import Optional, Tuple, Union
 
 import torch
@@ -10,7 +9,8 @@ from paraphernalia.utils import divide
 
 def grid(steps: int, dimensions: Optional[int] = 2) -> Tensor:
     """
-    Generate a tensor of co-ordinates in the origin-centered hypercube of the
+    TODO: Rename
+    Generate a tensor of co-ordinates in the origin-centred hypercube of the
     specified dimension.
 
     Args:
@@ -27,6 +27,7 @@ def grid(steps: int, dimensions: Optional[int] = 2) -> Tensor:
 
 def tile(img: Tensor, size: int) -> Tensor:
     """
+    TODO: Remove
     Tile img with squares of side size. Any cut off at the edge is ignored.
     """
     b, c, h, w = img.shape
@@ -44,6 +45,7 @@ def overtile(
     img: Tensor, tile_size: Union[int, Tuple[int, int]], overlap: float = 0.5
 ) -> Tensor:
     """
+    TODO: Rename
     Generate an overlapping tiling that covers ``img``.
 
     Args:

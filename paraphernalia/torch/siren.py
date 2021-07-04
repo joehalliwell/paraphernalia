@@ -6,8 +6,8 @@ import torch.nn as nn
 import torchvision.transforms as T
 from torchvision.utils import make_grid
 
+from paraphernalia.torch import grid
 from paraphernalia.torch.generator import Generator
-from paraphernalia.utils import grid
 
 
 class Siren(Generator):

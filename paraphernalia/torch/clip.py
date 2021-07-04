@@ -1,4 +1,6 @@
-from typing import Optional
+import logging
+import random
+from typing import List, Optional, Union
 
 import clip
 import torch
@@ -6,17 +8,23 @@ import torchvision.transforms as T
 from torch.functional import Tensor
 
 from paraphernalia.torch import overtile
-from paraphernalia.utils import download
+
+logger = logging.getLogger(__name__)
+
+TextOrTexts = Union[str, List[str]]
 
 
 class CLIP(torch.nn.Module):
 
     _WINDOW_SIZE = 224
+    _DETAIL_PROMPT_TEMPLATE = "Detail from a picture of {prompt}"
 
     def __init__(
         self,
-        text: str,
-        detail_text: Optional[str] = None,
+        prompt: TextOrTexts,
+        anti_prompt: Optional[TextOrTexts] = None,
+        detail: Optional[TextOrTexts] = None,
+        anti_detail: Optional[TextOrTexts] = None,
         use_tiling: bool = True,
         macro: float = 0.5,
         chops: int = 32,
@@ -29,15 +37,21 @@ class CLIP(torch.nn.Module):
         aliasing effects, and allow high-resolution images to be processed.
 
 
-        text: str
+        prompt:
             the text prompt to use in general
 
-        detail_text: str
-            a text prompt to use for micro perception, defaults to "A fragment
-            of a picture of {text}"
+        anti_prompt:
+            a description to avoid
+
+        detail:
+            a text prompt to use for micro-perception, defaults to "A detail from
+            a picture of {prompt}"
+
+        anti_detail:
+            a description to avoid for micro-perception
 
         use_tiling: bool
-            if true, add an optimal tiling of near-pixel-perfect perceptors into the
+            if true, add a covering of near-pixel-perfect perceptors into the
             mix
 
         chops: int
@@ -45,6 +59,7 @@ class CLIP(torch.nn.Module):
         """
         super(CLIP, self).__init__()
 
+        # Value checks
         if model not in clip.available_models():
             raise ValueError(
                 f"Invalid model. Must be one of: {clip.available_models()}"
@@ -53,14 +68,30 @@ class CLIP(torch.nn.Module):
         if chops < 0:
             raise ValueError("Chops must be a strictly positive integer")
 
-        if detail_text is None:
-            detail_text = f"Detail from a picture of {text}"
-
         if device is None:
             device = "cuda" if torch.cuda.is_available() else "cpu"
 
-        self.text = text
-        self.detail_text = detail_text
+        # Prompt encoding
+        self.device = torch.device(device)
+        self.encoder, _ = clip.load(model, device=self.device)
+
+        self._encoded_prompts = {}
+        self.prompts = self._encode_texts(prompt, "prompts")
+        if detail is None:
+            detail = [
+                self._DETAIL_PROMPT_TEMPLATE.format(prompt=prompt) for prompt in prompt
+            ]
+        self.detail_prompts = self._encode_texts(detail, "detail prompts")
+
+        self.anti_prompts = self._encode_texts(anti_prompt, "anti-prompts")
+        if anti_prompt and anti_detail is None:
+            anti_detail = [
+                self._DETAIL_PROMPT_TEMPLATE.format(prompt=prompt)
+                for prompt in self.anti_prompts
+            ]
+        self.anti_details = self._encode_texts(anti_detail, "detail anti-prompts")
+
+        # Image processing
         self.use_tiling = use_tiling
         self.chops = chops
         self.macro = macro
@@ -83,20 +114,37 @@ class CLIP(torch.nn.Module):
             size=self._WINDOW_SIZE, scale=(0.1, 0.5), ratio=(1.0, 1.0)
         )
 
-        # Encode text
-        self.device = torch.device(device)
-        self.encoder, _ = clip.load(model, device=self.device)
-        self.encoded_text = self.encode_text(text)
-        self.encoded_detail_text = self.encode_text(detail_text)
+    def _encode_texts(self, text_or_texts: str, what: str) -> dict[str, Tensor]:
+        """
+        Helper method used to initialize prompts.
 
-    def encode_text(self, text: str) -> Tensor:
+        Args:
+            text_or_texts (str): [description]
+            what: a description of the group being encoded
+
+        Returns:
+            Tensor: A map from the (anti-)prompt texts to Tensors
+        """
+        if text_or_texts is None:
+            logger.info(f"No {what}")
+            return None
+
+        elif isinstance(text_or_texts, str):
+            texts_or_texts = [text_or_texts]
+
+        encoded = self.encode_text(text_or_texts)
+        logger.info(f"Encoded {len(text_or_texts)} {what}")
+        return encoded
+
+    def encode_text(self, text_or_texts: str) -> Tensor:
         """
         Encode text. Returns a detached tensor.
         """
-        text = clip.tokenize(text).to(self.device)
-        text = self.encoder.encode_text(text)
-        text = text.detach().clone()
-        return text
+        token_batch = clip.tokenize(text_or_texts).to(self.device)
+        encoded = self.encoder.encode_text(token_batch)
+        encoded = encoded.detach().clone()
+        logger.debug(f"Encoded {len(text_or_texts)} texts")
+        return encoded
 
     def encode_image(self, batch: Tensor) -> Tensor:
         return self.encoder.encode_image(batch)
@@ -118,12 +166,12 @@ class CLIP(torch.nn.Module):
         # Large random chops to manage composition and counteract aliasing
         for _ in range(macro_ops):
             batch.append(self.macro_transform(img))
-            text_batch.append(self.encoded_text)
+            text_batch.append(self.prompts[0])
 
         # Small random pixel-perfect chops to focus on fine details
         for _ in range(micro_ops):
             batch.append(self.micro_transform(img))
-            text_batch.append(self.encoded_detail_text)
+            text_batch.append(self.detail_prompts[0])
 
         # Tiling of near-pixel-perfect chops
         if self.use_tiling:
@@ -132,7 +180,7 @@ class CLIP(torch.nn.Module):
             tiling = self.macro_transform(tiling)
             num_tiles = tiling.shape[0] // batch_size
             batch.append(tiling)
-            text_batch += [self.encoded_detail_text] * num_tiles
+            text_batch += [self.detail_prompts[0]] * num_tiles
 
         batch = torch.cat(batch, 0)
 

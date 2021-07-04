@@ -2,7 +2,6 @@ import pytest
 import torch
 from torch.tensor import Tensor
 
-from paraphernalia import torch
 from paraphernalia.torch import grid, overtile
 
 

@@ -1,6 +1,7 @@
 import os
 import urllib.request
 from pathlib import Path
+from typing import List
 from urllib.parse import urlparse
 
 import xdg
@@ -20,7 +21,7 @@ def get_cuda_version():
     ][0].split(" ")[-1]
 
 
-def divide(whole: int, part: int, min_overlap: int = 0) -> list[int]:
+def divide(whole: int, part: int, min_overlap: int = 0) -> List[int]:
     """
     Divide ``whole`` into several ``part``-sized chunks which overlap by
     at least ``min_overlap``.
@@ -32,7 +33,7 @@ def divide(whole: int, part: int, min_overlap: int = 0) -> list[int]:
             Defaults to 0 i.e. chunks won't overlap unless required.
 
     Returns:
-        list[int]: A list of chunk offset
+        List[int]: A list of chunk offset
     """
     if part > whole:
         raise ValueError(f"Part must be smaller than whole ({part} > {whole})")
