@@ -4,12 +4,32 @@ import dall_e
 import PIL
 import torch
 import torchvision.transforms as T
+from torch import Tensor
 
 from paraphernalia.torch.generator import Generator
 from paraphernalia.utils import download
 
 
 class DALL_E(Generator):
+    """
+    Image generator based on OpenAI's release of the discrete VAE component
+    of DALL-E. Many parameters can be overridden via method arguments, so
+    are best considered defaults.
+
+    Args:
+        batch_size (int):
+            How many independent latent vectors to use in parallel. This has a
+            huge impact on memory use.
+        start ():
+            Determines how to intitialize the hidden state.
+
+    Attributes:
+        tau (float):
+            Gumbel softmax temperature parameter. Larger values make
+            the underlying distribution more uniform.
+        hard (bool):
+            If true, then samples will be exactly one-hot
+    """
 
     _NUM_CLASSES = 8192
 
@@ -23,17 +43,6 @@ class DALL_E(Generator):
         hard=False,
         device=None,
     ):
-        """
-        Image generator based on OpenAI's release of the discrete VAE component
-        of DALL-E. Many parameters can be overridden via method arguments, so
-        are best considered defaults.
-
-        batch_size: int
-          How many independent latent vectors to use in parallel. This has a
-          huge impact on memory use.
-
-
-        """
         super(DALL_E, self).__init__(device)
 
         if batch_size < 1:
@@ -87,10 +96,7 @@ class DALL_E(Generator):
         z = torch.log(z + 0.001 / self._NUM_CLASSES)
         self.z = torch.nn.Parameter(z)
 
-    def forward(self):
-        return self.generate()
-
-    def generate(self, z=None, tau=None, hard=None):
+    def forward(self, z=None, tau=None, hard=None) -> Tensor:
         """
         Generate a batch of images.
         """

@@ -11,6 +11,18 @@ from paraphernalia.torch.generator import Generator
 
 
 class Siren(Generator):
+    """See https://vsitzmann.github.io/siren/
+
+    Args:
+        size: Target size (square for now)
+        omega: Fudge factor/weight multiplier. High (around 30) is good for
+            image fitting. Lower values seem better for CLIP-guided
+            generation. Defaults to 5.0.
+        features: [description]. Defaults to 64.
+        hidden_layers (int, optional): [description]. Defaults to 8.
+        device ([type], optional): [description]. Defaults to None.
+    """
+
     def __init__(
         self,
         size: int,
@@ -19,17 +31,6 @@ class Siren(Generator):
         hidden_layers: Optional[int] = 8,
         device: Optional[Union[str, torch.device]] = None,
     ):
-        """See https://vsitzmann.github.io/siren/
-
-        Args:
-            size: Target size (square for now)
-            omega: Fudge factor/weight multiplier. High (around 30) is good for
-                image fitting. Lower values seem better for CLIP-guided
-                generation. Defaults to 5.0.
-            features: [description]. Defaults to 64.
-            hidden_layers (int, optional): [description]. Defaults to 8.
-            device ([type], optional): [description]. Defaults to None.
-        """
         super(Siren, self).__init__(device)
 
         self.size = size
