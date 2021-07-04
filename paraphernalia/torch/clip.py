@@ -76,20 +76,20 @@ class CLIP(torch.nn.Module):
         self.encoder, _ = clip.load(model, device=self.device)
 
         self._encoded_prompts = {}
-        self.prompts = self._encode_texts(prompt, "prompts")
+        self.prompts, prompts = self._encode_texts(prompt, "prompts")
         if detail is None:
             detail = [
-                self._DETAIL_PROMPT_TEMPLATE.format(prompt=prompt) for prompt in prompt
+                self._DETAIL_PROMPT_TEMPLATE.format(prompt=prompt) for prompt in prompts
             ]
-        self.detail_prompts = self._encode_texts(detail, "detail prompts")
+        self.detail_prompts, _ = self._encode_texts(detail, "detail prompts")
 
-        self.anti_prompts = self._encode_texts(anti_prompt, "anti-prompts")
+        self.anti_prompts, _ = self._encode_texts(anti_prompt, "anti-prompts")
         if anti_prompt and anti_detail is None:
             anti_detail = [
                 self._DETAIL_PROMPT_TEMPLATE.format(prompt=prompt)
                 for prompt in self.anti_prompts
             ]
-        self.anti_details = self._encode_texts(anti_detail, "detail anti-prompts")
+        self.anti_details, _ = self._encode_texts(anti_detail, "detail anti-prompts")
 
         # Image processing
         self.use_tiling = use_tiling
@@ -100,11 +100,11 @@ class CLIP(torch.nn.Module):
         # as the second item by clip.load()
         self.transform = T.Compose(
             [
-                # T.CenterCrop(size=self._WINDOW_SIZE),
+                T.CenterCrop(size=self._WINDOW_SIZE),
                 T.Normalize(
                     mean=(0.48145466, 0.4578275, 0.40821073),
                     std=(0.26862954, 0.26130258, 0.27577711),
-                )
+                ),
             ]
         )
         self.macro_transform = T.RandomResizedCrop(
@@ -127,14 +127,15 @@ class CLIP(torch.nn.Module):
         """
         if text_or_texts is None:
             logger.info(f"No {what}")
-            return None
+            return None, None
 
         elif isinstance(text_or_texts, str):
-            texts_or_texts = [text_or_texts]
+            text_or_texts = [text_or_texts]
 
+        text_or_texts = set(text_or_texts)
         encoded = self.encode_text(text_or_texts)
         logger.info(f"Encoded {len(text_or_texts)} {what}")
-        return encoded
+        return encoded, text_or_texts
 
     def encode_text(self, text_or_texts: str) -> Tensor:
         """
@@ -147,6 +148,7 @@ class CLIP(torch.nn.Module):
         return encoded
 
     def encode_image(self, batch: Tensor) -> Tensor:
+        batch = self.transform(batch)
         return self.encoder.encode_image(batch)
 
     def lenses(self, img: Tensor) -> Tensor:
@@ -166,12 +168,12 @@ class CLIP(torch.nn.Module):
         # Large random chops to manage composition and counteract aliasing
         for _ in range(macro_ops):
             batch.append(self.macro_transform(img))
-            text_batch.append(self.prompts[0])
+            text_batch.append(self.prompts[0].unsqueeze(0))
 
         # Small random pixel-perfect chops to focus on fine details
         for _ in range(micro_ops):
             batch.append(self.micro_transform(img))
-            text_batch.append(self.detail_prompts[0])
+            text_batch.append(self.detail_prompts[0].unsqueeze(0))
 
         # Tiling of near-pixel-perfect chops
         if self.use_tiling:
@@ -180,7 +182,7 @@ class CLIP(torch.nn.Module):
             tiling = self.macro_transform(tiling)
             num_tiles = tiling.shape[0] // batch_size
             batch.append(tiling)
-            text_batch += [self.detail_prompts[0]] * num_tiles
+            text_batch += [self.detail_prompts[0].unsqueeze(0)] * num_tiles
 
         batch = torch.cat(batch, 0)
 
@@ -190,7 +192,7 @@ class CLIP(torch.nn.Module):
 
     def forward(self, img: Tensor) -> Tensor:
         """
-        Returns one loss for each image in the provided batch.
+        Returns one similarity (0, 1) for each image in the provided batch.
 
         TODO:
           - Enable micro/macro weighting beyond what we get naturally from chops
@@ -200,10 +202,9 @@ class CLIP(torch.nn.Module):
         batch_size = img.shape[0]
 
         img_batch, text_batch = self.lenses(img)
-        img_batch = self.transform(img_batch)
         img_batch = self.encode_image(img_batch)
 
-        losses = 1.0 - torch.cosine_similarity(img_batch, text_batch)
+        losses = torch.cosine_similarity(img_batch, text_batch)
 
         # Split into a section per original batch
         per_image = torch.cat(
