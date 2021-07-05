@@ -109,6 +109,7 @@ class CLIP(torch.nn.Module):
         # as the second item by clip.load()
         self.transform = T.Compose(
             [
+                # Ensure that images are window-sized. Not really necessary, but harmless
                 T.CenterCrop(size=self._WINDOW_SIZE),
                 T.Normalize(
                     mean=(0.48145466, 0.4578275, 0.40821073),
