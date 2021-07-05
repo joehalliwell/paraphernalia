@@ -4,6 +4,7 @@ from typing import Optional, Union
 import torch
 import torch.nn as nn
 import torchvision.transforms as T
+from torch import Tensor
 from torchvision.utils import make_grid
 
 from paraphernalia.torch import grid
