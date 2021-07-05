@@ -1,3 +1,4 @@
+import math
 import os
 import urllib.request
 from pathlib import Path
@@ -43,7 +44,7 @@ def divide(whole: int, part: int, min_overlap: int = 0) -> List[int]:
             f"Overlap must be strictly smaller than part ({min_overlap} >= {part})"
         )
 
-    parts = int((whole - min_overlap) / (part - min_overlap))
+    parts = math.ceil((whole - min_overlap) / (part - min_overlap))
     stride = (whole - part) / (parts - 1) if parts > 1 else 1
     return [int(i * stride) for i in range(parts)]
 

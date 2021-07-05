@@ -39,6 +39,14 @@ def test_overtile():
         overtile(batch, tile_size=2, overlap=1.0)
 
 
+def test_overtile_unusual_ratio():
+    batch = grid(512, 2).permute(2, 0, 1).unsqueeze(0)
+    assert batch.shape == (1, 2, 512, 512)
+
+    tiles = overtile(batch, tile_size=224, overlap=0.1)
+    assert len(tiles) == 9
+
+
 def test_overtile_large_tile():
     # TODO: Test when the part size is almost whole
     # Currently resulting in 1 tile which is incorrect
