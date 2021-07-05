@@ -222,4 +222,5 @@ class CLIP(torch.nn.Module):
             micro_batch, self.detail_prompts, batch_size=batch_size
         )
 
-        return prompt_similarity + detail_similarity
+        # TODO: Reweight combinations
+        return (prompt_similarity + detail_similarity) * 0.5
