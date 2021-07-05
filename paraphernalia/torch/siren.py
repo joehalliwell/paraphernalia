@@ -65,7 +65,16 @@ class Siren(Generator):
 
         self.submodules = submodules.to(self.device)
 
-    def forward(self, size=None):
+    def forward(self, size: int = None) -> Tensor:
+        """
+        Generate an image of the (optionally) specified size.
+
+        Args:
+            size ([type], optional): [description]. Defaults to None.
+
+        Returns:
+            Tensor: An image batch tensor
+        """
         if size is None:
             size = self.size
         h, w, c = size, size, 3
