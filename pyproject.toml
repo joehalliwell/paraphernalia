@@ -37,6 +37,7 @@ clip = {git = "https://github.com/openai/CLIP.git", rev = "main", optional = tru
 regex = {version = "^2021.7.1", optional = true}
 ftfy = {version = "^6.0.3", optional = true}
 importlib-metadata = {version = "^1.0", python= "<3.8"}
+ipython = "^7.25.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
