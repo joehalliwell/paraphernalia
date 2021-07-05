@@ -195,7 +195,7 @@ class CLIP(torch.nn.Module):
         encoded = self.encode_image(imgs)
         similarity = torch.cosine_similarity(encoded, prompts)
         means = [chunk.mean() for chunk in torch.chunk(similarity, chunks=batch_size)]
-        return torch.Tensor(means)
+        return torch.stack(means)
 
     def forward(self, img: Tensor) -> Tensor:
         """
