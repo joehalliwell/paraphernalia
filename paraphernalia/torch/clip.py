@@ -6,7 +6,7 @@ import torch
 import torchvision.transforms as T
 from torch.functional import Tensor
 
-from paraphernalia.torch import overtile, regroup
+from paraphernalia.torch import cosine_similarity, overtile, regroup
 
 logger = logging.getLogger(__name__)
 
@@ -120,7 +120,7 @@ class CLIP(torch.nn.Module):
             size=self._WINDOW_SIZE, scale=(0.95, 1.0), ratio=(1.0, 1.0)
         )
         self.micro_transform = T.RandomResizedCrop(
-            size=self._WINDOW_SIZE, scale=(0.1, 0.5), ratio=(1.0, 1.0)
+            size=self._WINDOW_SIZE, scale=(0.2, 0.5), ratio=(1.0, 1.0)
         )
 
     def _encode_texts(self, text_or_texts: str, what: str) -> Tuple[Tensor, Set[str]]:
@@ -193,7 +193,7 @@ class CLIP(torch.nn.Module):
         """
         assert imgs.shape[0] % batch_size == 0  # Must be a multiple
         encoded = self.encode_image(imgs)
-        similarity = torch.cosine_similarity(encoded, prompts)
+        similarity = cosine_similarity(encoded, prompts)
         means = [chunk.mean() for chunk in torch.chunk(similarity, chunks=batch_size)]
         return torch.stack(means)
 

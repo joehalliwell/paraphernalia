@@ -39,6 +39,12 @@ def test_overtile():
         overtile(batch, tile_size=2, overlap=1.0)
 
 
+def test_overtile_large_tile():
+    # TODO: Test when the part size is almost whole
+    # Currently resulting in 1 tile which is incorrect
+    pass
+
+
 def test_regroup():
     img = torch.cat([torch.full((1, 3, 2, 2), i) for i in range(4)])
 

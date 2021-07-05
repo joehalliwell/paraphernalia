@@ -100,3 +100,21 @@ def regroup(img: List[Tensor]) -> Tensor:
     img = torch.stack(img, 1)
     img = torch.flatten(img, start_dim=0, end_dim=1)
     return img
+
+
+def cosine_similarity(a, b):
+    """
+    Compute the cosine similarity tensor
+    TODO: Explain restrictions
+
+    Args:
+        a ([type]): [description]
+        b ([type]): [description]
+
+    Returns:
+        [type]: [description]
+    """
+    a_norm = a / a.norm(dim=1)[:, None]
+    b_norm = b / b.norm(dim=1)[:, None]
+    result = torch.mm(a_norm, b_norm.transpose(0, 1))
+    return result
