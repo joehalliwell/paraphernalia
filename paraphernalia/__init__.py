@@ -1,3 +1,5 @@
+# TODO: Shift to poetry-version-plugin, once that's bedded in
+
 try:
     import importlib.metadata as importlib_metadata
 except ModuleNotFoundError:
