@@ -1,5 +1,5 @@
 import logging
-from typing import List, Optional, Union
+from typing import List, Optional, Set, Tuple, Union
 
 import clip
 import torch
@@ -123,7 +123,7 @@ class CLIP(torch.nn.Module):
             size=self._WINDOW_SIZE, scale=(0.1, 0.5), ratio=(1.0, 1.0)
         )
 
-    def _encode_texts(self, text_or_texts: str, what: str) -> dict[str, Tensor]:
+    def _encode_texts(self, text_or_texts: str, what: str) -> Tuple[Tensor, Set[str]]:
         """
         Helper method used to initialize prompts.
 
