@@ -48,7 +48,7 @@ class CLIP(torch.nn.Module):
             mix
 
         chops (int):
-            augmentation operations
+            augmentation operations, these get split 50-50 between macro and micro
     """
 
     _WINDOW_SIZE = 224
@@ -62,7 +62,7 @@ class CLIP(torch.nn.Module):
         anti_detail: Optional[TextOrTexts] = None,
         use_tiling: bool = True,
         macro: float = 0.5,
-        chops: int = 32,
+        chops: int = 16,
         model: str = "ViT-B/32",
         device: Optional[str] = None,
     ):
@@ -73,6 +73,9 @@ class CLIP(torch.nn.Module):
             raise ValueError(
                 f"Invalid model. Must be one of: {clip.available_models()}"
             )
+
+        if macro < 0.0 or macro > 1.0:
+            raise ValueError("Macro must be between 0.0 and 1.0")
 
         if chops < 0:
             raise ValueError("Chops must be a strictly positive integer")
@@ -100,16 +103,19 @@ class CLIP(torch.nn.Module):
             ]
         self.anti_details, _ = self._encode_texts(anti_detail, "detail anti-prompts")
 
+        # Macro vs micro weighting
+        self.macro = macro
+
         # Image processing
         self.use_tiling = use_tiling
         self.chops = chops
-        self.macro = macro
 
         # General input transformation, compare with the transform returned
         # as the second item by clip.load()
         self.transform = T.Compose(
             [
-                # Ensure that images are window-sized. Not really necessary, but harmless
+                # Ensure that images are window-sized. Not really necessary, but
+                # harmless and means that encode_image is more flexible.
                 T.CenterCrop(size=self._WINDOW_SIZE),
                 T.Normalize(
                     mean=(0.48145466, 0.4578275, 0.40821073),
@@ -162,15 +168,14 @@ class CLIP(torch.nn.Module):
         return self.encoder.encode_image(batch)
 
     def get_macro(self, img: Tensor) -> Tensor:
-        n = int(self.macro * self.chops)
+        n = self.chops - self.chops // 2
         return regroup([self.macro_transform(img) for _ in range(n)])
 
     def get_micro(self, img: Tensor) -> Tensor:
-        n = self.chops - int(self.macro * self.chops)
-        micro_batch = []
 
         # Small random pixel-perfect chops to focus on fine details
-        micro_batch.extend(self.micro_transform(img) for _ in range(n))
+        n = self.chops // 2
+        micro_batch = [self.micro_transform(img) for _ in range(n)]
 
         # (Optionally) Tiling of near-pixel-perfect chops
         if self.use_tiling:
@@ -179,7 +184,7 @@ class CLIP(torch.nn.Module):
 
         return regroup(micro_batch)
 
-    def get_similarity(self, imgs: Tensor, prompts: Tensor, batch_size: int) -> Tensor:
+    def get_similarity(self, img: Tensor, prompts: Tensor, batch_size: int) -> Tensor:
         """
         Compute the average similarity between a combined but contiguous
         batch of images and set of prompts.
@@ -192,10 +197,11 @@ class CLIP(torch.nn.Module):
         Returns:
             Tensor: A tensor of average similarities with shape (batch_size,)
         """
-        assert imgs.shape[0] % batch_size == 0  # Must be a multiple
-        encoded = self.encode_image(imgs)
+        assert img.shape[0] % batch_size == 0  # Must be a multiple
+        encoded = self.encode_image(img)
         similarity = cosine_similarity(encoded, prompts)
         means = [chunk.mean() for chunk in torch.chunk(similarity, chunks=batch_size)]
+        assert len(means) == batch_size
         return torch.stack(means)
 
     def forward(self, img: Tensor) -> Tensor:
@@ -213,6 +219,7 @@ class CLIP(torch.nn.Module):
             Tensor: A vector of size b
         """
         batch_size = img.shape[0]
+
         macro_batch = self.get_macro(img)
         prompt_similarity = self.get_similarity(
             macro_batch, self.prompts, batch_size=batch_size
@@ -223,5 +230,4 @@ class CLIP(torch.nn.Module):
             micro_batch, self.detail_prompts, batch_size=batch_size
         )
 
-        # TODO: Reweight combinations
-        return (prompt_similarity + detail_similarity) * 0.5
+        return self.macro * prompt_similarity + (1 - self.macro) * detail_similarity
