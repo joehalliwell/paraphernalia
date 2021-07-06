@@ -31,7 +31,6 @@ For developers: `poetry install`
 
 ### torch
 
-- Device independence
-- overtile() should support configurable overlap
-- Support multiple prompts/anti-prompts for CLIP
-- Add SIREN and BigGAN generators
+- Add VQGAN and BigGAN generators
+- Fix crash when running tests on CPU
+- Add soft_permutation()

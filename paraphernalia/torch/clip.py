@@ -179,7 +179,7 @@ class CLIP(torch.nn.Module):
 
         # (Optionally) Tiling of near-pixel-perfect chops
         if self.use_tiling:
-            tiling = overtile(img, int(self._WINDOW_SIZE * 1.1), 0.1)
+            tiling = overtile(img, int(self._WINDOW_SIZE * 1.1), 0.25)
             micro_batch.extend(self.macro_transform(tile) for tile in tiling)
 
         return regroup(micro_batch)
