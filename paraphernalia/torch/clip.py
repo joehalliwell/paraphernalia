@@ -184,7 +184,9 @@ class CLIP(torch.nn.Module):
 
         return regroup(micro_batch)
 
-    def get_similarity(self, img: Tensor, prompts: Tensor, batch_size: int) -> Tensor:
+    def get_similarity(
+        self, img: Tensor, prompts: Tensor, batch_size: int, match="all"
+    ) -> Tensor:
         """
         Compute the average similarity between a combined but contiguous
         batch of images and set of prompts.
@@ -193,6 +195,7 @@ class CLIP(torch.nn.Module):
             imgs (Tensor): A combined-but-contiguous image batch with shape (batch_size * t, c, h, w)
             prompts (Tensor): A tensor of prompt embeddings with shape (n, 512)
             batch_size (int): The size of the original image batch
+            match (str): Policy for multiple prompts. "any", "all" or (in future) "one"
 
         Returns:
             Tensor: A tensor of average similarities with shape (batch_size,)
@@ -200,6 +203,20 @@ class CLIP(torch.nn.Module):
         assert img.shape[0] % batch_size == 0  # Must be a multiple
         encoded = self.encode_image(img)
         similarity = cosine_similarity(encoded, prompts)
+
+        # Aggregate over prompts
+        if match == "all":
+            # Match all prompts equally
+            # Should be similarity = torch.mean(dim=1)
+            # But that's can be rolled into the chunk mean below
+            pass
+        elif match == "any":
+            # Pick the best match -- intended for details
+            similarity = torch.max(similarity, dim=1)[0]
+        else:
+            raise ValueError(f"Unknown matching mode {match}")
+
+        # Average over perceptual windows to produce a similarity per image in the batch
         means = [chunk.mean() for chunk in torch.chunk(similarity, chunks=batch_size)]
         assert len(means) == batch_size
         return torch.stack(means)
@@ -227,7 +244,7 @@ class CLIP(torch.nn.Module):
 
         micro_batch = self.get_micro(img)
         detail_similarity = self.get_similarity(
-            micro_batch, self.detail_prompts, batch_size=batch_size
+            micro_batch, self.detail_prompts, batch_size=batch_size, match="any"
         )
 
         return self.macro * prompt_similarity + (1 - self.macro) * detail_similarity

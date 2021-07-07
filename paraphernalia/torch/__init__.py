@@ -108,11 +108,11 @@ def cosine_similarity(a, b):
     TODO: Explain restrictions
 
     Args:
-        a ([type]): [description]
-        b ([type]): [description]
+        a (Tensor): (b_1 N) tensor
+        b (Tensor): (b_2, N) tensor
 
     Returns:
-        [type]: [description]
+        [Tensor]: (b_1, B_2) tensor of similarities
     """
     a_norm = a / a.norm(dim=1)[:, None]
     b_norm = b / b.norm(dim=1)[:, None]
