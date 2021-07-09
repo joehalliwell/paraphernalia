@@ -126,9 +126,10 @@ class CLIP(torch.nn.Module):
         self.macro_transform = T.RandomResizedCrop(
             size=self._WINDOW_SIZE, scale=(0.95, 1.0), ratio=(1.0, 1.0)
         )
-        self.micro_transform = T.RandomResizedCrop(
-            size=self._WINDOW_SIZE, scale=(0.2, 0.5), ratio=(1.0, 1.0)
-        )
+        self.micro_transform = T.RandomCrop(size=self._WINDOW_SIZE)
+        # self.micro_transform = T.RandomResizedCrop(
+        #     size=self._WINDOW_SIZE, scale=(0.2, 0.5), ratio=(1.0, 1.0)
+        # )
 
     def _encode_texts(self, text_or_texts: str, what: str) -> Tuple[Tensor, Set[str]]:
         """
@@ -180,7 +181,7 @@ class CLIP(torch.nn.Module):
         # (Optionally) Tiling of near-pixel-perfect chops
         if self.use_tiling:
             tiling = overtile(img, int(self._WINDOW_SIZE * 1.1), 0.25)
-            micro_batch.extend(self.macro_transform(tile) for tile in tiling)
+            micro_batch.extend(self.micro_transform(tile) for tile in tiling)
 
         return regroup(micro_batch)
 
