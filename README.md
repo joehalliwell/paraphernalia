@@ -18,6 +18,7 @@ For developers: `poetry install`
 - Tests
 - Documentation
 - Judicious type hints
+- Helper for filenames/paths
 
 ### glsl
 
@@ -31,6 +32,7 @@ For developers: `poetry install`
 
 ### torch
 
-- Add VQGAN and BigGAN generators
+- Add (Taming Transformers) VQGAN generator
+- Add BigGAN generators
 - Fix crash when running tests on CPU
 - Add soft_permutation()
