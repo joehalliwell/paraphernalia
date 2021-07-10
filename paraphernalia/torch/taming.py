@@ -11,8 +11,8 @@ from typing import Union
 
 import PIL
 import torch
+import torch.nn as nn
 import torchvision.transforms as T
-from _typeshed import NoneType
 from omegaconf import OmegaConf
 from taming.models.vqgan import GumbelVQ, VQModel
 from torch.functional import Tensor
@@ -38,8 +38,13 @@ VQGAN_GUMBEL_F8 = TamingModel(
 
 
 class Taming(Generator):
-    def __init__(self, shape, model: TamingModel, device=None):
-        super().__init__(shape, device=device)
+    def __init__(
+        self, model: TamingModel, start=None, batch_size=1, latent=32, device=None
+    ):
+        super().__init__(device=device)
+
+        self.batch_size = batch_size
+        self.latent = latent
 
         # TODO: Can we trade for a lighter dep?
         config = OmegaConf.load(
@@ -59,7 +64,17 @@ class Taming(Generator):
         # Disable training, ship to target device
         model.eval()
         model.to(self.device)
-        self._model = model
+        self.model = model
+
+        # Setup z
+        if start is None:
+            z = torch.rand((batch_size, 256, latent, latent))
+        else:
+            z = self.encode(img)
+
+        z = z.detach()
+        z = z.to(self.device)
+        self.z = nn.Parameter(z)
 
     def forward(self, z=None) -> Tensor:
         """
@@ -70,7 +85,7 @@ class Taming(Generator):
         """
         if z is None:
             z = self.z
-        buf = self._model.decode(z)
+        buf = self.model.decode(z)
         buf = torch.clamp(buf, -1.0, 1.0)
         buf = (buf + 1.0) / 2.0
         return buf
@@ -85,4 +100,4 @@ class Taming(Generator):
             img = torch.unsqueeze(T.functional.to_tensor(img), 0)
 
         img = 2.0 * img - 1
-        self._model.encode(img)
+        self.model.encode(img)
