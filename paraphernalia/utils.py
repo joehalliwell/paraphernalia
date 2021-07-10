@@ -100,9 +100,8 @@ def download(url, target=None, overwrite=False):
 
 
 def _download(url, target):
-    with DownloadProgressBar(
-        unit="B", unit_scale=True, miniters=1, desc=url.split("/")[-1]
-    ) as t:
+    desc = os.path.basename(target)
+    with DownloadProgressBar(unit="B", unit_scale=True, miniters=1, desc=desc) as t:
         urllib.request.urlretrieve(url, filename=target, reporthook=t.update_to)
 
 
