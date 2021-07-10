@@ -17,6 +17,7 @@ from omegaconf import OmegaConf
 from taming.models.vqgan import GumbelVQ, VQModel
 from torch.functional import Tensor
 
+from paraphernalia.torch import clamp_with_grad
 from paraphernalia.torch.generator import Generator
 from paraphernalia.utils import cache_home, download
 
@@ -33,6 +34,13 @@ VQGAN_GUMBEL_F8 = TamingModel(
     "vqgan_gumbel_f8",
     "https://heibox.uni-heidelberg.de/d/2e5662443a6b4307b470/files/?p=%2Fconfigs%2Fmodel.yaml&dl=1",
     "https://heibox.uni-heidelberg.de/d/2e5662443a6b4307b470/files/?p=%2Fckpts%2Flast.ckpt&dl=1",
+    True,
+)
+
+VQGAN_IMAGENET_F16_16384 = TamingModel(
+    "vqgan_imagenet_f16_16384",
+    "http://mirror.io.community/blob/vqgan/vqgan_imagenet_f16_16384.yaml",  # ImageNet 16384
+    "http://mirror.io.community/blob/vqgan/vqgan_imagenet_f16_16384.ckpt",  # ImageNet 16384
     True,
 )
 
@@ -66,11 +74,11 @@ class Taming(Generator):
         model.to(self.device)
         self.model = model
 
-        # Setup z
+        # Initialize z
         if start is None:
             z = torch.rand((batch_size, 256, latent, latent))
         else:
-            z = self.encode(img)
+            z = self.encode(start)
 
         z = z.detach()
         z = z.to(self.device)
@@ -86,7 +94,7 @@ class Taming(Generator):
         if z is None:
             z = self.z
         buf = self.model.decode(z)
-        buf = torch.clamp(buf, -1.0, 1.0)
+        buf = clamp_with_grad(buf, -1.0, 1.0)
         buf = (buf + 1.0) / 2.0
         return buf
 
