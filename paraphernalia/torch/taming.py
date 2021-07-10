@@ -12,6 +12,7 @@ from typing import Union
 import PIL
 import torch
 import torchvision.transforms as T
+from _typeshed import NoneType
 from omegaconf import OmegaConf
 from taming.models.vqgan import GumbelVQ, VQModel
 from torch.functional import Tensor
@@ -60,15 +61,16 @@ class Taming(Generator):
         model.to(self.device)
         self._model = model
 
-    def forward(self, **kwargs) -> Tensor:
+    def forward(self, z=None) -> Tensor:
         """
         Generate a batch of images
 
         Returns:
             Tensor: An image batch tensor
         """
-        samples = self.sample(**kwargs)
-        buf = self._model.decode(samples)
+        if z is None:
+            z = self.z
+        buf = self._model.decode(z)
         buf = torch.clamp(buf, -1.0, 1.0)
         buf = (buf + 1.0) / 2.0
         return buf

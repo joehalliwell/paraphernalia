@@ -44,28 +44,6 @@ class Generator(nn.Module, metaclass=ABCMeta):
                 imgs = imgs[index].unsqueeze(0)
             return T.functional.to_pil_image(make_grid(imgs, nrow=4, padding=10))
 
-    def sample(self, z=None, tau=2.0, hard=True):
-        """
-        Sample a batch from the latent space.
-
-        Args:
-            z ([type], optional): [description]. Defaults to None.
-            tau (float, optional): [description]. Defaults to 2.0.
-            hard (bool, optional): [description]. Defaults to True.
-
-        Returns:
-            [type]: [description]
-        """
-        if z is None:
-            z = self.z
-        if tau is None:
-            tau = self.tau
-        if hard is None:
-            hard = self.hard
-
-        samples = torch.nn.functional.gumbel_softmax(z, dim=1, tau=tau, hard=hard)
-        return samples
-
     def reset(self, z=None, one_hot=True):
         """
         (Re)set the latent vector(s) associated with this generator.

@@ -93,11 +93,18 @@ class DALL_E(Generator):
         z = torch.log(z + 0.001 / self._NUM_CLASSES)
         self.z = torch.nn.Parameter(z)
 
-    def forward(self, **kwargs) -> Tensor:
+    def forward(self, z=None, tau=None, hard=None) -> Tensor:
         """
         Generate a batch of images.
         """
-        samples = self.sample(**kwargs)
+        if z is None:
+            z = self.z
+        if tau is None:
+            tau = self.tau
+        if hard is None:
+            hard = self.hard
+
+        samples = torch.nn.functional.gumbel_softmax(z, dim=1, tau=tau, hard=hard)
 
         buf = self.decoder(samples)
         buf = torch.sigmoid(buf[:, :3])
