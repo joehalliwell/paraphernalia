@@ -37,7 +37,7 @@ def test_studio():
 
 def test_grads():
     img = PIL.Image.open(pkg_resources.resource_filename(__name__, "studio.jpg"))
-    img = T.functional.resize(img, 256)
+    img = T.functional.resize(img, 777)  # The model is supposed to handle any size
     img = T.functional.to_tensor(img)
     img = img.unsqueeze(0)
     clip = CLIP("an artists studio")
