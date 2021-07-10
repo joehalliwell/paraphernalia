@@ -41,13 +41,18 @@ VQGAN_IMAGENET_F16_16384 = TamingModel(
     "vqgan_imagenet_f16_16384",
     "http://mirror.io.community/blob/vqgan/vqgan_imagenet_f16_16384.yaml",  # ImageNet 16384
     "http://mirror.io.community/blob/vqgan/vqgan_imagenet_f16_16384.ckpt",  # ImageNet 16384
-    True,
+    False,
 )
 
 
 class Taming(Generator):
     def __init__(
-        self, model: TamingModel, start=None, batch_size=1, latent=32, device=None
+        self,
+        model: TamingModel = VQGAN_GUMBEL_F8,
+        start=None,
+        batch_size=1,
+        latent=32,
+        device=None,
     ):
         super().__init__(device=device)
 
@@ -70,13 +75,15 @@ class Taming(Generator):
         missing, unexpected = model.load_state_dict(state, strict=False)
 
         # Disable training, ship to target device
-        model.eval()
+        model.eval().requires_grad_(False)
         model.to(self.device)
+        del model.loss
         self.model = model
 
         # Initialize z
         if start is None:
             z = torch.rand((batch_size, 256, latent, latent))
+
         else:
             z = self.encode(start)
 
