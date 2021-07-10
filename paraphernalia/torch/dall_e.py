@@ -6,6 +6,7 @@ import torch
 import torchvision.transforms as T
 from torch import Tensor
 
+from paraphernalia.torch import one_hot_noise
 from paraphernalia.torch.generator import Generator
 from paraphernalia.utils import download
 
@@ -79,11 +80,7 @@ class DALL_E(Generator):
         # Option 3: Random noise (this doesn't work very well)
         else:
             # Nice terrazzo style noise
-            z = torch.nn.functional.one_hot(
-                torch.randint(0, self._NUM_CLASSES, (batch_size, latent, latent)),
-                num_classes=self._NUM_CLASSES,
-            )
-            z = z.permute(0, 3, 1, 2)
+            z = one_hot_noise((batch_size, self._NUM_CLASSES, latent, latent))
 
         # Move to device and force to look like one-hot logits
         z = z.to(self.device)
@@ -96,18 +93,11 @@ class DALL_E(Generator):
         z = torch.log(z + 0.001 / self._NUM_CLASSES)
         self.z = torch.nn.Parameter(z)
 
-    def forward(self, z=None, tau=None, hard=None) -> Tensor:
+    def forward(self, **kwargs) -> Tensor:
         """
         Generate a batch of images.
         """
-        if z is None:
-            z = self.z
-        if tau is None:
-            tau = self.tau
-        if hard is None:
-            hard = self.hard
-
-        samples = torch.nn.functional.gumbel_softmax(z, dim=1, tau=tau, hard=hard)
+        samples = self.sample(**kwargs)
 
         buf = self.decoder(samples)
         buf = torch.sigmoid(buf[:, :3])

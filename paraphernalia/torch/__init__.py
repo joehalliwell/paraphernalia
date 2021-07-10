@@ -119,3 +119,25 @@ def cosine_similarity(a, b):
     b_norm = b / b.norm(dim=1)[:, None]
     result = torch.mm(a_norm, b_norm.transpose(0, 1))
     return result
+
+
+def one_hot_noise(shape):
+    """
+    Generate a latent state suitable for use with a categorical variational
+    decoder.
+
+    TODO: Think of a better name
+
+    Args:
+        shape (Tuple): desired shape (batch_size, num_classes, height, width)
+
+    Returns:
+        [type]: [description]
+    """
+    b, c, h, w = shape
+    z = torch.nn.functional.one_hot(
+        torch.randint(0, c, (b, h, w)),
+        num_classes=c,
+    )
+    z = z.permute(0, 3, 1, 2)
+    return z
