@@ -48,7 +48,7 @@ VQGAN_IMAGENET_F16_16384 = TamingModel(
 class Taming(Generator):
     def __init__(
         self,
-        model: TamingModel = VQGAN_GUMBEL_F8,
+        model: TamingModel = VQGAN_IMAGENET_F16_16384,
         start=None,
         batch_size=1,
         latent=32,
@@ -114,5 +114,5 @@ class Taming(Generator):
             img = PIL.ImageOps.pad(img, (self.latent * 8, self.latent * 8))
             img = torch.unsqueeze(T.functional.to_tensor(img), 0)
 
-        img = 2.0 * img - 1
-        self.model.encode(img)
+        img = img.to(self.device).mul(2.0).sub(1.0)
+        return self.model.encode(img)[0]
