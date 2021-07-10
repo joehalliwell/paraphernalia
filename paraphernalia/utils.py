@@ -90,6 +90,8 @@ def download(url, target=None, overwrite=False):
         name = urlparse(url).path
         name = os.path.basename(name)
         target = cache_home() / name
+    if target.is_dir():
+        raise Exception(f"Download target '{target}' is a directory")
     if not target.exists() or overwrite:
         _download(url, target)
     else:
