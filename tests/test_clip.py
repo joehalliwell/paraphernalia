@@ -41,5 +41,6 @@ def test_grads():
     img = T.functional.to_tensor(img)
     img = img.unsqueeze(0)
     clip = CLIP("an artists studio")
+    clip.encoder.requires_grad_(True)
     similarity = clip.forward(img)
     similarity.backward()

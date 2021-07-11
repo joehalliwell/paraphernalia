@@ -61,6 +61,7 @@ class Taming(Generator):
 
         self.batch_size = batch_size
         self.latent = latent
+        self.channels = 256  # Always?
         self.model_spec = model_spec
 
         # TODO: Can we trade for a lighter dep?

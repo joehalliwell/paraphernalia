@@ -86,6 +86,7 @@ class CLIP(torch.nn.Module):
         # Prompt encoding
         self.device = torch.device(device)
         # self.encoder, _ = clip.load(model, device=self.device)
+        # Workaround. See https://gitmemory.com/issue/openai/CLIP/49/791421923
         self.encoder = (
             clip.load(model, jit=False)[0].eval().requires_grad_(False).to(device)
         )
