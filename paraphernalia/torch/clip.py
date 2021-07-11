@@ -144,8 +144,6 @@ class CLIP(torch.nn.Module):
                 T.RandomHorizontalFlip(p=0.5),
             ]
         )
-        # self.micro_transform = T.RandomResizedCrop(
-        #     size=self._WINDOW_SIZE, scale=(0.2, 0.5), ratio=(1.0, 1.0)
 
     def _encode_texts(self, text_or_texts: str, what: str) -> Tuple[Tensor, Set[str]]:
         """
@@ -254,13 +252,20 @@ class CLIP(torch.nn.Module):
         """
         batch_size, _c, h, w = img.shape
 
+        # Compute the macro similarity
         macro_batch = self.get_macro(img)
         prompt_similarity = self.get_similarity(
             macro_batch, self.prompts, batch_size=batch_size
         )
 
-        # If the window covers most of the image, use macro prompts
+        # Micro behaviour changes depending on image size
         ratio = min(self._WINDOW_SIZE / h, self._WINDOW_SIZE / w)
+
+        # If the image is smaller than the perceptual window, just use macro
+        if ratio > 1.0:
+            return prompt_similarity
+
+        # If the window covers most of the image, use macro prompts
         detail_prompts = self.detail_prompts if ratio < 0.5 else self.prompts
 
         micro_batch = self.get_micro(img)
