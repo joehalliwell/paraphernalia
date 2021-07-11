@@ -60,4 +60,4 @@ For developers: `poetry install`
 ### project
 
 - Easy organization of project resources (inputs/outputs/checkpoints)
-- Support for colaboratory
+- Support for Colaboratory
