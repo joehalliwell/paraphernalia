@@ -72,14 +72,40 @@ def step_down(steps, iterations):
         yield max(0, int(i / iterations * steps) / (steps - 1))
 
 
-def cache_home():
+_CACHE_HOME = xdg.xdg_cache_home() / "paraphernalia"
+
+
+def cache_home(cache_home: str = None) -> Path:
     """
     Get the cache home for paraphernalia ensuring it exists.
     Defaults to $XDG_CACHE_HOME/paraphernalia
     """
-    cache = xdg.xdg_cache_home() / "paraphernalia"
-    os.makedirs(cache, exist_ok=True)
-    return cache
+    global _CACHE_HOME
+    if cache_home is not None:
+        _CACHE_HOME = Path(cache_home)
+    os.makedirs(_CACHE_HOME, exist_ok=True)
+    return _CACHE_HOME
+
+
+_DATA_HOME = xdg.xdg_data_home() / "paraphernalia"
+
+
+def data_home(data_home: str = None) -> Path:
+    """
+    Get the data directory for paraphernalia ensuring it exists.
+    Defaults to $XDG_DATA_HOME/paraphernalia
+
+    Args:
+        data_home (str, optional): If present sets the data home. Defaults to None.
+
+    Returns:
+        Path: path for the data home
+    """
+    global _DATA_HOME
+    if data_home:
+        _DATA_HOME = Path(data_home)
+    os.makedirs(_DATA_HOME, exist_ok=True)
+    return _DATA_HOME
 
 
 def download(url, target=None, overwrite=False):
