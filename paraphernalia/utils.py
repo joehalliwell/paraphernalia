@@ -1,3 +1,4 @@
+import logging
 import math
 import os
 import subprocess
@@ -8,6 +9,8 @@ from urllib.parse import urlparse
 
 import xdg
 from tqdm import tqdm
+
+logger = logging.getLogger(__name__)
 
 
 def get_cuda_version():
@@ -72,9 +75,6 @@ def step_down(steps, iterations):
         yield max(0, int(i / iterations * steps) / (steps - 1))
 
 
-_CACHE_HOME = xdg.xdg_cache_home() / "paraphernalia"
-
-
 def cache_home(cache_home: str = None) -> Path:
     """
     Get the cache home for paraphernalia ensuring it exists.
@@ -83,11 +83,13 @@ def cache_home(cache_home: str = None) -> Path:
     global _CACHE_HOME
     if cache_home is not None:
         _CACHE_HOME = Path(cache_home)
+    logger.info(f"Setting cache home to {_CACHE_HOME}")
     os.makedirs(_CACHE_HOME, exist_ok=True)
     return _CACHE_HOME
 
 
-_DATA_HOME = xdg.xdg_data_home() / "paraphernalia"
+_CACHE_HOME = None
+cache_home(xdg.xdg_cache_home() / "paraphernalia")
 
 
 def data_home(data_home: str = None) -> Path:
@@ -104,8 +106,13 @@ def data_home(data_home: str = None) -> Path:
     global _DATA_HOME
     if data_home:
         _DATA_HOME = Path(data_home)
+    logger.info(f"Setting data home to {_DATA_HOME}")
     os.makedirs(_DATA_HOME, exist_ok=True)
     return _DATA_HOME
+
+
+_DATA_HOME = None
+data_home(xdg.xdg_data_home() / "paraphernalia")
 
 
 def download(url, target=None, overwrite=False):

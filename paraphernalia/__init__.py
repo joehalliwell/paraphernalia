@@ -8,10 +8,20 @@ __version__ = importlib_metadata.version(__name__)
 
 
 def setup():
+    # Logging
     # Check CUDA and GPU -- maybe upgrade CUDA?
-    # Setup Google Drive (if running in Colaboratory)
     # Default project?
-    pass
+    if running_in_colab():
+        setup_colab()
+
+
+def setup_colab():
+    from google.colab import drive
+
+    from paraphernalia.utils import data_home
+
+    drive.mount("/content/drive")
+    data_home("/content/drive/MyDrive/Paraphernalia")
 
 
 def running_in_colab():
