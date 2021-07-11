@@ -3,13 +3,32 @@
 An assortment of tools for making digital art from Joe Halliwell
 (@joehalliwell).
 
-This is an incubator for immature scripts/modules with an asbolute holy hell of
+This is an incubator for immature scripts/modules with an absolute holy hell of
 dependencies. Mature scripts/modules will be packaged more carefully and live
-elsewhere. If I get around to it.
+elsewhere. If/when I get around to it.
 
 ## Quick start guide
 
+In a notebook:
+
+```
+!pip install --upgrade git+https://github.com/joehalliwell/paraphernalia.git
+import paraphernalia as pa
+pa.setup()
+```
+
 For developers: `poetry install`
+
+## Features
+
+- Fragment shader realtime preview and offline rendering
+- CLIP-based image generation
+- Helpers for running creative projects in jupyter/Colaboratory
+
+## Extra/optional dependencies
+
+- openai: CLIP and DALL-E models
+- taming: Taming Transformers models
 
 ## TODOs
 
@@ -18,7 +37,7 @@ For developers: `poetry install`
 - Tests
 - Documentation
 - Judicious type hints
-- Helper for filenames/paths
+- Helper for filenames/paths/projects
 
 ### glsl
 
@@ -32,7 +51,13 @@ For developers: `poetry install`
 
 ### torch
 
-- Add (Taming Transformers) VQGAN generator
+- CLIP: Adaptive focus
+- Support batch restart properly
 - Add BigGAN generators
 - Fix crash when running tests on CPU
 - Add soft_permutation()
+
+### project
+
+- Easy organization of project resources (inputs/outputs/checkpoints)
+- Support for colaboratory
