@@ -62,7 +62,7 @@ class CLIP(torch.nn.Module):
         anti_detail: Optional[TextOrTexts] = None,
         use_tiling: bool = True,
         macro: float = 0.5,
-        chops: int = 16,
+        chops: int = 64,
         model: str = "ViT-B/32",
         device: Optional[str] = None,
     ):
@@ -85,7 +85,10 @@ class CLIP(torch.nn.Module):
 
         # Prompt encoding
         self.device = torch.device(device)
-        self.encoder, _ = clip.load(model, device=self.device)
+        # self.encoder, _ = clip.load(model, device=self.device)
+        self.encoder = (
+            clip.load(model, jit=False)[0].eval().requires_grad_(False).to(device)
+        )
 
         self._encoded_prompts = {}
         self.prompts, prompts = self._encode_texts(prompt, "prompts")
@@ -123,13 +126,26 @@ class CLIP(torch.nn.Module):
                 ),
             ]
         )
-        self.macro_transform = T.RandomResizedCrop(
-            size=self._WINDOW_SIZE, scale=(0.95, 1.0), ratio=(1.0, 1.0)
+        self.macro_transform = T.Compose(
+            [
+                # T.ColorJitter(saturation=0.01, brightness=0.01, hue=0.01),
+                # T.RandomPerspective(distortion_scale=0.05, p=0.5),
+                T.RandomResizedCrop(
+                    size=self._WINDOW_SIZE, scale=(0.9, 1.0), ratio=(1.0, 1.0)
+                ),
+                T.RandomHorizontalFlip(p=0.5),
+            ]
         )
-        self.micro_transform = T.RandomCrop(size=self._WINDOW_SIZE)
+        self.micro_transform = T.Compose(
+            [
+                # T.ColorJitter(saturation=0.1, brightness=0.1, hue=0.1),
+                # T.RandomPerspective(distortion_scale=0.2, p=0.5),
+                T.RandomCrop(size=self._WINDOW_SIZE),
+                T.RandomHorizontalFlip(p=0.5),
+            ]
+        )
         # self.micro_transform = T.RandomResizedCrop(
         #     size=self._WINDOW_SIZE, scale=(0.2, 0.5), ratio=(1.0, 1.0)
-        # )
 
     def _encode_texts(self, text_or_texts: str, what: str) -> Tuple[Tensor, Set[str]]:
         """
@@ -180,7 +196,7 @@ class CLIP(torch.nn.Module):
 
         # (Optionally) Tiling of near-pixel-perfect chops
         if self.use_tiling:
-            tiling = overtile(img, int(self._WINDOW_SIZE * 1.1), 0.25)
+            tiling = overtile(img, int(self._WINDOW_SIZE * 1.1), 0.5)
             micro_batch.extend(self.micro_transform(tile) for tile in tiling)
 
         return regroup(micro_batch)
@@ -236,16 +252,19 @@ class CLIP(torch.nn.Module):
         Returns:
             Tensor: A vector of size b
         """
-        batch_size = img.shape[0]
+        batch_size, _c, h, w = img.shape
 
         macro_batch = self.get_macro(img)
         prompt_similarity = self.get_similarity(
             macro_batch, self.prompts, batch_size=batch_size
         )
 
-        micro_batch = self.get_micro(img)
-        detail_similarity = self.get_similarity(
-            micro_batch, self.detail_prompts, batch_size=batch_size, match="any"
-        )
+        detail_similarity = 0
+        ratio = min(self._WINDOW_SIZE / h, self._WINDOW_SIZE / w)
+        if ratio > 0.5:
+            micro_batch = self.get_micro(img)
+            detail_similarity = self.get_similarity(
+                micro_batch, self.detail_prompts, batch_size=batch_size, match="any"
+            )
 
         return self.macro * prompt_similarity + (1 - self.macro) * detail_similarity

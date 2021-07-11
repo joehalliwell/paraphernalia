@@ -28,6 +28,7 @@ class TamingModel:
     config_url: str
     checkpoint_url: str
     is_gumbel: bool
+    scale: int
 
 
 VQGAN_GUMBEL_F8 = TamingModel(
@@ -35,6 +36,7 @@ VQGAN_GUMBEL_F8 = TamingModel(
     "https://heibox.uni-heidelberg.de/d/2e5662443a6b4307b470/files/?p=%2Fconfigs%2Fmodel.yaml&dl=1",
     "https://heibox.uni-heidelberg.de/d/2e5662443a6b4307b470/files/?p=%2Fckpts%2Flast.ckpt&dl=1",
     True,
+    8,
 )
 
 VQGAN_IMAGENET_F16_16384 = TamingModel(
@@ -42,6 +44,7 @@ VQGAN_IMAGENET_F16_16384 = TamingModel(
     "http://mirror.io.community/blob/vqgan/vqgan_imagenet_f16_16384.yaml",  # ImageNet 16384
     "http://mirror.io.community/blob/vqgan/vqgan_imagenet_f16_16384.ckpt",  # ImageNet 16384
     False,
+    16,
 )
 
 
@@ -75,20 +78,22 @@ class Taming(Generator):
         missing, unexpected = model.load_state_dict(state, strict=False)
 
         # Disable training, ship to target device
-        model.eval().requires_grad_(False)
+        model.eval()
         model.to(self.device)
-        del model.loss
         self.model = model
 
         # Initialize z
         if start is None:
             z = torch.rand((batch_size, 256, latent, latent))
-
         else:
             z = self.encode(start)
 
+        del model.encoder
+        del model.loss
+
         z = z.detach()
         z = z.to(self.device)
+        z = z.requires_grad_(True)
         self.z = nn.Parameter(z)
 
     def forward(self, z=None) -> Tensor:
@@ -100,10 +105,12 @@ class Taming(Generator):
         """
         if z is None:
             z = self.z
-        buf = self.model.decode(z)
-        buf = clamp_with_grad(buf, -1.0, 1.0)
-        buf = (buf + 1.0) / 2.0
-        return buf
+
+        z = self.model.quantize(z)[0]
+        z = self.model.decode(z)
+        z = clamp_with_grad(z, -1.0, 1.0)
+        z = (z + 1.0) / 2.0
+        return z
 
     def encode(self, img: Union[PIL.Image.Image, torch.Tensor]):
         """
@@ -111,7 +118,7 @@ class Taming(Generator):
         """
 
         if isinstance(img, PIL.Image.Image):
-            img = PIL.ImageOps.pad(img, (self.latent * 8, self.latent * 8))
+            img = PIL.ImageOps.pad(img, (self.latent * 16, self.latent * 16))
             img = torch.unsqueeze(T.functional.to_tensor(img), 0)
 
         img = img.to(self.device).mul(2.0).sub(1.0)

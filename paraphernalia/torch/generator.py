@@ -29,10 +29,11 @@ class Generator(nn.Module, metaclass=ABCMeta):
 
     def generate_image(self, index: Optional[int] = None, **kwargs):
         """
-        Convenience to generate a single PIL image within a no_grad block.
+        Convenience to generate a single PIL image (which may be a grid of
+        images if batch_size > 1) within a no_grad block.
 
         Args:
-            index (int):
+            index (int): Specify which image of a batch to generate
         """
         with torch.no_grad():
             imgs = self.forward(**kwargs)
