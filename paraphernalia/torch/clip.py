@@ -259,12 +259,13 @@ class CLIP(torch.nn.Module):
             macro_batch, self.prompts, batch_size=batch_size
         )
 
-        detail_similarity = 0
+        # If the window covers most of the image, use macro prompts
         ratio = min(self._WINDOW_SIZE / h, self._WINDOW_SIZE / w)
-        if ratio > 0.5:
-            micro_batch = self.get_micro(img)
-            detail_similarity = self.get_similarity(
-                micro_batch, self.detail_prompts, batch_size=batch_size, match="any"
-            )
+        detail_prompts = self.detail_prompts if ratio < 0.5 else self.prompts
+
+        micro_batch = self.get_micro(img)
+        detail_similarity = self.get_similarity(
+            micro_batch, detail_prompts, batch_size=batch_size, match="any"
+        )
 
         return self.macro * prompt_similarity + (1 - self.macro) * detail_similarity
