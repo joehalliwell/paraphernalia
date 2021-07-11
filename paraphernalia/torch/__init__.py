@@ -1,3 +1,4 @@
+import gc as _gc
 from typing import List, Optional, Tuple, Union
 
 import torch
@@ -176,3 +177,27 @@ class ClampWithGrad(torch.autograd.Function):
 
 
 clamp_with_grad = ClampWithGrad.apply
+
+
+def free(device=None):
+    """
+    Compute free memory on the specified device.
+
+    Args:
+        device ([type], optional): [description]. Defaults to None.
+
+    Returns:
+        Tuple: (total, used, free) in bytes
+    """
+    total = torch.cuda.get_device_properties(0).total_memory
+    reserved = torch.cuda.memory_reserved(0)
+    allocated = torch.cuda.memory_allocated(0)
+    return (total, allocated, total - allocated)
+
+
+def gc():
+    """
+    Attempt to force a garbage collection.
+    """
+    _gc.collect()
+    torch.cuda.empty_cache()
