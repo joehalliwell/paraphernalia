@@ -51,7 +51,7 @@ VQGAN_IMAGENET_F16_16384 = TamingModel(
 class Taming(Generator):
     def __init__(
         self,
-        model: TamingModel = VQGAN_IMAGENET_F16_16384,
+        model_spec: TamingModel = VQGAN_IMAGENET_F16_16384,
         start=None,
         batch_size=1,
         latent=32,
@@ -61,14 +61,18 @@ class Taming(Generator):
 
         self.batch_size = batch_size
         self.latent = latent
+        self.model_spec = model_spec
 
         # TODO: Can we trade for a lighter dep?
         config = OmegaConf.load(
-            download(model.config_url, cache_home() / f"{model.name}.yaml")
+            download(model_spec.config_url, cache_home() / f"{model_spec.name}.yaml")
         )
-        checkpoint = download(model.checkpoint_url, cache_home() / f"{model.name}.ckpt")
+        print(config)
+        checkpoint = download(
+            model_spec.checkpoint_url, cache_home() / f"{model_spec.name}.ckpt"
+        )
 
-        if model.is_gumbel:
+        if model_spec.is_gumbel:
             model = GumbelVQ(**config.model.params)
         else:
             model = VQModel(**config.model.params)
@@ -84,7 +88,7 @@ class Taming(Generator):
 
         # Initialize z
         if start is None:
-            z = torch.rand((batch_size, 256, latent, latent))
+            z = torch.rand((batch_size, self.channels, latent, latent))
         else:
             z = self.encode(start)
 
@@ -118,7 +122,13 @@ class Taming(Generator):
         """
 
         if isinstance(img, PIL.Image.Image):
-            img = PIL.ImageOps.pad(img, (self.latent * 16, self.latent * 16))
+            img = PIL.ImageOps.pad(
+                img,
+                (
+                    self.latent * self.model_spec.scale,
+                    self.latent * self.model_spec.scale,
+                ),
+            )
             img = torch.unsqueeze(T.functional.to_tensor(img), 0)
 
         img = img.to(self.device).mul(2.0).sub(1.0)
