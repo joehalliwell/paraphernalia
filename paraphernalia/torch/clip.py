@@ -274,4 +274,8 @@ class CLIP(torch.nn.Module):
             micro_batch, detail_prompts, batch_size=batch_size, match="any"
         )
 
-        return self.macro * prompt_similarity + (1 - self.macro) * detail_similarity
+        # Boost macro depending on resolution. TODO: Explain if it works :)
+        macro_boost = (min(h, w) ** 2) / (self._WINDOW_SIZE ** 2)
+        macro = self.macro * macro_boost / (1.0 + macro_boost)
+
+        return macro * prompt_similarity + (1 - macro) * detail_similarity
