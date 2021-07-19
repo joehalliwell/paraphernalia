@@ -183,7 +183,10 @@ def download(url: str, target: Path = None, overwrite: bool = False) -> Path:
     if target.is_dir():
         raise Exception(f"Download target '{target}' is a directory")
     if not target.exists() or overwrite:
-        _download(url, target)
+        with DownloadProgressBar(
+            unit="B", unit_scale=True, miniters=1, desc=target.name
+        ) as pb:
+            urllib.request.urlretrieve(url, filename=target, reporthook=pb.update_to)
     else:
         print(f"Using cached {target}")
     return target
@@ -212,3 +215,35 @@ def _download(url: str, target: Path):
             urllib.request.urlretrieve(url, filename=target, reporthook=t.update_to)
     except Exception as exc:
         raise Exception(f"Failed to download {url}") from exc
+
+
+def pil_to_opencv(image):
+    import cv2
+    import numpy as np
+
+    image = image.convert("RGB")  # Remove alpha?
+    return cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
+
+
+def opencv_to_pil(image):
+    import cv2
+
+    return Image.fromarray(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
+
+
+def upsample(image, method="edsr", scale=2):
+    import cv2
+
+    if method == "edsr":
+        assert scale in range(2, 5)
+        url = f"https://github.com/Saafke/EDSR_Tensorflow/raw/master/models/EDSR_x{scale}.pb"
+    else:
+        raise ValueError("Unknown method")
+
+    model = str(download(url))
+    sr = cv2.dnn_superres.DnnSuperResImpl_create()
+    sr.readModel(model)
+    sr.setModel(method, scale)
+
+    upsampled = sr.upsample(image)
+    return upsampled

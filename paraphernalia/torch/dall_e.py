@@ -7,6 +7,7 @@ import dall_e
 import PIL
 import torch
 import torchvision.transforms as T
+from PIL import Image, ImageOps
 from torch import Tensor
 
 from paraphernalia.torch import one_hot_noise, one_hot_normalize
@@ -89,7 +90,7 @@ class DALL_E(Generator):
         buf = dall_e.unmap_pixels(buf.float())
         return buf
 
-    def encode(self, img: Union[PIL.Image.Image, torch.Tensor]):
+    def encode(self, img: Union[Image.Image, torch.Tensor]):
         """
         Encode an image or tensor.
         """
