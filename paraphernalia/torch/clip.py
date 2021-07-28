@@ -5,6 +5,7 @@ import clip
 import torch
 import torchvision.transforms as T
 from torch.functional import Tensor
+from torchvision.transforms.transforms import RandomCrop
 
 from paraphernalia.torch import cosine_similarity, overtile, regroup
 
@@ -127,24 +128,6 @@ class CLIP(torch.nn.Module):
                 ),
             ]
         )
-        self.macro_transform = T.Compose(
-            [
-                # T.ColorJitter(saturation=0.01, brightness=0.01, hue=0.01),
-                # T.RandomPerspective(distortion_scale=0.05, p=0.5),
-                T.RandomResizedCrop(
-                    size=self._WINDOW_SIZE, scale=(0.9, 1.0), ratio=(1.0, 1.0)
-                ),
-                T.RandomHorizontalFlip(p=0.5),
-            ]
-        )
-        self.micro_transform = T.Compose(
-            [
-                # T.ColorJitter(saturation=0.1, brightness=0.1, hue=0.1),
-                # T.RandomPerspective(distortion_scale=0.2, p=0.5),
-                T.RandomCrop(size=self._WINDOW_SIZE),
-                T.RandomHorizontalFlip(p=0.5),
-            ]
-        )
 
     def _encode_texts(self, text_or_texts: str, what: str) -> Tuple[Tensor, Set[str]]:
         """
@@ -184,19 +167,43 @@ class CLIP(torch.nn.Module):
         return self.encoder.encode_image(batch)
 
     def get_macro(self, img: Tensor) -> Tensor:
+        macro_transform = T.Compose(
+            [
+                # T.ColorJitter(saturation=0.01, brightness=0.01, hue=0.01),
+                # # T.RandomPerspective(distortion_scale=0.05, p=0.5),
+                # T.RandomResizedCrop(
+                #     size=self._WINDOW_SIZE, scale=(0.9, 1.0), ratio=(1.0, 1.0)
+                # ),
+                T.RandomCrop(self._WINDOW_SIZE),
+                T.RandomHorizontalFlip(p=0.5),
+            ]
+        )
         n = self.chops - self.chops // 2
-        return regroup([self.macro_transform(img) for _ in range(n)])
+        return regroup([macro_transform(img) for _ in range(n)])
 
     def get_micro(self, img: Tensor) -> Tensor:
-
         # Small random pixel-perfect chops to focus on fine details
+        ratio = self._WINDOW_SIZE / min(img.shape[2], img.shape[3])
+        micro_transform = T.Compose(
+            [
+                # T.ColorJitter(saturation=0.01, brightness=0.01, hue=0.01),
+                # T.RandomPerspective(distortion_scale=0.05, p=0.5),
+                T.RandomResizedCrop(
+                    size=self._WINDOW_SIZE,
+                    scale=(1.0 * ratio, 1.1 * ratio),
+                    ratio=(1.0, 1.0),
+                ),
+                T.RandomHorizontalFlip(p=0.5),
+            ]
+        )
         n = self.chops // 2
-        micro_batch = [self.micro_transform(img) for _ in range(n)]
+        micro_batch = [micro_transform(img) for _ in range(n)]
 
         # (Optionally) Tiling of near-pixel-perfect chops
         if self.use_tiling:
+            micro_transform = T.RandomCrop(self._WINDOW_SIZE)
             tiling = overtile(img, int(self._WINDOW_SIZE * 1.1), 0.5)
-            micro_batch.extend(self.micro_transform(tile) for tile in tiling)
+            micro_batch.extend(micro_transform(tile) for tile in tiling)
 
         return regroup(micro_batch)
 
