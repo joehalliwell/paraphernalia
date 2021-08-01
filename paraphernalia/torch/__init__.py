@@ -4,6 +4,7 @@ from typing import List, Optional, Tuple, Union
 import torch
 import torchvision.transforms as T
 from torch import Tensor
+from torchvision.utils import make_grid
 
 from paraphernalia.utils import divide
 
@@ -120,6 +121,14 @@ def cosine_similarity(a, b):
     b_norm = b / b.norm(dim=1)[:, None]
     result = torch.mm(a_norm, b_norm.transpose(0, 1))
     return result
+
+
+def make_palette_grid(colors, size=128):
+    swatches = []
+    swatches = torch.cat(
+        [torch.Tensor(c).view(1, 3, 1, 1).repeat([1, 1, size, size]) for c in colors]
+    )
+    return T.functional.to_pil_image(make_grid(swatches))
 
 
 def one_hot_noise(shape):

@@ -100,11 +100,13 @@ class CLIP(torch.nn.Module):
             ]
         self.detail_prompts, _ = self._encode_texts(detail, "detail prompts")
 
-        self.anti_prompts, _ = self._encode_texts(anti_prompt, "anti-prompts")
+        self.anti_prompts, anti_prompts = self._encode_texts(
+            anti_prompt, "anti-prompts"
+        )
         if anti_prompt and anti_detail is None:
             anti_detail = [
                 self._DETAIL_PROMPT_TEMPLATE.format(prompt=prompt)
-                for prompt in self.anti_prompts
+                for prompt in anti_prompts
             ]
         self.anti_details, _ = self._encode_texts(anti_detail, "detail anti-prompts")
 
@@ -121,7 +123,8 @@ class CLIP(torch.nn.Module):
             [
                 # Ensure that images are window-sized. Not really necessary, but
                 # harmless and means that encode_image is more flexible.
-                T.CenterCrop(size=self._WINDOW_SIZE),
+                # T.CenterCrop(size=self._WINDOW_SIZE),
+                T.RandomCrop(self._WINDOW_SIZE),
                 T.Normalize(
                     mean=(0.48145466, 0.4578275, 0.40821073),
                     std=(0.26862954, 0.26130258, 0.27577711),
@@ -171,10 +174,10 @@ class CLIP(torch.nn.Module):
             [
                 # T.ColorJitter(saturation=0.01, brightness=0.01, hue=0.01),
                 # # T.RandomPerspective(distortion_scale=0.05, p=0.5),
-                # T.RandomResizedCrop(
-                #     size=self._WINDOW_SIZE, scale=(0.9, 1.0), ratio=(1.0, 1.0)
-                # ),
-                T.RandomCrop(self._WINDOW_SIZE),
+                T.RandomResizedCrop(
+                    size=self._WINDOW_SIZE, scale=(0.8, 1.0), ratio=(1.0, 1.0)
+                ),
+                # T.RandomCrop(self._WINDOW_SIZE),
                 T.RandomHorizontalFlip(p=0.5),
             ]
         )
@@ -190,7 +193,7 @@ class CLIP(torch.nn.Module):
                 # T.RandomPerspective(distortion_scale=0.05, p=0.5),
                 T.RandomResizedCrop(
                     size=self._WINDOW_SIZE,
-                    scale=(1.0 * ratio, 1.1 * ratio),
+                    scale=(1.0 * ratio, 0.8),
                     ratio=(1.0, 1.0),
                 ),
                 T.RandomHorizontalFlip(p=0.5),
@@ -285,4 +288,14 @@ class CLIP(torch.nn.Module):
         macro_boost = (max(h, w) ** 2) / (self._WINDOW_SIZE ** 2)
         macro = self.macro * macro_boost / (1.0 + macro_boost)
 
-        return macro * prompt_similarity + (1 - macro) * detail_similarity
+        similarity = macro * prompt_similarity + (1 - macro) * detail_similarity
+
+        # Anti-similarity (if spec'd)
+        anti_similiarity = 0
+        if self.anti_prompts is not None:
+            anti_similarity = 1.0 - self.get_similarity(
+                micro_batch, self.anti_prompts, batch_size=batch_size
+            )
+            return 0.5 * (similarity + anti_similarity)
+
+        return similarity
