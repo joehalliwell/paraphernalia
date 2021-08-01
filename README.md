@@ -56,6 +56,8 @@ For developers: `poetry install`
 - Add BigGAN generators
 - Fix crash when running tests on CPU
 - Add soft_permutation()
+- Work with target not latent space dims
+- Factor our perceptual modes
 
 ### project
 
