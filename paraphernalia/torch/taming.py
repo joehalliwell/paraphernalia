@@ -85,6 +85,9 @@ class Taming(Generator):
         # Disable training, ship to target device
         model.eval()
         model.to(self.device)
+        # Freeze model weights
+        for p in model.parameters():
+            p.requires_grad = False
         self.model = model
 
         # Initialize z
