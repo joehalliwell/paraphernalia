@@ -59,7 +59,6 @@ def overtile(
     Returns:
         List[Tensor]: A list of image batches of size ``tile_size`` covering img
     """
-
     b, c, h, w = img.shape
 
     if isinstance(tile_size, int):

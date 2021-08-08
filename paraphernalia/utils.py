@@ -41,7 +41,8 @@ def divide(whole: int, part: int, min_overlap: int = 0) -> List[int]:
         List[int]: A list of chunk offset
     """
     if part > whole:
-        raise ValueError(f"Part must be smaller than whole ({part} > {whole})")
+        # raise ValueError(f"Part must be smaller than whole ({part} > {whole})")
+        return []
 
     if min_overlap >= part:
         raise ValueError(
