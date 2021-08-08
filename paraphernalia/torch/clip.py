@@ -193,7 +193,7 @@ class CLIP(torch.nn.Module):
                 # T.RandomPerspective(distortion_scale=0.05, p=0.5),
                 T.RandomResizedCrop(
                     size=self._WINDOW_SIZE,
-                    scale=(1.0 * ratio, 0.8),
+                    scale=(1.0 * ratio, max(0.8, 1.0 * ratio)),
                     ratio=(1.0, 1.0),
                 ),
                 T.RandomHorizontalFlip(p=0.5),
