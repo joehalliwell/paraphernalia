@@ -34,10 +34,7 @@ For developers: `poetry install`
 
 ### General
 
-- Tests
-- Documentation
-- Judicious type hints
-- Helper for filenames/paths/projects
+- Enable tests to be run on CPU (despite high RAM/GPU req)
 
 ### glsl
 
@@ -51,13 +48,19 @@ For developers: `poetry install`
 
 ### torch
 
-- CLIP: Adaptive focus
-- Support batch restart properly
 - Add BigGAN generators
-- Fix crash when running tests on CPU
 - Add soft_permutation()
+- Fix crash when running tests on CPU
 - Work with target not latent space dims
+- Support batch restart properly
+- Add ZX Spectrum style generator
+- Add tile atlas generator
+
+#### clip
+
+- Adaptive focus
 - Factor our perceptual modes
+- Perceptual masking for CLIP
 
 ### project
 
