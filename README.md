@@ -46,8 +46,14 @@ For developers: `poetry install`
 
 - Detect if running in Colaboratory and adjust accordingly
 
+### project
+
+- Easy organization of project resources (inputs/outputs/checkpoints)
+- Support for Colaboratory
+
 ### torch
 
+- Add noise generators (esp simplex and fractal)
 - Add BigGAN generators
 - Add soft_permutation()
 - Fix crash when running tests on CPU
@@ -61,8 +67,3 @@ For developers: `poetry install`
 - Adaptive focus
 - Factor our perceptual modes
 - Perceptual masking for CLIP
-
-### project
-
-- Easy organization of project resources (inputs/outputs/checkpoints)
-- Support for Colaboratory
