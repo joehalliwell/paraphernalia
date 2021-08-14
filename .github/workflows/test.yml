@@ -56,5 +56,5 @@ jobs:
       - name: Run tests
         run: |
           source .venv/bin/activate
-          pytest tests/
+          coverage run --source paraphernalia -m pytest
           coverage report

@@ -51,6 +51,7 @@ ipykernel = "^5.5.5"
 pre-commit = "^2.13.0"
 Sphinx = "^4.0.2"
 sphinx-rtd-theme = "^0.5.2"
+coverage = "^5.5"
 
 [tool.poetry.extras]
 openai = ["regex", "ftfy", "clip", "dall-e"]
