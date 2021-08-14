@@ -1,3 +1,14 @@
+from typing import Optional, Union
+
+import PIL
+import torch
+import torchvision
+import torchvision.transforms as T
+
+from paraphernalia.torch import clamp_with_grad
+from paraphernalia.torch.generator import Generator
+
+
 class Direct(Generator):
     """
     A direct generator i.e. a directly trainable RGB tensor.

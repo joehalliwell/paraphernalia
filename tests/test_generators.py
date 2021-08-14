@@ -1,0 +1,29 @@
+from PIL.Image import Image
+
+from paraphernalia.torch.dall_e import DALL_E
+from paraphernalia.torch.direct import Direct, DirectPalette
+from paraphernalia.torch.siren import Siren
+
+
+def test_init():
+    generator = DALL_E(latent=1)
+    img = generator.generate_image()
+    assert isinstance(img, Image)
+
+
+def test_siren():
+    generator = Siren()
+    img = generator.generate_image()
+    assert isinstance(img, Image)
+
+
+def test_direct():
+    generator = Direct()
+    img = generator.generate_image()
+    assert isinstance(img, Image)
+
+
+def test_direct_palette():
+    generator = DirectPalette()
+    img = generator.generate_image()
+    assert isinstance(img, Image)

@@ -26,7 +26,7 @@ class Siren(Generator):
 
     def __init__(
         self,
-        size: int,
+        size: int = 512,
         omega: Optional[float] = 5.0,
         features: Optional[int] = 64,
         hidden_layers: Optional[int] = 8,
