@@ -36,8 +36,6 @@ For developers: `poetry install`
 
 ### General
 
-- Enable tests to be run on CPU (despite high RAM/GPU req)
-
 ### glsl
 
 - Support all/more Book of Shaders uniforms
@@ -58,9 +56,7 @@ For developers: `poetry install`
 - Add noise generators (esp simplex and fractal)
 - Add BigGAN generators
 - Add soft_permutation()
-- Fix crash when running tests on CPU
 - Work with target not latent space dims
-- Support batch restart properly
 - Add ZX Spectrum style generator
 - Add tile atlas generator
 
