@@ -1,5 +1,3 @@
-import PIL
-import pkg_resources
 import torch
 import torchvision.transforms as T
 
@@ -14,21 +12,20 @@ def test_basic():
         assert clip.detail_prompts.shape == (1, 512)
 
 
-def test_studio():
+def test_studio(studio):
     with torch.no_grad():
-        img = PIL.Image.open(pkg_resources.resource_filename(__name__, "studio.jpg"))
-        img = T.functional.resize(img, 256)
-        img = T.functional.to_tensor(img)
-        img = img.unsqueeze(0)
+        studio = T.functional.resize(studio, 256)
+        studio = T.functional.to_tensor(studio)
+        studio = studio.unsqueeze(0)
         clip = CLIP("an artists studio")
 
-        similarity1 = clip.forward(img).detach()
+        similarity1 = clip.forward(studio).detach()
         assert similarity1.shape == (1,)
         assert similarity1[0] > 0.0
         assert similarity1[0] < 1.0
 
         clip = CLIP("a cute kitten playing on the grass")
-        similarity2 = clip.forward(img).detach()
+        similarity2 = clip.forward(studio).detach()
         assert similarity2.shape == (1,)
         assert similarity2[0] < 1.0
         assert similarity2[0] > 0.0
@@ -37,12 +34,13 @@ def test_studio():
 
 
 @require_cuda
-def test_grads():
-    img = PIL.Image.open(pkg_resources.resource_filename(__name__, "studio.jpg"))
-    img = T.functional.resize(img, 777)  # The model is supposed to handle any size
-    img = T.functional.to_tensor(img)
-    img = img.unsqueeze(0)
+def test_grads(studio):
+    studio = T.functional.resize(
+        studio, 777
+    )  # The model is supposed to handle any size
+    studio = T.functional.to_tensor(studio)
+    studio = studio.unsqueeze(0)
     clip = CLIP("an artists studio")
     clip.encoder.requires_grad_(True)
-    similarity = clip.forward(img)
+    similarity = clip.forward(studio)
     similarity.backward()
