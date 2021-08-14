@@ -1,9 +1,12 @@
 import math
+import warnings
+from logging import warning
 from typing import Optional, Union
 
 import torch
 import torch.nn as nn
 import torchvision.transforms as T
+from PIL.Image import Image
 from torch import Tensor
 from torchvision.utils import make_grid
 
@@ -26,12 +29,16 @@ class Siren(Generator):
 
     def __init__(
         self,
+        start: Optional[Image] = None,
         size: int = 512,
         omega: Optional[float] = 5.0,
         features: Optional[int] = 64,
         hidden_layers: Optional[int] = 8,
         device: Optional[Union[str, torch.device]] = None,
     ):
+        if start is not None:
+            warnings.warn("Initial image is not supported")
+
         super(Siren, self).__init__(device)
 
         self.size = size
