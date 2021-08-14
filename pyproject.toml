@@ -56,7 +56,6 @@ sphinx-rtd-theme = "^0.5.2"
 openai = ["regex", "ftfy", "clip", "dall-e"]
 taming = ["taming-transformers", "omegaconf", "pytorch-lightning"]
 tools = ["perlin-numpy"]
-all = ["openai", "taming", "tools"]
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
