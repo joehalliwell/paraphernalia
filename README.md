@@ -1,5 +1,7 @@
 # Paraphernalia
 
+![tests](https://github.com/joehalliwell/paraphernalia/actions/workflows/test.yml/badge.svg)
+
 An assortment of tools for making digital art from Joe Halliwell
 (@joehalliwell).
 
