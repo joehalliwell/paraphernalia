@@ -4,6 +4,7 @@ import torch
 import torchvision.transforms as T
 
 from paraphernalia.torch.clip import CLIP
+from tests import require_cuda
 
 
 def test_basic():
@@ -35,6 +36,7 @@ def test_studio():
         assert similarity1[0] > similarity2[0]
 
 
+@require_cuda
 def test_grads():
     img = PIL.Image.open(pkg_resources.resource_filename(__name__, "studio.jpg"))
     img = T.functional.resize(img, 777)  # The model is supposed to handle any size
