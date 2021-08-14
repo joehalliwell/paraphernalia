@@ -1,8 +1,8 @@
 from typing import Optional, Union
 
+import numpy as np
 import PIL
 import torch
-import torchvision
 import torchvision.transforms as T
 
 from paraphernalia.torch import clamp_with_grad
