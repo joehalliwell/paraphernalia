@@ -65,7 +65,7 @@ class DALL_E(Generator):
                 raise ValueError("If providing z, don't provide start image")
             if len(z.shape) == 3:
                 z = z.unsqueeze(0)
-            if len(z.shape) is not 4:
+            if len(z.shape) != 4:
                 raise ValueError("z must be rank 4 (b, c, h, w)")
             z = torch.nn.functional.interpolate(z, size=(latent, latent))
             # TODO: Handle batch size
