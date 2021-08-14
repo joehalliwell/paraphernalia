@@ -12,9 +12,9 @@ def test_cache_home():
     cache_home(cache)
 
 
-def test_upscale():
-    studio = Image.open(pkg_resources.resource_filename(__name__, "studio.jpg"))
-    studio_x2 = opencv_to_pil(upsample(pil_to_opencv(studio), scale=2))
-    studio_x2.save("/tmp/test.jpg")
-    assert studio_x2.size[0] == 2 * studio.size[0]
-    assert studio_x2.size[1] == 2 * studio.size[1]
+# def test_upscale():
+#     studio = Image.open(pkg_resources.resource_filename(__name__, "studio.jpg"))
+#     studio_x2 = opencv_to_pil(upsample(pil_to_opencv(studio), scale=2))
+#     studio_x2.save("/tmp/test.jpg")
+#     assert studio_x2.size[0] == 2 * studio.size[0]
+#     assert studio_x2.size[1] == 2 * studio.size[1]
