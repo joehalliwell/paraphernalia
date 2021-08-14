@@ -51,7 +51,12 @@ class DirectPalette(Generator):
         colors=[(0.1, 0.1, 0.1), (0.6, 0.1, 0.1), (1.0, 0.1, 0.1), (0.9, 0.9, 0.9)],
         device: Optional[Union[str, torch.device]] = None,
     ):
+
+        if len(colors) > 256:
+            raise ValueError("Palette must be <=256 colours")
+
         super().__init__(device)
+
         self.tau = 1.0
         self.hard = True
         self.size = (size * 16, size * 16)  # HACK
@@ -88,11 +93,11 @@ class DirectPalette(Generator):
         # img = torch.unsqueeze(T.functional.to_tensor(img), 0)
 
         palette = PIL.Image.new("P", (1, 1))
+        num_colors = len(self.colors)
         padded_colors = self.colors.cpu().numpy() * 255
-        padded_colors = np.pad(padded_colors, [(0, 256 - len(colors)), (0, 0)], "wrap")
+        padded_colors = np.pad(padded_colors, [(0, 256 - num_colors), (0, 0)], "wrap")
         palette.putpalette(list(padded_colors.reshape(-1).astype("int")))
-        quantized = img.quantize(colors=len(colors), palette=palette)
-        z = torch.Tensor(np.mod(np.asarray(quantized), len(colors)))
+        quantized = img.quantize(colors=num_colors, palette=palette)
+        z = torch.Tensor(np.mod(np.asarray(quantized), num_colors))
         z = z.long().unsqueeze(0)
-
         return z
