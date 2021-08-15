@@ -1,6 +1,7 @@
 import logging
 import math
 import os
+import re
 import subprocess
 import urllib.request
 from pathlib import Path
@@ -114,6 +115,20 @@ def data_home(data_home: str = None) -> Path:
 
 _DATA_HOME = None
 data_home(xdg.xdg_data_home() / "paraphernalia")
+
+
+_FORBIDDEN = re.compile("[^a-z0-9 ]+")
+_SPACE = re.compile("\s+")
+
+
+def slugify(*bits):
+    """
+    Make a lower-case alphanumeric representation of the arguments by stripping
+    other characters and replacing spaces with hyphens.
+    """
+    return "_".join(
+        _SPACE.sub("-", _FORBIDDEN.sub("", str(bit).lower())) for bit in bits
+    )
 
 
 def download(url, target=None, overwrite=False):
