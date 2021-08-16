@@ -62,6 +62,7 @@ For developers: `poetry install`
 
 #### clip
 
+- Is anti-prompt logic actually working?
 - Adaptive focus
 - Factor our perceptual modes
 - Perceptual masking for CLIP
