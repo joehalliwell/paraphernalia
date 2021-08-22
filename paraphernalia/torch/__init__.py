@@ -1,5 +1,5 @@
 import gc as _gc
-from typing import List, Optional, Tuple, Union
+from typing import List, Optional, Sequence, Tuple, Union
 
 import torch
 import torchvision.transforms as T
@@ -9,20 +9,21 @@ from torchvision.utils import make_grid
 from paraphernalia.utils import divide
 
 
-def grid(steps: int, dimensions: Optional[int] = 2) -> Tensor:
+def grid(*steps: int) -> Tensor:
     """
-    TODO: Rename
     Generate a tensor of co-ordinates in the origin-centred hypercube of the
     specified dimension.
 
     Args:
         steps: Number of steps per side
-        dimensions: The dimensionality of the hypercube. Defaults to 2.
 
     Returns:
-        A (rank ``dimensions + 1``) tensor of the coordinates
+        A (rank ``len(steps) + 1``) tensor of the coordinates. THe co-ordinates
+        themselves are in dimension -1.
     """
-    axes = [torch.linspace(-1, 1, steps) for _ in range(dimensions)]
+    if isinstance(steps, int):
+        steps = (steps,)
+    axes = [torch.linspace(-1, 1, s) for s in steps]
     grid = torch.stack(torch.meshgrid(*axes), dim=-1)
     return grid
 

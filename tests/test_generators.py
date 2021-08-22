@@ -13,8 +13,10 @@ def generator(request):
 
 
 def test_init(generator):
-    img = generator().generate_image()
+    img = generator(size=(16, 32)).generate_image()
     assert isinstance(img, Image)
+    assert img.width == 16
+    assert img.height == 32
 
 
 def test_sketch(generator, studio):

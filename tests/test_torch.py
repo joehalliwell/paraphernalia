@@ -10,12 +10,14 @@ def test_grid():
     assert t.shape == (2, 2, 2)
     assert torch.equal(t, Tensor([[[-1, -1], [-1, 1]], [[1, -1], [1, 1]]]))
     print(t)
-    t = grid(4, 2)
-    assert t.shape == (4, 4, 2)
+    t = grid(4, 4, 4)
+    assert t.shape == (4, 4, 4, 3)
+    t = grid(4, 4, 4, 4)
+    assert t.shape == (4, 4, 4, 4, 4)
 
 
 def test_overtile():
-    batch = grid(4, 2).permute(2, 0, 1).unsqueeze(0)
+    batch = grid(4, 4).permute(2, 0, 1).unsqueeze(0)
     assert batch.shape == (1, 2, 4, 4)
 
     # No overlap -- just a regular chessboard tiling
@@ -40,7 +42,7 @@ def test_overtile():
 
 
 def test_overtile_unusual_ratio():
-    batch = grid(512, 2).permute(2, 0, 1).unsqueeze(0)
+    batch = grid(512, 512).permute(2, 0, 1).unsqueeze(0)
     assert batch.shape == (1, 2, 512, 512)
 
     tiles = overtile(batch, tile_size=224, overlap=0.1)
@@ -48,7 +50,7 @@ def test_overtile_unusual_ratio():
 
 
 def test_overtile_large_tile():
-    batch = grid(512, 2).permute(2, 0, 1).unsqueeze(0)
+    batch = grid(512, 512).permute(2, 0, 1).unsqueeze(0)
     assert batch.shape == (1, 2, 512, 512)
 
     tiles = overtile(batch, tile_size=511)

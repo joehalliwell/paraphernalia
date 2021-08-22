@@ -291,11 +291,12 @@ class CLIP(torch.nn.Module):
         similarity = macro * prompt_similarity + (1 - macro) * detail_similarity
 
         # Anti-similarity (if spec'd)
-        anti_similiarity = 0
+        anti_similarity = 1.0
         if self.anti_prompts is not None:
             anti_similarity = 1.0 - self.get_similarity(
                 micro_batch, self.anti_prompts, batch_size=batch_size, match="any"
             )
-            return 0.5 * (similarity + anti_similarity)
+            return similarity * anti_similarity
+            # return 0.5 * (similarity + anti_similarity)
 
         return similarity

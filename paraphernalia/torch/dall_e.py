@@ -33,25 +33,14 @@ class DALL_E(Generator):
     """
 
     _NUM_CLASSES = 8192
+    _SCALE = 8
 
     def __init__(
-        self,
-        tau: Optional[float] = 1.0,
-        z=None,
-        start=None,
-        batch_size=1,
-        latent=64,
-        hard=False,
-        device=None,
+        self, tau: Optional[float] = 1.0, z=None, hard=False, start=None, **kwargs
     ):
-        super(DALL_E, self).__init__(device)
-
-        if batch_size < 1:
-            raise ValueError("batch_size must be >0")
+        super().__init__(quantize=self._SCALE, **kwargs)
 
         self.tau = tau
-        self.batch_size = batch_size
-        self.latent = latent
         self.hard = hard
 
         self.decoder = dall_e.load_model(
@@ -67,7 +56,9 @@ class DALL_E(Generator):
                 z = z.unsqueeze(0)
             if len(z.shape) != 4:
                 raise ValueError("z must be rank 4 (b, c, h, w)")
-            z = torch.nn.functional.interpolate(z, size=(latent, latent))
+            z = torch.nn.functional.interpolate(
+                z, size=(self.height // self._SCALE, self.width // self._SCALE)
+            )
             # TODO: Handle batch size
             self.z = torch.nn.Parameter(z)
             return
@@ -75,12 +66,19 @@ class DALL_E(Generator):
         # Option 2: A provided PIL or Tensor image
         elif start is not None:
             z = self.encode(start)
-            z = torch.cat([z.detach().clone() for _ in range(batch_size)])
+            z = torch.cat([z.detach().clone() for _ in range(self.batch_size)])
 
         # Option 3: Random noise (this doesn't work very well)
         else:
             # Nice terrazzo style noise
-            z = one_hot_noise((batch_size, self._NUM_CLASSES, latent, latent))
+            z = one_hot_noise(
+                (
+                    self.batch_size,
+                    self._NUM_CLASSES,
+                    self.height // self._SCALE,
+                    self.width // self._SCALE,
+                )
+            )
 
         # Move to device and force to look like one-hot logits
         z = z.to(self.device)
@@ -116,7 +114,7 @@ class DALL_E(Generator):
         Encode an image or tensor.
         """
         if isinstance(img, PIL.Image.Image):
-            img = PIL.ImageOps.pad(img, (self.latent * 8, self.latent * 8))
+            img = PIL.ImageOps.pad(img, (self.width, self.height))
             img = torch.unsqueeze(T.functional.to_tensor(img), 0)
 
         with torch.no_grad():

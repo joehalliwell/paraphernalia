@@ -56,7 +56,6 @@ For developers: `poetry install`
 - Add noise generators (esp simplex and fractal)
 - Add BigGAN generators
 - Add soft_permutation()
-- Work with target not latent space dims
 - Add ZX Spectrum style generator
 - Add tile atlas generator
 

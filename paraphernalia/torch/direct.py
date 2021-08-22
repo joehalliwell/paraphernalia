@@ -14,26 +14,19 @@ class Direct(Generator):
     A direct generator i.e. a directly trainable RGB tensor.
     """
 
-    def __init__(
-        self,
-        size: int = 128,
-        start=None,
-        device: Optional[Union[str, torch.device]] = None,
-    ):
-        super().__init__(device)
+    def __init__(self, start=None, **kwargs):
+        super().__init__(**kwargs)
         if start is not None:
             z = T.functional.to_tensor(start).unsqueeze(0)
-            z = T.functional.resize(z, size=(size, size))
+            z = T.functional.resize(z, size=(self.height, self.width))
             z = (2.0 * z) - 1.0
         else:
-            z = torch.randn((1, 3, size, size))
+            z = torch.randn((self.batch_size, 3, self.height, self.width))
 
         z = z.to(self.device)
         self.z = torch.nn.Parameter(z)
 
     def forward(self):
-        # z = self.z
-        # z = torch.sigmoid(z)
         z = clamp_with_grad(self.z, -1.0, 1.0)
         z = (z + 1.0) / 2.0
         return z
@@ -46,25 +39,21 @@ class DirectPalette(Generator):
 
     def __init__(
         self,
-        size: int = 32,
         start=None,
         colors=[(0.1, 0.1, 0.1), (0.6, 0.1, 0.1), (1.0, 0.1, 0.1), (0.9, 0.9, 0.9)],
-        device: Optional[Union[str, torch.device]] = None,
+        **kwargs
     ):
+
+        super().__init__(**kwargs)
 
         if len(colors) > 256:
             raise ValueError("Palette must be <=256 colours")
-
-        super().__init__(device)
+        self.colors = torch.Tensor(colors).float().to(self.device)
 
         self.tau = 1.0
         self.hard = True
-        self.size = (size * 16, size * 16)  # HACK
-        self.colors = torch.Tensor(colors).float().to(self.device)
-        # z = one_hot_noise((1, len(colors), size, size)).float()
-        # Create a one-hot representation of the first palette index
 
-        z = torch.full((1, size, size), 0)
+        z = torch.full((1, self.height, self.width), 0)
         if start:
             z = self.encode(start)
 
@@ -72,7 +61,6 @@ class DirectPalette(Generator):
         z = z.permute(0, 3, 1, 2)
         z = torch.log(z + 0.001 / len(colors))
         z = z.to(self.device)
-        print(z.shape)
         self.z = torch.nn.Parameter(z)
 
     def forward(self, tau=None, hard=None):
@@ -89,8 +77,7 @@ class DirectPalette(Generator):
         Encode an image or tensor.
         """
 
-        img = PIL.ImageOps.pad(img, (self.size))
-        # img = torch.unsqueeze(T.functional.to_tensor(img), 0)
+        img = PIL.ImageOps.pad(img, (self.width, self.height))
 
         palette = PIL.Image.new("P", (1, 1))
         num_colors = len(self.colors)

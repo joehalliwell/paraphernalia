@@ -29,23 +29,21 @@ class Siren(Generator):
 
     def __init__(
         self,
-        start: Optional[Image] = None,
-        size: int = 512,
         omega: Optional[float] = 5.0,
         features: Optional[int] = 64,
         hidden_layers: Optional[int] = 8,
-        device: Optional[Union[str, torch.device]] = None,
+        start: Optional[Image] = None,
+        **kwargs
     ):
         if start is not None:
             warnings.warn("Initial image is not supported")
 
-        super(Siren, self).__init__(device)
+        super().__init__(**kwargs)
 
-        self.size = size
         self.omega = omega
         self.dimensions = 2
         self.grid = (
-            grid(self.size, dimensions=self.dimensions)
+            grid(self.height, self.width)
             .detach()
             .view(-1, self.dimensions)
             .to(self.device)
@@ -85,12 +83,12 @@ class Siren(Generator):
         """
         if size is None:
             size = self.size
-        h, w, c = size, size, 3
+        h, w, c = self.height, self.width, 3
         if size == self.size:
             x = self.grid
         else:
             x = (
-                grid(size, dimensions=self.dimensions)
+                grid(self.height, self.width)
                 .detach()
                 .view(-1, self.dimensions)
                 .to(self.device)
@@ -101,5 +99,5 @@ class Siren(Generator):
                 x = torch.sigmoid(x)
             else:
                 x = torch.sin(self.omega * x)
-        x = x.view((1, h, w, c)).permute(0, 3, 1, 2)
-        return x
+        img = x.view((1, h, w, c)).permute(0, 3, 1, 2)
+        return img

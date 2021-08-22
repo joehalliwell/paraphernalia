@@ -50,17 +50,10 @@ VQGAN_IMAGENET_F16_16384 = TamingModel(
 
 class Taming(Generator):
     def __init__(
-        self,
-        model_spec: TamingModel = VQGAN_IMAGENET_F16_16384,
-        start=None,
-        batch_size=1,
-        latent=32,
-        device=None,
+        self, model_spec: TamingModel = VQGAN_IMAGENET_F16_16384, start=None, **kwargs
     ):
-        super().__init__(device=device)
+        super().__init__(quantize=model_spec.scale, **kwargs)
 
-        self.batch_size = batch_size
-        self.latent = latent
         self.channels = 256  # Always?
         self.model_spec = model_spec
 
@@ -68,7 +61,7 @@ class Taming(Generator):
         config = OmegaConf.load(
             download(model_spec.config_url, cache_home() / f"{model_spec.name}.yaml")
         )
-        print(config)
+        # print(config)
         checkpoint = download(
             model_spec.checkpoint_url, cache_home() / f"{model_spec.name}.ckpt"
         )
@@ -92,7 +85,14 @@ class Taming(Generator):
 
         # Initialize z
         if start is None:
-            z = torch.rand((batch_size, self.channels, latent, latent))
+            z = torch.rand(
+                (
+                    self.batch_size,
+                    self.channels,
+                    self.height // model_spec.scale,
+                    self.width // model_spec.scale,
+                )
+            )
         else:
             z = self.encode(start)
 
@@ -129,8 +129,8 @@ class Taming(Generator):
             img = PIL.ImageOps.pad(
                 img,
                 (
-                    self.latent * self.model_spec.scale,
-                    self.latent * self.model_spec.scale,
+                    self.width,
+                    self.height,
                 ),
             )
             img = torch.unsqueeze(T.functional.to_tensor(img), 0)
