@@ -23,7 +23,9 @@ jobs:
         with:
           python-version: 3.9
       - name: Setup OpenGL
-        run: sudo apt-get install libegl1
+        run: |
+          sudo apt-get update
+          sudo apt-get install libegl1
       #----------------------------------------------
       #  -----  install & configure poetry  -----
       #----------------------------------------------
