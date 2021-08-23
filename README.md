@@ -36,6 +36,8 @@ For developers: `poetry install`
 
 ### General
 
+- Add CLIP/generator sample notebook
+
 ### glsl
 
 - Support all/more Book of Shaders uniforms
@@ -58,6 +60,8 @@ For developers: `poetry install`
 - Add soft_permutation()
 - Add ZX Spectrum style generator
 - Add tile atlas generator
+- Training loop
+- Main entry point for generator+CLIP?
 
 #### clip
 
