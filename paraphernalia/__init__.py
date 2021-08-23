@@ -1,3 +1,5 @@
+import os
+
 # TODO: Shift to poetry-version-plugin, once that's bedded in?
 try:
     import importlib.metadata as importlib_metadata
@@ -39,3 +41,10 @@ def running_in_colab():
     except ImportError:
         return False
     return "google.colab" in str(get_ipython())
+
+
+def running_in_github_action():
+    """
+    True if running as Github Action.
+    """
+    return os.environ.get("GITHUB_ACTIONS", False)
