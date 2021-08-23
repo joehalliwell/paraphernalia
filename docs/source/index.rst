@@ -3,8 +3,15 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to paraphernalia's documentation!
-=========================================
+Paraphernalia
+=============
+
+Paraphernalia is an assortment of tools for making digital art from
+`@joehalliwell <http://twitter.com/joehalliwell>`_.
+
+This is an incubator for immature scripts/modules with an absolute holy hell of
+dependencies. Mature scripts/modules will likely be packaged more carefully and
+live elsewhere.
 
 .. toctree::
    :maxdepth: 4
