@@ -15,7 +15,7 @@ from tests import skipif_github_action
         Direct,
         DirectPalette,
         Siren,
-        pytest.param(Taming, marks=skipif_github_action),
+        Taming,
     ],
 )
 def generator(request):
