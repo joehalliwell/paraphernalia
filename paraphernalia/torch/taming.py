@@ -45,8 +45,8 @@ VQGAN_GUMBEL_F8 = TamingModel(
 
 VQGAN_IMAGENET_F16_16384 = TamingModel(
     "vqgan_imagenet_f16_16384",
-    "http://mirror.io.community/blob/vqgan/vqgan_imagenet_f16_16384.yaml",  # ImageNet 16384
-    "http://mirror.io.community/blob/vqgan/vqgan_imagenet_f16_16384.ckpt",  # ImageNet 16384
+    "https://heibox.uni-heidelberg.de/d/a7530b09fed84f80a887/files/?p=%2Fconfigs%2Fmodel.yaml&dl=1",
+    "https://heibox.uni-heidelberg.de/d/a7530b09fed84f80a887/files/?p=%2Fckpts%2Flast.ckpt&dl=1",
     False,
     16,
 )
