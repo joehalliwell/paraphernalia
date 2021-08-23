@@ -2,7 +2,7 @@ import torch
 import torchvision.transforms as T
 
 from paraphernalia.torch.clip import CLIP
-from tests import require_cuda
+from tests import skipif_no_cuda
 
 
 def test_basic():
@@ -33,7 +33,7 @@ def test_studio(studio):
         assert similarity1[0] > similarity2[0]
 
 
-@require_cuda
+@skipif_no_cuda
 def test_grads(studio):
     studio = T.functional.resize(
         studio, 777

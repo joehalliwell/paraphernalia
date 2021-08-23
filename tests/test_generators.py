@@ -5,9 +5,19 @@ from paraphernalia.torch.dall_e import DALL_E
 from paraphernalia.torch.direct import Direct, DirectPalette
 from paraphernalia.torch.siren import Siren
 from paraphernalia.torch.taming import Taming
+from tests import skipif_github_action
 
 
-@pytest.fixture(scope="module", params=[DALL_E, Direct, DirectPalette, Siren, Taming])
+@pytest.fixture(
+    scope="module",
+    params=[
+        DALL_E,
+        Direct,
+        DirectPalette,
+        Siren,
+        pytest.param(Taming, marks=skipif_github_action),
+    ],
+)
 def generator(request):
     return request.param
 
