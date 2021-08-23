@@ -122,8 +122,8 @@ _DATA_HOME = None
 data_home(xdg.xdg_data_home() / "paraphernalia")
 
 
-_FORBIDDEN = re.compile("[^a-z0-9 ]+")
-_SPACE = re.compile("\s+")
+_FORBIDDEN = re.compile(r"[^a-z0-9 ]+")
+_SPACE = re.compile(r"\s+")
 
 
 def slugify(*bits):
@@ -181,5 +181,10 @@ def _download(url, target):
                 self.total = tsize
             self.update(b * bsize - self.n)
 
-    with _DownloadProgressBar(unit="B", unit_scale=True, miniters=1, desc=desc) as t:
-        urllib.request.urlretrieve(url, filename=target, reporthook=t.update_to)
+    try:
+        with _DownloadProgressBar(
+            unit="B", unit_scale=True, miniters=1, desc=desc
+        ) as t:
+            urllib.request.urlretrieve(url, filename=target, reporthook=t.update_to)
+    except Exception as exc:
+        raise Exception(f"Failed to download {url}") from exc

@@ -26,3 +26,9 @@ def test_cache_home():
 )
 def test_slugify(args, expected):
     assert slugify(*args) == expected
+
+
+def test_download_404():
+    with pytest.raises(Exception) as excinfo:
+        download("http://badurl.xyzzy/goo")
+    assert "badurl" in excinfo.exconly()
