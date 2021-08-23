@@ -11,7 +11,7 @@ from paraphernalia.torch import clamp_with_grad, one_hot_noise
 
 logger = logging.getLogger(__name__)
 
-SizeType = Union[int, tuple[int, int]]
+SizeType = Union[int, Tuple[int, int]]
 
 
 class Generator(nn.Module, metaclass=ABCMeta):
