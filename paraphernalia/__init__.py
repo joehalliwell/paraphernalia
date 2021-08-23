@@ -34,7 +34,7 @@ def running_in_colab():
     - https://stackoverflow.com/questions/53581278/test-if-notebook-is-running-on-google-colab
 
     Returns:
-        [type]: [description]
+        bool: True if running in Colaboratory
     """
     try:
         from IPython import get_ipython
@@ -46,5 +46,8 @@ def running_in_colab():
 def running_in_github_action():
     """
     True if running as Github Action.
+
+    Returns:
+        bool: True if running in Colaboratory
     """
     return os.environ.get("GITHUB_ACTIONS", False)

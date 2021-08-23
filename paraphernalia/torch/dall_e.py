@@ -93,7 +93,10 @@ class DALL_E(Generator):
 
     def forward(self, z=None, tau=None, hard=None) -> Tensor:
         """
-        Generate a batch of images.
+        Generate a batch of images
+
+        Returns:
+            Tensor: An image batch tensor
         """
         if z is None:
             z = self.z

@@ -27,6 +27,9 @@ class Direct(Generator):
         self.z = torch.nn.Parameter(z)
 
     def forward(self):
+        """
+        Generate a batch of images.
+        """
         z = clamp_with_grad(self.z, -1.0, 1.0)
         z = (z + 1.0) / 2.0
         return z
@@ -64,6 +67,9 @@ class DirectPalette(Generator):
         self.z = torch.nn.Parameter(z)
 
     def forward(self, tau=None, hard=None):
+        """
+        Generate a batch of images.
+        """
         if tau is None:
             tau = self.tau
         if hard is None:

@@ -166,10 +166,23 @@ class CLIP(torch.nn.Module):
         return encoded
 
     def encode_image(self, batch: Tensor) -> Tensor:
+        """
+        Encode an image. Does not detach.
+        """
         batch = self.transform(batch)
         return self.encoder.encode_image(batch)
 
     def get_macro(self, img: Tensor) -> Tensor:
+        """
+        Get a set of high-level views on an image batch.
+
+        Args:
+            img (Tensor): A (b, c, h, w) image batch
+
+        Returns:
+            Tensor: an expanded (b, c, h, w) image batch
+        """
+
         macro_transform = T.Compose(
             [
                 # T.ColorJitter(saturation=0.01, brightness=0.01, hue=0.01),
@@ -185,6 +198,15 @@ class CLIP(torch.nn.Module):
         return regroup([macro_transform(img) for _ in range(n)])
 
     def get_micro(self, img: Tensor) -> Tensor:
+        """
+        Get a set of detailed (near pixel-perfect) views on an image batch.
+
+        Args:
+            img (Tensor): A (b, c, h, w) image batch
+
+        Returns:
+            Tensor: an expanded (b, c, h, w) image batch
+        """
         # Small random pixel-perfect chops to focus on fine details
         ratio = self._WINDOW_SIZE / min(img.shape[2], img.shape[3])
         micro_transform = T.Compose(

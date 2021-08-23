@@ -124,6 +124,9 @@ def cosine_similarity(a, b):
 
 
 def make_palette_grid(colors, size=128):
+    """
+    Create an image of a set of [0,1] RGB colours.
+    """
     swatches = []
     swatches = torch.cat(
         [torch.Tensor(c).view(1, 3, 1, 1).repeat([1, 1, size, size]) for c in colors]
@@ -154,6 +157,10 @@ def one_hot_noise(shape):
 
 
 class ReplaceGrad(torch.autograd.Function):
+    """
+    Replace the standard gradient with another.
+    """
+
     @staticmethod
     def forward(ctx, x_forward, x_backward):
         ctx.shape = x_backward.shape
@@ -168,6 +175,10 @@ replace_grad = ReplaceGrad.apply
 
 
 class ClampWithGrad(torch.autograd.Function):
+    """
+    Clamp an output but pass through gradients.
+    """
+
     @staticmethod
     def forward(ctx, input, min, max):
         ctx.min = min

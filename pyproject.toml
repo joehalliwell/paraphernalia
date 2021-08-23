@@ -52,6 +52,7 @@ pre-commit = "^2.13.0"
 Sphinx = "^4.0.2"
 sphinx-rtd-theme = "^0.5.2"
 coverage = "^5.5"
+interrogate = "^1.4.0"
 
 [tool.poetry.extras]
 openai = ["regex", "ftfy", "clip", "dall-e"]
@@ -65,3 +66,22 @@ build-backend = "poetry.core.masonry.api"
 [tool.poetry.scripts]
 render='paraphernalia.glsl:render'
 preview='paraphernalia.glsl:preview'
+
+[tool.interrogate]
+ignore-init-method = true
+ignore-init-module = false
+ignore-magic = false
+ignore-semiprivate = false
+ignore-private = false
+ignore-property-decorators = false
+ignore-module = false
+ignore-nested-functions = false
+ignore-nested-classes = true
+ignore-setters = false
+fail-under = 50
+exclude = ["setup.py", "docs", "build", "tests"]
+ignore-regex = ["^get$", "^mock_.*", ".*BaseClass.*"]
+verbose = 0
+quiet = false
+whitelist-regex = []
+color = true
