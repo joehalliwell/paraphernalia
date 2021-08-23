@@ -1,3 +1,8 @@
+"""
+Collection of utility functions.
+
+TODO: Move to module init?
+"""
 import logging
 import math
 import os
@@ -131,9 +136,21 @@ def slugify(*bits):
     )
 
 
-def download(url, target=None, overwrite=False):
+def download(url: str, target: Path = None, overwrite: bool = False) -> Path:
     """
     Download ``url`` to local disk and return the Path to which it was written.
+
+    Args:
+        url (str): the URL to fetch.
+        target (Path, optional): The target path. Defaults to None.
+        overwrite (bool, optional): If true, overwrite the target path.
+            Defaults to False.
+
+    Raises:
+        Exception: [description]
+
+    Returns:
+        Path: the file that was written
     """
     if target is None:
         name = urlparse(url).path
@@ -149,13 +166,20 @@ def download(url, target=None, overwrite=False):
 
 
 def _download(url, target):
+    """
+    Helper method used by `download()`
+
+    Args:
+        url ([type]): [description]
+        target ([type]): [description]
+    """
     desc = os.path.basename(target)
-    with DownloadProgressBar(unit="B", unit_scale=True, miniters=1, desc=desc) as t:
+
+    class _DownloadProgressBar(tqdm):
+        def update_to(self, b=1, bsize=1, tsize=None):
+            if tsize is not None:
+                self.total = tsize
+            self.update(b * bsize - self.n)
+
+    with _DownloadProgressBar(unit="B", unit_scale=True, miniters=1, desc=desc) as t:
         urllib.request.urlretrieve(url, filename=target, reporthook=t.update_to)
-
-
-class DownloadProgressBar(tqdm):
-    def update_to(self, b=1, bsize=1, tsize=None):
-        if tsize is not None:
-            self.total = tsize
-        self.update(b * bsize - self.n)

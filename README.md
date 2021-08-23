@@ -55,6 +55,7 @@ For developers: `poetry install`
 
 ### torch
 
+- Fix replace_grad and add tests
 - Add noise generators (esp simplex and fractal)
 - Add BigGAN generators
 - Add soft_permutation()

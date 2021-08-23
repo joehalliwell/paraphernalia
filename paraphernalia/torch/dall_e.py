@@ -1,3 +1,7 @@
+"""
+Image generator based on OpenAI's release of the discrete VAE component
+of DALL-E.
+"""
 from typing import Optional, Union
 
 import dall_e

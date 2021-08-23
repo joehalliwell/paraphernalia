@@ -24,6 +24,10 @@ from paraphernalia.utils import cache_home, download
 
 @dataclass
 class TamingModel:
+    """
+    Specification for a published Taming Transformers model.
+    """
+
     name: str
     config_url: str
     checkpoint_url: str
@@ -49,9 +53,22 @@ VQGAN_IMAGENET_F16_16384 = TamingModel(
 
 
 class Taming(Generator):
+    """
+    Image generator based on a Taming Transfomers model.
+
+    See https://github.com/CompVis/taming-transformers
+    """
+
     def __init__(
         self, model_spec: TamingModel = VQGAN_IMAGENET_F16_16384, start=None, **kwargs
     ):
+        """
+        Image generator based on a Taming Transformers model.
+
+        Args:
+            model_spec (TamingModel, optional): Defaults to VQGAN_IMAGENET_F16_16384.
+            start ([type], optional): Defaults to None.
+        """
         super().__init__(quantize=model_spec.scale, **kwargs)
 
         self.channels = 256  # Always?

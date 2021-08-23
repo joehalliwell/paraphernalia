@@ -1,6 +1,8 @@
+"""
+Tools for rendering fragment shaders to screen/video.
+"""
 import logging
 import sys
-import traceback
 from pathlib import Path
 from time import time
 
@@ -21,9 +23,16 @@ logger.setLevel(logging.INFO)
 
 
 class FakeUniform:
+    """
+    Used to provide a uniform, where a shader doesn't have one. Has no effect.
+    """
+
     value = None
 
 
+"""
+Vertex shader used for all rendering.
+"""
 VERTEX_SHADER = """
     #version 330
     in vec2 vx;
@@ -37,12 +46,23 @@ VERTEX_SHADER = """
 
 
 class Renderer:
-    def __init__(self, ctx, fragment_shader, resolution=(100, 100), duration=0) -> None:
-        """
-        Core logic for rendering fragment shaders, shared across
-        render and preview functions.
-        """
+    """
+    Core logic for rendering fragment shaders, shared across
+    render and preview functions.
+    """
 
+    def __init__(
+        self, ctx, fragment_shader: str, resolution=(100, 100), duration=0
+    ) -> None:
+        """
+        Initializer.
+
+        Args:
+            ctx ([type]): Context provided by ModernGL
+            fragment_shader (str): A fragment shader
+            resolution (tuple, optional): [description]. Defaults to (100, 100).
+            duration (int, optional): [description]. Defaults to 0.
+        """
         self.ctx = ctx
         self.prog = ctx.program(
             vertex_shader=VERTEX_SHADER, fragment_shader=fragment_shader
@@ -99,6 +119,9 @@ class Renderer:
 )
 @click.option("--scale", type=float, default=1.0, help="TODO", show_default=True)
 def preview(fragment_shader, width, height, duration, speed, watch, scale):
+    """
+    Show a fragment shader in a window.
+    """
     loop = duration > 0
 
     fragment_shader = Path(fragment_shader)
@@ -157,9 +180,11 @@ def preview(fragment_shader, width, height, duration, speed, watch, scale):
 @click.option("--duration", type=float, default=30.0)
 @click.option("--quality", type=int, default=5)
 def render(fragment_shader, width, height, fps, duration, quality):
+    """
+    Render a fragment shader to an MP4 file.
+    """
 
     # TODO: Detect version and adapt
-
     # EGL
     ctx = moderngl.create_context(
         standalone=True, backend="egl", libgl="libGL.so.1", libegl="libEGL.so.1"

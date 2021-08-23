@@ -1,3 +1,6 @@
+"""
+Tools for working with OpenAI's CLIP.
+"""
 import logging
 from typing import List, Optional, Set, Tuple, Union
 

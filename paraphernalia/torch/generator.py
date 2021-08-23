@@ -1,3 +1,6 @@
+"""
+Base class and utility types for image generators.
+"""
 import logging
 from abc import ABCMeta
 from typing import Optional, Tuple, Union
@@ -5,6 +8,7 @@ from typing import Optional, Tuple, Union
 import torch
 import torch.nn as nn
 import torchvision.transforms as T
+from PIL.Image import Image
 from torchvision.utils import make_grid
 
 from paraphernalia.torch import clamp_with_grad, one_hot_noise
@@ -15,6 +19,10 @@ SizeType = Union[int, Tuple[int, int]]
 
 
 class Generator(nn.Module, metaclass=ABCMeta):
+    """
+    Base class for image generators.
+    """
+
     def __init__(
         self,
         batch_size: int = 1,
@@ -54,20 +62,31 @@ class Generator(nn.Module, metaclass=ABCMeta):
         self.device = torch.device(device)
 
     @property
-    def width(self):
+    def width(self) -> int:
+        """
+        Returns:
+            int: The width of the generated image
+        """
         return self.size[0]
 
     @property
-    def height(self):
+    def height(self) -> int:
+        """
+        Returns:
+            int: The height of the generated image
+        """
         return self.size[1]
 
-    def generate_image(self, index: Optional[int] = None, **kwargs):
+    def generate_image(self, index: Optional[int] = None, **kwargs) -> Image:
         """
         Convenience to generate a single PIL image (which may be a grid of
         images if `batch_size` > 1) within a `no_grad()` block.
 
         Args:
             index (int): Specify which image of a batch to generate
+
+        Returns:
+            Image: A generated image
         """
         with torch.no_grad():
             batch = self.forward(**kwargs)

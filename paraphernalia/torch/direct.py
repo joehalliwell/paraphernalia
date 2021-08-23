@@ -1,3 +1,7 @@
+"""
+A collection of "direct" image generators i.e. generators that are not effectively decoders.
+"""
+
 from typing import Optional, Union
 
 import numpy as np

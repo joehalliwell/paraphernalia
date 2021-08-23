@@ -1,3 +1,10 @@
+"""
+Generate images using a network with `sin` activation functions.
+
+See https://vsitzmann.github.io/siren/
+"""
+
+
 import math
 import warnings
 from logging import warning
@@ -15,7 +22,7 @@ from paraphernalia.torch.generator import Generator
 
 
 class Siren(Generator):
-    """See https://vsitzmann.github.io/siren/
+    """Siren image generator.
 
     Args:
         size: Target size (square for now)

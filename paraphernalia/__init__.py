@@ -1,3 +1,6 @@
+"""
+Paraphernalia is a collection of tools for making digital art.
+"""
 import os
 
 # TODO: Shift to poetry-version-plugin, once that's bedded in?
@@ -10,6 +13,9 @@ __version__ = importlib_metadata.version(__name__)
 
 
 def setup():
+    """
+    Setup the library. Not really useful or used currently.
+    """
     # Logging
     # Check CUDA and GPU -- maybe upgrade CUDA?
     # Default project?
@@ -18,6 +24,9 @@ def setup():
 
 
 def setup_colab():
+    """
+    Standard setup for Colaboratory.
+    """
     from google.colab import drive
 
     from paraphernalia.utils import data_home
