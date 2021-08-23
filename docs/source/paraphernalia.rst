@@ -1,6 +1,11 @@
 paraphernalia package
 =====================
 
+.. automodule:: paraphernalia
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Subpackages
 -----------
 
@@ -32,14 +37,6 @@ paraphernalia.utils module
 --------------------------
 
 .. automodule:: paraphernalia.utils
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Module contents
----------------
-
-.. automodule:: paraphernalia
    :members:
    :undoc-members:
    :show-inheritance:

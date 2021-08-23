@@ -1,6 +1,11 @@
 paraphernalia.torch package
 ===========================
 
+.. automodule:: paraphernalia.torch
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Submodules
 ----------
 
@@ -16,6 +21,14 @@ paraphernalia.torch.dall\_e module
 ----------------------------------
 
 .. automodule:: paraphernalia.torch.dall_e
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+paraphernalia.torch.direct module
+---------------------------------
+
+.. automodule:: paraphernalia.torch.direct
    :members:
    :undoc-members:
    :show-inheritance:
@@ -36,10 +49,10 @@ paraphernalia.torch.siren module
    :undoc-members:
    :show-inheritance:
 
-Module contents
----------------
+paraphernalia.torch.taming module
+---------------------------------
 
-.. automodule:: paraphernalia.torch
+.. automodule:: paraphernalia.torch.taming
    :members:
    :undoc-members:
    :show-inheritance:
