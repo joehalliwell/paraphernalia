@@ -1,5 +1,5 @@
 """
-Utilies for working with PyTorch
+Utilities for working with PyTorch
 """
 
 import gc as _gc
@@ -19,10 +19,10 @@ def grid(*steps: int) -> Tensor:
     specified dimension.
 
     Args:
-        steps: Number of steps per side
+        *steps: number of steps per dimension
 
     Returns:
-        A (rank ``len(steps) + 1``) tensor of the coordinates. THe co-ordinates
+        A (rank ``len(steps) + 1``) tensor of the coordinates. The co-ordinates
         themselves are in dimension -1.
     """
     if isinstance(steps, int):
@@ -34,8 +34,8 @@ def grid(*steps: int) -> Tensor:
 
 def tile(img: Tensor, size: int) -> Tensor:
     """
-    TODO: Remove
     Tile img with squares of side size. Any cut off at the edge is ignored.
+    TODO: Remove
     """
     b, c, h, w = img.shape
     img = T.functional.center_crop(img, (h // size * size, w // size * size))
@@ -89,10 +89,10 @@ def regroup(img: List[Tensor]) -> Tensor:
     TODO: Is this part of torch under a different name?
 
     Args:
-        img (List[Tensor]): A list of identically shaped image batches
+        img (List[Tensor]): a list of identically shaped image batches
 
     Returns:
-        Tensor: A concatenation into a single image batch grouped
+        Tensor: a concatenation into a single image batch grouped
             so that each image in the source batches forms a contiguous block
             in the new batch
     """
@@ -129,7 +129,8 @@ def cosine_similarity(a, b):
 
 def make_palette_grid(colors, size=128):
     """
-    Create an image of a set of [0,1] RGB colours.
+    Create an image to preview a set colours, provided as an iterable of RGB
+    tuples with each component in [0,1].
     """
     swatches = []
     swatches = torch.cat(
@@ -142,8 +143,6 @@ def one_hot_noise(shape):
     """
     Generate a latent state suitable for use with a categorical variational
     decoder.
-
-    TODO: Think of a better name
 
     Args:
         shape (Tuple): desired shape (batch_size, num_classes, height, width)
@@ -216,7 +215,7 @@ def free(device=None):
     Compute free memory on the specified device.
 
     Args:
-        device ([type], optional): [description]. Defaults to None.
+        device ([type], optional): the device to query
 
     Returns:
         Tuple: (total, used, free) in bytes
@@ -229,7 +228,7 @@ def free(device=None):
 
 def gc():
     """
-    Attempt to force a garbage collection.
+    Trigger a Python/PyTorch garbage collection.
     """
     _gc.collect()
     torch.cuda.empty_cache()
