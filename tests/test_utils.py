@@ -1,8 +1,4 @@
-from typing import Sized
-
-import pkg_resources
 import pytest
-from PIL import Image
 
 from paraphernalia.utils import *
 
