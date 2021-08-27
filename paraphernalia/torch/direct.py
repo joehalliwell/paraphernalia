@@ -18,14 +18,16 @@ class Direct(Generator):
     A direct generator i.e. a directly trainable RGB tensor.
     """
 
-    def __init__(self, start=None, **kwargs):
+    def __init__(self, start=None, scale=1, **kwargs):
         super().__init__(**kwargs)
+        h = self.height // scale
+        w = self.width // scale
         if start is not None:
             z = T.functional.to_tensor(start).unsqueeze(0)
-            z = T.functional.resize(z, size=(self.height, self.width))
+            z = T.functional.resize(z, size=(h, w))
             z = (2.0 * z) - 1.0
         else:
-            z = torch.randn((self.batch_size, 3, self.height, self.width))
+            z = 0.05 * torch.randn((self.batch_size, 3, h, w))
 
         z = z.to(self.device)
         self.z = torch.nn.Parameter(z)
@@ -34,9 +36,13 @@ class Direct(Generator):
         """
         Generate a batch of images.
         """
-        z = clamp_with_grad(self.z, -1.0, 1.0)
-        z = (z + 1.0) / 2.0
-        return z
+        # z = clamp_with_grad(self.z, -1.0, 1.0)
+        # z = (z + 1.0) / 2.0
+        # return z
+        img = torch.sigmoid(self.z)
+        return T.functional.resize(
+            img, size=(self.height, self.width), interpolation=PIL.Image.NEAREST
+        )
 
 
 class DirectPalette(Generator):
