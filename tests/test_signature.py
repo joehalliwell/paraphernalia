@@ -49,7 +49,7 @@ def test_roundtrip(tmpdir, filename, creator, title, tags, description, rights):
         sig.clear()
 
     with XMP(filename) as sig:
-        assert sig.title == None
+        assert sig.title is None
 
 
 def test_sign(filename, creator, title, tags, description, rights):
@@ -72,8 +72,8 @@ def test_sign(filename, creator, title, tags, description, rights):
             assert sig.creator == creator
             assert sig.title == title
             assert sig.tags == tags
-            assert sig.description == None
-            assert sig.rights == None
+            assert sig.description is None
+            assert sig.rights is None
 
         # Add description and change creator
         result = runner.invoke(
@@ -99,7 +99,7 @@ def test_sign(filename, creator, title, tags, description, rights):
             assert sig.tags == tags
 
         # Test clearing
-        results = runner.invoke(sign, [filename, "--clear"])
+        runner.invoke(sign, [filename, "--clear"])
         with XMP(filename) as sig:
             assert sig.creator is None
             assert sig.creators == []

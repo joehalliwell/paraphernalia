@@ -48,11 +48,11 @@ __all__ = [
 
 def setup() -> None:
     """
-    Set up the library for interactive use by:
+    Set up the library for interactive use:
 
-    - Configuring logging
-    - Printing a vanity banner and some system information
-    - (If running in Colaboratory) calling :func:`setup_colab`
+    - Configure logging
+    - Print a vanity banner and some system information
+    - (If running in Colaboratory) call :func:`setup_colab`
     """
     setup_logging()
 
@@ -68,7 +68,7 @@ def setup_logging(use_rich: Optional[bool] = None) -> None:
 
     Args:
         use_rich (bool, optional): use the pretty rich log handler if available.
-        Defaults to value in settings.
+        if not provided, defaults to value in settings.
     """
     handlers = None
     fmt = "%(asctime)s %(levelname)s %(name)s : %(message)s"
@@ -125,7 +125,6 @@ def setup_colab():  # pragma: no cover
         _LOG.info(f"Assuming Google Drive already mounted at {drive_mount_point}")
     else:
         drive.mount(str(drive_mount_point))  # NB Raises an error if user declines
-
     # Use it as project dir
     settings().project_home = drive_mount_point / "MyDrive" / "Paraphernalia"
 

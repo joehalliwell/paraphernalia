@@ -122,7 +122,9 @@ class CLIP(torch.nn.Module):
             ]
         )
 
-    def _encode_texts(self, text_or_texts: str, what: str) -> Tuple[Tensor, Set[str]]:
+    def _encode_texts(
+        self, text_or_texts: TextOrTexts, what: str
+    ) -> Tuple[Tensor, Set[str]]:
         """
         Helper method used to initialize prompts.
 
@@ -145,7 +147,7 @@ class CLIP(torch.nn.Module):
         _LOG.info(f"Encoded {len(text_or_texts)} {what}: {text_or_texts}")
         return encoded, text_or_texts
 
-    def encode_text(self, text_or_texts: str) -> Tensor:
+    def encode_text(self, text_or_texts: TextOrTexts) -> Tensor:
         """
         Encode text.
 
@@ -165,6 +167,18 @@ class CLIP(torch.nn.Module):
         """
         batch = self.transform(batch)
         return self.encoder.encode_image(batch)
+
+    def encode(self, batch: Tensor) -> Tensor:
+        """
+        Encode a batch of images.
+
+        Args:
+            batch (Tensor): a (b, c, h, w) image batch
+
+        Returns:
+            Tensor: a (b, d) encoded batch
+        """
+        return self.encode_image(batch)
 
     def get_macro(self, img: Tensor) -> Tensor:
         """
@@ -319,3 +333,37 @@ class CLIP(torch.nn.Module):
             # return 0.5 * (similarity + anti_similarity)
 
         return similarity
+
+
+WINDOW_SIZE = 224
+
+_THE_CLIP = None
+
+
+def _encoder():
+    global _THE_CLIP
+    if _THE_CLIP is None:
+        _THE_CLIP = CLIP("NOT USED")
+    return _THE_CLIP
+
+
+def encode_text(text: str) -> Tensor:
+    return _encoder().encode_text(text)
+
+
+def encode_image(imgs: Tensor) -> Tensor:
+    return _encoder().encode_image(imgs)
+
+
+class EncodeImage(torch.nn.Module):
+    def __init__(self, clip=None) -> None:
+        super().__init__()
+
+    def forward(self, imgs: Tensor) -> Tensor:
+        encoded = encode_image(imgs)
+        return self.submodule(encoded)
+
+
+def standard_clip_loss(prompt):
+    # TODO
+    pass

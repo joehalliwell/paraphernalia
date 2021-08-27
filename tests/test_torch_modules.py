@@ -1,9 +1,14 @@
-from typing import Container
-
 import torch
 from torch import Tensor
 
-from paraphernalia.torch.modules import *
+from paraphernalia.torch.modules import (
+    AdaptiveMultiLoss,
+    Constant,
+    Parallel,
+    SimilarTo,
+    SimilarToAny,
+    WeightedSum,
+)
 
 
 def test_constant():
