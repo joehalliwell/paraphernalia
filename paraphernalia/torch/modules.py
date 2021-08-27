@@ -1,6 +1,7 @@
 """
 A collection of utility PyTorch modules.
 """
+from typing import Any, List
 
 from os import initgroups
 from typing import List
@@ -9,7 +10,7 @@ import torch
 import torch.nn as nn
 from torch import Tensor
 
-from paraphernalia.torch import cosine_similarity
+from paraphernalia.torch import cosine_similarity, regroup
 
 
 class AdaptiveMultiLoss(nn.Module):
@@ -95,8 +96,7 @@ class Constant(nn.Module):
 
 class WeightedSum(nn.Module):
     """
-    More or less a weighted sum of named module outputs, but with special
-    handling for negative weights.
+    A weighted sum of named module outputs.
     """
 
     def __init__(self, **components: nn.Module):
@@ -110,7 +110,7 @@ class WeightedSum(nn.Module):
         self.weights = {name: 1.0 for name in components}
         self.total_weight = len(components)
 
-    def set_weight(self, name: str, value: float):
+    def set_weight(self, name: str, weight: float):
         """
         Set the weight associated with a module
 
@@ -118,21 +118,34 @@ class WeightedSum(nn.Module):
             name (str): the name of the module
             value (float): the new weight
         """
+        assert weight >= 0, "Weights must be positive"
         assert name in self.submodules, "Unknown name!"
-        self.weights[name] = value
+        self.weights[name] = weight
         self.total_weight = sum(self.weights[name] for name in self.weights)
 
     def forward(self, x: Tensor):
         """
-        Compute the weighted loss
+        Compute the weighted loss.
         """
         result = sum(
             m(x) * self.weights[n]
             for n, m in self.submodules.items()
             if self.weights[n] != 0  # No point running if weight is zero
         )
-        bias = sum(abs(w) for w in self.weights.values() if w < 0)
-        return (result + bias) / self.total_weight
+        return result / self.total_weight
+
+
+class Not(nn.Module):
+    """
+    Negate a similarity module
+    """
+
+    def __init__(self, submodule: nn.Module):
+        super().__init__()
+        self.submodule = submodule
+
+    def forward(self, x: Tensor):
+        return 1.0 - self.submodule(x)
 
 
 class SimilarTo(nn.Module):
@@ -148,12 +161,12 @@ class SimilarTo(nn.Module):
         super().__init__()
         self.targets = targets.detach().clone()
 
-    def forward(self, x: Tensor):
+    def forward(self, candidates: Tensor):
         """
         Args:
             x (Tensor): A batch of vectors (batch, channels)
         """
-        similarities = cosine_similarity(x, self.targets)
+        similarities = cosine_similarity(candidates, self.targets)
         return similarities.mean(dim=1)
 
 
@@ -168,3 +181,52 @@ class SimilarToAny(SimilarTo):
     def forward(self, x: Tensor):
         similarities = cosine_similarity(x, self.targets)
         return torch.max(similarities, dim=1)[0]
+
+
+class Perceiver(torch.nn.Module):
+    """
+    A perceiver binds together:
+    - A list of image transformations/augmentations
+    - An evaluator that maps vectors to quality scores (canonically between 0 and 1)
+
+    """
+
+    def __init__(
+        self,
+        transforms: List[torch.nn.Module],
+        evaluator: torch.nn.Module,
+    ) -> None:
+        """
+        Initialize a perceiver.
+
+        Args:
+            transforms ([type]): a list of transforms to apply
+            evaluator ([type]): an evaluator to determine how good images are
+        """
+        super().__init__()
+        self.transforms = transforms
+        self.evaluator = evaluator
+
+    def forward(self: Tensor, imgs: Tensor) -> Tensor:
+        """
+        Evaluate an image batch, by applying transforms, encoding the resulting views
+        and running the evaluator on them.
+
+        Evaluation results are averaged over the transforms, to produce a single
+        evaluation per image.
+        """
+        # Save the original batch size
+        batch_size = imgs.shape[0]
+
+        # Encode images
+        transformed = regroup([transform(imgs) for transform in self.transforms])
+
+        # Per-transform quality
+        quality = self.evaluator(transformed)
+
+        # Per-image mean similarity
+        mean_quality = [
+            chunk.mean() for chunk in torch.chunk(quality, chunks=batch_size)
+        ]
+        assert len(mean_quality) == batch_size
+        return torch.stack(mean_quality)
