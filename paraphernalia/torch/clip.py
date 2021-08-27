@@ -8,7 +8,6 @@ import clip
 import torch
 import torchvision.transforms as T
 from torch.functional import Tensor
-from torchvision.transforms.transforms import RandomCrop
 
 from paraphernalia.torch import cosine_similarity, overtile, regroup
 

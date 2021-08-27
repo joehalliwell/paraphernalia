@@ -6,6 +6,7 @@ import gc as _gc
 from typing import List, Optional, Sequence, Tuple, Union
 
 import torch
+import torch.nn as nn
 import torchvision.transforms as T
 from torch import Tensor
 from torchvision.utils import make_grid

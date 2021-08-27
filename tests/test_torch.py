@@ -2,7 +2,7 @@ import pytest
 import torch
 from torch.tensor import Tensor
 
-from paraphernalia.torch import grid, overtile, regroup
+from paraphernalia.torch import cosine_similarity, grid, overtile, regroup
 
 
 def test_grid():
@@ -67,3 +67,14 @@ def test_regroup():
     regrouped = regroup([img, img])  # 2x identity transformation
     assert regrouped.shape == (4 * 2, 3, 2, 2)
     assert regrouped[2, 0, 0, 0] == 1.0
+
+
+def test_cosine_similarity():
+    a = Tensor([1, 0, 0]).unsqueeze(0)
+    b = Tensor([0, 0, 1]).unsqueeze(0)
+    assert torch.equal(cosine_similarity(a, a), Tensor([[1.0]]))
+
+    both = torch.cat([a, b])
+    assert torch.equal(cosine_similarity(both, both), torch.eye(2))
+
+    assert torch.equal(cosine_similarity(both, a), Tensor([[1], [0]]))

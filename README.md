@@ -70,3 +70,5 @@ For developers: `poetry install`
 - Adaptive focus
 - Factor our perceptual modes
 - Perceptual masking for CLIP
+- Image prompts
+- Add SRCNN
