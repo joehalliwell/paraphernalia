@@ -233,3 +233,20 @@ def gc():
     """
     _gc.collect()
     torch.cuda.empty_cache()
+
+
+def make_random_resized_crop(src_size, dest_size, scale=(0.08, 1.0), interpolation=2):
+    """
+    Returns a RandomResizedCrop transformation that will produce
+    crops of `dest_size` from images of `src_size` with scale
+    in the range indicated. Sizes are both torchvision style (h, w).
+    """
+
+    natural_ratio = src_size[1] / src_size[0] * dest_size[0] / dest_size[1]
+    natural_scale = (dest_size[0] * dest_size[1]) / (src_size[0] * src_size[1])
+    return T.RandomResizedCrop(
+        dest_size,
+        scale=(min(natural_scale, scale[0]), max(natural_scale, scale[1])),
+        ratio=(natural_ratio, natural_ratio),
+        interpolation=interpolation,
+    )

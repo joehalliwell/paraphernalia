@@ -2,7 +2,13 @@ import pytest
 import torch
 from torch.tensor import Tensor
 
-from paraphernalia.torch import cosine_similarity, grid, overtile, regroup
+from paraphernalia.torch import (
+    cosine_similarity,
+    grid,
+    make_random_resized_crop,
+    overtile,
+    regroup,
+)
 
 
 def test_grid():
@@ -78,3 +84,23 @@ def test_cosine_similarity():
     assert torch.equal(cosine_similarity(both, both), torch.eye(2))
 
     assert torch.equal(cosine_similarity(both, a), Tensor([[1], [0]]))
+
+
+def test_random_resized_crop():
+    """
+    Trick to test as RandomResizedCrop falls back to a centre-crop.
+    """
+    # Square -> square
+    t = make_random_resized_crop((400, 400), (100, 100))
+    assert t.ratio == (1.0, 1.0)
+    assert t.scale[0] <= (1.0 / 16.0)
+
+    # Non-square -> square
+    t = make_random_resized_crop((200, 100), (100, 100))
+    assert t.ratio == (0.5, 0.5)
+    assert t.scale[1] == 1.0
+
+    # Target larger than source, should maybe generate a warning?
+    t = make_random_resized_crop((100, 100), (200, 200))
+    assert t.ratio == (1.0, 1.0)
+    assert t.scale[1] >= 2.0
