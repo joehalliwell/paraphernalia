@@ -184,13 +184,13 @@ class CLIP(torch.nn.Module):
         Returns:
             Tensor: an expanded (b, c, h, w) image batch
         """
-
+        ratio = img.shape[3] / img.shape[2]  # Target aspect ratio is square
         macro_transform = T.Compose(
             [
                 # T.ColorJitter(saturation=0.01, brightness=0.01, hue=0.01),
                 # # T.RandomPerspective(distortion_scale=0.05, p=0.5),
                 T.RandomResizedCrop(
-                    size=self._WINDOW_SIZE, scale=(0.8, 1.0), ratio=(1.0, 1.0)
+                    size=self._WINDOW_SIZE, scale=(0.8, 1.0), ratio=(ratio, ratio)
                 ),
                 # T.RandomCrop(self._WINDOW_SIZE),
                 T.RandomHorizontalFlip(p=0.5),
@@ -210,15 +210,16 @@ class CLIP(torch.nn.Module):
             Tensor: an expanded (b, c, h, w) image batch
         """
         # Small random pixel-perfect chops to focus on fine details
-        ratio = self._WINDOW_SIZE / min(img.shape[2], img.shape[3])
+        scale = self._WINDOW_SIZE / min(img.shape[2], img.shape[3])
+        ratio = img.shape[3] / img.shape[2]
         micro_transform = T.Compose(
             [
                 # T.ColorJitter(saturation=0.01, brightness=0.01, hue=0.01),
                 # T.RandomPerspective(distortion_scale=0.05, p=0.5),
                 T.RandomResizedCrop(
                     size=self._WINDOW_SIZE,
-                    scale=(1.0 * ratio, max(0.8, 1.0 * ratio)),
-                    ratio=(1.0, 1.0),
+                    scale=(0.8 * scale, max(0.8, 1.0 * scale)),
+                    ratio=(ratio, ratio),
                 ),
                 T.RandomHorizontalFlip(p=0.5),
             ]
@@ -297,8 +298,8 @@ class CLIP(torch.nn.Module):
         ratio = min(self._WINDOW_SIZE / h, self._WINDOW_SIZE / w)
 
         # If the image is smaller than the perceptual window, just use macro
-        if ratio > 1.0:
-            return prompt_similarity
+        # if ratio > 1.0:
+        #     return prompt_similarity
 
         # If the window covers most of the image, use macro prompts
         detail_prompts = self.detail_prompts if ratio < 0.5 else self.prompts
