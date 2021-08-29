@@ -36,7 +36,7 @@ class Generator(nn.Module, metaclass=ABCMeta):
         Args:
             batch_size (int, optional): The number of images per batch. Defaults to 1.
             size (Union[int, Tuple[int, int]], optional): The size of the image
-                either a (width ,height) tuple or a single size for a square
+                either a (width, height) tuple or a single size for a square
                 image. Defaults to 512.
             quantize (int, optional): Model-specific quantizing. Defaults to 1.
             device (Optional[Union[str, torch.device]], optional): The device
