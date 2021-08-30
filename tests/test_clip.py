@@ -17,7 +17,9 @@ def test_studio(studio):
         studio = T.functional.resize(studio, 256)
         studio = T.functional.to_tensor(studio)
         studio = studio.unsqueeze(0)
+
         clip = CLIP("an artists studio")
+        studio = studio.to(clip.device)
 
         similarity1 = clip.forward(studio).detach()
         assert similarity1.shape == (1,)
@@ -41,6 +43,8 @@ def test_grads(studio):
     studio = T.functional.to_tensor(studio)
     studio = studio.unsqueeze(0)
     clip = CLIP("an artists studio")
+    studio = studio.to(clip.device)
+
     clip.encoder.requires_grad_(True)
     similarity = clip.forward(studio)
     similarity.backward()

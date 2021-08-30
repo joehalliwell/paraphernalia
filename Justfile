@@ -1,5 +1,5 @@
 test:
-    coverage run --source=paraphernalia -m pytest -v --log-cli-level=INFO
+    coverage run --source=paraphernalia -m pytest -v -rs --log-cli-level=INFO
     coverage report
 
 makedocs:
