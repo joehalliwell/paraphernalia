@@ -8,8 +8,9 @@ import numpy as np
 import PIL
 import torch
 import torchvision.transforms as T
+from torch import Tensor
 
-from paraphernalia.torch import clamp_with_grad
+from paraphernalia.torch import clamp_with_grad, one_hot_noise
 from paraphernalia.torch.generator import Generator
 
 
@@ -54,7 +55,7 @@ class DirectPalette(Generator):
         self,
         start=None,
         colors=[(0.1, 0.1, 0.1), (0.6, 0.1, 0.1), (1.0, 0.1, 0.1), (0.9, 0.9, 0.9)],
-        **kwargs
+        **kwargs,
     ):
 
         super().__init__(**kwargs)
@@ -104,3 +105,52 @@ class DirectPalette(Generator):
         z = torch.Tensor(np.mod(np.asarray(quantized), num_colors))
         z = z.long().unsqueeze(0)
         return z
+
+
+class DirectTileset(Generator):
+    """
+    A generator using gumbel sampling versus a provided tile atlas.
+    """
+
+    def __init__(self, atlas: Tensor = torch.rand((16, 3, 16, 16)), **kwargs):
+        """
+        [summary]
+
+        Args:
+            atlas ([type], optional): [description]. Defaults to torch.rand((16, 3, 16, 16)).
+
+        Raises:
+            ValueError: [description]
+        """
+        if atlas.shape[2] != atlas.shape[3]:
+            raise ValueError(f"Tiles must be square, but atlas has shape {atlas.shape}")
+
+        self.num_tiles = atlas.shape[0]
+        self.tile_size = atlas.shape[2]
+
+        super().__init__(quantize=self.tile_size, **kwargs)
+
+        atlas = atlas.reshape((-1, 3 * self.tile_size * self.tile_size))
+        self.atlas = atlas.to(self.device)
+
+        z = one_hot_noise(
+            (
+                self.batch_size,
+                self.num_tiles,
+                self.height // self.tile_size,
+                self.width // self.tile_size,
+            )
+        )
+        z = torch.log(z + 0.001 / self.num_tiles)
+
+        z = z.to(self.device)
+        self.z = torch.nn.Parameter(z)
+
+    def forward(self):
+        """
+        Generate a batch of images.
+        """
+        sample = torch.nn.functional.gumbel_softmax(self.z, dim=1, hard=True)
+        img = torch.einsum("bchw,cs->bshw", sample, self.atlas)
+        img = torch.nn.functional.pixel_shuffle(img, self.tile_size)
+        return img
