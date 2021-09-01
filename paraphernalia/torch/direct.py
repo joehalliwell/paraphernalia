@@ -20,6 +20,16 @@ class Direct(Generator):
     """
 
     def __init__(self, start=None, scale=1, **kwargs):
+        """
+        Initialize a direct generator.
+
+        Individual pixels in the latent space are upscaled via `scale`. If greater
+        than the default of 1, this yields a pixel-art effect.
+
+        Args:
+            start ([type], optional): [description]. Defaults to None.
+            scale (int, optional): Pixel size. Defaults to 1.
+        """
         super().__init__(**kwargs)
         h = self.height // scale
         w = self.width // scale
