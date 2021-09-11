@@ -65,19 +65,25 @@ class DirectPalette(Generator):
         self,
         start=None,
         colors=[(0.1, 0.1, 0.1), (0.6, 0.1, 0.1), (1.0, 0.1, 0.1), (0.9, 0.9, 0.9)],
+        scale=1,
         **kwargs,
     ):
 
-        super().__init__(**kwargs)
+        super().__init__(**kwargs, quantize=scale)
 
         if len(colors) > 256:
             raise ValueError("Palette must be <=256 colours")
         self.colors = torch.Tensor(colors).float().to(self.device)
 
+        self.scale = scale
+
+        h = self.height // scale
+        w = self.width // scale
+
         self.tau = 1.0
         self.hard = True
 
-        z = torch.full((1, self.height, self.width), 0)
+        z = torch.full((1, self.height // scale, self.width // scale), 0)
         if start:
             z = self.encode(start)
 
@@ -97,14 +103,18 @@ class DirectPalette(Generator):
             hard = self.hard
         sample = torch.nn.functional.gumbel_softmax(self.z, dim=1, tau=tau, hard=hard)
         img = torch.einsum("bchw,cs->bshw", sample, self.colors)
-        return img
+        return T.functional.resize(
+            img, size=(self.height, self.width), interpolation=PIL.Image.NEAREST
+        )
 
     def encode(self, img: Union[PIL.Image.Image, torch.Tensor]):
         """
         Encode an image or tensor.
         """
 
-        img = PIL.ImageOps.pad(img, (self.width, self.height))
+        img = PIL.ImageOps.pad(
+            img, (self.width // self.scale, self.height // self.scale)
+        )
 
         palette = PIL.Image.new("P", (1, 1))
         num_colors = len(self.colors)
