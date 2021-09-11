@@ -60,3 +60,18 @@ def running_in_github_action():
         bool: True if running in Colaboratory
     """
     return os.environ.get("GITHUB_ACTIONS", False)
+
+
+def seed(seed):
+    """
+    Set all known random number generators. Currently supports `random` and torch.
+    """
+    import random
+
+    random.seed(seed)
+    try:
+        import torch
+
+        torch.manual_seed(seed)
+    except:
+        pass
