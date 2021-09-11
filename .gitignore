@@ -131,3 +131,5 @@ dmypy.json
 
 # Taming Transformers creates this in working directories
 taming/
+
+.vscode/
