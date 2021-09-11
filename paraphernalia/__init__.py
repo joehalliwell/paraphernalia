@@ -64,7 +64,9 @@ def running_in_github_action():
 
 def seed(seed):
     """
-    Set all known random number generators. Currently supports `random` and torch.
+    Set all known random number generators with the specified value. Currently:
+    - `random.seed()`
+    - `torch.manual_seed()`
     """
     import random
 
