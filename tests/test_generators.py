@@ -2,7 +2,7 @@ import pytest
 from PIL.Image import Image
 
 from paraphernalia.torch.dall_e import DALL_E
-from paraphernalia.torch.direct import Direct, DirectPalette
+from paraphernalia.torch.direct import Direct, DirectPalette, DirectTileset
 from paraphernalia.torch.siren import Siren
 from paraphernalia.torch.taming import Taming
 from tests import skipif_github_action
@@ -14,6 +14,7 @@ from tests import skipif_github_action
         DALL_E,
         Direct,
         DirectPalette,
+        DirectTileset,
         Siren,
         Taming,
     ],
