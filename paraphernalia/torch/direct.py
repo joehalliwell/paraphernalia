@@ -35,8 +35,8 @@ class Direct(Generator):
         w = self.width // scale
         if start is not None:
             z = T.functional.to_tensor(start).unsqueeze(0)
-            z = T.functional.resize(z, size=(h, w))
-            z = (2.0 * z) - 1.0
+            z = T.functional.resize(z, size=(h // scale, w // scale))
+            z = torch.log(z) - torch.log(1 - z)
         else:
             z = 0.05 * torch.randn((self.batch_size, 3, h, w))
 
@@ -47,9 +47,6 @@ class Direct(Generator):
         """
         Generate a batch of images.
         """
-        # z = clamp_with_grad(self.z, -1.0, 1.0)
-        # z = (z + 1.0) / 2.0
-        # return z
         img = torch.sigmoid(self.z)
         return T.functional.resize(
             img, size=(self.height, self.width), interpolation=PIL.Image.NEAREST
@@ -76,10 +73,6 @@ class DirectPalette(Generator):
         self.colors = torch.Tensor(colors).float().to(self.device)
 
         self.scale = scale
-
-        h = self.height // scale
-        w = self.width // scale
-
         self.tau = 1.0
         self.hard = True
 
