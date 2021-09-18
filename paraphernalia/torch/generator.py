@@ -29,7 +29,7 @@ class Generator(nn.Module, metaclass=ABCMeta):
         size: SizeType = 512,
         quantize: int = 1,
         device: Optional[Union[str, torch.device]] = None,
-        **kwargs,
+        start=None,
     ):
         """
         Base class for (image) generators.
