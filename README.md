@@ -37,6 +37,8 @@ For developers: `poetry install`
 ### General
 
 - Add CLIP/generator sample notebook
+- Path handling
+- Tools for signing work
 
 ### glsl
 
@@ -56,6 +58,7 @@ For developers: `poetry install`
 ### torch
 
 - Fix replace_grad and add tests
+- Fix clamp_with_grad and add tests
 - Add noise generators (esp simplex and fractal)
 - Add BigGAN generators
 - Add soft_permutation()
@@ -63,6 +66,7 @@ For developers: `poetry install`
 - Add tile atlas generator
 - Training loop
 - Main entry point for generator+CLIP?
+- Add standard description string/slug to generators
 
 #### clip
 
