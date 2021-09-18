@@ -125,7 +125,7 @@ class DirectTileset(Generator):
     A generator using gumbel sampling versus a provided tile atlas.
     """
 
-    def __init__(self, atlas: Tensor = torch.rand((16, 3, 16, 16)), **kwargs):
+    def __init__(self, atlas: Tensor = torch.rand((16, 3, 16, 16)), scale=1, **kwargs):
         """
         [summary]
 
@@ -140,8 +140,9 @@ class DirectTileset(Generator):
 
         self.num_tiles = atlas.shape[0]
         self.tile_size = atlas.shape[2]
+        self.scale = scale
 
-        super().__init__(quantize=self.tile_size, **kwargs)
+        super().__init__(quantize=self.tile_size * self.scale, **kwargs)
 
         atlas = atlas.reshape((-1, 3 * self.tile_size * self.tile_size))
         self.atlas = atlas.to(self.device)
@@ -150,8 +151,8 @@ class DirectTileset(Generator):
             (
                 self.batch_size,
                 self.num_tiles,
-                self.height // self.tile_size,
-                self.width // self.tile_size,
+                self.height // (self.tile_size * self.scale),
+                self.width // (self.tile_size * self.scale),
             )
         )
         z = torch.log(z + 0.001 / self.num_tiles)
@@ -166,4 +167,6 @@ class DirectTileset(Generator):
         sample = torch.nn.functional.gumbel_softmax(self.z, dim=1, hard=True)
         img = torch.einsum("bchw,cs->bshw", sample, self.atlas)
         img = torch.nn.functional.pixel_shuffle(img, self.tile_size)
-        return img
+        return T.functional.resize(
+            img, size=(self.height, self.width), interpolation=PIL.Image.NEAREST
+        )
