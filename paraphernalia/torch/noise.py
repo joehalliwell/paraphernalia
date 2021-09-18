@@ -73,4 +73,11 @@ def fractal(
         result += amplitude * perlin(width, height, frequency, device=device)
         frequency *= frequency_factor
         amplitude *= amplitude_factor
-    return result
+
+    a = result.min()
+    b = result.max()
+
+    if a == b:
+        return torch.zeros(height, width)
+
+    return (result - a) / (b - a)
