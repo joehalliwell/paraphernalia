@@ -20,6 +20,7 @@ def perlin(
     Adapted from:
     - https://gist.github.com/adefossez/0646dbe9ed4005480a2407c62aac8869
     - https://gist.github.com/vadimkantorov/ac1b097753f217c5c11bc2ff396e0a57
+    - https://weber.itn.liu.se/~stegu/simplexnoise/simplexnoise.pdf
 
     Args:
         width (int): target width
