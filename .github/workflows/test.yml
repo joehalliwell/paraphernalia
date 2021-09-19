@@ -42,7 +42,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: .venv
-          key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
+          key: venv-0-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
       #----------------------------------------------
       # install dependencies if cache does not exist
       #----------------------------------------------
@@ -53,7 +53,7 @@ jobs:
       # install your root project, if required
       #----------------------------------------------
       - name: Install library
-        run: poetry install --no-interaction --extras "openai taming"
+        run: poetry install --extras "openai taming" --no-interaction
       #----------------------------------------------
       #              run test suite
       #----------------------------------------------
