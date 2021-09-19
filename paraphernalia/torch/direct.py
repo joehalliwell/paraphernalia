@@ -10,7 +10,7 @@ import torch
 import torchvision.transforms as T
 from torch import Tensor
 
-from paraphernalia.torch import clamp_with_grad, one_hot_noise
+from paraphernalia.torch import clamp_with_grad, one_hot_noise, one_hot_normalize
 from paraphernalia.torch.generator import Generator
 
 
@@ -30,13 +30,13 @@ class Direct(Generator):
             start ([type], optional): [description]. Defaults to None.
             scale (int, optional): Pixel size. Defaults to 1.
         """
-        super().__init__(**kwargs)
+        super().__init__(quantize=scale, **kwargs)
         h = self.height // scale
         w = self.width // scale
         if start is not None:
             z = T.functional.to_tensor(start).unsqueeze(0)
             z = T.functional.resize(z, size=(h // scale, w // scale))
-            z = torch.log(z) - torch.log(1 - z)
+            z = torch.log(z) - torch.log(1 - z)  # Inverse sigmoid
         else:
             z = 0.05 * torch.randn((self.batch_size, 3, h, w))
 
@@ -66,7 +66,7 @@ class DirectPalette(Generator):
         **kwargs,
     ):
 
-        super().__init__(**kwargs, quantize=scale)
+        super().__init__(quantize=scale, **kwargs)
 
         if len(colors) > 256:
             raise ValueError("Palette must be <=256 colours")
@@ -125,46 +125,56 @@ class DirectTileset(Generator):
     A generator using gumbel sampling versus a provided tile atlas.
     """
 
-    def __init__(self, atlas: Tensor = torch.rand((16, 3, 16, 16)), scale=1, **kwargs):
+    def __init__(self, atlas: Optional[Tensor] = None, scale=1, z=None, **kwargs):
         """
-        [summary]
+        Initialize a discrete direct tileset generator.
 
         Args:
-            atlas ([type], optional): [description]. Defaults to torch.rand((16, 3, 16, 16)).
+            atlas (Tensor): TODO
 
         Raises:
-            ValueError: [description]
+            ValueError: if the atlas is the wrong size
         """
+        # This shouldn't really be optional, but it makes testing easier to have
+        # no required arguments beyond what Generator needs.
+        if atlas is None:
+            atlas = torch.rand((16, 3, 16, 16))
+
         if atlas.shape[2] != atlas.shape[3]:
             raise ValueError(f"Tiles must be square, but atlas has shape {atlas.shape}")
 
         self.num_tiles = atlas.shape[0]
         self.tile_size = atlas.shape[2]
         self.scale = scale
+        self.tau = 1.0
+        self.hard = True
 
         super().__init__(quantize=self.tile_size * self.scale, **kwargs)
 
         atlas = atlas.reshape((-1, 3 * self.tile_size * self.tile_size))
         self.atlas = atlas.to(self.device)
 
-        z = one_hot_noise(
-            (
-                self.batch_size,
-                self.num_tiles,
-                self.height // (self.tile_size * self.scale),
-                self.width // (self.tile_size * self.scale),
+        if z is None:
+            z = one_hot_noise(
+                (
+                    self.batch_size,
+                    self.num_tiles,
+                    self.height // (self.tile_size * self.scale),
+                    self.width // (self.tile_size * self.scale),
+                )
             )
-        )
-        z = torch.log(z + 0.001 / self.num_tiles)
 
-        z = z.to(self.device)
+        z = one_hot_normalize(z)
+        z = z.detach().clone().to(self.device)
         self.z = torch.nn.Parameter(z)
 
     def forward(self):
         """
         Generate a batch of images.
         """
-        sample = torch.nn.functional.gumbel_softmax(self.z, dim=1, hard=True)
+        sample = torch.nn.functional.gumbel_softmax(
+            self.z, dim=1, hard=self.hard, tau=self.tau
+        )
         img = torch.einsum("bchw,cs->bshw", sample, self.atlas)
         img = torch.nn.functional.pixel_shuffle(img, self.tile_size)
         return T.functional.resize(

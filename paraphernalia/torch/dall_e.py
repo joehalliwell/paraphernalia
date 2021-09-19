@@ -10,7 +10,7 @@ import torch
 import torchvision.transforms as T
 from torch import Tensor
 
-from paraphernalia.torch import one_hot_noise
+from paraphernalia.torch import one_hot_noise, one_hot_normalize
 from paraphernalia.torch.generator import Generator
 from paraphernalia.utils import download
 
@@ -85,14 +85,9 @@ class DALL_E(Generator):
             )
 
         # Move to device and force to look like one-hot logits
+        z = z.detach().clone()
         z = z.to(self.device)
-        z = torch.argmax(z, axis=1)
-        z = (
-            torch.nn.functional.one_hot(z, num_classes=self._NUM_CLASSES)
-            .permute(0, 3, 1, 2)
-            .float()
-        )
-        z = torch.log(z + 0.001 / self._NUM_CLASSES)
+        z = one_hot_normalize(z)
         self.z = torch.nn.Parameter(z)
 
     def forward(self, z=None, tau=None, hard=None) -> Tensor:

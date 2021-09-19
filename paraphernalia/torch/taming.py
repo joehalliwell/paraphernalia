@@ -116,8 +116,9 @@ class Taming(Generator):
         del model.encoder
         del model.loss
 
-        z = z.detach()
+        z = z.detach().clone()
         z = z.to(self.device)
+
         z = z.requires_grad_(True)
         self.z = nn.Parameter(z)
 

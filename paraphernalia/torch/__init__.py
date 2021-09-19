@@ -142,14 +142,15 @@ def make_palette_grid(colors, size=128):
 
 def one_hot_noise(shape):
     """
-    Generate a latent state suitable for use with a categorical variational
-    decoder.
+    Generate a one-hot-encoded latent state suitable for use with a categorical
+    variational decoder. This is a hard one-hot tensor. Use `one_hot_normalize()`
+    if you want to soften.
 
     Args:
         shape (Tuple): desired shape (batch_size, num_classes, height, width)
 
     Returns:
-        [type]: [description]
+        Tensor: one hot Tensor of dimension (batch_size, num_classes, height, width)
     """
     b, c, h, w = shape
     z = torch.nn.functional.one_hot(
@@ -157,6 +158,50 @@ def one_hot_noise(shape):
         num_classes=c,
     )
     z = z.permute(0, 3, 1, 2)
+    return z
+
+
+def one_hot_constant(shape, index):
+    """
+    Generate a latent state using a constant value.
+
+    Args:
+        shape (Tuple): desired shape (batch_size, num_classes, height, width)
+
+    Returns:
+        Tensor: one hot Tensor of dimension (batch_size, num_classes, height, width)
+
+    """
+    b, c, h, w = shape
+    if index < 0:
+        raise ValueError("Index must be >= 0")
+    if index >= c:
+        raise ValueError(f"Index must be <= the provided number of classes ({c})")
+    z = torch.nn.functional.one_hot(
+        torch.full((b, h, w), index),
+        num_classes=c,
+    )
+    z = z.permute(0, 3, 1, 2)
+    return z
+
+
+def one_hot_normalize(z, tau=0.001):
+    """
+    Normalized a log probability/one hot tensor, by locking in
+    modes then converting a slightly noisy log probability.
+
+    Args:
+        shape (Tuple): desired shape (batch_size, num_classes, height, width)
+
+    Returns:
+        Tensor: one hot Tensor of dimension (batch_size, num_classes, height, width)
+
+    """
+    b, c, h, w = z.shape
+    z = torch.argmax(z, axis=1)
+    z = torch.nn.functional.one_hot(z, num_classes=c)
+    z = z.permute(0, 3, 1, 2)
+    z = torch.log(z + tau / c)
     return z
 
 

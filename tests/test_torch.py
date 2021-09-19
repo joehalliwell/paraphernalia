@@ -6,6 +6,9 @@ from paraphernalia.torch import (
     cosine_similarity,
     grid,
     make_random_resized_crop,
+    one_hot_constant,
+    one_hot_noise,
+    one_hot_normalize,
     overtile,
     regroup,
 )
@@ -104,3 +107,32 @@ def test_random_resized_crop():
     t = make_random_resized_crop((100, 100), (200, 200))
     assert t.ratio == (1.0, 1.0)
     assert t.scale[1] >= 2.0
+
+
+def test_one_hot_noise():
+    shape = (1, 3, 128, 128)
+    z = one_hot_noise(shape)
+    assert z.shape == shape
+
+
+def test_one_hot_constant():
+    shape = (1, 3, 128, 128)
+    z = one_hot_constant(shape, 0)
+    assert z.shape == shape
+
+
+def test_one_hot_normalize():
+    shape = (1, 3, 1, 1)
+    z = one_hot_constant(shape, 1)
+    assert z.shape == shape
+
+    z = one_hot_normalize(z)
+    assert z.shape == shape
+
+    assert z[0, 1, 0, 0] > z[0, 0, 0, 0]
+    assert z[0, 1, 0, 0] > z[0, 2, 0, 0]
+    assert z[0, 0, 0, 0] == z[0, 2, 0, 0]
+
+    zp = torch.nn.functional.softmax(z)
+    assert torch.all(zp > 0)
+    assert torch.all(zp < 1)
