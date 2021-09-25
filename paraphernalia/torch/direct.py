@@ -35,7 +35,7 @@ class Direct(Generator):
         w = self.width // scale
         if start is not None:
             z = T.functional.to_tensor(start).unsqueeze(0)
-            z = T.functional.resize(z, size=(h // scale, w // scale))
+            z = T.functional.resize(z, size=(h, w))
             z = torch.log(z) - torch.log(1 - z)  # Inverse sigmoid
         else:
             z = 0.05 * torch.randn((self.batch_size, 3, h, w))
@@ -180,3 +180,6 @@ class DirectTileset(Generator):
         return T.functional.resize(
             img, size=(self.height, self.width), interpolation=PIL.Image.NEAREST
         )
+
+
+# See https://www.c64-wiki.com/wiki/Standard_Character_Mode
