@@ -67,6 +67,21 @@ def fractal(
     octaves: int = 4,
     device=None,
 ) -> Tensor:
+    """
+    Fractal Perlin noise generator.
+
+    Args:
+        width (int): target width
+        height (int): target height
+        frequency (float, optional): [description]. Defaults to 1.0.
+        frequency_factor (float, optional): [description]. Defaults to 2.0.
+        amplitude_factor (float, optional): [description]. Defaults to 0.8.
+        octaves (int, optional): Number of different scale to use. Defaults to 4.
+        device ([type], optional): Defaults to None.
+
+    Returns:
+        Tensor: [description]
+    """
     result = torch.zeros((height, width)).to(device)
     amplitude = 1.0
     for i in range(octaves):
