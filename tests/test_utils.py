@@ -27,6 +27,8 @@ def test_cache_home():
         ([datetime(2021, 1, 1).date()], "2021-01-01"),
         # Nested lists are flattened
         ([["nested", "list"]], "nested_list"),
+        # Some cases to potentially revisit
+        (["--hello--", "__world__"], "--hello--___world__"),
     ],
 )
 def test_slugify(args, expected):
