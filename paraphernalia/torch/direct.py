@@ -168,13 +168,15 @@ class DirectTileset(Generator):
         z = z.detach().clone().to(self.device)
         self.z = torch.nn.Parameter(z)
 
-    def forward(self):
+    def forward(self, tau=None, hard=None):
         """
         Generate a batch of images.
         """
-        sample = torch.nn.functional.gumbel_softmax(
-            self.z, dim=1, hard=self.hard, tau=self.tau
-        )
+        if tau is None:
+            tau = self.tau
+        if hard is None:
+            hard = self.hard
+        sample = torch.nn.functional.gumbel_softmax(self.z, dim=1, hard=hard, tau=tau)
         img = torch.einsum("bchw,cs->bshw", sample, self.atlas)
         img = torch.nn.functional.pixel_shuffle(img, self.tile_size)
         return T.functional.resize(
@@ -182,4 +184,4 @@ class DirectTileset(Generator):
         )
 
 
-# See https://www.c64-wiki.com/wiki/Standard_Character_Mode
+# TODO: https://www.c64-wiki.com/wiki/Standard_Character_Mode
