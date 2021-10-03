@@ -230,6 +230,9 @@ replace_grad = ReplaceGrad.apply
 class ClampWithGrad(torch.autograd.Function):
     """
     Clamp an output but pass through gradients.
+
+    FIXME: Not sure about this. Would a "leaky" clamp be better?
+
     """
 
     @staticmethod
