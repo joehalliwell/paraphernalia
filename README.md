@@ -38,7 +38,7 @@ For developers: `poetry install`
 
 - Add CLIP/generator sample notebook
 - Path handling
-- Tools for signing work
+- Tool for signing work
 
 ### glsl
 
