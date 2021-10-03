@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import pytest
 
 from paraphernalia.utils import *
@@ -13,11 +15,18 @@ def test_cache_home():
     "args, expected",
     [
         (["hello world"], "hello-world"),
-        (["it doesn't blend"], "it-doesnt-blend"),
-        (["$£*^&£$+"], ""),
-        (["numbers like 2 ok"], "numbers-like-2-ok"),
         (["hello", "world"], "hello_world"),
+        (["numbers like 23 are ok"], "numbers-like-23-are-ok"),
         (["ABC"], "abc"),
+        # Punctuation
+        (["it doesn't blend"], "it-doesn-t-blend"),
+        (["$£*^&£$+"], "-"),
+        (["dots.are.forbidden"], "dots-are-forbidden"),
+        # Special handling for datetime
+        ([datetime(2021, 1, 1)], "2021-01-01_00h00"),
+        ([datetime(2021, 1, 1).date()], "2021-01-01"),
+        # Nested lists are flattened
+        ([["nested", "list"]], "nested_list"),
     ],
 )
 def test_slugify(args, expected):

@@ -9,8 +9,9 @@ import os
 import re
 import subprocess
 import urllib.request
+from datetime import datetime
 from pathlib import Path
-from typing import List
+from typing import Iterable, List
 from urllib.parse import urlparse
 
 import xdg
@@ -122,8 +123,7 @@ _DATA_HOME = None
 data_home(xdg.xdg_data_home() / "paraphernalia")
 
 
-_FORBIDDEN = re.compile(r"[^a-z0-9 ]+")
-_SPACE = re.compile(r"\s+")
+_FORBIDDEN = re.compile(r"[^a-z0-9_-]+")
 
 
 def slugify(*bits):
@@ -131,9 +131,17 @@ def slugify(*bits):
     Make a lower-case alphanumeric representation of the arguments by stripping
     other characters and replacing spaces with hyphens.
     """
-    return "_".join(
-        _SPACE.sub("-", _FORBIDDEN.sub("", str(bit).lower())) for bit in bits
-    )
+    # Single item
+    if len(bits) == 1:
+        bit = bits[0]
+        if isinstance(bit, datetime):
+            bit = bit.strftime("%Y-%m-%d_%Hh%M")
+        if not isinstance(bit, str) and isinstance(bit, Iterable):
+            return slugify(*bit)
+        return _FORBIDDEN.sub("-", str(bit).lower())
+
+    # Multiple items
+    return "_".join(slugify(bit) for bit in bits)
 
 
 def download(url: str, target: Path = None, overwrite: bool = False) -> Path:
