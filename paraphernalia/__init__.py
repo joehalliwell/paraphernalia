@@ -57,7 +57,7 @@ def running_in_github_action():
     True if running as Github Action.
 
     Returns:
-        bool: True if running in Colaboratory
+        bool: True if running in a Github action
     """
     return os.environ.get("GITHUB_ACTIONS", False)
 

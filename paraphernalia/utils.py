@@ -22,7 +22,7 @@ logger = logging.getLogger(__name__)
 
 def get_cuda_version():
     """
-    Return the CUDA version string e.g. 10.0
+    Return the CUDA version string e.g. 10.0 or raise an exception
     """
     return [
         s
