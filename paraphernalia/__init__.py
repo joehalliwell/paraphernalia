@@ -14,7 +14,7 @@ __version__ = importlib_metadata.version(__name__)
 
 def setup():
     """
-    Setup the library. Not really useful or used currently.
+    Setup the library. Not very useful or much used currently.
     """
     # Logging
     # Check CUDA and GPU -- maybe upgrade CUDA?
@@ -25,7 +25,7 @@ def setup():
 
 def setup_colab():
     """
-    Standard setup for Colaboratory.
+    Standard setup for Colaboratory. Mounts Google drive under `/content/drive`
     """
     from google.colab import drive
 
@@ -60,6 +60,34 @@ def running_in_github_action():
         bool: True if running in a Github action
     """
     return os.environ.get("GITHUB_ACTIONS", False)
+
+
+def running_in_jupyter():
+    """
+    True if and only if running within Jupyter
+
+    Returns:
+        bool: True iff running in Jupyter
+    """
+    try:
+        from IPython import get_ipython
+    except:
+        return False
+
+    ip = get_ipython()
+    if not ip:
+        return False
+
+    elif "IPKernelApp" not in get_ipython().config:  # pragma: no cover
+        raise ImportError("console")
+        return False
+
+    elif "VSCODE_PID" in os.environ:  # pragma: no cover
+        raise ImportError("vscode")
+        return False
+
+    else:  # pragma: no cover
+        return True
 
 
 def seed(seed):
