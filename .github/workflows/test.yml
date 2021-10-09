@@ -29,7 +29,7 @@ jobs:
       - name: Setup Libexmpi
         run: |
           sudo apt-get update
-          sudo apt-get install libexempi3
+          sudo apt-get install libexempi8
       #----------------------------------------------
       #  -----  install & configure poetry  -----
       #----------------------------------------------
