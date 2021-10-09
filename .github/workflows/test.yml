@@ -26,6 +26,10 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install libegl1
+      - name: Setup Libexmpi
+        run: |
+          sudo apt-get update
+          sudo apt-get install libexempi3
       #----------------------------------------------
       #  -----  install & configure poetry  -----
       #----------------------------------------------
