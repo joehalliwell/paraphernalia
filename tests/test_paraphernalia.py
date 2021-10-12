@@ -2,6 +2,7 @@ from paraphernalia import (
     running_in_colab,
     running_in_github_action,
     running_in_jupyter,
+    seed,
     setup,
 )
 
@@ -21,3 +22,8 @@ def test_colab():
 def test_github():
     # Just a smoketest
     running_in_github_action()
+
+
+def test_seed():
+    # Just a smoketest
+    seed(42)

@@ -99,9 +99,20 @@ def seed(seed):
     import random
 
     random.seed(seed)
+
+    # Numpy
+    try:
+        import numpy
+
+        numpy.random.seed(seed)
+    except:
+        pass
+
+    # Torch
     try:
         import torch
 
         torch.manual_seed(seed)
+        torch.cuda.manual_seed_all(seed)
     except:
         pass
