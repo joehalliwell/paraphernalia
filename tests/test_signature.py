@@ -1,7 +1,7 @@
 import pytest
 from PIL import Image
 
-from paraphernalia.signature import Signature
+from paraphernalia.signature import XMP
 
 
 @pytest.mark.parametrize("imgfile", ["test.png", "test.jpg", "test.tif"])
@@ -15,13 +15,13 @@ def test_roundtrip(tmpdir, imgfile):
     tags = ["procgen", "paraphernalia"]
     description = "A gesamkunstwerk"
 
-    with Signature(filename) as sig:
+    with XMP(filename) as sig:
         sig.creator = creator
         sig.title = title
         sig.tags = tags
         sig.description = description
 
-    with Signature(filename) as sig:
+    with XMP(filename) as sig:
         assert sig.creator == creator
         assert sig.creators == [creator]
         assert sig.title == title

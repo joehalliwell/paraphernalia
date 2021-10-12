@@ -1,7 +1,5 @@
 """
 Sign and tag images.
-
-For DC/XMP interactions see https://www.exiv2.org/tags-xmp-dc.html
 """
 
 from pathlib import Path
@@ -12,9 +10,12 @@ import libxmp
 from libxmp.consts import XMP_NS_DC as DC
 
 
-class Signature:
+class XMP:
     """
-    Context manager for working with Dublin Core XMP metadata on files.
+    Context manager for working with XMP metadata on files, with convenience
+    accessors for some Dublin Core fields.
+
+    For DC/XMP interactions see https://www.exiv2.org/tags-xmp-dc.html
     """
 
     def __init__(self, path: str) -> None:
@@ -70,7 +71,7 @@ def _make_seq_property(name):
     def _setter(self, value):
         self._xmp.delete_property(DC, name)
         if isinstance(value, str):
-            raise ValueError("Should be a list")
+            raise ValueError(f"Value for {name} should be a list")
         for tag in value:
             self._xmp.append_array_item(
                 DC,
@@ -107,19 +108,18 @@ def _make_lang_property(name, generic_lang="", specific_lang="en"):
     return property(_getter, _setter, _deleter)
 
 
-Signature.creators = _make_seq_property("creator")
-Signature.tags = _make_seq_property("subject")
-
-Signature.title = _make_lang_property("title")
-Signature.description = _make_lang_property("description")
-Signature.rights = _make_lang_property("rights")
+XMP.creators = _make_seq_property("creator")
+XMP.tags = _make_seq_property("subject")
+XMP.title = _make_lang_property("title")
+XMP.description = _make_lang_property("description")
+XMP.rights = _make_lang_property("rights")
 
 
 @click.command()
 @click.argument("target", type=click.Path(exists=True, readable=True, writable=True))
 @click.option("--creator", "-c", "creators", multiple=True)
-@click.option("--title", "-t", nargs=1)
-@click.option("--tag", "-tg", "tags", multiple=True)
+@click.option("--title", nargs=1)
+@click.option("--tag", "-t", "tags", multiple=True)
 @click.option("--description", "-d", nargs=1)
 @click.option("--rights", "-r", nargs=1)
 def sign(
@@ -133,7 +133,7 @@ def sign(
     """
     Toy command to sign a file.
     """
-    with Signature(target) as sig:
+    with XMP(target) as sig:
         if creators:
             sig.creators = creators
         if title:
@@ -145,7 +145,7 @@ def sign(
         if rights:
             sig.rights = rights
 
-    with Signature(target) as sig:
+    with XMP(target) as sig:
         print(f"Title: {sig.title}")
         print(f"Creator: {', '.join(sig.creators)}")
         print(f"Tags: {', '.join(sig.tags)}")
