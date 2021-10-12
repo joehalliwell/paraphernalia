@@ -1,6 +1,7 @@
 """
 Paraphernalia is a collection of tools for making digital art.
 """
+import logging
 import os
 
 # TODO: Shift to poetry-version-plugin, once that's bedded in?
@@ -11,14 +12,19 @@ except ModuleNotFoundError:
 
 __version__ = importlib_metadata.version(__name__)
 
+LOGGER = logging.getLogger(__name__)
+
 
 def setup():
     """
     Setup the library. Not very useful or much used currently.
     """
-    # Logging
-    # Check CUDA and GPU -- maybe upgrade CUDA?
-    # Default project?
+    logging.basicConfig(
+        format="%(asctime)s.%(msecs)03d %(levelname)s --- %(name)s : %(message)s",
+        level=logging.INFO,
+        datefmt="%Y-%m-%d %H:%M:%S",
+    )
+
     if running_in_colab():
         setup_colab()
 
@@ -94,10 +100,13 @@ def seed(seed):
     """
     Set all known random number generators with the specified value. Currently:
     - `random.seed()`
+    - `numpy.random.seed()`
     - `torch.manual_seed()`
+    - `torch.cuda.manual_seed_all()`
     """
     import random
 
+    LOGGER.info(f"Setting global random seed to {seed}")
     random.seed(seed)
 
     # Numpy
