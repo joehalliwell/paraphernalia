@@ -14,7 +14,7 @@ from IPython.display import clear_output, display
 from torchvision import transforms as T
 from torchvision.utils import make_grid
 
-LOGGER = logging.getLogger(__name__)
+_LOG = logging.getLogger(__name__)
 
 
 class ImageCheckpoint(pl.Callback):
@@ -26,7 +26,7 @@ class ImageCheckpoint(pl.Callback):
 
     def __init__(self, path_template, preview=True):
         self.path_template = str(path_template)
-        LOGGER.info(f"Checkpointing images to {self.path_template}")
+        _LOG.info(f"Checkpointing images to {self.path_template}")
 
         self._preview = None
         if preview:
@@ -57,7 +57,7 @@ class ImageCheckpoint(pl.Callback):
             )
             os.makedirs(filename.parent, exist_ok=True)
             img.save(filename)
-            LOGGER.info(f"Saved image as {filename}")
+            _LOG.info(f"Saved image as {filename}")
 
     def checkpoint(self, module, trainer):
         """

@@ -19,6 +19,8 @@ from tqdm import tqdm
 
 _LOG = logging.getLogger(__name__)
 
+from paraphernalia import cache_home
+
 
 def get_cuda_version():
     """

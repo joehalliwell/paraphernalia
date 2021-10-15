@@ -11,7 +11,7 @@ from torch.functional import Tensor
 
 from paraphernalia.torch import cosine_similarity, overtile, regroup
 
-logger = logging.getLogger(__name__)
+_LOG = logging.getLogger(__name__)
 
 TextOrTexts = Union[str, List[str]]
 
@@ -146,7 +146,7 @@ class CLIP(torch.nn.Module):
             Tensor: A map from the (anti-)prompt texts to Tensors
         """
         if text_or_texts is None:
-            logger.info(f"No {what}")
+            _LOG.info(f"No {what}")
             return None, None
 
         elif isinstance(text_or_texts, str):
@@ -154,7 +154,7 @@ class CLIP(torch.nn.Module):
 
         text_or_texts = set(text_or_texts)
         encoded = self.encode_text(text_or_texts)
-        logger.info(f"Encoded {len(text_or_texts)} {what}")
+        _LOG.info(f"Encoded {len(text_or_texts)} {what}")
         return encoded, text_or_texts
 
     def encode_text(self, text_or_texts: str) -> Tensor:
@@ -164,7 +164,7 @@ class CLIP(torch.nn.Module):
         token_batch = clip.tokenize(text_or_texts).to(self.device)
         encoded = self.encoder.encode_text(token_batch)
         encoded = encoded.detach().clone()
-        logger.debug(f"Encoded {len(text_or_texts)} texts")
+        _LOG.debug(f"Encoded {len(text_or_texts)} texts")
         return encoded
 
     def encode_image(self, batch: Tensor) -> Tensor:

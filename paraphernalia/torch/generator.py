@@ -13,7 +13,7 @@ from torchvision.utils import make_grid
 
 from paraphernalia.torch import clamp_with_grad, one_hot_noise
 
-logger = logging.getLogger(__name__)
+_LOG = logging.getLogger(__name__)
 
 SizeType = Union[int, Tuple[int, int]]
 
@@ -56,7 +56,7 @@ class Generator(nn.Module, metaclass=ABCMeta):
             size = (size, size)
         self.size = (size[0] // quantize * quantize, size[1] // quantize * quantize)
         if self.size != size:
-            logger.warn(f"Size quantized from {size} to {self.size}")
+            _LOG.warn(f"Size quantized from {size} to {self.size}")
 
         if device is None:
             device = "cuda" if torch.cuda.is_available() else "cpu"

@@ -17,9 +17,10 @@ from omegaconf import OmegaConf
 from taming.models.vqgan import GumbelVQ, VQModel
 from torch.functional import Tensor
 
+from paraphernalia import cache_home
 from paraphernalia.torch import clamp_with_grad
 from paraphernalia.torch.generator import Generator
-from paraphernalia.utils import cache_home, download
+from paraphernalia.utils import download
 
 
 @dataclass

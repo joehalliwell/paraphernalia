@@ -15,7 +15,7 @@ except ModuleNotFoundError:
 
 __version__ = importlib_metadata.version(__name__)
 
-LOGGER = logging.getLogger(__name__)
+_LOG = logging.getLogger(__name__)
 
 
 def setup():
@@ -39,7 +39,7 @@ def cache_home(cache_home: str = None) -> Path:
     """
     global _CACHE_HOME
     if cache_home is not None:
-        LOGGER.info(f"Setting cache home to {_CACHE_HOME}")
+        _LOG.info(f"Setting cache home to {_CACHE_HOME}")
         _CACHE_HOME = Path(cache_home)
     os.makedirs(_CACHE_HOME, exist_ok=True)
     return _CACHE_HOME
@@ -62,7 +62,7 @@ def data_home(data_home: str = None) -> Path:
     """
     global _DATA_HOME
     if data_home:
-        LOGGER.info(f"Setting data home to {_DATA_HOME}")
+        _LOG.info(f"Setting data home to {_DATA_HOME}")
         _DATA_HOME = Path(data_home)
     os.makedirs(_DATA_HOME, exist_ok=True)
     return _DATA_HOME
@@ -147,7 +147,7 @@ def seed(seed):
     """
     import random
 
-    LOGGER.info(f"Setting global random seed to {seed}")
+    _LOG.info(f"Setting global random seed to {seed}")
     random.seed(seed)
 
     # Numpy
