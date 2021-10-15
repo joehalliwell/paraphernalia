@@ -3,6 +3,9 @@ Paraphernalia is a collection of tools for making digital art.
 """
 import logging
 import os
+from pathlib import Path
+
+import xdg
 
 # TODO: Shift to poetry-version-plugin, once that's bedded in?
 try:
@@ -29,13 +32,51 @@ def setup():
         setup_colab()
 
 
+def cache_home(cache_home: str = None) -> Path:
+    """
+    Get the cache home for paraphernalia ensuring it exists.
+    Defaults to $XDG_CACHE_HOME/paraphernalia
+    """
+    global _CACHE_HOME
+    if cache_home is not None:
+        LOGGER.info(f"Setting cache home to {_CACHE_HOME}")
+        _CACHE_HOME = Path(cache_home)
+    os.makedirs(_CACHE_HOME, exist_ok=True)
+    return _CACHE_HOME
+
+
+_CACHE_HOME = None
+cache_home(xdg.xdg_cache_home() / "paraphernalia")
+
+
+def data_home(data_home: str = None) -> Path:
+    """
+    Get the data directory for paraphernalia ensuring it exists.
+    Defaults to $XDG_DATA_HOME/paraphernalia
+
+    Args:
+        data_home (str, optional): If present sets the data home. Defaults to None.
+
+    Returns:
+        Path: path for the data home
+    """
+    global _DATA_HOME
+    if data_home:
+        LOGGER.info(f"Setting data home to {_DATA_HOME}")
+        _DATA_HOME = Path(data_home)
+    os.makedirs(_DATA_HOME, exist_ok=True)
+    return _DATA_HOME
+
+
+_DATA_HOME = None
+data_home(xdg.xdg_data_home() / "paraphernalia")
+
+
 def setup_colab():
     """
     Standard setup for Colaboratory. Mounts Google drive under `/content/drive`
     """
     from google.colab import drive
-
-    from paraphernalia.utils import data_home
 
     drive.mount("/content/drive")
     data_home("/content/drive/MyDrive/Paraphernalia")
