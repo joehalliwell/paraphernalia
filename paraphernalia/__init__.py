@@ -17,17 +17,29 @@ __version__ = importlib_metadata.version(__name__)
 
 _LOG = logging.getLogger(__name__)
 
+_BANNER = f"""
+                           .-.                      .-.  _
+                           : :                      : : :_;
+ .---. .--. .--. .--. .---.: `-. .--..--.,-.,-..--. : : .-..--.
+ : .; ' .; ;: ..' .; ;: .; : .. ' '_.: ..: ,. ' .; ;: :_: ' .; ;
+ : ._.`.__,_:_; `.__,_: ._.:_;:_`.__.:_; :_;:_`.__,_`.__:_`.__,_;
+ : :                  : :
+ :_;                  :_;                               v{__version__}
+
+"""
+
 
 def setup():
     """
-    Setup the library. Not very useful or much used currently.
+    Setup the library.
     """
-    logging.basicConfig(
-        format="%(asctime)s.%(msecs)03d %(levelname)s --- %(name)s : %(message)s",
-        level=logging.INFO,
-        datefmt="%Y-%m-%d %H:%M:%S",
-    )
+    print(_BANNER)
 
+    logging.basicConfig(
+        format="%(asctime)s %(levelname)s %(name)s : %(message)s",
+        level=logging.INFO,
+        datefmt="%X",
+    )
     if running_in_colab():
         setup_colab()
 
