@@ -2,6 +2,7 @@
 Tools for lightning
 """
 
+import io
 import logging
 import os
 import warnings
@@ -10,7 +11,7 @@ from pathlib import Path
 import ipywidgets as widgets
 import pytorch_lightning as pl
 import torch
-from IPython.display import clear_output, display
+from IPython.display import Image, display
 from torchvision import transforms as T
 from torchvision.utils import make_grid
 
@@ -38,9 +39,15 @@ class ImageCheckpoint(pl.Callback):
         if not self._preview:
             return
         img = T.functional.to_pil_image(make_grid(batch, nrow=4, padding=10))
-        with self._preview:
-            clear_output()
-            display(img)
+        # HACK: Workaround https://github.com/jupyter-widgets/ipywidgets/issues/3003
+        b = io.BytesIO()
+        img.save(b, format="PNG")
+        img = Image(b.getvalue())
+
+        # In principle could call clear_output. In practice the following works better
+        # See: https://stackoverflow.com/questions/63319165/clear-ipywidget-output-from-inside-thread
+        self._preview.outputs = []
+        self._preview.append_display_data(img)
 
     def save(self, batch, module, trainer):
         """Save the image batch."""
