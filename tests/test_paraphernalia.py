@@ -7,7 +7,8 @@ from paraphernalia import (
 )
 
 
-def test_setup():
+def test_setup_function():
+    # NB: test_setup is called for every test
     setup()
 
 
