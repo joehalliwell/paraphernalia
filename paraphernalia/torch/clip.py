@@ -154,7 +154,7 @@ class CLIP(torch.nn.Module):
 
         text_or_texts = set(text_or_texts)
         encoded = self.encode_text(text_or_texts)
-        _LOG.info(f"Encoded {len(text_or_texts)} {what}")
+        _LOG.info(f"Encoded {len(text_or_texts)} {what}: {text_or_texts}")
         return encoded, text_or_texts
 
     def encode_text(self, text_or_texts: str) -> Tensor:
