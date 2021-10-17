@@ -42,9 +42,6 @@ class CLIP(torch.nn.Module):
             a text prompt to use for micro-perception, defaults to "A detail from
             a picture of {prompt}"
 
-        anti_detail:
-            a description to avoid for micro-perception
-
     Attributes:
         use_tiling (bool):
             if true, add a covering of near-pixel-perfect perceptors into the
@@ -62,7 +59,6 @@ class CLIP(torch.nn.Module):
         prompt: TextOrTexts,
         anti_prompt: Optional[TextOrTexts] = None,
         detail: Optional[TextOrTexts] = None,
-        anti_detail: Optional[TextOrTexts] = None,
         use_tiling: bool = True,
         macro: float = 0.5,
         chops: int = 64,
@@ -105,12 +101,6 @@ class CLIP(torch.nn.Module):
         self.anti_prompts, anti_prompts = self._encode_texts(
             anti_prompt, "anti-prompts"
         )
-        if anti_prompt and anti_detail is None:
-            anti_detail = [
-                self._DETAIL_PROMPT_TEMPLATE.format(prompt=prompt)
-                for prompt in anti_prompts
-            ]
-        self.anti_details, _ = self._encode_texts(anti_detail, "detail anti-prompts")
 
         # Macro vs micro weighting
         self.macro = macro
