@@ -73,7 +73,7 @@ def data_home(data_home: str = None) -> Path:
         Path: path for the data home
     """
     global _DATA_HOME
-    if data_home:
+    if data_home is not None:
         _LOG.info(f"Setting data home to {_DATA_HOME}")
         _DATA_HOME = Path(data_home)
     os.makedirs(_DATA_HOME, exist_ok=True)
