@@ -3,6 +3,7 @@ Paraphernalia is a collection of tools for making digital art.
 """
 import logging
 import os
+import subprocess
 from pathlib import Path
 
 import xdg
@@ -43,6 +44,37 @@ def setup():
     if running_in_colab():
         setup_colab()
 
+    _LOG.info(f"GPU:  {get_gpu_name()}")
+    _LOG.info(f"CUDA: {get_cuda_version()}")
+
+
+def get_cuda_version():
+    """
+    Return the CUDA/nvcc version string e.g. 10.0 or raise an exception
+    """
+    try:
+        return [
+            s
+            for s in subprocess.check_output(["nvcc", "--version"])
+            .decode("UTF-8")
+            .split(", ")
+            if s.startswith("release")
+        ][0].split(" ")[-1]
+    except:
+        return None
+
+
+def get_gpu_name():
+    """
+    Return the name of the GPU if available, or None.
+    """
+    try:
+        import torch
+
+        return torch.cuda.get_device_name()
+    except:
+        return None
+
 
 def cache_home(cache_home: str = None) -> Path:
     """
@@ -51,7 +83,7 @@ def cache_home(cache_home: str = None) -> Path:
     """
     global _CACHE_HOME
     if cache_home is not None:
-        _LOG.info(f"Setting cache home to {_CACHE_HOME}")
+        _LOG.info(f"Setting cache home to {cache_home}")
         _CACHE_HOME = Path(cache_home)
     os.makedirs(_CACHE_HOME, exist_ok=True)
     return _CACHE_HOME
@@ -74,7 +106,7 @@ def data_home(data_home: str = None) -> Path:
     """
     global _DATA_HOME
     if data_home is not None:
-        _LOG.info(f"Setting data home to {_DATA_HOME}")
+        _LOG.info(f"Setting data home to {data_home}")
         _DATA_HOME = Path(data_home)
     os.makedirs(_DATA_HOME, exist_ok=True)
     return _DATA_HOME

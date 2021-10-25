@@ -22,19 +22,6 @@ _LOG = logging.getLogger(__name__)
 from paraphernalia import cache_home
 
 
-def get_cuda_version():
-    """
-    Return the CUDA version string e.g. 10.0 or raise an exception
-    """
-    return [
-        s
-        for s in subprocess.check_output(["nvcc", "--version"])
-        .decode("UTF-8")
-        .split(", ")
-        if s.startswith("release")
-    ][0].split(" ")[-1]
-
-
 def divide(whole: int, part: int, min_overlap: int = 0) -> List[int]:
     """
     Divide ``whole`` into several ``part``-sized chunks which overlap by
