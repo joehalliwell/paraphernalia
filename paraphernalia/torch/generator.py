@@ -9,6 +9,7 @@ import torch
 import torch.nn as nn
 import torchvision.transforms as T
 from PIL.Image import Image
+from torch import Tensor
 from torchvision.utils import make_grid
 
 from paraphernalia.torch import clamp_with_grad, one_hot_noise
@@ -62,6 +63,8 @@ class Generator(nn.Module, metaclass=ABCMeta):
             device = "cuda" if torch.cuda.is_available() else "cpu"
         self.device = torch.device(device)
 
+        self._z = Tensor()  # Default latent is the empty tensor
+
     @property
     def width(self) -> int:
         """
@@ -77,6 +80,31 @@ class Generator(nn.Module, metaclass=ABCMeta):
             int: The height of the generated image
         """
         return self.size[1]
+
+    @property
+    def z(self) -> Tensor:
+        """
+        The latent tensor associated with this model. Often but not always (b, c, h, w).
+        Returns:
+            Tensor: a detached copy of the latent tensor
+        """
+        return self._z.detach().clone()
+
+    @z.setter
+    def z(self, z):
+        """
+        Set the latent tensor via the model's state_dict. Must be the same shape
+        as the existing tensor.
+
+        Args:
+            z ([type]): [description]
+        """
+        sd = self.state_dict()
+        shape = sd["_z"].shape
+        if z.shape != shape:
+            raise ValueError(f"Invalid size {z.shape}, should be {shape}")
+        sd["_z"] = z
+        self.load_state_dict(sd)
 
     def generate_image(self, index: Optional[int] = None, **kwargs) -> Image:
         """

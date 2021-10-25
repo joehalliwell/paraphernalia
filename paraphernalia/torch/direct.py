@@ -41,13 +41,13 @@ class Direct(Generator):
             z = 0.05 * torch.randn((self.batch_size, 3, h, w))
 
         z = z.to(self.device)
-        self.z = torch.nn.Parameter(z)
+        self._z = torch.nn.Parameter(z)
 
     def forward(self):
         """
         Generate a batch of images.
         """
-        img = torch.sigmoid(self.z)
+        img = torch.sigmoid(self._z)
         return T.functional.resize(
             img, size=(self.height, self.width), interpolation=PIL.Image.NEAREST
         )
@@ -84,7 +84,7 @@ class DirectPalette(Generator):
         z = z.permute(0, 3, 1, 2)
         z = torch.log(z + 0.001 / len(colors))
         z = z.to(self.device)
-        self.z = torch.nn.Parameter(z)
+        self._z = torch.nn.Parameter(z)
 
     def forward(self, tau=None, hard=None):
         """
@@ -94,7 +94,7 @@ class DirectPalette(Generator):
             tau = self.tau
         if hard is None:
             hard = self.hard
-        sample = torch.nn.functional.gumbel_softmax(self.z, dim=1, tau=tau, hard=hard)
+        sample = torch.nn.functional.gumbel_softmax(self._z, dim=1, tau=tau, hard=hard)
         img = torch.einsum("bchw,cs->bshw", sample, self.colors)
         return T.functional.resize(
             img, size=(self.height, self.width), interpolation=PIL.Image.NEAREST
@@ -166,7 +166,7 @@ class DirectTileset(Generator):
 
         z = one_hot_normalize(z)
         z = z.detach().clone().to(self.device)
-        self.z = torch.nn.Parameter(z)
+        self._z = torch.nn.Parameter(z)
 
     def forward(self, tau=None, hard=None):
         """
@@ -176,7 +176,7 @@ class DirectTileset(Generator):
             tau = self.tau
         if hard is None:
             hard = self.hard
-        sample = torch.nn.functional.gumbel_softmax(self.z, dim=1, hard=hard, tau=tau)
+        sample = torch.nn.functional.gumbel_softmax(self._z, dim=1, hard=hard, tau=tau)
         img = torch.einsum("bchw,cs->bshw", sample, self.atlas)
         img = torch.nn.functional.pixel_shuffle(img, self.tile_size)
         return T.functional.resize(

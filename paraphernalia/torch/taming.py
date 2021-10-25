@@ -121,7 +121,7 @@ class Taming(Generator):
         z = z.to(self.device)
 
         z = z.requires_grad_(True)
-        self.z = nn.Parameter(z)
+        self._z = nn.Parameter(z)
 
     def forward(self, z=None) -> Tensor:
         """
@@ -131,7 +131,7 @@ class Taming(Generator):
             Tensor: An image batch tensor
         """
         if z is None:
-            z = self.z
+            z = self._z
 
         z = self.model.quantize(z)[0]
         z = self.model.decode(z)

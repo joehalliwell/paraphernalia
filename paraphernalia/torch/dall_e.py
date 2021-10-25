@@ -64,7 +64,7 @@ class DALL_E(Generator):
                 z, size=(self.height // self._SCALE, self.width // self._SCALE)
             )
             # TODO: Handle batch size
-            self.z = torch.nn.Parameter(z)
+            self._z = torch.nn.Parameter(z)
             return
 
         # Option 2: A provided PIL or Tensor image
@@ -88,7 +88,7 @@ class DALL_E(Generator):
         z = z.detach().clone()
         z = z.to(self.device)
         z = one_hot_normalize(z)
-        self.z = torch.nn.Parameter(z)
+        self._z = torch.nn.Parameter(z)
 
     def forward(self, z=None, tau=None, hard=None) -> Tensor:
         """
@@ -98,7 +98,7 @@ class DALL_E(Generator):
             Tensor: An image batch tensor
         """
         if z is None:
-            z = self.z
+            z = self._z
         if tau is None:
             tau = self.tau
         if hard is None:
