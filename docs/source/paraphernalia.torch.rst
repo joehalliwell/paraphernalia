@@ -9,74 +9,15 @@ paraphernalia.torch package
 Submodules
 ----------
 
-paraphernalia.torch.clip module
--------------------------------
+.. toctree::
+   :maxdepth: 4
 
-.. automodule:: paraphernalia.torch.clip
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-paraphernalia.torch.dall\_e module
-----------------------------------
-
-.. automodule:: paraphernalia.torch.dall_e
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-paraphernalia.torch.direct module
----------------------------------
-
-.. automodule:: paraphernalia.torch.direct
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-paraphernalia.torch.generator module
-------------------------------------
-
-.. automodule:: paraphernalia.torch.generator
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-paraphernalia.torch.lightning module
-------------------------------------
-
-.. automodule:: paraphernalia.torch.lightning
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-paraphernalia.torch.modules module
-----------------------------------
-
-.. automodule:: paraphernalia.torch.modules
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-paraphernalia.torch.noise module
---------------------------------
-
-.. automodule:: paraphernalia.torch.noise
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-paraphernalia.torch.siren module
---------------------------------
-
-.. automodule:: paraphernalia.torch.siren
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-paraphernalia.torch.taming module
----------------------------------
-
-.. automodule:: paraphernalia.torch.taming
-   :members:
-   :undoc-members:
-   :show-inheritance:
+   paraphernalia.torch.clip
+   paraphernalia.torch.dall_e
+   paraphernalia.torch.direct
+   paraphernalia.torch.generator
+   paraphernalia.torch.lightning
+   paraphernalia.torch.modules
+   paraphernalia.torch.noise
+   paraphernalia.torch.siren
+   paraphernalia.torch.taming

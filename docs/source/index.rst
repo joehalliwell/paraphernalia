@@ -9,15 +9,21 @@ Paraphernalia
 Paraphernalia is an assortment of tools for making digital art from
 `@joehalliwell <http://twitter.com/joehalliwell>`_.
 
-This is an incubator for immature scripts/modules with an absolute holy hell of
-dependencies. Mature scripts/modules will likely be packaged more carefully and
-live elsewhere.
+.. warning::
+
+   This is an incubator for immature scripts/modules with an absolute holy hell of
+   dependencies. Mature scripts/modules will likely be packaged more carefully and
+   live elsewhere.
+
+
 
 .. toctree::
    :maxdepth: 4
-   :caption: Contents:
+   :caption: Contents
 
    paraphernalia
+
+
 
 
 Indices and tables

@@ -28,10 +28,11 @@ author = "Joe Halliwell"
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
+    "sphinx.ext.autodoc",
+    "sphinx.ext.autosummary",  # Create neat summary tables
     "sphinx.ext.todo",
     "sphinx.ext.viewcode",
-    "sphinx.ext.autodoc",
-    "sphinx.ext.napoleon",
+    "sphinx.ext.napoleon",  # Google-style docstrings
 ]
 
 napoleon_include_init_with_doc = False
@@ -43,6 +44,21 @@ templates_path = ["_templates"]
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = []
+
+# -- Options for autodoc -----------------------------------------------------
+
+# Sort functions etc. by order of appearance in the source
+autodoc_member_order = "bysource"
+
+# Use both class and __init__ docs
+autoclass_content = "both"
+
+# Display the __init__ signature with the class
+autodoc_class_signature = "mixed"
+
+autodoc_typehints = "description"
+
+autosummary_generate = False  # Turn on sphinx.ext.autosummary
 
 
 # -- Options for HTML output -------------------------------------------------
@@ -57,13 +73,5 @@ html_theme = "sphinx_rtd_theme"
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ["_static"]
 
-# Sort functions etc. by order of appearance in the source
-autodoc_member_order = "bysource"
-
-# Use both class and __init__ docs
-autoclass_content = "both"
-
-# Display the __init__ signature with the class
-autodoc_class_signature = "mixed"
-
-autodoc_typehints = "description"
+# Increase depth
+html_theme_options = {"navigation_depth": 8}
