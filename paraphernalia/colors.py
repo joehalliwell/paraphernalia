@@ -40,7 +40,7 @@ class Palette(Enum):
 
 class BW(Palette):
     """
-    A simple black and white palette
+    A simple black and white palette.
     """
 
     BLACK = "#000000"
@@ -49,7 +49,7 @@ class BW(Palette):
 
 class C64(Palette):
     """
-    The Commodore 64 palette. Taken from From https://www.c64-wiki.com/wiki/Color
+    The Commodore 64 palette. Taken from https://www.c64-wiki.com/wiki/Color
     """
 
     BLACK = "#000000"
@@ -76,13 +76,13 @@ class ZX_SPECTRUM(Palette):
     """
 
     BLACK = "#000000"
-    BLUE = "#0000ee"
-    RED = "#ee0000"
-    MAGENTA = "#ee00ee"
-    GREEN = "#00ee00"
-    CYAN = "#00eeee"
-    YELLOW = "#eeee00"
-    WHITE = "#eeeeee"
+    BLUE = "#0000EE"
+    RED = "#EE0000"
+    MAGENTA = "#EE00EE"
+    GREEN = "#00EE00"
+    CYAN = "#00EEEE"
+    YELLOW = "#EEEE00"
+    WHITE = "#EEEEEE"
     BRIGHT_BLACK = "#000000"
     BRIGHT_BLUE = "#0000FF"
     BRIGHT_RED = "#FF0000"
