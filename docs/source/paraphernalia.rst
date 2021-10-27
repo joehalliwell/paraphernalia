@@ -17,6 +17,14 @@ Subpackages
 Submodules
 ----------
 
+paraphernalia.colors module
+---------------------------
+
+.. automodule:: paraphernalia.colors
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 paraphernalia.glsl module
 -------------------------
 
@@ -29,6 +37,14 @@ paraphernalia.jupyter module
 ----------------------------
 
 .. automodule:: paraphernalia.jupyter
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+paraphernalia.signature module
+------------------------------
+
+.. automodule:: paraphernalia.signature
    :members:
    :undoc-members:
    :show-inheritance:

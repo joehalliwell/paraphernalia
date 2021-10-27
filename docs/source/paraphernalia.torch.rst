@@ -41,6 +41,30 @@ paraphernalia.torch.generator module
    :undoc-members:
    :show-inheritance:
 
+paraphernalia.torch.lightning module
+------------------------------------
+
+.. automodule:: paraphernalia.torch.lightning
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+paraphernalia.torch.modules module
+----------------------------------
+
+.. automodule:: paraphernalia.torch.modules
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+paraphernalia.torch.noise module
+--------------------------------
+
+.. automodule:: paraphernalia.torch.noise
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 paraphernalia.torch.siren module
 --------------------------------
 

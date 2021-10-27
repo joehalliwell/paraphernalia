@@ -8,7 +8,12 @@ import os
 import warnings
 from pathlib import Path
 
-import ipywidgets as widgets
+try:
+    import ipywidgets as widgets
+except:
+    warnings.warn("Could not import ipywidgets. Some functionality won't work")
+    widgets = None
+
 import pytorch_lightning as pl
 import torch
 from IPython.display import Image, display
