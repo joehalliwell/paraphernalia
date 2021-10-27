@@ -38,8 +38,7 @@ def setup() -> None:
 
     - Configuring logging
     - Printing a vanity banner and some system information
-    - (If running in Colaboratory) ensuring that drive is mounted and used for
-      :func:`data_home`
+    - (If running in Colaboratory) calling :func:`setup_colab`
     """
     logging.basicConfig(
         format="%(asctime)s %(levelname)s %(name)s : %(message)s",
@@ -56,34 +55,74 @@ def setup() -> None:
         setup_colab()
 
 
-def get_cuda_version() -> Optional[str]:
+def setup_colab():
     """
+    Standard setup for Colaboratory. Ensures Google drive is mounted under
+    `/content/drive` and configures :func:`data_home` to use it.
+    """
+    from google.colab import drive
+
+    drive.mount("/content/drive")
+    data_home("/content/drive/MyDrive/Paraphernalia")
+
+
+def seed(seed: Optional[Any] = None) -> int:
+
+    """
+    Get the current random seed i.e. the last seed that was set.
+
+    Alternatively, when a seed is provided, set all known random number generators
+    using it. Currently:
+
+    - `random.seed()`
+    - `numpy.random.seed()`
+    - `torch.manual_seed()`
+    - `torch.cuda.manual_seed_all()`
+
+    .. note::
+
+        - On load this module sets the random seed to the current time in seconds
+          since the epoch.
+        - Provided seeds are hashed before use. This allows you to pass in e.g. a string.
+
+    Args:
+        seed (Optional[Any]): The seed. Defaults to None.
+
     Returns:
-        the CUDA/nvcc version string e.g. 10.0, or None
+        int: The current random seed
     """
-    try:
-        return [
-            s
-            for s in subprocess.check_output(["nvcc", "--version"])
-            .decode("UTF-8")
-            .split(", ")
-            if s.startswith("release")
-        ][0].split(" ")[-1]
-    except:
-        return None
+    global _seed
+
+    if seed is not None:
+        _seed = hash(seed)
+        _LOG.info(f"Setting global random seed to {_seed}")
+
+        import random
+
+        random.seed(_seed)
+
+        # Numpy
+        try:
+            import numpy
+
+            numpy.random.seed(_seed)
+        except:
+            pass
+
+        # Torch
+        try:
+            import torch
+
+            torch.manual_seed(_seed)
+            torch.cuda.manual_seed_all(_seed)
+        except:
+            pass
+
+    return _seed
 
 
-def get_gpu_name() -> Optional[str]:
-    """
-    Returns:
-        the name of the GPU if available, or None.
-    """
-    try:
-        import torch
-
-        return torch.cuda.get_device_name()
-    except:
-        return None
+_seed = None
+seed(int(time()))
 
 
 def cache_home(cache_home: Optional[str] = None) -> Path:
@@ -131,16 +170,6 @@ def data_home(data_home: Optional[str] = None) -> Path:
 
 _data_home = None
 data_home(xdg.xdg_data_home() / "paraphernalia")
-
-
-def setup_colab():
-    """
-    Standard setup for Colaboratory. Mounts Google drive under `/content/drive`
-    """
-    from google.colab import drive
-
-    drive.mount("/content/drive")
-    data_home("/content/drive/MyDrive/Paraphernalia")
 
 
 def running_in_colab():
@@ -204,60 +233,31 @@ def running_in_jupyter() -> bool:
         return True
 
 
-def seed(seed: Optional[Any] = None) -> int:
-
+def get_cuda_version() -> Optional[str]:
     """
-    Get the current random seed i.e. the last seed that was set.
-
-    Alternatively, when a seed is provided, set all known random number generators
-    using it. Currently:
-
-    - `random.seed()`
-    - `numpy.random.seed()`
-    - `torch.manual_seed()`
-    - `torch.cuda.manual_seed_all()`
-
-    .. note::
-
-        - On load this module sets the random seed to the current time in seconds
-          since the epoch.
-        - Provided seeds are hashed before use. This allows you to pass in e.g. a string.
-
-    Args:
-        seed (Optional[Any]): The seed. Defaults to None.
-
     Returns:
-        int: The current random seed
+        the CUDA/nvcc version string e.g. 10.0, or None
     """
-    global _seed
-
-    if seed is not None:
-        _seed = hash(seed)
-        _LOG.info(f"Setting global random seed to {_seed}")
-
-        import random
-
-        random.seed(_seed)
-
-        # Numpy
-        try:
-            import numpy
-
-            numpy.random.seed(_seed)
-        except:
-            pass
-
-        # Torch
-        try:
-            import torch
-
-            torch.manual_seed(_seed)
-            torch.cuda.manual_seed_all(_seed)
-        except:
-            pass
-
-    return _seed
+    try:
+        return [
+            s
+            for s in subprocess.check_output(["nvcc", "--version"])
+            .decode("UTF-8")
+            .split(", ")
+            if s.startswith("release")
+        ][0].split(" ")[-1]
+    except:
+        return None
 
 
-_seed = None
-seed(int(time()))
+def get_gpu_name() -> Optional[str]:
+    """
+    Returns:
+        the name of the GPU if available, or None.
+    """
+    try:
+        import torch
+
+        return torch.cuda.get_device_name()
+    except:
+        return None
