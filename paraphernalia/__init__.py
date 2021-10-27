@@ -4,6 +4,7 @@ Paraphernalia is a collection of tools for making digital art.
 import logging
 import os
 import subprocess
+import sys
 from pathlib import Path
 from time import time
 from typing import Any, Optional
@@ -35,19 +36,18 @@ def setup() -> None:
     """
     Setup the library.
     """
-    print(_BANNER)
-
     logging.basicConfig(
         format="%(asctime)s %(levelname)s %(name)s : %(message)s",
         level=logging.INFO,
         datefmt="%X",
     )
+    print(_BANNER)
+
+    _LOG.info(f"Python: {sys.version}")
+    _LOG.info(f"GPU:  {get_gpu_name()} (CUDA: {get_cuda_version()})")
 
     if running_in_colab():
         setup_colab()
-
-    _LOG.info(f"GPU:  {get_gpu_name()}")
-    _LOG.info(f"CUDA: {get_cuda_version()}")
 
 
 def get_cuda_version() -> Optional[str]:
