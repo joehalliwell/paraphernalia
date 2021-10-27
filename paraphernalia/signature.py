@@ -2,12 +2,17 @@
 Sign and tag images.
 """
 
+import warnings
 from pathlib import Path
-from typing import List, Optional, Union
+from typing import List, Optional
 
 import click
-import libxmp
-from libxmp.consts import XMP_NS_DC as DC
+
+try:
+    import libxmp
+    from libxmp.consts import XMP_NS_DC as DC
+except:
+    warnings.warn("Could not import libxmp")
 
 
 class XMP:
