@@ -44,6 +44,9 @@ pytorch-lightning = "1.5.0rc0"
 perlin-numpy = {git = "https://github.com/pvigier/perlin-numpy", optional=true}
 python-xmp-toolkit = "^2.0.1"
 rich = "^10.12.0"
+sphinx-click = {version = "^3.0.1", optional = true}
+Sphinx = {version = "^4.0.2", optional = true}
+sphinx-rtd-theme = {version = "^0.5.2", optional = true}
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
@@ -51,16 +54,14 @@ isort = "^5.8.0"
 black = "^20.8b1"
 ipykernel = "^5.5.5"
 pre-commit = "^2.13.0"
-Sphinx = "^4.0.2"
-sphinx-rtd-theme = "^0.5.2"
 coverage = "^5.5"
 interrogate = "^1.4.0"
-sphinx-click = "^3.0.1"
 
 [tool.poetry.extras]
 openai = ["regex", "ftfy", "clip", "dall-e"]
 taming = ["taming-transformers", "omegaconf", "pytorch-lightning"]
 tools = ["perlin-numpy"]
+docs = ["Sphinx", "sphinx-rtd-theme", "sphinx-click"]
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
