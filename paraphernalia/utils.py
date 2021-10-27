@@ -27,7 +27,7 @@ def divide(whole: int, part: int, min_overlap: int = 0) -> List[int]:
     at least ``min_overlap``.
 
     Args:
-        whole (int): The length the subdivide
+        whole (int): The total to subdivide
         part (int): The size of the chunk
         min_overlap (int, optional): The minimum overlap between chunks.
             Defaults to 0 i.e. chunks won't overlap unless required.

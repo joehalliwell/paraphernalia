@@ -1,7 +1,7 @@
 # Paraphernalia
 
-![CI Badge](https://github.com/joehalliwell/paraphernalia/actions/workflows/test.yml/badge.svg)
-![Read The Docs Badge](https://readthedocs.org/projects/paraphernalia/badge/?version=latest)
+[![CI Badge](https://github.com/joehalliwell/paraphernalia/actions/workflows/test.yml/badge.svg)](https://github.com/joehalliwell/paraphernalia/actions)
+[![Read The Docs Badge](https://readthedocs.org/projects/paraphernalia/badge/?version=latest)](https://paraphernalia.readthedocs.io/en/latest/)
 
 An assortment of tools for making digital art from Joe Halliwell
 (@joehalliwell).

@@ -20,10 +20,6 @@ SizeType = Union[int, Tuple[int, int]]
 
 
 class Generator(nn.Module, metaclass=ABCMeta):
-    """
-    Base class for image generators.
-    """
-
     def __init__(
         self,
         batch_size: int = 1,

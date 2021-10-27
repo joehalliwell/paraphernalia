@@ -3,7 +3,7 @@ Sign and tag images.
 """
 
 from pathlib import Path
-from typing import List, Optional, Set, Union
+from typing import List, Optional, Union
 
 import click
 import libxmp
@@ -16,6 +16,17 @@ class XMP:
     accessors for some Dublin Core fields.
 
     For DC/XMP interactions see https://www.exiv2.org/tags-xmp-dc.html
+
+    Example:
+
+    >>> with XMP("test.png") as xmp:
+    ...     xmp.title = "Mona Lisa"
+    ...     xmp.creator = "Leonardo"
+
+    >>> with XMP("test.png") as xmp:
+    ...     print(xmp.creator)
+    Leonardo
+
     """
 
     def __init__(self, path: str) -> None:
@@ -47,12 +58,12 @@ class XMP:
         self._xmpfile.close_file()
 
     @property
-    def creator(self):
+    def creator(self) -> str:
         "The creator of this object"
         return self.creators[0] if self.creators else None
 
     @creator.setter
-    def creator(self, value: str):
+    def creator(self, value: str) -> None:
         self.creators = [value]
 
 
@@ -61,14 +72,14 @@ def _make_seq_property(name):
     Make a property wrapping an XMP array.
     """
 
-    def _getter(self):
+    def _getter(self) -> List[str]:
         if not self._xmp.does_property_exist(DC, name):
             return []
         num_items = self._xmp.count_array_items(DC, name)
         tags = [self._xmp.get_array_item(DC, name, i) for i in range(1, num_items + 1)]
         return tags
 
-    def _setter(self, value):
+    def _setter(self, value: List[str]) -> None:
         self._xmp.delete_property(DC, name)
         if isinstance(value, str):
             raise ValueError(f"Value for {name} should be a list")
@@ -83,10 +94,10 @@ def _make_seq_property(name):
                 },
             )
 
-    def _deleter(self):
+    def _deleter(self) -> None:
         self._xmp.delete_property(DC, name)
 
-    return property(_getter, _setter, _deleter)
+    return property(_getter, _setter, _deleter, doc=f"The {name}")
 
 
 def _make_lang_property(name, generic_lang="", specific_lang="en"):
@@ -94,18 +105,18 @@ def _make_lang_property(name, generic_lang="", specific_lang="en"):
     Make a Python property wrapping an XMP alt language attribute.
     """
 
-    def _getter(self):
+    def _getter(self) -> str:
         if not self._xmp.does_property_exist(DC, name):
             return None
         return self._xmp.get_localized_text(DC, name, generic_lang, specific_lang)
 
-    def _setter(self, value):
+    def _setter(self, value: str) -> None:
         self._xmp.set_localized_text(DC, name, generic_lang, specific_lang, value)
 
-    def _deleter(self):
+    def _deleter(self) -> None:
         self._xmp.delete_property(DC, name)
 
-    return property(_getter, _setter, _deleter)
+    return property(_getter, _setter, _deleter, doc=f"The {name}")
 
 
 XMP.creators = _make_seq_property("creator")

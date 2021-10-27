@@ -16,32 +16,28 @@ from paraphernalia.utils import download
 
 
 class DALL_E(Generator):
-    """
-    Image generator based on OpenAI's release of the discrete VAE component
-    of DALL-E. Many parameters can be overridden via method arguments, so
-    are best considered defaults.
-
-    Args:
-        batch_size (int):
-            How many independent latent vectors to use in parallel. This has a
-            huge impact on memory use.
-        start ():
-            Determines how to intitialize the hidden state.
-
-    Attributes:
-        tau (float):
-            Gumbel softmax temperature parameter. Larger values make
-            the underlying distribution more uniform.
-        hard (bool):
-            If true, then samples will be exactly one-hot
-    """
 
     _NUM_CLASSES = 8192
     _SCALE = 8
 
-    def __init__(
-        self, tau: Optional[float] = 1.0, z=None, hard=False, start=None, **kwargs
-    ):
+    def __init__(self, tau: Optional[float] = 1.0, hard=False, start=None, **kwargs):
+        """
+        Image generator based on OpenAI's release of the discrete VAE component
+        of DALL-E. Many parameters can be overridden via method arguments, so
+        are best considered defaults.
+
+        Args:
+            start:
+                Determines how to intitialize the hidden state.
+
+        Attributes:
+            tau (float):
+                Gumbel softmax temperature parameter. Larger values make
+                the underlying distribution more uniform.
+            hard (bool):
+                If true, then samples will be exactly one-hot
+        """
+
         super().__init__(quantize=self._SCALE, **kwargs)
 
         self.tau = tau
@@ -52,27 +48,10 @@ class DALL_E(Generator):
         )
 
         # Initialize the state tensor
-        # Option 1: From a provided tensor
-        if z is not None:
-            if start is not None:
-                raise ValueError("If providing z, don't provide start image")
-            if len(z.shape) == 3:
-                z = z.unsqueeze(0)
-            if len(z.shape) != 4:
-                raise ValueError("z must be rank 4 (b, c, h, w)")
-            z = torch.nn.functional.interpolate(
-                z, size=(self.height // self._SCALE, self.width // self._SCALE)
-            )
-            # TODO: Handle batch size
-            self._z = torch.nn.Parameter(z)
-            return
-
-        # Option 2: A provided PIL or Tensor image
-        elif start is not None:
+        if start is not None:
             z = self.encode(start)
             z = torch.cat([z.detach().clone() for _ in range(self.batch_size)])
 
-        # Option 3: Random noise (this doesn't work very well)
         else:
             # Nice terrazzo style noise
             z = one_hot_noise(
