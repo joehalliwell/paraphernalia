@@ -68,16 +68,14 @@ class Generator(nn.Module, metaclass=ABCMeta):
     @property
     def width(self) -> int:
         """
-        Returns:
-            int: The width of the generated image
+        The width of the generated image
         """
         return self.size[0]
 
     @property
     def height(self) -> int:
         """
-        Returns:
-            int: The height of the generated image
+        The height of the generated image
         """
         return self.size[1]
 
@@ -85,19 +83,14 @@ class Generator(nn.Module, metaclass=ABCMeta):
     def z(self) -> Tensor:
         """
         The latent tensor associated with this model. Often but not always (b, c, h, w).
-        Returns:
-            Tensor: a detached copy of the latent tensor
         """
         return self._z.detach().clone()
 
     @z.setter
-    def z(self, z):
+    def z(self, z) -> None:
         """
         Set the latent tensor via the model's state_dict. Must be the same shape
         as the existing tensor.
-
-        Args:
-            z ([type]): [description]
         """
         sd = self.state_dict()
         shape = sd["_z"].shape
