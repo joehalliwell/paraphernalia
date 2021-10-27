@@ -22,8 +22,7 @@ Paraphernalia is an assortment of tools for making digital art from
    :caption: Contents
 
    paraphernalia
-
-
+   commands
 
 
 Indices and tables

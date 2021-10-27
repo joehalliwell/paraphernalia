@@ -33,6 +33,7 @@ extensions = [
     "sphinx.ext.todo",
     "sphinx.ext.viewcode",
     "sphinx.ext.napoleon",  # Google-style docstrings
+    "sphinx_click",  # Generate docs for click programs
 ]
 
 napoleon_include_init_with_doc = False

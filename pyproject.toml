@@ -55,6 +55,7 @@ Sphinx = "^4.0.2"
 sphinx-rtd-theme = "^0.5.2"
 coverage = "^5.5"
 interrogate = "^1.4.0"
+sphinx-click = "^3.0.1"
 
 [tool.poetry.extras]
 openai = ["regex", "ftfy", "clip", "dall-e"]
