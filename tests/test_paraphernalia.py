@@ -1,3 +1,5 @@
+import time
+
 import paraphernalia as pa
 
 
@@ -22,3 +24,12 @@ def test_github():
 def test_seed():
     # Just a smoketest
     pa.seed(42)
+
+
+def test_default_seed():
+    s1 = pa.seed()
+    s2 = pa.seed()
+    assert s1 is not None
+    assert s1 == s2
+    s3 = pa.seed(s1 + 1)
+    assert s1 != s3
