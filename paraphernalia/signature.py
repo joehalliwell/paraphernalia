@@ -8,11 +8,12 @@ from typing import List, Optional
 
 import click
 
+# libxmp raises an error on import if libexempi is not available
 try:
     import libxmp
     from libxmp.consts import XMP_NS_DC as DC
-except:
-    warnings.warn("Could not import libxmp")
+except Exception as e:
+    warnings.warn(f"Could not import libxmp: {e}")
 
 
 class XMP:
