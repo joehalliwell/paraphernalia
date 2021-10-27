@@ -3,5 +3,5 @@ test:
     coverage report
 
 makedocs:
-    cd docs && sphinx-apidoc --module-first --separate --force -o source ../paraphernalia
+    cd docs && rm -rf source/generated && sphinx-apidoc --module-first --separate --force -o source/generated ../paraphernalia
     cd docs && make clean html

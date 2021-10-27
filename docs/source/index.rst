@@ -27,7 +27,7 @@ Paraphernalia is an assortment of tools for making digital art from
 .. toctree::
    :caption: Package documentation
 
-   paraphernalia
+   generated/paraphernalia
 
 
 Indices and tables
