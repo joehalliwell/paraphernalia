@@ -59,7 +59,11 @@ autodoc_class_signature = "mixed"
 
 autodoc_typehints = "description"
 
-autosummary_generate = False  # Turn on sphinx.ext.autosummary
+autosummary_generate = True  # Turn on sphinx.ext.autosummary
+
+add_module_names = False
+
+modindex_common_prefix = ["paraphernalia."]
 
 # -- Options for HTML output -------------------------------------------------
 

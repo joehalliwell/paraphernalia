@@ -23,12 +23,11 @@ Paraphernalia is an assortment of tools for making digital art from
    commands
 
 
-
 .. toctree::
    :caption: Package documentation
+   :includehidden:
 
    generated/paraphernalia
-
 
 Indices and tables
 ==================
