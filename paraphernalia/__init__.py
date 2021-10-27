@@ -159,7 +159,10 @@ def running_in_github_action() -> bool:
 
 def running_in_jupyter() -> bool:
     """
-    True if and only if running within Jupyter
+    True if running within Jupyter, and not:
+    - A random python program
+    - A console-based IPython shell
+    - VSCode's interactive mode
 
     Returns:
         bool: True iff running in Jupyter
@@ -170,15 +173,16 @@ def running_in_jupyter() -> bool:
         return False
 
     ip = get_ipython()
+    # No species of iPython
     if not ip:
         return False
 
+    # Console
     elif "IPKernelApp" not in get_ipython().config:  # pragma: no cover
-        raise ImportError("console")
         return False
 
+    # VS Code
     elif "VSCODE_PID" in os.environ:  # pragma: no cover
-        raise ImportError("vscode")
         return False
 
     else:  # pragma: no cover
