@@ -23,6 +23,8 @@ def test_grid():
     assert t.shape == (4, 4, 4, 3)
     t = grid(4, 4, 4, 4)
     assert t.shape == (4, 4, 4, 4, 4)
+    t = grid(1)
+    assert t.shape == (1, 1)
 
 
 def test_overtile():

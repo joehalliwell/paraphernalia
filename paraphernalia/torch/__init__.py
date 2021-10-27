@@ -19,8 +19,21 @@ def grid(*steps: int) -> Tensor:
     Generate a tensor of co-ordinates in the origin-centred hypercube of the
     specified dimension.
 
+    Example:
+
+    >>> grid(2)
+    tensor([[-1.],
+            [ 1.]])
+    >>> grid(2, 3)
+    tensor([[[-1., -1.],
+             [-1.,  0.],
+             [-1.,  1.]],
+            [[ 1., -1.],
+             [ 1.,  0.],
+             [ 1.,  1.]]])
+
     Args:
-        *steps: number of steps per dimension
+        steps: number of steps per dimension
 
     Returns:
         A (rank ``len(steps) + 1``) tensor of the coordinates. The co-ordinates
@@ -28,7 +41,7 @@ def grid(*steps: int) -> Tensor:
     """
     if isinstance(steps, int):
         steps = (steps,)
-    axes = [torch.linspace(-1, 1, s) for s in steps]
+    axes = [torch.linspace(-1, 1, s) if s > 1 else Tensor([0]) for s in steps]
     grid = torch.stack(torch.meshgrid(*axes), dim=-1)
     return grid
 
