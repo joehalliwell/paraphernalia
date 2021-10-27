@@ -5,12 +5,6 @@ import pytest
 from paraphernalia.utils import *
 
 
-def test_cache_home():
-    cache = cache_home()
-    assert str(cache_home("FOO")) == "FOO"
-    cache_home(cache)
-
-
 @pytest.mark.parametrize(
     "args, expected",
     [

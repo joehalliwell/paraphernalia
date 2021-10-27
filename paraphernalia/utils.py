@@ -14,7 +14,6 @@ from pathlib import Path
 from typing import Iterable, List
 from urllib.parse import urlparse
 
-import xdg
 from tqdm import tqdm
 
 _LOG = logging.getLogger(__name__)
@@ -52,7 +51,7 @@ def divide(whole: int, part: int, min_overlap: int = 0) -> List[int]:
 
 def step_down(steps, iterations):
     """
-    Step down generator.
+    DEPRECATED. Step down generator.
 
     TODO:
     - Add value checks

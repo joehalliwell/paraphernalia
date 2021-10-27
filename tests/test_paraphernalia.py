@@ -21,6 +21,18 @@ def test_github():
     pa.running_in_github_action()
 
 
+def test_cache_home():
+    cache = pa.cache_home()
+    assert str(pa.cache_home("FOO")) == "FOO"
+    pa.cache_home(cache)
+
+
+def test_data_home():
+    data = pa.data_home()
+    assert str(pa.data_home("FOO")) == "FOO"
+    pa.data_home(data)
+
+
 def test_seed():
     # Just a smoketest
     pa.seed(42)
