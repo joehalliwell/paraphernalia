@@ -34,13 +34,19 @@ _BANNER = f"""
 
 def setup() -> None:
     """
-    Setup the library.
+    Set up the library for interactive use by:
+
+    - Configuring logging
+    - Printing a vanity banner and some system information
+    - (If running in Colaboratory) ensuring that drive is mounted and used for
+      :func:`data_home`
     """
     logging.basicConfig(
         format="%(asctime)s %(levelname)s %(name)s : %(message)s",
         level=logging.INFO,
         datefmt="%X",
     )
+
     print(_BANNER)
 
     _LOG.info(f"Python: {sys.version}")
@@ -84,6 +90,13 @@ def cache_home(cache_home: Optional[str] = None) -> Path:
     """
     Get the cache home for paraphernalia ensuring it exists.
     Defaults to $XDG_CACHE_HOME/paraphernalia
+
+    Args:
+        cache_home (Optional[str]): If present sets the cache home. Defaults to None.
+
+    Returns:
+        Path: path for the cache home
+
     """
     global _cache_home
     if cache_home is not None:
@@ -103,7 +116,7 @@ def data_home(data_home: Optional[str] = None) -> Path:
     Defaults to $XDG_DATA_HOME/paraphernalia
 
     Args:
-        data_home (str, optional): If present sets the data home. Defaults to None.
+        data_home (Optional[str]): If present sets the data home. Defaults to None.
 
     Returns:
         Path: path for the data home
@@ -135,6 +148,7 @@ def running_in_colab():
     True if running in Colaboratory.
 
     See:
+
     - https://stackoverflow.com/questions/53581278/test-if-notebook-is-running-on-google-colab
 
     Returns:
@@ -159,7 +173,8 @@ def running_in_github_action() -> bool:
 
 def running_in_jupyter() -> bool:
     """
-    True if running within Jupyter, and not:
+    True if running within Jupyter, and *not*:
+
     - A random python program
     - A console-based IPython shell
     - VSCode's interactive mode
@@ -202,14 +217,14 @@ def seed(seed: Optional[Any] = None) -> int:
     - `torch.manual_seed()`
     - `torch.cuda.manual_seed_all()`
 
-    Notes:
+    .. note::
 
-    - On load this module sets the random seed to the current time in seconds
-      since the epoch.
-    - Provided seeds are hashed before use. This allows you to pass in e.g. a string.
+        - On load this module sets the random seed to the current time in seconds
+          since the epoch.
+        - Provided seeds are hashed before use. This allows you to pass in e.g. a string.
 
     Args:
-        seed (Optional[Any], optional): The seed. Defaults to None.
+        seed (Optional[Any]): The seed. Defaults to None.
 
     Returns:
         int: The current random seed

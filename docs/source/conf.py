@@ -57,4 +57,13 @@ html_theme = "sphinx_rtd_theme"
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ["_static"]
 
+# Sort functions etc. by order of appearance in the source
+autodoc_member_order = "bysource"
+
+# Use both class and __init__ docs
 autoclass_content = "both"
+
+# Display the __init__ signature with the class
+autodoc_class_signature = "mixed"
+
+autodoc_typehints = "description"

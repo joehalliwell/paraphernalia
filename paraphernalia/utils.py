@@ -1,13 +1,10 @@
 """
 Collection of utility functions.
-
-TODO: Move to module init?
 """
 import logging
 import math
 import os
 import re
-import subprocess
 import urllib.request
 from datetime import datetime
 from pathlib import Path
@@ -16,9 +13,9 @@ from urllib.parse import urlparse
 
 from tqdm import tqdm
 
-_LOG = logging.getLogger(__name__)
-
 from paraphernalia import cache_home
+
+_LOG = logging.getLogger(__name__)
 
 
 def divide(whole: int, part: int, min_overlap: int = 0) -> List[int]:
@@ -51,14 +48,18 @@ def divide(whole: int, part: int, min_overlap: int = 0) -> List[int]:
 
 def step_down(steps, iterations):
     """
-    DEPRECATED. Step down generator.
+    Step down generator
 
-    TODO:
-    - Add value checks
-    - Think about how to do this kind of thing more generically (sin, saw etc.)
+    .. deprecated:: future
+        This will be removed
 
-    steps: the number of plateaus
-    iterations: the total number of iterations over which to step down from 1.0 to 0.0
+    .. note::
+        - Add value checks
+        - Think about how to do this kind of thing more generically (sin, saw etc.)
+
+    Args:
+        steps: the number of plateaus
+        iterations: the total number of iterations over which to step down from 1.0 to 0.0
     """
     if steps <= 0:
         raise ValueError("Steps must be >= 0")
@@ -74,7 +75,7 @@ def step_down(steps, iterations):
 _FORBIDDEN = re.compile(r"[^a-z0-9_-]+")
 
 
-def slugify(*bits):
+def slugify(*bits) -> str:
     """
     Make a lower-case alphanumeric representation of the arguments by stripping
     other characters and replacing spaces with hyphens.
@@ -103,7 +104,7 @@ def download(url: str, target: Path = None, overwrite: bool = False) -> Path:
             Defaults to False.
 
     Raises:
-        Exception: [description]
+        Exception: if the download target is a directory
 
     Returns:
         Path: the file that was written
@@ -121,13 +122,13 @@ def download(url: str, target: Path = None, overwrite: bool = False) -> Path:
     return target
 
 
-def _download(url, target):
+def _download(url: str, target: Path):
     """
     Helper method used by `download()`
 
     Args:
-        url ([type]): [description]
-        target ([type]): [description]
+        url (str): [description]
+        target (Path): [description]
     """
     desc = os.path.basename(target)
 

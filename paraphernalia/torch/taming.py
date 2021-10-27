@@ -1,7 +1,8 @@
 """
-Generator based on Taming Transformers.
+Tools for working with `Taming Transformers <https://github.com/CompVis/taming-transformers>`_.
 
 See also:
+
 - https://colab.research.google.com/github/CompVis/taming-transformers/blob/master/scripts/reconstruction_usage.ipynb
 
 """
@@ -30,10 +31,15 @@ class TamingModel:
     """
 
     name: str
+    "Slug for this model e.g. vqgan_gumbel_f8"
     config_url: str
+    "URL of the associated config.yaml"
     checkpoint_url: str
+    "URL of the associated checkpoint file"
     is_gumbel: bool
+    "True iff this is a discrete model"
     scale: int
+    "Generated pixels per latent space pixel"
 
 
 VQGAN_GUMBEL_F8 = TamingModel(
@@ -55,17 +61,13 @@ VQGAN_IMAGENET_F16_16384 = TamingModel(
 
 class Taming(Generator):
     """
-    Image generator based on a Taming Transfomers model.
-
-    See https://github.com/CompVis/taming-transformers
+    Image generator based on a Taming Transformers model.
     """
 
     def __init__(
         self, model_spec: TamingModel = VQGAN_IMAGENET_F16_16384, start=None, **kwargs
     ):
         """
-        Image generator based on a Taming Transformers model.
-
         Args:
             model_spec (TamingModel, optional): Defaults to VQGAN_IMAGENET_F16_16384.
             start ([type], optional): Defaults to None.
