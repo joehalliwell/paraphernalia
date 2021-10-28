@@ -1,0 +1,365 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>paraphernalia.torch.noise module &#8212; paraphernalia  documentation</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/blank.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/paraphernalia.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="paraphernalia.torch.siren module" href="paraphernalia.torch.siren.html" />
+    <link rel="prev" title="paraphernalia.torch.modules module" href="paraphernalia.torch.modules.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+<a class="navbar-brand" href="../index.html">
+<p class="title">paraphernalia</p>
+</a>
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../installation.html">
+  Installation
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../commands.html">
+  Command line programs
+ </a>
+</li>
+
+<li class="toctree-l1 current active nav-item">
+ <a class="reference internal nav-link" href="../api.html">
+  API documentation
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    <ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="paraphernalia.html">
+   paraphernalia package
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2 current active has-children">
+    <a class="reference internal" href="paraphernalia.torch.html">
+     paraphernalia.torch package
+    </a>
+    <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+    <label for="toctree-checkbox-2">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul class="current">
+     <li class="toctree-l3">
+      <a class="reference internal" href="paraphernalia.torch.clip.html">
+       paraphernalia.torch.clip module
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="paraphernalia.torch.dall_e.html">
+       paraphernalia.torch.dall_e module
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="paraphernalia.torch.direct.html">
+       paraphernalia.torch.direct module
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="paraphernalia.torch.generator.html">
+       paraphernalia.torch.generator module
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="paraphernalia.torch.lightning.html">
+       paraphernalia.torch.lightning module
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="paraphernalia.torch.modules.html">
+       paraphernalia.torch.modules module
+      </a>
+     </li>
+     <li class="toctree-l3 current active">
+      <a class="current reference internal" href="#">
+       paraphernalia.torch.noise module
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="paraphernalia.torch.siren.html">
+       paraphernalia.torch.siren module
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="paraphernalia.torch.taming.html">
+       paraphernalia.torch.taming module
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="paraphernalia.colors.html">
+     paraphernalia.colors module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="paraphernalia.glsl.html">
+     paraphernalia.glsl module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="paraphernalia.jupyter.html">
+     paraphernalia.jupyter module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="paraphernalia.signature.html">
+     paraphernalia.signature module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="paraphernalia.utils.html">
+     paraphernalia.utils module
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+  </div>
+</nav>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+
+<nav id="bd-toc-nav">
+    
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+
+<div class="tocsection editthispage">
+    <a href="https://github.com/joehalliwell/paraphernalia/edit/main/docs/source/generated/paraphernalia.torch.noise.rst">
+        <i class="fas fa-pencil-alt"></i> Edit this page
+    </a>
+</div>
+
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <section id="module-paraphernalia.torch.noise">
+<span id="paraphernalia-torch-noise-module"></span><h1>paraphernalia.torch.noise module<a class="headerlink" href="#module-paraphernalia.torch.noise" title="Permalink to this headline">¶</a></h1>
+<p>Noise generating functions.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="paraphernalia.torch.noise.perlin">
+<span class="sig-name descname"><span class="pre">perlin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">width</span></em>, <em class="sig-param"><span class="pre">height</span></em>, <em class="sig-param"><span class="pre">frequency=1.0</span></em>, <em class="sig-param"><span class="pre">fade=&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;</span></em>, <em class="sig-param"><span class="pre">device=None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch/noise.html#perlin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.noise.perlin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate 2d Perlin noise.</p>
+<p>Adapted from:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://gist.github.com/adefossez/0646dbe9ed4005480a2407c62aac8869">https://gist.github.com/adefossez/0646dbe9ed4005480a2407c62aac8869</a></p></li>
+<li><p><a class="reference external" href="https://gist.github.com/vadimkantorov/ac1b097753f217c5c11bc2ff396e0a57">https://gist.github.com/vadimkantorov/ac1b097753f217c5c11bc2ff396e0a57</a></p></li>
+<li><p><a class="reference external" href="https://weber.itn.liu.se/~stegu/simplexnoise/simplexnoise.pdf">https://weber.itn.liu.se/~stegu/simplexnoise/simplexnoise.pdf</a></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>width</strong> (<em>int</em>) – target width</p></li>
+<li><p><strong>height</strong> (<em>int</em>) – target height</p></li>
+<li><p><strong>frequency</strong> (<em>float</em><em>, </em><em>optional</em>) – Defaults to 1.0.</p></li>
+<li><p><strong>fade</strong> – a fade function</p></li>
+<li><p><strong>device</strong> (<em>[</em><em>type</em><em>]</em><em>, </em><em>optional</em>) – [description]. Defaults to None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a (h, w) tensor</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="paraphernalia.torch.noise.fractal">
+<span class="sig-name descname"><span class="pre">fractal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency_factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amplitude_factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">octaves</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch/noise.html#fractal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.noise.fractal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fractal Perlin noise generator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>width</strong> (<em>int</em>) – target width</p></li>
+<li><p><strong>height</strong> (<em>int</em>) – target height</p></li>
+<li><p><strong>frequency</strong> (<em>float</em><em>, </em><em>optional</em>) – [description]. Defaults to 1.0.</p></li>
+<li><p><strong>frequency_factor</strong> (<em>float</em><em>, </em><em>optional</em>) – [description]. Defaults to 2.0.</p></li>
+<li><p><strong>amplitude_factor</strong> (<em>float</em><em>, </em><em>optional</em>) – [description]. Defaults to 0.8.</p></li>
+<li><p><strong>octaves</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of different scale to use. Defaults to 4.</p></li>
+<li><p><strong>device</strong> (<em>[</em><em>type</em><em>]</em><em>, </em><em>optional</em>) – Defaults to None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>[description]</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+              </div>
+              
+              
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="paraphernalia.torch.modules.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">paraphernalia.torch.modules module</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="paraphernalia.torch.siren.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">paraphernalia.torch.siren module</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+<footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2021, Joe Halliwell.<br>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.2.0.<br>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>

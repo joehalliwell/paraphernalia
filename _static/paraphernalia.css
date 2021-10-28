@@ -1,0 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans&family=Raleway&family=Ubuntu+Mono&display=swap");
+:root {
+  --pst-font-family-base: "Open Sans", var(--pst-font-family-base-system);
+  --pst-font-family-heading: "Raleway", var(--pst-font-family-base-system);
+  --pst-font-family-monospace: "Ubuntu Mono",
+    var(--pst-font-family-monospace-system);
+}
+
+/* Shove down the branding. Not sure why this is necessary */
+.navbar-brand .title {
+  margin-top: 7px;
+}

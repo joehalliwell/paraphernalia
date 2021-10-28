@@ -1,0 +1,475 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>paraphernalia.torch.clip module &#8212; paraphernalia  documentation</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/blank.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/paraphernalia.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="paraphernalia.torch.dall_e module" href="paraphernalia.torch.dall_e.html" />
+    <link rel="prev" title="paraphernalia.torch package" href="paraphernalia.torch.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+<a class="navbar-brand" href="../index.html">
+<p class="title">paraphernalia</p>
+</a>
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../installation.html">
+  Installation
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../commands.html">
+  Command line programs
+ </a>
+</li>
+
+<li class="toctree-l1 current active nav-item">
+ <a class="reference internal nav-link" href="../api.html">
+  API documentation
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    <ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="paraphernalia.html">
+   paraphernalia package
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2 current active has-children">
+    <a class="reference internal" href="paraphernalia.torch.html">
+     paraphernalia.torch package
+    </a>
+    <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+    <label for="toctree-checkbox-2">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul class="current">
+     <li class="toctree-l3 current active">
+      <a class="current reference internal" href="#">
+       paraphernalia.torch.clip module
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="paraphernalia.torch.dall_e.html">
+       paraphernalia.torch.dall_e module
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="paraphernalia.torch.direct.html">
+       paraphernalia.torch.direct module
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="paraphernalia.torch.generator.html">
+       paraphernalia.torch.generator module
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="paraphernalia.torch.lightning.html">
+       paraphernalia.torch.lightning module
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="paraphernalia.torch.modules.html">
+       paraphernalia.torch.modules module
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="paraphernalia.torch.noise.html">
+       paraphernalia.torch.noise module
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="paraphernalia.torch.siren.html">
+       paraphernalia.torch.siren module
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="paraphernalia.torch.taming.html">
+       paraphernalia.torch.taming module
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="paraphernalia.colors.html">
+     paraphernalia.colors module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="paraphernalia.glsl.html">
+     paraphernalia.glsl module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="paraphernalia.jupyter.html">
+     paraphernalia.jupyter module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="paraphernalia.signature.html">
+     paraphernalia.signature module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="paraphernalia.utils.html">
+     paraphernalia.utils module
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+  </div>
+</nav>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+
+<nav id="bd-toc-nav">
+    
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+
+<div class="tocsection editthispage">
+    <a href="https://github.com/joehalliwell/paraphernalia/edit/main/docs/source/generated/paraphernalia.torch.clip.rst">
+        <i class="fas fa-pencil-alt"></i> Edit this page
+    </a>
+</div>
+
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <section id="module-paraphernalia.torch.clip">
+<span id="paraphernalia-torch-clip-module"></span><h1>paraphernalia.torch.clip module<a class="headerlink" href="#module-paraphernalia.torch.clip" title="Permalink to this headline">¶</a></h1>
+<p>Evaluate images with CLIP.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="paraphernalia.torch.clip.CLIP">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">CLIP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prompt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">anti_prompt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detail</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_tiling</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">macro</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chops</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">64</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ViT-B/32'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch/clip.html#CLIP"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.clip.CLIP" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.module.Module</span></code></p>
+<p>A CLIP-based perceptor that evaluates how well an image fits with
+on or more target text prompts.</p>
+<p>The underlying model is limited to (224, 224) resolution, so this
+class presents it with multiple perspectives on an image:</p>
+<ul class="simple">
+<li><p>Macro: random crops of 90-100% of the image, used to counteract aliasing</p></li>
+<li><p>Micro: small near-pixel-perfect random crops, and an optional tiling to enable
+the fine details of high-resolution images to be processed.</p></li>
+</ul>
+<p>A lot of internals are exposed via methods to facilitate debugging and
+experimentation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>prompt</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>) – the text prompt to use in general</p></li>
+<li><p><strong>anti_prompt</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>str</em><em>, </em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em><em>]</em>) – a description to avoid</p></li>
+<li><p><strong>detail</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>str</em><em>, </em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em><em>]</em>) – a text prompt to use for micro-perception, defaults to “A detail from
+a picture of {prompt}”</p></li>
+<li><p><strong>use_tiling</strong> (<em>bool</em>) – </p></li>
+<li><p><strong>macro</strong> (<em>float</em>) – </p></li>
+<li><p><strong>chops</strong> (<em>int</em>) – </p></li>
+<li><p><strong>model</strong> (<em>str</em>) – </p></li>
+<li><p><strong>device</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="paraphernalia.torch.clip.CLIP.use_tiling">
+<span class="sig-name descname"><span class="pre">use_tiling</span></span><a class="headerlink" href="#paraphernalia.torch.clip.CLIP.use_tiling" title="Permalink to this definition">¶</a></dt>
+<dd><p>if true, add a covering of near-pixel-perfect perceptors into the
+mix</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="paraphernalia.torch.clip.CLIP.chops">
+<span class="sig-name descname"><span class="pre">chops</span></span><a class="headerlink" href="#paraphernalia.torch.clip.CLIP.chops" title="Permalink to this definition">¶</a></dt>
+<dd><p>augmentation operations, these get split 50-50 between macro and micro</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Initializes internal Module state, shared by both nn.Module and ScriptModule.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="paraphernalia.torch.clip.CLIP.encode_text">
+<span class="sig-name descname"><span class="pre">encode_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text_or_texts</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch/clip.html#CLIP.encode_text"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.clip.CLIP.encode_text" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encode text. Returns a detached tensor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>text_or_texts</strong> (<em>str</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="paraphernalia.torch.clip.CLIP.encode_image">
+<span class="sig-name descname"><span class="pre">encode_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch/clip.html#CLIP.encode_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.clip.CLIP.encode_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encode an image. Does not detach.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>batch</strong> (<em>torch.Tensor</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="paraphernalia.torch.clip.CLIP.get_macro">
+<span class="sig-name descname"><span class="pre">get_macro</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch/clip.html#CLIP.get_macro"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.clip.CLIP.get_macro" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a set of high-level views on an image batch.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>img</strong> (<em>Tensor</em>) – A (b, c, h, w) image batch</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>an expanded (b, c, h, w) image batch</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="paraphernalia.torch.clip.CLIP.get_micro">
+<span class="sig-name descname"><span class="pre">get_micro</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch/clip.html#CLIP.get_micro"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.clip.CLIP.get_micro" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a set of detailed (near pixel-perfect) views on an image batch.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>img</strong> (<em>Tensor</em>) – A (b, c, h, w) image batch</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>an expanded (b, c, h, w) image batch</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="paraphernalia.torch.clip.CLIP.get_similarity">
+<span class="sig-name descname"><span class="pre">get_similarity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prompts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">match</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch/clip.html#CLIP.get_similarity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.clip.CLIP.get_similarity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the average similarity between a combined but contiguous
+batch of images and set of prompts.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>imgs</strong> (<em>Tensor</em>) – A combined-but-contiguous image batch with shape (batch_size * t, c, h, w)</p></li>
+<li><p><strong>prompts</strong> (<em>Tensor</em>) – A tensor of prompt embeddings with shape (n, 512)</p></li>
+<li><p><strong>batch_size</strong> (<em>int</em>) – The size of the original image batch</p></li>
+<li><p><strong>match</strong> (<em>str</em>) – Policy for multiple prompts. “any”, “all” or (in future) “one”</p></li>
+<li><p><strong>img</strong> (<em>torch.Tensor</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A tensor of average similarities with shape (batch_size,)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="paraphernalia.torch.clip.CLIP.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch/clip.html#CLIP.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.clip.CLIP.forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a similarity (0, 1) for each image in the provided batch.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>img</strong> (<em>Tensor</em>) – A (b, c, h, w) image tensor</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A vector of size b</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="paraphernalia.torch.clip.CLIP.training">
+<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="pre">:</span> <span class="pre">bool</span></em><a class="headerlink" href="#paraphernalia.torch.clip.CLIP.training" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+              </div>
+              
+              
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="paraphernalia.torch.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">paraphernalia.torch package</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="paraphernalia.torch.dall_e.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">paraphernalia.torch.dall_e module</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+<footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2021, Joe Halliwell.<br>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.2.0.<br>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>
