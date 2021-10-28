@@ -57,9 +57,11 @@ autoclass_content = "both"
 # Display the __init__ signature with the class
 autodoc_class_signature = "mixed"
 
+# Show typehints in signature not online
 autodoc_typehints = "description"
 
-autosummary_generate = True  # Turn on sphinx.ext.autosummary
+# Turn on sphinx.ext.autosummary
+autosummary_generate = True
 
 add_module_names = False  # Turn off full qualification
 
@@ -83,8 +85,16 @@ html_css_files = [
 html_theme_options = {
     "show_toc_level": 2,
     "use_edit_page_button": True,
+    "icon_links": [
+        {
+            "name": "GitHub",
+            "url": "https://github.com/joehalliwell/paraphernalia",
+            "icon": "fab fa-github-square",
+        },
+    ],
 }
 
+# For "Edit this Page" button
 html_context = {
     "github_user": "joehalliwell",
     "github_repo": "paraphernalia",
