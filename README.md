@@ -38,8 +38,6 @@ For developers: `poetry install`
 ### General
 
 - Add CLIP/generator sample notebook
-- Path handling
-- Tool for signing work
 
 ### glsl
 
@@ -47,25 +45,17 @@ For developers: `poetry install`
 - Support all Shadertoy uniforms (see https://github.com/iY0Yi/ShaderBoy)
 - Support buffers
 
-### jupyter
-
-- Detect if running in Colaboratory and adjust accordingly
-
 ### project
 
 - Easy organization of project resources (inputs/outputs/checkpoints)
-- Support for Colaboratory
 
 ### torch
 
 - Fix replace_grad and add tests
 - Fix clamp_with_grad and add tests
-- Add noise generators (esp simplex and fractal)
 - Add BigGAN generators
 - Add soft_permutation()
 - Add ZX Spectrum style generator
-- Add tile atlas generator
-- Training loop
 - Main entry point for generator+CLIP?
 - Add standard description string/slug to generators
 
