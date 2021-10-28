@@ -1,5 +1,6 @@
 """
-Tools for working with `PyTorch Lightning <https://www.pytorchlightning.ai/>`_.
+Tools for working with
+`PyTorch Lightning <https://www.pytorchlightning.ai/>`_.
 """
 
 import io

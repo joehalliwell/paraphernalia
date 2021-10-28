@@ -3,56 +3,42 @@ paraphernalia package
 
 
 
-.. rubric:: Subpackages
-
+Packages
+--------
 .. autosummary::
 
+   paraphernalia.torch
+.. toctree::
+   :hidden:
+   :maxdepth: 4
 
    paraphernalia.torch
 
 
-.. toctree::
-   :hidden:
 
-
-   paraphernalia.torch
-
-
-
-
-
-.. rubric:: Submodules
-
+Modules
+-------
 .. autosummary::
 
-
    paraphernalia.colors
-
    paraphernalia.glsl
-
    paraphernalia.jupyter
-
    paraphernalia.signature
-
    paraphernalia.utils
-
-
 .. toctree::
    :hidden:
-
+   :maxdepth: 4
 
    paraphernalia.colors
-
    paraphernalia.glsl
-
    paraphernalia.jupyter
-
    paraphernalia.signature
-
    paraphernalia.utils
 
 
 
+Package contents
+----------------
 .. automodule:: paraphernalia
    :members:
    :undoc-members:

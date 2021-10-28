@@ -1,5 +1,5 @@
 """
-Tools for rendering fragment shaders to screen/video.
+Render GLSL fragment shaders to screen/video.
 """
 import logging
 import sys

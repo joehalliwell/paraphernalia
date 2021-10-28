@@ -1,5 +1,5 @@
 """
-Collection of utility functions.
+Miscellaneous utility functions.
 """
 import logging
 import math

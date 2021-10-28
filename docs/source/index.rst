@@ -15,22 +15,18 @@ Paraphernalia is an assortment of tools for making digital art from
    dependencies. Mature scripts/modules will likely be packaged more carefully and
    live elsewhere.
 
+User guide
+------------------
+
 .. toctree::
-   :caption: Using paraphernalia
    :maxdepth: 1
 
    installation
    commands
-
-
-.. toctree::
-   :caption: Package documentation
-   :includehidden:
-
-   generated/paraphernalia
+   api
 
 Indices and tables
-==================
+------------------
 
 * :ref:`genindex`
 * :ref:`modindex`

@@ -1,5 +1,5 @@
 """
-A collection of utility modules.
+A collection of utility PyTorch modules.
 """
 
 import torch

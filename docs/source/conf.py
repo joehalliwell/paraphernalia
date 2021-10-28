@@ -61,7 +61,7 @@ autodoc_typehints = "description"
 
 autosummary_generate = True  # Turn on sphinx.ext.autosummary
 
-add_module_names = False
+add_module_names = False  # Turn off full qualification
 
 modindex_common_prefix = ["paraphernalia."]
 
@@ -69,16 +69,25 @@ modindex_common_prefix = ["paraphernalia."]
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-#
-html_theme = "sphinx_rtd_theme"
+html_theme = "pydata_sphinx_theme"
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ["_static"]
 
-# Increase depth
+html_css_files = [
+    "paraphernalia.css",
+]
+
 html_theme_options = {
-    "collapse_navigation": True,  # Looks weird otherwise
-    "navigation_depth": 6,
+    "show_toc_level": 2,
+    "use_edit_page_button": True,
+}
+
+html_context = {
+    "github_user": "joehalliwell",
+    "github_repo": "paraphernalia",
+    "github_version": "main",
+    "doc_path": "docs/source",
 }

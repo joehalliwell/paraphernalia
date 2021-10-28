@@ -1,9 +1,9 @@
 """
-Tools for working with `Taming Transformers <https://github.com/CompVis/taming-transformers>`_.
+Generate images with `Taming Transformers <https://github.com/CompVis/taming-transformers>`_.
 
 See also:
 
-- https://colab.research.google.com/github/CompVis/taming-transformers/blob/master/scripts/reconstruction_usage.ipynb
+- <https://colab.research.google.com/github/CompVis/taming-transformers/blob/master/scripts/reconstruction_usage.ipynb>
 
 """
 

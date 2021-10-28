@@ -1,5 +1,5 @@
 """
-Noise generators
+Noise generating functions.
 """
 from math import ceil, pi
 

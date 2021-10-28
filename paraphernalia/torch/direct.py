@@ -1,5 +1,5 @@
 """
-A collection of "direct" image generators i.e. generators that are not effectively decoders.
+Generate images "directly" i.e. without a latent space.
 """
 
 from typing import Optional, Union

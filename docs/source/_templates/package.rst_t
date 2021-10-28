@@ -1,0 +1,61 @@
+{%- macro automodule(modname, options) -%}
+.. automodule:: {{ modname }}
+{%- for option in options %}
+   :{{ option }}:
+{%- endfor %}
+{%- endmacro %}
+
+{%- macro toctree(docnames) -%}
+.. toctree::
+   :hidden:
+   :maxdepth: {{ maxdepth }}
+{% for docname in docnames %}
+   {{ docname }}
+{%- endfor %}
+{%- endmacro %}
+
+{%- macro autosummary(docnames) -%}
+.. autosummary::
+{% for docname in docnames %}
+   {{ docname }}
+{%- endfor %}
+{%- endmacro %}
+
+{%- if is_namespace %}
+{{- [pkgname, "namespace"] | join(" ") | e | heading }}
+{% else %}
+{{- [pkgname, "package"] | join(" ") | e | heading }}
+{% endif %}
+
+{%- if is_namespace %}
+.. py:module:: {{ pkgname }}
+{% endif %}
+
+{###################################################
+ Subpackages
+###################################################}
+{%- if subpackages %}
+Packages
+--------
+{{ autosummary(subpackages) }}
+{{ toctree(subpackages) }}
+{% endif %}
+
+{###################################################
+ Submodules
+###################################################}
+{%- if submodules %}
+Modules
+-------
+{{ autosummary(submodules) }}
+{{ toctree(submodules) }}
+{% endif %}
+
+{###################################################
+ Package contents
+###################################################}
+Package contents
+----------------
+{%- if not is_namespace %}
+{{ automodule(pkgname, automodule_options) }}
+{% endif %}
