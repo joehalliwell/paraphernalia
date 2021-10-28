@@ -135,6 +135,6 @@ def test_one_hot_normalize():
     assert z[0, 1, 0, 0] > z[0, 2, 0, 0]
     assert z[0, 0, 0, 0] == z[0, 2, 0, 0]
 
-    zp = torch.nn.functional.softmax(z)
+    zp = torch.nn.functional.softmax(z, dim=1)
     assert torch.all(zp > 0)
     assert torch.all(zp < 1)
