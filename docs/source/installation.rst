@@ -17,4 +17,4 @@ Optional dependencies
 ---------------------
 
 - openai: CLIP and associated tools from OpenAI
-- taming: Taming Transformers
+- taming: image generators from Taming Transformers

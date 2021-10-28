@@ -49,6 +49,16 @@ class XMP:
             raise ValueError(f"'{path}' does not exist")
         self._path = str(path)
 
+    def clear(self) -> None:
+        """
+        Clear all metadata.
+        """
+        self.creators = []
+        self.title = ""
+        self.tags = []
+        self.description = ""
+        self.rights = ""
+
     def __enter__(self):
         self._xmpfile = libxmp.XMPFiles(file_path=self._path, open_forupdate=True)
 
@@ -134,6 +144,7 @@ XMP.rights = _make_lang_property("rights")
 
 @click.command()
 @click.argument("target", type=click.Path(exists=True, readable=True, writable=True))
+@click.option("--clear/--no-clear", default=False)
 @click.option("--creator", "-c", "creators", multiple=True)
 @click.option("--title", nargs=1)
 @click.option("--tag", "-t", "tags", multiple=True)
@@ -141,6 +152,7 @@ XMP.rights = _make_lang_property("rights")
 @click.option("--rights", "-r", nargs=1)
 def sign(
     target,
+    clear,
     creators: Optional[List[str]] = None,
     title: Optional[str] = None,
     tags: Optional[List[str]] = None,
@@ -151,6 +163,9 @@ def sign(
     Toy command to sign a file.
     """
     with XMP(target) as sig:
+        if clear:
+            sig.clear()
+
         if creators:
             sig.creators = creators
         if title:
@@ -158,12 +173,12 @@ def sign(
         if tags:
             sig.tags = tags
         if description:
-            sig.description = tags
+            sig.description = description
         if rights:
             sig.rights = rights
 
     with XMP(target) as sig:
         print(f"Title: {sig.title}")
-        print(f"Creator: {', '.join(sig.creators)}")
-        print(f"Tags: {', '.join(sig.tags)}")
+        print(f"Creator: {', '.join(sig.creators) if creators else 'None'}")
+        print(f"Tags: {', '.join(sig.tags) if tags else 'None'}")
         print(f"Description: {sig.description}")
