@@ -6,32 +6,24 @@
 An assortment of tools for making digital art from Joe Halliwell
 (@joehalliwell).
 
-This is an incubator for immature scripts/modules with an absolute holy hell of
-dependencies. Mature scripts/modules will be packaged more carefully and live
-elsewhere. If/when I get around to it.
+## Features
+
+- [Decent documentation](http://joehalliwell.com/paraphernalia)
+- Fragment shader realtime preview and offline rendering
+- CLIP-based image generation
+- Helpers for running creative projects in jupyter/Colaboratory
 
 ## Quick start guide
 
-In a notebook:
+In a notebook/Colaboratory:
 
 ```
-!pip install --upgrade git+https://github.com/joehalliwell/paraphernalia.git
+!pip install --upgrade git+https://github.com/joehalliwell/paraphernalia.git[openai,taming]
 import paraphernalia as pa
 pa.setup()
 ```
 
 For developers: `poetry install`
-
-## Features
-
-- Fragment shader realtime preview and offline rendering
-- CLIP-based image generation
-- Helpers for running creative projects in jupyter/Colaboratory
-
-## Extra/optional dependencies
-
-- openai: CLIP and DALL-E models
-- taming: Taming Transformers models
 
 ## TODOs
 
