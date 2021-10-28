@@ -174,12 +174,34 @@ def preview(fragment_shader, width, height, duration, speed, watch, scale):
 
 @click.command()
 @click.argument("fragment_shader", type=click.File("r"))
-@click.option("--width", type=int, default=1024)
-@click.option("--height", type=int, default=1024)
-@click.option("--fps", type=float, default=25.0)
-@click.option("--duration", type=float, default=30.0)
-@click.option("--quality", type=int, default=5)
-def render(fragment_shader, width, height, fps, duration, quality):
+@click.option(
+    "-o",
+    "--output",
+    type=click.Path(writable=True),
+    default="output.mp4",
+    help="Output file",
+    show_default=True,
+)
+@click.option(
+    "--width", type=int, default=1024, help="Width in pixels", show_default=True
+)
+@click.option(
+    "--height", type=int, default=1024, help="Height in pixels", show_default=True
+)
+@click.option(
+    "--fps", type=float, default=25.0, help="Frames per second", show_default=True
+)
+@click.option(
+    "--duration",
+    type=float,
+    default=30.0,
+    help="Duration in seconds",
+    show_default=True,
+)
+@click.option(
+    "--quality", type=int, default=5, help="Encoder quality", show_default=True
+)
+def render(fragment_shader, output, width, height, fps, duration, quality):
     """
     Render a fragment shader to an MP4 file.
     """
@@ -200,7 +222,7 @@ def render(fragment_shader, width, height, fps, duration, quality):
     # Main render loop
     fbo = ctx.framebuffer(color_attachments=[ctx.texture((width, height), 4)])
     fbo.use()
-    with imageio.get_writer("output.mp4", fps=fps, quality=quality) as writer:
+    with imageio.get_writer(output, fps=fps, quality=quality) as writer:
         for frame in tqdm(range(int(duration * fps) - 1)):
             renderer.render(frame / fps)
 

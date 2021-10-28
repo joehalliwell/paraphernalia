@@ -144,12 +144,17 @@ XMP.rights = _make_lang_property("rights")
 
 @click.command()
 @click.argument("target", type=click.Path(exists=True, readable=True, writable=True))
-@click.option("--clear/--no-clear", default=False)
-@click.option("--creator", "-c", "creators", multiple=True)
-@click.option("--title", nargs=1)
-@click.option("--tag", "-t", "tags", multiple=True)
-@click.option("--description", "-d", nargs=1)
-@click.option("--rights", "-r", nargs=1)
+@click.option(
+    "--clear/--no-clear",
+    default=False,
+    help="Clear metadata.",
+    show_default=True,
+)
+@click.option("--creator", "-c", "creators", multiple=True, help="Set the creator(s).")
+@click.option("--title", nargs=1, help="Set the title.")
+@click.option("--tag", "-t", "tags", multiple=True, help="Add one or more tags.")
+@click.option("--description", "-d", nargs=1, help="Set the description.")
+@click.option("--rights", "-r", nargs=1, help="Set the statement of rights.")
 def sign(
     target,
     clear,
@@ -160,7 +165,7 @@ def sign(
     rights: Optional[str] = None,
 ):
     """
-    Toy command to sign a file.
+    Manipulate basic XMP/Dublin Core metadata in PNG, JPG and TIFF images.
     """
     with XMP(target) as sig:
         if clear:
