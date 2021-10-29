@@ -200,15 +200,25 @@
         <span class="n">setup_colab</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="setup_colab"><a class="viewcode-back" href="../generated/paraphernalia.html#paraphernalia.setup_colab">[docs]</a><span class="k">def</span> <span class="nf">setup_colab</span><span class="p">():</span>
+<div class="viewcode-block" id="setup_colab"><a class="viewcode-back" href="../generated/paraphernalia.html#paraphernalia.setup_colab">[docs]</a><span class="k">def</span> <span class="nf">setup_colab</span><span class="p">():</span>  <span class="c1"># pragma: no cover</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Standard setup for Colaboratory. Ensures Google drive is mounted under</span>
-<span class="sd">    `/content/drive` and configures :func:`data_home` to use it.</span>
+<span class="sd">    Standard setup for Colaboratory:</span>
+
+<span class="sd">    - Ensures Google drive is mounted under `/content/drive`</span>
+<span class="sd">    - Configures :func:`data_home` to use it</span>
+<span class="sd">    - Adds the ``data_table`` and and ``tensorboard`` extensions</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Mount drive and use it</span>
     <span class="kn">from</span> <span class="nn">google.colab</span> <span class="kn">import</span> <span class="n">drive</span>
 
     <span class="n">drive</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="s2">&quot;/content/drive&quot;</span><span class="p">)</span>
-    <span class="n">data_home</span><span class="p">(</span><span class="s2">&quot;/content/drive/MyDrive/Paraphernalia&quot;</span><span class="p">)</span></div>
+    <span class="n">data_home</span><span class="p">(</span><span class="s2">&quot;/content/drive/MyDrive/Paraphernalia&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Load extensions</span>
+    <span class="kn">from</span> <span class="nn">IPython</span> <span class="kn">import</span> <span class="n">get_ipython</span>
+
+    <span class="n">get_ipython</span><span class="o">.</span><span class="n">magic</span><span class="p">(</span><span class="s2">&quot;load_ext google.colab.data_table&quot;</span><span class="p">)</span>
+    <span class="n">get_ipython</span><span class="o">.</span><span class="n">magic</span><span class="p">(</span><span class="s2">&quot;load_ext tensorboard&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="seed"><a class="viewcode-back" href="../generated/paraphernalia.html#paraphernalia.seed">[docs]</a><span class="k">def</span> <span class="nf">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
