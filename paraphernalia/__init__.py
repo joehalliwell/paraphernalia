@@ -55,15 +55,25 @@ def setup() -> None:
         setup_colab()
 
 
-def setup_colab():
+def setup_colab():  # pragma: no cover
     """
-    Standard setup for Colaboratory. Ensures Google drive is mounted under
-    `/content/drive` and configures :func:`data_home` to use it.
+    Standard setup for Colaboratory:
+
+    - Ensures Google drive is mounted under `/content/drive`
+    - Configures :func:`data_home` to use it
+    - Adds the ``data_table`` and and ``tensorboard`` extensions
     """
+    # Mount drive and use it
     from google.colab import drive
 
     drive.mount("/content/drive")
     data_home("/content/drive/MyDrive/Paraphernalia")
+
+    # Load extensions
+    from IPython import get_ipython
+
+    get_ipython().magic("load_ext google.colab.data_table")
+    get_ipython().magic("load_ext tensorboard")
 
 
 def seed(seed: Optional[Any] = None) -> int:
