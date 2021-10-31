@@ -118,7 +118,9 @@ class Renderer:
     help="Automatically reload when shader changes on disk",
 )
 @click.option("--scale", type=float, default=1.0, help="TODO", show_default=True)
-def preview(fragment_shader, width, height, duration, speed, watch, scale):
+def preview(
+    fragment_shader, width, height, duration, speed, watch, scale
+):  # pragma: no cover
     """
     Show a fragment shader in a window.
     """
@@ -232,7 +234,3 @@ def render(fragment_shader, output, width, height, fps, duration, quality):
             image = image.transpose(Image.FLIP_TOP_BOTTOM)
             writer.append_data(np.array(image))
     logging.info("Complete")
-
-
-if __name__ == "__main__":
-    preview()
