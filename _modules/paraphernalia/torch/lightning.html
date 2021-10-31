@@ -188,6 +188,7 @@
 <span class="sd">            path_template (str): a path template as described above</span>
 <span class="sd">            preview (bool, optional): if true display an ipywidget preview panel. Defaults to True.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">path_template</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">path_template</span><span class="p">)</span>
         <span class="n">_LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Checkpointing images to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">path_template</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
