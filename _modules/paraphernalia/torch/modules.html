@@ -191,18 +191,49 @@
         <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span></div></div>
 
 
+<div class="viewcode-block" id="Parallel"><a class="viewcode-back" href="../../../generated/paraphernalia.torch.modules.html#paraphernalia.torch.modules.Parallel">[docs]</a><span class="k">class</span> <span class="nc">Parallel</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A module that runs a number of submodule in parallel and collects their</span>
+<span class="sd">    outputs into a list.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">components</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Args:</span>
+<span class="sd">            components (List[nn.Module]): a list of submdodules to run in parallel</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">components</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ModuleList</span><span class="p">(</span><span class="n">components</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Parallel.forward"><a class="viewcode-back" href="../../../generated/paraphernalia.torch.modules.html#paraphernalia.torch.modules.Parallel.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">inputs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Run each submodule on input, and accumulate the outputs into a list.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            List: the outputs of each module</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">outputs</span> <span class="o">=</span> <span class="p">[</span><span class="n">component</span><span class="p">(</span><span class="o">*</span><span class="n">inputs</span><span class="p">)</span> <span class="k">for</span> <span class="n">component</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">outputs</span></div></div>
+
+
 <div class="viewcode-block" id="Constant"><a class="viewcode-back" href="../../../generated/paraphernalia.torch.modules.html#paraphernalia.torch.modules.Constant">[docs]</a><span class="k">class</span> <span class="nc">Constant</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Useful for testing?</span>
+<span class="sd">    A module that returns a constant value, ignoring any inputs.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
 
-<div class="viewcode-block" id="Constant.forward"><a class="viewcode-back" href="../../../generated/paraphernalia.torch.modules.html#paraphernalia.torch.modules.Constant.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+<div class="viewcode-block" id="Constant.forward"><a class="viewcode-back" href="../../../generated/paraphernalia.torch.modules.html#paraphernalia.torch.modules.Constant.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">ignored</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Return the constant value.</span>
+<span class="sd">        Return the constant value, ignoring any inputs.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            ignored: any number of inputs which will be ignored</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Tensor: the specific constant value</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span></div></div>
 

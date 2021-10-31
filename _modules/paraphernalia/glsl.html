@@ -263,7 +263,9 @@
     <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Automatically reload when shader changes on disk&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;--scale&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;TODO&quot;</span><span class="p">,</span> <span class="n">show_default</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">preview</span><span class="p">(</span><span class="n">fragment_shader</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">duration</span><span class="p">,</span> <span class="n">speed</span><span class="p">,</span> <span class="n">watch</span><span class="p">,</span> <span class="n">scale</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">preview</span><span class="p">(</span>
+    <span class="n">fragment_shader</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">duration</span><span class="p">,</span> <span class="n">speed</span><span class="p">,</span> <span class="n">watch</span><span class="p">,</span> <span class="n">scale</span>
+<span class="p">):</span>  <span class="c1"># pragma: no cover</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Show a fragment shader in a window.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -377,10 +379,6 @@
             <span class="n">image</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="n">FLIP_TOP_BOTTOM</span><span class="p">)</span>
             <span class="n">writer</span><span class="o">.</span><span class="n">append_data</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">image</span><span class="p">))</span>
     <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Complete&quot;</span><span class="p">)</span>
-
-
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-    <span class="n">preview</span><span class="p">()</span>
 </pre></div>
 
               </div>
