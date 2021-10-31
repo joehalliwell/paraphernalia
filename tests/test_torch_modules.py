@@ -67,3 +67,9 @@ def test_similar_any():
     assert torch.equal(m(b), Tensor([1.0]))
     assert torch.equal(m(both), Tensor([1.0, 1.0]))
     assert torch.equal(m(trio), Tensor([1.0, 1.0, 0.0]))
+
+
+def test_multi_loss():
+    ml = AdaptiveMultiLoss(2)
+    loss = ml(Tensor([1.0, 3.0]))
+    assert loss == 2.0

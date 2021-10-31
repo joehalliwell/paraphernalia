@@ -2,11 +2,48 @@
 A collection of utility PyTorch modules.
 """
 
+from os import initgroups
+from typing import List
+
 import torch
 import torch.nn as nn
 from torch import Tensor
 
 from paraphernalia.torch import cosine_similarity
+
+
+class AdaptiveMultiLoss(nn.Module):
+    """
+    Automatic loss balancing.
+
+    .. seealso::
+
+        - https://arxiv.org/abs/1705.07115
+
+    """
+
+    def __init__(self, num_losses: int):
+        """
+        Args:
+            components ([type]): [description]
+        """
+        super().__init__()
+        if num_losses < 2:
+            raise ValueError("Must provide more than two loss functions")
+        self.weights = nn.parameter.Parameter(torch.zeros(num_losses))
+
+    def forward(self, losses: Tensor) -> float:
+        """
+        Args:
+            losses (Tensor): The losses to balance
+
+        Returns:
+            float: Combined loss
+        """
+        assert losses.shape == self.weights.shape
+        precision = torch.exp(self.weights)
+        result = precision * losses + self.weights
+        return result.mean()
 
 
 class Constant(nn.Module):
@@ -19,6 +56,9 @@ class Constant(nn.Module):
         self.value = value.detach().clone()
 
     def forward(self, x):
+        """
+        Return the constant value.
+        """
         return self.value
 
 

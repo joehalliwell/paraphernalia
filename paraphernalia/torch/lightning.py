@@ -43,6 +43,7 @@ class ImageCheckpoint(pl.Callback):
             path_template (str): a path template as described above
             preview (bool, optional): if true display an ipywidget preview panel. Defaults to True.
         """
+        super().__init__()
         self.path_template = str(path_template)
         _LOG.info(f"Checkpointing images to {self.path_template}")
 
