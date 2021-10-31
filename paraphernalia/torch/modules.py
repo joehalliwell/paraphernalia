@@ -46,18 +46,49 @@ class AdaptiveMultiLoss(nn.Module):
         return result.mean()
 
 
+class Parallel(nn.Module):
+    """
+    A module that runs a number of submodule in parallel and collects their
+    outputs into a list.
+    """
+
+    def __init__(self, components):
+        """
+        Args:
+            components (List[nn.Module]): a list of submdodules to run in parallel
+        """
+        super().__init__()
+        self.components = nn.ModuleList(components)
+
+    def forward(self, *inputs) -> List:
+        """
+        Run each submodule on input, and accumulate the outputs into a list.
+
+        Returns:
+            List: the outputs of each module
+        """
+        outputs = [component(*inputs) for component in self.components]
+        return outputs
+
+
 class Constant(nn.Module):
     """
-    Useful for testing?
+    A module that returns a constant value, ignoring any inputs.
     """
 
     def __init__(self, value: Tensor):
         super().__init__()
         self.value = value.detach().clone()
 
-    def forward(self, x):
+    def forward(self, *ignored):
         """
-        Return the constant value.
+        Return the constant value, ignoring any inputs.
+
+        Args:
+            ignored: any number of inputs which will be ignored
+
+        Returns:
+            Tensor: the specific constant value
         """
         return self.value
 

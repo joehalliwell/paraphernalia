@@ -1,3 +1,5 @@
+from typing import Container
+
 import torch
 from torch import Tensor
 
@@ -73,3 +75,11 @@ def test_multi_loss():
     ml = AdaptiveMultiLoss(2)
     loss = ml(Tensor([1.0, 3.0]))
     assert loss == 2.0
+
+
+def test_parallel():
+    c1 = Tensor([0])
+    c2 = Tensor([1])
+    m = Parallel([Constant(c1), Constant(c2)])
+    result = m()
+    assert result == [c1, c2]
