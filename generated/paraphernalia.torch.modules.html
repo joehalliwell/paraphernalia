@@ -378,7 +378,8 @@ outputs into a list.</p>
 <dt class="sig sig-object py" id="paraphernalia.torch.modules.WeightedSum">
 <em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">WeightedSum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">components</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch/modules.html#WeightedSum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.modules.WeightedSum" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.module.Module</span></code></p>
-<p>A weighted sum of named module outputs.</p>
+<p>More or less a weighted sum of named module outputs, but with special
+handling for negative weights.</p>
 <p>In order for the weighting to make sense, the components needs outputs
 with the same shape and meaning. For loss functions outputs should be
 in the range [0,1]</p>
@@ -389,14 +390,13 @@ in the range [0,1]</p>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="paraphernalia.torch.modules.WeightedSum.set_weight">
-<span class="sig-name descname"><span class="pre">set_weight</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch/modules.html#WeightedSum.set_weight"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.modules.WeightedSum.set_weight" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">set_weight</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch/modules.html#WeightedSum.set_weight"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.modules.WeightedSum.set_weight" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the weight associated with a module</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>name</strong> (<em>str</em>) – the name of the module</p></li>
 <li><p><strong>value</strong> (<em>float</em>) – the new weight</p></li>
-<li><p><strong>weight</strong> (<em>float</em>) – </p></li>
 </ul>
 </dd>
 </dl>
@@ -405,7 +405,7 @@ in the range [0,1]</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="paraphernalia.torch.modules.WeightedSum.forward">
 <span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch/modules.html#WeightedSum.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.modules.WeightedSum.forward" title="Permalink to this definition">¶</a></dt>
-<dd><p>Compute the weighted loss.</p>
+<dd><p>Compute the weighted loss</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>x</strong> (<em>torch.Tensor</em>) – </p>
@@ -416,43 +416,6 @@ in the range [0,1]</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="paraphernalia.torch.modules.WeightedSum.training">
 <span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="pre">:</span> <span class="pre">bool</span></em><a class="headerlink" href="#paraphernalia.torch.modules.WeightedSum.training" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="paraphernalia.torch.modules.Not">
-<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">Not</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">submodule</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch/modules.html#Not"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.modules.Not" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.module.Module</span></code></p>
-<p>Negate a similarity module</p>
-<p>Initializes internal Module state, shared by both nn.Module and ScriptModule.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>submodule</strong> (<em>torch.nn.modules.module.Module</em>) – </p>
-</dd>
-</dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="paraphernalia.torch.modules.Not.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch/modules.html#Not.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.modules.Not.forward" title="Permalink to this definition">¶</a></dt>
-<dd><p>Defines the computation performed at every call.</p>
-<p>Should be overridden by all subclasses.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Although the recipe for forward pass needs to be defined within
-this function, one should call the <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code> instance afterwards
-instead of this since the former takes care of running the
-registered hooks while the latter silently ignores them.</p>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>x</strong> (<em>torch.Tensor</em>) – </p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="paraphernalia.torch.modules.Not.training">
-<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="pre">:</span> <span class="pre">bool</span></em><a class="headerlink" href="#paraphernalia.torch.modules.Not.training" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -469,13 +432,10 @@ registered hooks while the latter silently ignores them.</p>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="paraphernalia.torch.modules.SimilarTo.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">candidates</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch/modules.html#SimilarTo.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.modules.SimilarTo.forward" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch/modules.html#SimilarTo.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.modules.SimilarTo.forward" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<em>Tensor</em>) – A batch of vectors (batch, channels)</p></li>
-<li><p><strong>candidates</strong> (<em>torch.Tensor</em>) – </p></li>
-</ul>
+<dd class="field-odd"><p><strong>x</strong> (<em>Tensor</em>) – A batch of vectors (batch, channels)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -510,52 +470,6 @@ registered hooks while the latter silently ignores them.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="paraphernalia.torch.modules.SimilarToAny.training">
 <span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="pre">:</span> <span class="pre">bool</span></em><a class="headerlink" href="#paraphernalia.torch.modules.SimilarToAny.training" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="paraphernalia.torch.modules.Perceiver">
-<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">Perceiver</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transforms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">evaluator</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch/modules.html#Perceiver"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.modules.Perceiver" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.module.Module</span></code></p>
-<p>A perceiver binds together:
-- A list of image transformations/augmentations
-- An evaluator that maps vectors to quality scores (canonically between 0 and 1)</p>
-<p>Initialize a perceiver.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>transforms</strong> (<em>[</em><em>type</em><em>]</em>) – a list of transforms to apply</p></li>
-<li><p><strong>evaluator</strong> (<em>[</em><em>type</em><em>]</em>) – an evaluator to determine how good images are</p></li>
-</ul>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="paraphernalia.torch.modules.Perceiver.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">imgs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch/modules.html#Perceiver.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.modules.Perceiver.forward" title="Permalink to this definition">¶</a></dt>
-<dd><p>Evaluate an image batch, by applying transforms, encoding the resulting views
-and running the evaluator on them.</p>
-<p>Evaluation results are averaged over the transforms, to produce a single
-evaluation per image.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>self</strong> (<em>torch.Tensor</em>) – </p></li>
-<li><p><strong>imgs</strong> (<em>torch.Tensor</em>) – </p></li>
-</ul>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>torch.Tensor</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="paraphernalia.torch.modules.Perceiver.training">
-<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="pre">:</span> <span class="pre">bool</span></em><a class="headerlink" href="#paraphernalia.torch.modules.Perceiver.training" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
