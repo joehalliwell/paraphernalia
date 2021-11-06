@@ -152,7 +152,8 @@ class DirectTileset(Generator):
         super().__init__(quantize=self.tile_size * self.scale, **kwargs)
 
         atlas = atlas.reshape((-1, 3 * self.tile_size * self.tile_size))
-        self.atlas = atlas.to(self.device)
+        atlas = atlas.to(self.device)
+        self.atlas = torch.nn.Buffer(atlas)
 
         if z is None:
             z = one_hot_noise(

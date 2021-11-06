@@ -59,3 +59,4 @@ For developers: `poetry install`
 - Perceptual masking for CLIP
 - Image prompts
 - Add SRCNN
+- Use https://github.com/assafshocher/ResizeRight
