@@ -292,6 +292,7 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Called when training ends. Always checkpoints.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">_LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Shutting down ImageCheckpoint&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">checkpoint</span><span class="p">(</span><span class="n">trainer</span><span class="p">,</span> <span class="n">module</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_video_writer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_video_writer</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div></div>
