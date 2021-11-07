@@ -153,7 +153,7 @@ class DirectTileset(Generator):
 
         atlas = atlas.reshape((-1, 3 * self.tile_size * self.tile_size))
         atlas = atlas.to(self.device)
-        self.atlas = torch.nn.Buffer(atlas)
+        self.register_buffer("atlas", atlas)
 
         if z is None:
             z = one_hot_noise(
@@ -166,7 +166,8 @@ class DirectTileset(Generator):
             )
 
         z = one_hot_normalize(z)
-        z = z.detach().clone().to(self.device)
+        z = z.detach().clone()
+        z = z.to(self.device)
         self._z = torch.nn.Parameter(z)
 
     def forward(self, tau=None, hard=None):
