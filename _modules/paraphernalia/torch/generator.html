@@ -233,6 +233,7 @@
 <span class="sd">        Set the latent tensor via the model&#39;s state_dict. Must be the same shape</span>
 <span class="sd">        as the existing tensor.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">_LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Setting latent state&quot;</span><span class="p">)</span>
         <span class="n">sd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">state_dict</span><span class="p">()</span>
         <span class="n">shape</span> <span class="o">=</span> <span class="n">sd</span><span class="p">[</span><span class="s2">&quot;_z&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
         <span class="k">if</span> <span class="n">z</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="n">shape</span><span class="p">:</span>
