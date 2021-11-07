@@ -123,6 +123,7 @@ class DirectPalette(Generator):
 class DirectTileset(Generator):
     """
     A generator using gumbel sampling versus a provided tile atlas.
+    Suggested learning rate: 0.8
     """
 
     def __init__(self, atlas: Optional[Tensor] = None, scale=1, z=None, **kwargs):

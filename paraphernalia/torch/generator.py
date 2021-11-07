@@ -88,6 +88,7 @@ class Generator(nn.Module, metaclass=ABCMeta):
         Set the latent tensor via the model's state_dict. Must be the same shape
         as the existing tensor.
         """
+        _LOG.info("Setting latent state")
         sd = self.state_dict()
         shape = sd["_z"].shape
         if z.shape != shape:
