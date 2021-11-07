@@ -162,6 +162,8 @@
     <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Could not import ipywidgets. Some functionality won&#39;t work&quot;</span><span class="p">)</span>
     <span class="n">widgets</span> <span class="o">=</span> <span class="kc">None</span>
 
+<span class="kn">import</span> <span class="nn">imageio</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pytorch_lightning</span> <span class="k">as</span> <span class="nn">pl</span>
 <span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">display</span>
@@ -181,6 +183,7 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">path_template</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">video_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">interval</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
         <span class="n">preview</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="p">):</span>
@@ -201,6 +204,12 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">interval</span> <span class="o">=</span> <span class="n">interval</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_last_checkpoint_step</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_preview</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_video_writer</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="n">video_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">Path</span><span class="p">(</span><span class="n">video_path</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_video_writer</span> <span class="o">=</span> <span class="n">imageio</span><span class="o">.</span><span class="n">get_writer</span><span class="p">(</span><span class="n">video_path</span><span class="p">)</span>
+
         <span class="k">if</span> <span class="n">preview</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_preview</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Output</span><span class="p">()</span>
             <span class="n">display</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_preview</span><span class="p">)</span>
@@ -208,21 +217,6 @@
         <span class="n">_LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
             <span class="sa">f</span><span class="s2">&quot;Checkpointing images to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">path_template</span><span class="si">}</span><span class="s2"> every </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">interval</span><span class="si">}</span><span class="s2"> steps&quot;</span>
         <span class="p">)</span>
-
-<div class="viewcode-block" id="ImageCheckpoint.preview"><a class="viewcode-back" href="../../../generated/paraphernalia.torch.lightning.html#paraphernalia.torch.lightning.ImageCheckpoint.preview">[docs]</a>    <span class="k">def</span> <span class="nf">preview</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Preview the image batch if configured, otherwise do nothing.&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preview</span><span class="p">:</span>
-            <span class="k">return</span>
-        <span class="n">img</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">to_pil_image</span><span class="p">(</span><span class="n">make_grid</span><span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="n">nrow</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">10</span><span class="p">))</span>
-        <span class="c1"># HACK: Workaround https://github.com/jupyter-widgets/ipywidgets/issues/3003</span>
-        <span class="n">b</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">()</span>
-        <span class="n">img</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;PNG&quot;</span><span class="p">)</span>
-        <span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">getvalue</span><span class="p">())</span>
-
-        <span class="c1"># In principle could call clear_output. In practice the following works better</span>
-        <span class="c1"># See: https://stackoverflow.com/questions/63319165/clear-ipywidget-output-from-inside-thread</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_preview</span><span class="o">.</span><span class="n">outputs</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_preview</span><span class="o">.</span><span class="n">append_display_data</span><span class="p">(</span><span class="n">img</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="ImageCheckpoint.save"><a class="viewcode-back" href="../../../generated/paraphernalia.torch.lightning.html#paraphernalia.torch.lightning.ImageCheckpoint.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">trainer</span><span class="p">:</span> <span class="s2">&quot;pl.Trainer&quot;</span><span class="p">,</span> <span class="n">module</span><span class="p">:</span> <span class="s2">&quot;pl.LightningModule&quot;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Save the image batch.&quot;&quot;&quot;</span>
@@ -241,6 +235,28 @@
             <span class="n">img</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
             <span class="n">_LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Saved image as </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
+<div class="viewcode-block" id="ImageCheckpoint.save_frame"><a class="viewcode-back" href="../../../generated/paraphernalia.torch.lightning.html#paraphernalia.torch.lightning.ImageCheckpoint.save_frame">[docs]</a>    <span class="k">def</span> <span class="nf">save_frame</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_video_writer</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">img</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">functions</span><span class="o">.</span><span class="n">to_pil_image</span><span class="p">(</span><span class="n">batch</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:])</span>
+        <span class="n">img</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_video_writer</span><span class="o">.</span><span class="n">append_data</span><span class="p">(</span><span class="n">img</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ImageCheckpoint.preview"><a class="viewcode-back" href="../../../generated/paraphernalia.torch.lightning.html#paraphernalia.torch.lightning.ImageCheckpoint.preview">[docs]</a>    <span class="k">def</span> <span class="nf">preview</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Preview the image batch if configured, otherwise do nothing.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preview</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">img</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">to_pil_image</span><span class="p">(</span><span class="n">make_grid</span><span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="n">nrow</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">10</span><span class="p">))</span>
+        <span class="c1"># HACK: Workaround https://github.com/jupyter-widgets/ipywidgets/issues/3003</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">()</span>
+        <span class="n">img</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;PNG&quot;</span><span class="p">)</span>
+        <span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">getvalue</span><span class="p">())</span>
+
+        <span class="c1"># In principle could call clear_output. In practice the following works better</span>
+        <span class="c1"># See: https://stackoverflow.com/questions/63319165/clear-ipywidget-output-from-inside-thread</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_preview</span><span class="o">.</span><span class="n">outputs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_preview</span><span class="o">.</span><span class="n">append_display_data</span><span class="p">(</span><span class="n">img</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="ImageCheckpoint.checkpoint"><a class="viewcode-back" href="../../../generated/paraphernalia.torch.lightning.html#paraphernalia.torch.lightning.ImageCheckpoint.checkpoint">[docs]</a>    <span class="k">def</span> <span class="nf">checkpoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">:</span> <span class="s2">&quot;pl.Trainer&quot;</span><span class="p">,</span> <span class="n">module</span><span class="p">:</span> <span class="s2">&quot;pl.LightningModule&quot;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Main checkpoint function, called on epoch start and training end.</span>
@@ -254,6 +270,7 @@
             <span class="n">module</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">trainer</span><span class="p">,</span> <span class="n">module</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_frame</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">preview</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_last_checkpoint_step</span> <span class="o">=</span> <span class="n">trainer</span><span class="o">.</span><span class="n">global_step</span></div>
 
@@ -274,7 +291,9 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Called when training ends. Always checkpoints.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">checkpoint</span><span class="p">(</span><span class="n">trainer</span><span class="p">,</span> <span class="n">module</span><span class="p">)</span></div></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">checkpoint</span><span class="p">(</span><span class="n">trainer</span><span class="p">,</span> <span class="n">module</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_video_writer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_video_writer</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div></div>
 </pre></div>
 
               </div>
