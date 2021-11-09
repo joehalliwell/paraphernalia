@@ -30,6 +30,19 @@ For developers: `poetry install`
 ### General
 
 - Add CLIP/generator sample notebook
+- Review tool
+- Oblique strategy of the day
+
+## review
+
+- Review images in a tree
+- Scaling
+- KEEP or LOSE
+- Back and forward navigation
+- Move KEEP to a target folder (rename as necessary...) "kept"
+- Move reviewed folders to a target folder "lost"
+- "kept" and "lost" should excluded
+- Notebook mode?
 
 ### glsl
 
