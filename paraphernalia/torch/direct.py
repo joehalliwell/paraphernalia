@@ -126,7 +126,7 @@ class DirectTileset(Generator):
     Suggested learning rate: 0.8
     """
 
-    def __init__(self, atlas: Optional[Tensor] = None, scale=1, z=None, **kwargs):
+    def __init__(self, atlas: Optional[Tensor] = None, scale=1, **kwargs):
         """
         Initialize a discrete direct tileset generator.
 
@@ -156,15 +156,14 @@ class DirectTileset(Generator):
         atlas = atlas.to(self.device)
         self.register_buffer("atlas", atlas)
 
-        if z is None:
-            z = one_hot_noise(
-                (
-                    self.batch_size,
-                    self.num_tiles,
-                    self.height // (self.tile_size * self.scale),
-                    self.width // (self.tile_size * self.scale),
-                )
+        z = one_hot_noise(
+            (
+                self.batch_size,
+                self.num_tiles,
+                self.height // (self.tile_size * self.scale),
+                self.width // (self.tile_size * self.scale),
             )
+        )
 
         z = one_hot_normalize(z)
         z = z.detach().clone()
