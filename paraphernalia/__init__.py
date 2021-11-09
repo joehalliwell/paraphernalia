@@ -20,7 +20,8 @@ except ModuleNotFoundError:
 __version__ = importlib_metadata.version(__name__)
 
 _LOG = logging.getLogger(__name__)
-_BANNER = f"""
+_BANNER = f"""Welcome to...
+
                            .-.                      .-.  _
                            : :                      : : :_;
  .---. .--. .--. .--. .---.: `-. .--..--.,-.,-..--. : : .-..--.
@@ -28,6 +29,7 @@ _BANNER = f"""
  : ._.`.__,_:_; `.__,_: ._.:_;:_`.__.:_; :_;:_`.__,_`.__:_`.__,_;
  : :                  : :
  :_;                  :_;                               v{__version__}
+
 
 """
 
@@ -46,11 +48,11 @@ def setup() -> None:
         datefmt="%X",
     )
 
-    print(_BANNER)
-
-    _LOG.info(f"Python: {sys.version}")
-    _LOG.info(f"GPU:  {get_gpu_name()} (CUDA: {get_cuda_version()})")
-
+    _LOG.info(_BANNER)
+    python_version = sys.version.replace("\n", " ")
+    _LOG.info(f"Python: {python_version}")
+    _LOG.info(f"   GPU: {get_gpu_name()} (CUDA: {get_cuda_version()})")
+    _LOG.info(f"  Seed: {seed()}")
     if running_in_colab():
         setup_colab()
 
