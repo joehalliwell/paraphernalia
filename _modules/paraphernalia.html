@@ -165,7 +165,8 @@
 <span class="n">__version__</span> <span class="o">=</span> <span class="n">importlib_metadata</span><span class="o">.</span><span class="n">version</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 <span class="n">_LOG</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
-<span class="n">_BANNER</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="n">_BANNER</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;Welcome to...</span>
+
 <span class="s2">                           .-.                      .-.  _</span>
 <span class="s2">                           : :                      : : :_;</span>
 <span class="s2"> .---. .--. .--. .--. .---.: `-. .--..--.,-.,-..--. : : .-..--.</span>
@@ -173,6 +174,7 @@
 <span class="s2"> : ._.`.__,_:_; `.__,_: ._.:_;:_`.__.:_; :_;:_`.__,_`.__:_`.__,_;</span>
 <span class="s2"> : :                  : :</span>
 <span class="s2"> :_;                  :_;                               v</span><span class="si">{</span><span class="n">__version__</span><span class="si">}</span><span class="s2"></span>
+
 
 <span class="s2">&quot;&quot;&quot;</span>
 
@@ -191,11 +193,11 @@
         <span class="n">datefmt</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%X</span><span class="s2">&quot;</span><span class="p">,</span>
     <span class="p">)</span>
 
-    <span class="nb">print</span><span class="p">(</span><span class="n">_BANNER</span><span class="p">)</span>
-
-    <span class="n">_LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Python: </span><span class="si">{</span><span class="n">sys</span><span class="o">.</span><span class="n">version</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="n">_LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;GPU:  </span><span class="si">{</span><span class="n">get_gpu_name</span><span class="p">()</span><span class="si">}</span><span class="s2"> (CUDA: </span><span class="si">{</span><span class="n">get_cuda_version</span><span class="p">()</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
-
+    <span class="n">_LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">_BANNER</span><span class="p">)</span>
+    <span class="n">python_version</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">version</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">)</span>
+    <span class="n">_LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Python: </span><span class="si">{</span><span class="n">python_version</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">_LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   GPU: </span><span class="si">{</span><span class="n">get_gpu_name</span><span class="p">()</span><span class="si">}</span><span class="s2"> (CUDA: </span><span class="si">{</span><span class="n">get_cuda_version</span><span class="p">()</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+    <span class="n">_LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Seed: </span><span class="si">{</span><span class="n">seed</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">running_in_colab</span><span class="p">():</span>
         <span class="n">setup_colab</span><span class="p">()</span></div>
 
