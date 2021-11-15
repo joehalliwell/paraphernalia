@@ -42,19 +42,25 @@ def setup() -> None:
     - Printing a vanity banner and some system information
     - (If running in Colaboratory) calling :func:`setup_colab`
     """
-    logging.basicConfig(
-        format="%(asctime)s %(levelname)s %(name)s : %(message)s",
-        level=logging.INFO,
-        datefmt="%X",
-    )
+    setup_logging()
 
     _LOG.info(_BANNER)
     python_version = sys.version.replace("\n", " ")
     _LOG.info(f"Python: {python_version}")
     _LOG.info(f"   GPU: {get_gpu_name()} (CUDA: {get_cuda_version()})")
     _LOG.info(f"  Seed: {seed()}")
+
     if running_in_colab():
         setup_colab()
+
+
+def setup_logging() -> None:
+    """Basic logging setup"""
+    logging.basicConfig(
+        format="%(asctime)s %(levelname)s %(name)s : %(message)s",
+        level=logging.INFO,
+        datefmt="%X",
+    )
 
 
 def setup_colab():  # pragma: no cover
