@@ -23,6 +23,7 @@ Modules
    paraphernalia.colors
    paraphernalia.glsl
    paraphernalia.jupyter
+   paraphernalia.review
    paraphernalia.signature
    paraphernalia.utils
 .. toctree::
@@ -32,6 +33,7 @@ Modules
    paraphernalia.colors
    paraphernalia.glsl
    paraphernalia.jupyter
+   paraphernalia.review
    paraphernalia.signature
    paraphernalia.utils
 
