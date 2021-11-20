@@ -12,6 +12,10 @@ via the ``--help`` option.
    :prog: preview
    :nested: full
 
+.. click:: paraphernalia.review:review
+   :prog: review
+   :nested: full
+
 .. click:: paraphernalia.signature:sign
    :prog: sign
    :nested: full
