@@ -28,6 +28,7 @@ tqdm = "^4.59.0"
 imageio = "^2.9.0"
 imageio-ffmpeg = "^0.4.3"
 torch = "^1.7.1"
+torchtext = "^0.8.0" # HACK: Force downgrade for Colab
 torchvision = "^0.8.2"
 xdg = "^5.1.0"
 einops = "^0.3.0"
