@@ -30,16 +30,10 @@ For developers: `poetry install`
 ### General
 
 - Add CLIP/generator sample notebook
-- Review tool
-- Oblique strategy of the day
+- Oblique strategy of the day during startup
 
 ## review
 
-- Review images in a tree
-- Scaling
-- KEEP or LOSE
-- Back and forward navigation
-- Move KEEP to a target folder (rename as necessary...) "kept"
 - Move reviewed folders to a target folder "lost"
 - "kept" and "lost" should excluded
 - Notebook mode?
@@ -54,16 +48,6 @@ For developers: `poetry install`
 
 - Easy organization of project resources (inputs/outputs/checkpoints)
 
-### torch
-
-- Fix replace_grad and add tests
-- Fix clamp_with_grad and add tests
-- Add BigGAN generators
-- Add soft_permutation()
-- Add ZX Spectrum style generator
-- Main entry point for generator+CLIP?
-- Add standard description string/slug to generators
-
 #### clip
 
 - Is anti-prompt logic actually working?
@@ -73,3 +57,14 @@ For developers: `poetry install`
 - Image prompts
 - Add SRCNN
 - Use https://github.com/assafshocher/ResizeRight
+
+### torch
+
+- Fix replace_grad and add tests
+- Fix clamp_with_grad and add tests
+- Add BigGAN generators
+- Add soft_permutation()
+- Add ZX Spectrum style generator
+- Main entry point for generator+CLIP?
+- Add standard description string/slug to generators
+- Add Diffusion generator
