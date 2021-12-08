@@ -1,17 +1,16 @@
 """
-- Review images in a tree
-- Scaling
-- KEEP or LOSE
-- Back and forward navigation
-- Move KEEP to a target folder (rename as necessary...) "kept"
-- Move reviewed folders to a target folder "lost"
-- "kept" and "lost" should excluded
-- Notebook mode?
-- Preserve directory structure when losing
+Review a source directory (and its subdirectories) of images, and "keep" or
+"lose" them by moving them to another parent directory.
+
+The defaults are "keep" and "lose" off the parent of source. Directory structure
+is preserved, and directories are created as needed.
+
+Functionality is split between a front-end `ReviewApp` and back-end `Review`.
 
 TODO:
-- Use click
+
 - Move fully processed directories to lose
+- Notebook mode?
 - Add filename filtering
 
 """
@@ -68,7 +67,11 @@ void main() {
 class ReviewApp:
     def __init__(self, review, fullscreen=True):
         """
-        The review application
+        Barebones GL-based review application
+
+        Args:
+            review (Review): the review instance (see below)
+            fullscreen (bool, optional): if True start in full screen mode. Defaults to True.
         """
         self.review = review
         self.scale = True
@@ -144,7 +147,7 @@ class ReviewApp:
         todo, keep, lose = self.review.progress
         done = keep + lose
 
-        self.print(
+        self._print(
             [
                 f"{self.review.index+1:04d}/{self.review.total:04d} [{self.review.verdict:4s}] {self.review.path} {self.img.size[0]}x{self.img.size[1]}",
                 f" Progress: {(done/self.review.total*100):.02f}%",
@@ -155,7 +158,8 @@ class ReviewApp:
             ]
         )
 
-    def print(self, lines):
+    def _print(self, lines):
+        """Helper method to display a set of lines"""
         font_size = 24
         x = font_size // 2
         y = font_size // 2
@@ -201,7 +205,9 @@ ALL = "ALL"
 
 
 class Review:
-    """Core review logic"""
+
+    """Core review logic that could potentially be shared across different
+    front-ends."""
 
     def __init__(
         self,
@@ -255,7 +261,7 @@ class Review:
 
     def scan(self, direction, verdict=None):
         """
-        Scan to the next item matching verdict (None matches any)
+        Scan to the next item matching verdict (`None` matches any)
 
         Args:
             direction (int): 1 for forward, -1 for backward
@@ -348,6 +354,16 @@ class Review:
 def review(source, dryrun):
     """
     Review images in SOURCE.
+
+    Keymap:
+
+    - `K`: keep the current image
+    - `L`: lose the current image
+    - `T`: (re)mark image as to-be-reviewed
+    - `LEFT`: go to previous image
+    - `RIGHT`: go to next unreviewed image
+    - `F`: toggle fullscreen
+    - `S`: toggle scaling mode
     """
     pa.setup_logging()
     review = Review(source_path=source, dryrun=dryrun)
