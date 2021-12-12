@@ -28,7 +28,7 @@ _BANNER = f"""Welcome to...
  : .; ' .; ;: ..' .; ;: .; : .. ' '_.: ..: ,. ' .; ;: :_: ' .; ;
  : ._.`.__,_:_; `.__,_: ._.:_;:_`.__.:_; :_;:_`.__,_`.__:_`.__,_;
  : :                  : :
- :_;                  :_;                               v{__version__}
+ :_;                  :_;                                  v{__version__}
 
 
 """
@@ -44,23 +44,46 @@ def setup() -> None:
     """
     setup_logging()
 
-    _LOG.info(_BANNER)
-    python_version = sys.version.replace("\n", " ")
-    _LOG.info(f"Python: {python_version}")
-    _LOG.info(f"   GPU: {get_gpu_name()} (CUDA: {get_cuda_version()})")
-    _LOG.info(f"  Seed: {seed()}")
+    setup_banner()
 
     if running_in_colab():
         setup_colab()
 
 
-def setup_logging() -> None:
-    """Basic logging setup"""
+def setup_logging(use_rich=True) -> None:
+    """
+    Basic logging setup
+
+    Args:
+        use_rich (bool, optional): If True (the default) use the pretty rich log handler
+    """
+    handlers = None
+    fmt = "%(asctime)s %(levelname)s %(name)s : %(message)s"
+
+    if use_rich:
+        try:
+            from rich.highlighter import NullHighlighter
+            from rich.logging import RichHandler
+
+            fmt = "%(message)s"
+            handlers = [
+                RichHandler(highlighter=NullHighlighter(), rich_tracebacks=True)
+            ]
+        except ImportError:
+            pass
+
     logging.basicConfig(
-        format="%(asctime)s %(levelname)s %(name)s : %(message)s",
-        level=logging.INFO,
-        datefmt="%X",
+        level=logging.INFO, format=fmt, datefmt="[%X]", handlers=handlers
     )
+
+
+def setup_banner():
+    """Log a banner and some system information"""
+    _LOG.info(_BANNER)
+    python_version = sys.version.replace("\n", " ")
+    _LOG.info(f"Python: {python_version}")
+    _LOG.info(f"   GPU: {get_gpu_name()} (CUDA: {get_cuda_version()})")
+    _LOG.info(f"  Seed: {seed()}")
 
 
 def setup_colab():  # pragma: no cover

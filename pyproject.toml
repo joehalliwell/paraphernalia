@@ -45,6 +45,7 @@ python-xmp-toolkit = "^2.0.1"
 Sphinx = {version = "^4.0.2", optional = true}
 pydata-sphinx-theme = {version = "^0.7.1", optional = true}
 sphinx-click = {version = "^3.0.1", optional = true}
+rich = {version = "^10.15.2", optional = true}
 
 
 [tool.poetry.dev-dependencies]
@@ -60,6 +61,7 @@ interrogate = "^1.4.0"
 openai = ["regex", "ftfy", "clip", "dall-e"]
 taming = ["taming-transformers", "omegaconf", "pytorch-lightning"]
 docs = ["Sphinx", "pydata-sphinx-theme", "sphinx-click"]
+rich = ["rich"]
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
