@@ -10,7 +10,6 @@ import click
 import imageio
 import moderngl
 import numpy as np
-from click import decorators
 from moderngl_window import create_window_from_settings, settings
 from PIL import Image
 from tqdm import tqdm
@@ -156,7 +155,7 @@ def preview(
                     resolution=window.size,
                     duration=duration,
                 )
-            except Exception as e:
+            except Exception:
                 logging.exception(f"Failed to load {fragment_shader}")
                 if renderer is None:
                     logging.critical("Aborting")

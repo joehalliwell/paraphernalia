@@ -233,7 +233,8 @@ class CLIP(torch.nn.Module):
         batch of images and set of prompts.
 
         Args:
-            imgs (Tensor): A combined-but-contiguous image batch with shape (batch_size * t, c, h, w)
+            imgs (Tensor): A combined-but-contiguous image batch with shape
+                (batch_size * t, c, h, w)
             prompts (Tensor): A tensor of prompt embeddings with shape (n, 512)
             batch_size (int): The size of the original image batch
             match (str): Policy for multiple prompts. "any", "all" or (in future) "one"

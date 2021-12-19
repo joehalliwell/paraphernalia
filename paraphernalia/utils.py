@@ -8,8 +8,7 @@ import re
 import urllib.request
 from datetime import datetime
 from pathlib import Path
-from time import time
-from typing import Any, Iterable, List
+from typing import Iterable, List
 from urllib.parse import urlparse
 
 from tqdm import tqdm
@@ -54,11 +53,12 @@ def step_down(steps, iterations):
 
     .. note::
         - Add value checks
-        - Think about how to do this kind of thing more generically (sin, saw etc.)
+        - Think about how to do this kind of thing more generically
 
     Args:
         steps: the number of plateaus
-        iterations: the total number of iterations over which to step down from 1.0 to 0.0
+        iterations: the total number of iterations over which to step down from
+            1.0 to 0.0
     """
     if steps <= 0:
         raise ValueError("Steps must be >= 0")
@@ -90,60 +90,6 @@ def slugify(*bits) -> str:
 
     # Multiple items
     return "_".join(slugify(bit) for bit in bits)
-
-
-def set_seed(seed: Any) -> None:
-
-    """
-    Reset all known random number generators to use the provided seed. Currently:
-
-    - `random.seed()`
-    - `numpy.random.seed()`
-    - `torch.manual_seed()`
-    - `torch.cuda.manual_seed_all()`
-
-    .. note::
-        - Provided seeds are hashed before use. This allows you to pass in e.g. a string.
-
-    Args:
-        seed (Any): The seed to use
-
-    """
-    global _seed
-    _seed = hash(seed)
-    _LOG.info(f"Setting global random seed to {_seed}")
-
-    import random
-
-    random.seed(_seed)
-
-    # Numpy
-    try:
-        import numpy
-
-        numpy.random.seed(_seed)
-    except:
-        pass
-
-    # Torch
-    try:
-        import torch
-
-        torch.manual_seed(_seed)
-        torch.cuda.manual_seed_all(_seed)
-    except:
-        pass
-
-    return _seed
-
-
-def get_seed():
-    return _seed
-
-
-_seed = None
-
-set_seed(int(time()))
 
 
 def ensure_dir_exists(path: Path) -> Path:

@@ -53,5 +53,5 @@ def say(text: str):
             u.pitch = 0.8;
             window.speechSynthesis.speak(u);
         }}
-        """
+        """  # noqa
     )

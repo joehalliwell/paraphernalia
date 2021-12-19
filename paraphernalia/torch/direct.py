@@ -10,7 +10,7 @@ import torch
 import torchvision.transforms as T
 from torch import Tensor
 
-from paraphernalia.torch import clamp_with_grad, one_hot_noise, one_hot_normalize
+from paraphernalia.torch import one_hot_noise, one_hot_normalize
 from paraphernalia.torch.generator import Generator
 
 

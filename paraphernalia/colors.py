@@ -29,12 +29,14 @@ class Palette(Enum):
 
     @classmethod
     def as_rgb(cls) -> List[Tuple]:
-        """Convert this palette to a list of (r, g, b) tuples where each component is 0-255"""
+        """Convert this palette to a list of (r, g, b) tuples where each
+        component is 0-255"""
         return [c.rgb() for c in cls]
 
     @classmethod
     def as_unit_rgb(cls) -> List[Tuple]:
-        """Convert this palette to a list of (r, g, b) tuples where each component is 0-1"""
+        """Convert this palette to a list of (r, g, b) tuples where each
+        component is 0-1"""
         return [c.unit_rgb() for c in cls]
 
 
@@ -72,7 +74,8 @@ class C64(Palette):
 
 class ZX_SPECTRUM(Palette):
     """
-    The Sinclair ZX Spectrum palette. Taken from https://en.wikipedia.org/wiki/ZX_Spectrum_graphic_modes
+    The Sinclair ZX Spectrum palette. Taken from
+    https://en.wikipedia.org/wiki/ZX_Spectrum_graphic_modes
     """
 
     BLACK = "#000000"

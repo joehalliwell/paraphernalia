@@ -13,7 +13,7 @@ from torch.functional import Tensor
 
 try:
     import ipywidgets as widgets
-except:
+except ImportError:
     warnings.warn("Could not import ipywidgets. Some functionality won't work")
     widgets = None
 
@@ -52,7 +52,8 @@ class ImageCheckpoint(pl.Callback):
         Args:
             path_template (str): a path template as described above
             interval (int, optional): the checkpoint interval
-            preview (bool, optional): if true display an ipywidget preview panel. Defaults to True.
+            preview (bool, optional): if true display an ipywidget preview
+                panel. Defaults to True.
         """
         super().__init__()
         self.path_template = str(path_template)
@@ -77,9 +78,7 @@ class ImageCheckpoint(pl.Callback):
     def save(self, batch: Tensor, trainer: "pl.Trainer", module: "pl.LightningModule"):
         """Save the image batch."""
         if batch.shape[0] > 1 and "{index}" not in self.path.template:
-            warnings.warn(
-                "Image batch size > 1, but template doesn't use {index}. Saving entire grid."
-            )
+            warnings.warn("Image batch size > 1, but template doesn't use {index}.")
             batch = make_grid(batch, nrow=4, padding=10)
 
         for i in range(batch.shape[0]):
@@ -103,13 +102,13 @@ class ImageCheckpoint(pl.Callback):
         if not self._preview:
             return
         img = T.functional.to_pil_image(make_grid(batch, nrow=4, padding=10))
-        # HACK: Workaround https://github.com/jupyter-widgets/ipywidgets/issues/3003
+        # Workaround https://github.com/jupyter-widgets/ipywidgets/issues/3003
         b = io.BytesIO()
         img.save(b, format="PNG")
         img = Image(b.getvalue())
 
-        # In principle could call clear_output. In practice the following works better
-        # See: https://stackoverflow.com/questions/63319165/clear-ipywidget-output-from-inside-thread
+        # In principle could call clear_output. In practice the following works
+        # better. See: <https://stackoverflow.com/a/64103274/3073930>
         self._preview.outputs = []
         self._preview.append_display_data(img)
 

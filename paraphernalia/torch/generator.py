@@ -12,8 +12,6 @@ from PIL.Image import Image
 from torch import Tensor
 from torchvision.utils import make_grid
 
-from paraphernalia.torch import clamp_with_grad, one_hot_noise
-
 _LOG = logging.getLogger(__name__)
 
 SizeType = Union[int, Tuple[int, int]]

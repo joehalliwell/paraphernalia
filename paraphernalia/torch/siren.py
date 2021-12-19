@@ -7,15 +7,12 @@ See https://vsitzmann.github.io/siren/
 
 import math
 import warnings
-from logging import warning
-from typing import Optional, Union
+from typing import Optional
 
 import torch
 import torch.nn as nn
-import torchvision.transforms as T
 from PIL.Image import Image
 from torch import Tensor
-from torchvision.utils import make_grid
 
 from paraphernalia.torch import grid
 from paraphernalia.torch.generator import Generator

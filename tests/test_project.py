@@ -1,18 +1,16 @@
-import paraphernalia as pa
-from paraphernalia._project import Project, project
-from paraphernalia.utils import get_seed
+from paraphernalia import Project, get_seed, project, set_seed, settings
 
 
 def test_basic_usage(monkeypatch, tmpdir):
     """
     Test output directory creation, and activate flag
     """
-    monkeypatch.setattr(pa.settings(), "project_home", tmpdir)
+    monkeypatch.setattr(settings(), "project_home", tmpdir)
 
     p1 = Project(title="Project #1")
     assert p1.path.exists()
     assert p1.path.parent == tmpdir
-    assert p1.creator == pa.settings().creator
+    assert p1.creator == settings().creator
     assert project() == p1
 
     p2 = Project(title="Project #2", creator="Pseudonymous creator")
@@ -30,8 +28,21 @@ def test_basic_usage(monkeypatch, tmpdir):
 
 def test_project_seed(monkeypatch, tmpdir):
     """Test that setting the project seed sets the global seed."""
-    monkeypatch.setattr(pa.settings(), "project_home", tmpdir)
-    p1 = Project(title="Project #1", seed=123456)
+    monkeypatch.setattr(settings(), "project_home", tmpdir)
 
-    assert p1.seed == 123456
-    assert get_seed() == p1.seed
+    seed = 123456
+    set_seed(seed + 1)
+    assert get_seed() != seed
+
+    p1 = Project(title="Project #1", seed=seed)
+
+    assert p1.seed == seed
+    assert get_seed() == seed
+
+
+def test_default_seed():
+    """Check that seed defaults to the global"""
+    set_seed(654321)
+    p = Project(title="Project #1")
+
+    assert p.seed == get_seed()

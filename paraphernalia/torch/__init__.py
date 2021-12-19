@@ -3,10 +3,9 @@ Utilities for working with PyTorch
 """
 
 import gc as _gc
-from typing import List, Optional, Sequence, Tuple, Union
+from typing import List, Tuple, Union
 
 import torch
-import torch.nn as nn
 import torchvision.transforms as T
 from torch import Tensor
 from torchvision.utils import make_grid
@@ -283,7 +282,7 @@ def free(device=None):
         Tuple: (total, used, free) in bytes
     """
     total = torch.cuda.get_device_properties(0).total_memory
-    reserved = torch.cuda.memory_reserved(0)
+    # reserved = torch.cuda.memory_reserved(0)
     allocated = torch.cuda.memory_allocated(0)
     return (total, allocated, total - allocated)
 

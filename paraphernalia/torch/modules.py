@@ -2,7 +2,6 @@
 A collection of utility PyTorch modules.
 """
 
-from os import initgroups
 from typing import List
 
 import torch

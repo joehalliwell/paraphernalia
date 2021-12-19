@@ -5,7 +5,7 @@ See also:
 
 - <https://colab.research.google.com/github/CompVis/taming-transformers/blob/master/scripts/reconstruction_usage.ipynb>
 
-"""
+"""  # noqa
 
 from dataclasses import dataclass
 from typing import Union
@@ -44,16 +44,16 @@ class TamingModel:
 
 VQGAN_GUMBEL_F8 = TamingModel(
     "vqgan_gumbel_f8",
-    "https://heibox.uni-heidelberg.de/d/2e5662443a6b4307b470/files/?p=%2Fconfigs%2Fmodel.yaml&dl=1",
-    "https://heibox.uni-heidelberg.de/d/2e5662443a6b4307b470/files/?p=%2Fckpts%2Flast.ckpt&dl=1",
+    "https://heibox.uni-heidelberg.de/d/2e5662443a6b4307b470/files/?p=%2Fconfigs%2Fmodel.yaml&dl=1",  # noqa
+    "https://heibox.uni-heidelberg.de/d/2e5662443a6b4307b470/files/?p=%2Fckpts%2Flast.ckpt&dl=1",  # noqa
     True,
     8,
 )
 
 VQGAN_IMAGENET_F16_16384 = TamingModel(
     "vqgan_imagenet_f16_16384",
-    "https://heibox.uni-heidelberg.de/d/a7530b09fed84f80a887/files/?p=%2Fconfigs%2Fmodel.yaml&dl=1",
-    "https://heibox.uni-heidelberg.de/d/a7530b09fed84f80a887/files/?p=%2Fckpts%2Flast.ckpt&dl=1",
+    "https://heibox.uni-heidelberg.de/d/a7530b09fed84f80a887/files/?p=%2Fconfigs%2Fmodel.yaml&dl=1",  # noqa
+    "https://heibox.uni-heidelberg.de/d/a7530b09fed84f80a887/files/?p=%2Fckpts%2Flast.ckpt&dl=1",  # noqa
     False,
     16,
 )
@@ -69,7 +69,8 @@ class Taming(Generator):
     ):
         """
         Args:
-            model_spec (TamingModel, optional): Defaults to VQGAN_IMAGENET_F16_16384.
+            model_spec (TamingModel, optional): Defaults to
+                VQGAN_IMAGENET_F16_16384.
             start ([type], optional): Defaults to None.
         """
         super().__init__(quantize=model_spec.scale, **kwargs)

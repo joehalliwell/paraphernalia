@@ -18,7 +18,6 @@ TODO:
 import imghdr
 import logging
 import os
-import random
 from collections import Counter
 from pathlib import Path
 
@@ -26,7 +25,7 @@ import click
 import moderngl
 import moderngl_window as mglw
 import PIL
-from moderngl_window import geometry, resources
+from moderngl_window import geometry
 from moderngl_window.text.bitmapped import TextWriter2D
 from tqdm import tqdm
 
@@ -71,7 +70,8 @@ class ReviewApp:
 
         Args:
             review (Review): the review instance (see below)
-            fullscreen (bool, optional): if True start in full screen mode. Defaults to True.
+            fullscreen (bool, optional): if True start in full screen mode.
+                Defaults to True.
         """
         self.review = review
         self.scale = True
@@ -149,7 +149,10 @@ class ReviewApp:
 
         self._print(
             [
-                f"{self.review.index+1:04d}/{self.review.total:04d} [{self.review.verdict:4s}] {self.review.path} {self.img.size[0]}x{self.img.size[1]}",
+                f"{self.review.index+1:04d}/{self.review.total:04d}"
+                " [{self.review.verdict:4s}]"
+                " {self.review.path}"
+                " {self.img.size[0]}x{self.img.size[1]}",
                 f" Progress: {(done/self.review.total*100):.02f}%",
                 f"   [T]odo: {todo}",
                 f"   [K]eep: {keep}",

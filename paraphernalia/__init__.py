@@ -5,10 +5,10 @@ import logging
 import os
 import subprocess
 import sys
-from time import time
-from typing import Any, Optional
+from typing import Optional
 
 from paraphernalia._project import Project, project
+from paraphernalia._random import get_seed, set_seed
 from paraphernalia._settings import Settings, settings
 
 # TODO: Shift to poetry-version-plugin, once that's bedded in?
@@ -17,10 +17,10 @@ try:
 except ModuleNotFoundError:
     import importlib_metadata
 
+_LOG = logging.getLogger(__name__)
 
 __version__ = importlib_metadata.version(__name__)
 
-_LOG = logging.getLogger(__name__)
 _BANNER = f"""
                            .-.                      .-.  _
                            : :                      : : :_;
@@ -34,7 +34,16 @@ _BANNER = f"""
 """
 
 
-__all__ = ["setup", "settings", "project", "setup_logging", "Settings", "Project"]
+__all__ = [
+    "setup",
+    "setup_logging",
+    "get_seed",
+    "set_seed",
+    "settings",
+    "project",
+    "Settings",
+    "Project",
+]
 
 
 def setup() -> None:
@@ -57,7 +66,8 @@ def setup_logging(use_rich: Optional[bool] = None) -> None:
     Setup basic logging.
 
     Args:
-        use_rich (bool, optional): use the pretty rich log handler if available. Defaults to value in settings.
+        use_rich (bool, optional): use the pretty rich log handler if available.
+        Defaults to value in settings.
     """
     handlers = None
     fmt = "%(asctime)s %(levelname)s %(name)s : %(message)s"
@@ -88,7 +98,7 @@ def setup_banner():
     python_version = sys.version.replace("\n", " ")
     _LOG.info(f"  Python: {python_version}")
     _LOG.info(f"     GPU: {get_gpu_name()} (CUDA: {get_cuda_version()})")
-    _LOG.info(f"    Seed: {settings().seed}")
+    _LOG.info(f"    Seed: {get_seed()}")
     _LOG.info(f" Creator: {settings().creator}")
     _LOG.info(f"Projects: {settings().project_home}")
 
@@ -124,7 +134,7 @@ def running_in_colab():
 
     Returns:
         bool: True if running in Colaboratory
-    """
+    """  # noqa
     try:
         from IPython import get_ipython
     except ImportError:
@@ -155,7 +165,7 @@ def running_in_jupyter() -> bool:
     """
     try:
         from IPython import get_ipython
-    except:
+    except ImportError:
         return False
 
     ip = get_ipython()
@@ -188,7 +198,7 @@ def get_cuda_version() -> Optional[str]:
             .split(", ")
             if s.startswith("release")
         ][0].split(" ")[-1]
-    except:
+    except Exception:
         return None
 
 
@@ -201,7 +211,7 @@ def get_gpu_name() -> Optional[str]:
         import torch
 
         return torch.cuda.get_device_name()
-    except:
+    except (ImportError, RuntimeError):
         return None
 
 
