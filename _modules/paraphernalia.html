@@ -357,7 +357,7 @@
         <span class="kn">import</span> <span class="nn">torch</span>
 
         <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">get_device_name</span><span class="p">()</span>
-    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">ImportError</span><span class="p">,</span> <span class="ne">RuntimeError</span><span class="p">):</span>
         <span class="k">return</span> <span class="kc">None</span>
 
 
