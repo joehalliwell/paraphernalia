@@ -1,0 +1,321 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>paraphernalia.torch.lightning &#8212; paraphernalia  documentation</title>
+    
+  <link href="../../../_static/css/theme.css" rel="stylesheet">
+  <link href="../../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/blank.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/autodoc_pydantic.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/paraphernalia.css" />
+    
+  <link rel="preload" as="script" href="../../../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+<a class="navbar-brand" href="../../../index.html">
+<p class="title">paraphernalia</p>
+</a>
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../installation.html">
+  Installation
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../commands.html">
+  Command line programs
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../api.html">
+  API documentation
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/joehalliwell/paraphernalia" rel="noopener" target="_blank" title="GitHub">
+            <span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label>
+          </a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    
+  </div>
+</nav>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <h1>Source code for paraphernalia.torch.lightning</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Tools for working with</span>
+<span class="sd">`PyTorch Lightning &lt;https://www.pytorchlightning.ai/&gt;`_.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">io</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">from</span> <span class="nn">torch.functional</span> <span class="kn">import</span> <span class="n">Tensor</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">ipywidgets</span> <span class="k">as</span> <span class="nn">widgets</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Could not import ipywidgets. Some functionality won&#39;t work&quot;</span><span class="p">)</span>
+    <span class="n">widgets</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="kn">import</span> <span class="nn">imageio</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pytorch_lightning</span> <span class="k">as</span> <span class="nn">pl</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">display</span>
+<span class="kn">from</span> <span class="nn">torchvision</span> <span class="kn">import</span> <span class="n">transforms</span> <span class="k">as</span> <span class="n">T</span>
+<span class="kn">from</span> <span class="nn">torchvision.utils</span> <span class="kn">import</span> <span class="n">make_grid</span>
+
+<span class="n">_LOG</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="ImageCheckpoint"><a class="viewcode-back" href="../../../generated/paraphernalia.torch.lightning.html#paraphernalia.torch.lightning.ImageCheckpoint">[docs]</a><span class="k">class</span> <span class="nc">ImageCheckpoint</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">Callback</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A PyTorch Lightning callback for saving and previewing images.</span>
+
+<span class="sd">    Image batches (b, c, h, w) should be generated by `module.forward()`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">path_template</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">video_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">interval</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+        <span class="n">preview</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        `path_template` can draw on the following variables:</span>
+
+<span class="sd">        - `index`: the index of the image in the provided batch</span>
+<span class="sd">        - `model`: the Lightning model</span>
+<span class="sd">        - `trainer`: the Lightning trainer</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            path_template (str): a path template as described above</span>
+<span class="sd">            interval (int, optional): the checkpoint interval</span>
+<span class="sd">            preview (bool, optional): if true display an ipywidget preview</span>
+<span class="sd">                panel. Defaults to True.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">path_template</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">path_template</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">interval</span> <span class="o">=</span> <span class="n">interval</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_last_checkpoint_step</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_preview</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_video_writer</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="n">_LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Checkpointing images to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">path_template</span><span class="si">}</span><span class="s2"> every </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">interval</span><span class="si">}</span><span class="s2"> steps&quot;</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">video_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">Path</span><span class="p">(</span><span class="n">video_path</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_video_writer</span> <span class="o">=</span> <span class="n">imageio</span><span class="o">.</span><span class="n">get_writer</span><span class="p">(</span><span class="n">video_path</span><span class="p">)</span>
+            <span class="n">_LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Writing video to </span><span class="si">{</span><span class="n">video_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">preview</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_preview</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Output</span><span class="p">()</span>
+            <span class="n">display</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_preview</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ImageCheckpoint.save"><a class="viewcode-back" href="../../../generated/paraphernalia.torch.lightning.html#paraphernalia.torch.lightning.ImageCheckpoint.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">trainer</span><span class="p">:</span> <span class="s2">&quot;pl.Trainer&quot;</span><span class="p">,</span> <span class="n">module</span><span class="p">:</span> <span class="s2">&quot;pl.LightningModule&quot;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Save the image batch.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">batch</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="s2">&quot;</span><span class="si">{index}</span><span class="s2">&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">template</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Image batch size &gt; 1, but template doesn&#39;t use </span><span class="si">{index}</span><span class="s2">.&quot;</span><span class="p">)</span>
+            <span class="n">batch</span> <span class="o">=</span> <span class="n">make_grid</span><span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="n">nrow</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">batch</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+            <span class="n">img</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">to_pil_image</span><span class="p">(</span><span class="n">batch</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:])</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span>
+                <span class="nb">str</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path_template</span><span class="p">,</span> <span class="n">module</span><span class="o">=</span><span class="n">module</span><span class="p">,</span> <span class="n">trainer</span><span class="o">=</span><span class="n">trainer</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">i</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">filename</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">img</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+            <span class="n">_LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Saved image as </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ImageCheckpoint.save_frame"><a class="viewcode-back" href="../../../generated/paraphernalia.torch.lightning.html#paraphernalia.torch.lightning.ImageCheckpoint.save_frame">[docs]</a>    <span class="k">def</span> <span class="nf">save_frame</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_video_writer</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">img</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">to_pil_image</span><span class="p">(</span><span class="n">batch</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:])</span>
+        <span class="n">img</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_video_writer</span><span class="o">.</span><span class="n">append_data</span><span class="p">(</span><span class="n">img</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ImageCheckpoint.preview"><a class="viewcode-back" href="../../../generated/paraphernalia.torch.lightning.html#paraphernalia.torch.lightning.ImageCheckpoint.preview">[docs]</a>    <span class="k">def</span> <span class="nf">preview</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Preview the image batch if configured, otherwise do nothing.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preview</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">img</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">to_pil_image</span><span class="p">(</span><span class="n">make_grid</span><span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="n">nrow</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">10</span><span class="p">))</span>
+        <span class="c1"># Workaround https://github.com/jupyter-widgets/ipywidgets/issues/3003</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">()</span>
+        <span class="n">img</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;PNG&quot;</span><span class="p">)</span>
+        <span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">getvalue</span><span class="p">())</span>
+
+        <span class="c1"># In principle could call clear_output. In practice the following works</span>
+        <span class="c1"># better. See: &lt;https://stackoverflow.com/a/64103274/3073930&gt;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_preview</span><span class="o">.</span><span class="n">outputs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_preview</span><span class="o">.</span><span class="n">append_display_data</span><span class="p">(</span><span class="n">img</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ImageCheckpoint.checkpoint"><a class="viewcode-back" href="../../../generated/paraphernalia.torch.lightning.html#paraphernalia.torch.lightning.ImageCheckpoint.checkpoint">[docs]</a>    <span class="k">def</span> <span class="nf">checkpoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">:</span> <span class="s2">&quot;pl.Trainer&quot;</span><span class="p">,</span> <span class="n">module</span><span class="p">:</span> <span class="s2">&quot;pl.LightningModule&quot;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Main checkpoint function, called on epoch start and training end.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">trainer</span><span class="o">.</span><span class="n">global_step</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_last_checkpoint_step</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+            <span class="n">module</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+            <span class="n">img</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">forward</span><span class="p">()</span>
+            <span class="n">module</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">trainer</span><span class="p">,</span> <span class="n">module</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_frame</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">preview</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_last_checkpoint_step</span> <span class="o">=</span> <span class="n">trainer</span><span class="o">.</span><span class="n">global_step</span></div>
+
+<div class="viewcode-block" id="ImageCheckpoint.on_batch_end"><a class="viewcode-back" href="../../../generated/paraphernalia.torch.lightning.html#paraphernalia.torch.lightning.ImageCheckpoint.on_batch_end">[docs]</a>    <span class="k">def</span> <span class="nf">on_batch_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">:</span> <span class="s2">&quot;pl.Trainer&quot;</span><span class="p">,</span> <span class="n">module</span><span class="p">:</span> <span class="s2">&quot;pl.LightningModule&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Called at the end of each batch. Checkpoints if a multiple of `self.interval`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">trainer</span><span class="o">.</span><span class="n">global_step</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">interval</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">checkpoint</span><span class="p">(</span><span class="n">trainer</span><span class="p">,</span> <span class="n">module</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ImageCheckpoint.on_epoch_start"><a class="viewcode-back" href="../../../generated/paraphernalia.torch.lightning.html#paraphernalia.torch.lightning.ImageCheckpoint.on_epoch_start">[docs]</a>    <span class="k">def</span> <span class="nf">on_epoch_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">:</span> <span class="s2">&quot;pl.Trainer&quot;</span><span class="p">,</span> <span class="n">module</span><span class="p">:</span> <span class="s2">&quot;pl.LightningModule&quot;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Called at the start of an epoch. Always checkpoints.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">checkpoint</span><span class="p">(</span><span class="n">trainer</span><span class="p">,</span> <span class="n">module</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ImageCheckpoint.on_train_end"><a class="viewcode-back" href="../../../generated/paraphernalia.torch.lightning.html#paraphernalia.torch.lightning.ImageCheckpoint.on_train_end">[docs]</a>    <span class="k">def</span> <span class="nf">on_train_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">:</span> <span class="s2">&quot;pl.Trainer&quot;</span><span class="p">,</span> <span class="n">module</span><span class="p">:</span> <span class="s2">&quot;pl.LightningModule&quot;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Called when training ends. Always checkpoints.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">_LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Shutting down ImageCheckpoint&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">checkpoint</span><span class="p">(</span><span class="n">trainer</span><span class="p">,</span> <span class="n">module</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_video_writer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_video_writer</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div></div>
+</pre></div>
+
+              </div>
+              
+              
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+  <script src="../../../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+<footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+  </div>
+</footer>
+  </body>
+</html>

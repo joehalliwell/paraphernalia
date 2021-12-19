@@ -267,8 +267,107 @@
               
               <div>
                 
-  <section id="paraphernalia-utils-module">
-<h1>paraphernalia.utils module<a class="headerlink" href="#paraphernalia-utils-module" title="Permalink to this headline">¶</a></h1>
+  <section id="module-paraphernalia.utils">
+<span id="paraphernalia-utils-module"></span><h1>paraphernalia.utils module<a class="headerlink" href="#module-paraphernalia.utils" title="Permalink to this headline">¶</a></h1>
+<p>Miscellaneous utility functions.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="paraphernalia.utils.divide">
+<span class="sig-name descname"><span class="pre">divide</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">whole</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">part</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_overlap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/utils.html#divide"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.utils.divide" title="Permalink to this definition">¶</a></dt>
+<dd><p>Divide <code class="docutils literal notranslate"><span class="pre">whole</span></code> into several <code class="docutils literal notranslate"><span class="pre">part</span></code>-sized chunks which overlap by
+at least <code class="docutils literal notranslate"><span class="pre">min_overlap</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>whole</strong> (<em>int</em>) – The total to subdivide</p></li>
+<li><p><strong>part</strong> (<em>int</em>) – The size of the chunk</p></li>
+<li><p><strong>min_overlap</strong> (<em>int</em><em>, </em><em>optional</em>) – The minimum overlap between chunks.
+Defaults to 0 i.e. chunks won’t overlap unless required.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of chunk offset</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>List[int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="paraphernalia.utils.step_down">
+<span class="sig-name descname"><span class="pre">step_down</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">steps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iterations</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/utils.html#step_down"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.utils.step_down" title="Permalink to this definition">¶</a></dt>
+<dd><p>Step down generator</p>
+<div class="deprecated">
+<p><span class="versionmodified deprecated">Deprecated since version future: </span>This will be removed</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>Add value checks</p></li>
+<li><p>Think about how to do this kind of thing more generically</p></li>
+</ul>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>steps</strong> – the number of plateaus</p></li>
+<li><p><strong>iterations</strong> – the total number of iterations over which to step down from
+1.0 to 0.0</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="paraphernalia.utils.slugify">
+<span class="sig-name descname"><span class="pre">slugify</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">bits</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/utils.html#slugify"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.utils.slugify" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make a lower-case alphanumeric representation of the arguments by stripping
+other characters and replacing spaces with hyphens.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="paraphernalia.utils.ensure_dir_exists">
+<span class="sig-name descname"><span class="pre">ensure_dir_exists</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/utils.html#ensure_dir_exists"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.utils.ensure_dir_exists" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>pathlib.Path</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>pathlib.Path</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="paraphernalia.utils.download">
+<span class="sig-name descname"><span class="pre">download</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/utils.html#download"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.utils.download" title="Permalink to this definition">¶</a></dt>
+<dd><p>Download <code class="docutils literal notranslate"><span class="pre">url</span></code> to local disk and return the Path to which it was written.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>url</strong> (<em>str</em>) – the URL to fetch.</p></li>
+<li><p><strong>target</strong> (<em>Path</em><em>, </em><em>optional</em>) – The target path. Defaults to None.</p></li>
+<li><p><strong>overwrite</strong> (<em>bool</em><em>, </em><em>optional</em>) – If true, overwrite the target path.
+Defaults to False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>Exception</strong> – if the download target is a directory</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the file that was written</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Path</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 
 

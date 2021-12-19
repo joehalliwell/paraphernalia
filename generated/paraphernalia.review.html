@@ -268,8 +268,143 @@
               
               <div>
                 
-  <section id="paraphernalia-review-module">
-<h1>paraphernalia.review module<a class="headerlink" href="#paraphernalia-review-module" title="Permalink to this headline">¶</a></h1>
+  <section id="module-paraphernalia.review">
+<span id="paraphernalia-review-module"></span><h1>paraphernalia.review module<a class="headerlink" href="#module-paraphernalia.review" title="Permalink to this headline">¶</a></h1>
+<p>Review a source directory (and its subdirectories) of images, and “keep” or
+“lose” them by moving them to another parent directory.</p>
+<p>The defaults are “keep” and “lose” off the parent of source. Directory structure
+is preserved, and directories are created as needed.</p>
+<p>Functionality is split between a front-end <cite>ReviewApp</cite> and back-end <cite>Review</cite>.</p>
+<p>TODO:</p>
+<ul class="simple">
+<li><p>Move fully processed directories to lose</p></li>
+<li><p>Notebook mode?</p></li>
+<li><p>Add filename filtering</p></li>
+</ul>
+<dl class="py class">
+<dt class="sig sig-object py" id="paraphernalia.review.ReviewApp">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">ReviewApp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">review</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fullscreen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/review.html#ReviewApp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.review.ReviewApp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Barebones GL-based review application</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>review</strong> (<a class="reference internal" href="#paraphernalia.review.Review" title="paraphernalia.review.Review"><em>Review</em></a>) – the review instance (see below)</p></li>
+<li><p><strong>fullscreen</strong> (<em>bool</em><em>, </em><em>optional</em>) – if True start in full screen mode.
+Defaults to True.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="paraphernalia.review.ReviewApp.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/review.html#ReviewApp.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.review.ReviewApp.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Main event loop. Blocking.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="paraphernalia.review.ReviewApp.load">
+<span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/review.html#ReviewApp.load"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.review.ReviewApp.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load and display the specified image</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="paraphernalia.review.ReviewApp.render">
+<span class="sig-name descname"><span class="pre">render</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/review.html#ReviewApp.render"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.review.ReviewApp.render" title="Permalink to this definition">¶</a></dt>
+<dd><p>Render callback</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="paraphernalia.review.ReviewApp.key_event">
+<span class="sig-name descname"><span class="pre">key_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">action</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">modifiers</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/review.html#ReviewApp.key_event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.review.ReviewApp.key_event" title="Permalink to this definition">¶</a></dt>
+<dd><p>Key handler</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="paraphernalia.review.Review">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">Review</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lose_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dryrun</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/review.html#Review"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.review.Review" title="Permalink to this definition">¶</a></dt>
+<dd><p>Core review logic that could potentially be shared across different
+front-ends.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>source_path</strong> (<em>str</em>) – </p></li>
+<li><p><strong>keep_path</strong> (<em>str</em>) – </p></li>
+<li><p><strong>lose_path</strong> (<em>str</em>) – </p></li>
+<li><p><strong>dryrun</strong> (<em>bool</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="paraphernalia.review.Review.path">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">path</span></span><em class="property"><span class="pre">:</span> <span class="pre">pathlib.Path</span></em><a class="headerlink" href="#paraphernalia.review.Review.path" title="Permalink to this definition">¶</a></dt>
+<dd><p>The current path to review</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="paraphernalia.review.Review.verdict">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">verdict</span></span><a class="headerlink" href="#paraphernalia.review.Review.verdict" title="Permalink to this definition">¶</a></dt>
+<dd><p>The verdict on the current path</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="paraphernalia.review.Review.scan">
+<span class="sig-name descname"><span class="pre">scan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">direction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verdict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/review.html#Review.scan"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.review.Review.scan" title="Permalink to this definition">¶</a></dt>
+<dd><p>Scan to the next item matching verdict (<cite>None</cite> matches any)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>direction</strong> (<em>int</em>) – 1 for forward, -1 for backward</p></li>
+<li><p><strong>verdict</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em><em>, </em><em>optional</em>) – Status to match. Defaults to None
+which matches everything.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="paraphernalia.review.Review.next">
+<span class="sig-name descname"><span class="pre">next</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verdict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/review.html#Review.next"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.review.Review.next" title="Permalink to this definition">¶</a></dt>
+<dd><p>Switch to next object in the sequence, subject to the filters</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="paraphernalia.review.Review.previous">
+<span class="sig-name descname"><span class="pre">previous</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verdict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/review.html#Review.previous"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.review.Review.previous" title="Permalink to this definition">¶</a></dt>
+<dd><p>Switch to previous object in the sequence, subject to the filters</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="paraphernalia.review.Review.clear">
+<span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/review.html#Review.clear"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.review.Review.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clear the verdict on the current object</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="paraphernalia.review.Review.keep">
+<span class="sig-name descname"><span class="pre">keep</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/review.html#Review.keep"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.review.Review.keep" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mark the current object to be kept</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="paraphernalia.review.Review.lose">
+<span class="sig-name descname"><span class="pre">lose</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/review.html#Review.lose"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.review.Review.lose" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mark the current object to be removed</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="paraphernalia.review.Review.progress">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">progress</span></span><a class="headerlink" href="#paraphernalia.review.Review.progress" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="paraphernalia.review.Review.commit">
+<span class="sig-name descname"><span class="pre">commit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/review.html#Review.commit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.review.Review.commit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Move any empty source directories to lose</p>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 
 
