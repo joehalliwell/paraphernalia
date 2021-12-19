@@ -24,6 +24,7 @@
     
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/css/blank.css" />
+    <link rel="stylesheet" type="text/css" href="_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="_static/paraphernalia.css" />
     
   <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
@@ -351,6 +352,8 @@
 <h2 id="A">A</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="generated/paraphernalia.html#paraphernalia.Project.activate">activate() (Project method)</a>
+</li>
       <li><a href="generated/paraphernalia.torch.modules.html#paraphernalia.torch.modules.AdaptiveMultiLoss">AdaptiveMultiLoss (class in paraphernalia.torch.modules)</a>
 </li>
   </ul></td>
@@ -358,6 +361,8 @@
       <li><a href="generated/paraphernalia.colors.html#paraphernalia.colors.Palette.as_rgb">as_rgb() (Palette class method)</a>
 </li>
       <li><a href="generated/paraphernalia.colors.html#paraphernalia.colors.Palette.as_unit_rgb">as_unit_rgb() (Palette class method)</a>
+</li>
+      <li><a href="generated/paraphernalia.html#paraphernalia.Settings.auto_setup">auto_setup (Settings attribute)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -415,7 +420,7 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/paraphernalia.colors.html#paraphernalia.colors.C64">C64 (class in paraphernalia.colors)</a>
 </li>
-      <li><a href="generated/paraphernalia.html#paraphernalia.cache_home">cache_home() (in module paraphernalia)</a>
+      <li><a href="generated/paraphernalia.html#paraphernalia.Settings.cache_home">cache_home (Settings attribute)</a>
 </li>
       <li><a href="generated/paraphernalia.torch.lightning.html#paraphernalia.torch.lightning.ImageCheckpoint.checkpoint">checkpoint() (ImageCheckpoint method)</a>
 </li>
@@ -435,14 +440,14 @@
       </ul></li>
       <li><a href="generated/paraphernalia.torch.html#paraphernalia.torch.ClampWithGrad">ClampWithGrad (class in paraphernalia.torch)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/paraphernalia.review.html#paraphernalia.review.Review.clear">clear() (Review method)</a>
 
       <ul>
         <li><a href="generated/paraphernalia.signature.html#paraphernalia.signature.XMP.clear">(XMP method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/paraphernalia.torch.clip.html#paraphernalia.torch.clip.CLIP">CLIP (class in paraphernalia.torch.clip)</a>
 </li>
       <li><a href="generated/paraphernalia.review.html#paraphernalia.review.Review.commit">commit() (Review method)</a>
@@ -453,8 +458,16 @@
 </li>
       <li><a href="generated/paraphernalia.torch.html#paraphernalia.torch.cosine_similarity">cosine_similarity() (in module paraphernalia.torch)</a>
 </li>
-      <li><a href="generated/paraphernalia.signature.html#paraphernalia.signature.XMP.creator">creator (XMP property)</a>
+      <li><a href="generated/paraphernalia.html#paraphernalia.Project.created">created (Project attribute)</a>
 </li>
+      <li><a href="generated/paraphernalia.html#paraphernalia.Project.creator">creator (Project attribute)</a>
+
+      <ul>
+        <li><a href="generated/paraphernalia.html#paraphernalia.Settings.creator">(Settings attribute)</a>
+</li>
+        <li><a href="generated/paraphernalia.signature.html#paraphernalia.signature.XMP.creator">(XMP property)</a>
+</li>
+      </ul></li>
       <li><a href="generated/paraphernalia.signature.html#paraphernalia.signature.XMP.creators">creators (XMP property)</a>
 </li>
       <li><a href="generated/paraphernalia.colors.html#paraphernalia.colors.C64.CYAN">CYAN (C64 attribute)</a>
@@ -471,16 +484,14 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/paraphernalia.torch.dall_e.html#paraphernalia.torch.dall_e.DALL_E">DALL_E (class in paraphernalia.torch.dall_e)</a>
 </li>
-      <li><a href="generated/paraphernalia.html#paraphernalia.data_home">data_home() (in module paraphernalia)</a>
-</li>
       <li><a href="generated/paraphernalia.signature.html#paraphernalia.signature.XMP.description">description (XMP property)</a>
 </li>
       <li><a href="generated/paraphernalia.jupyter.html#paraphernalia.jupyter.ding">ding() (in module paraphernalia.jupyter)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/paraphernalia.torch.direct.html#paraphernalia.torch.direct.Direct">Direct (class in paraphernalia.torch.direct)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/paraphernalia.torch.direct.html#paraphernalia.torch.direct.DirectPalette">DirectPalette (class in paraphernalia.torch.direct)</a>
 </li>
       <li><a href="generated/paraphernalia.torch.direct.html#paraphernalia.torch.direct.DirectTileset">DirectTileset (class in paraphernalia.torch.direct)</a>
@@ -508,6 +519,8 @@
       <li><a href="generated/paraphernalia.torch.clip.html#paraphernalia.torch.clip.CLIP.encode_image">encode_image() (CLIP method)</a>
 </li>
       <li><a href="generated/paraphernalia.torch.clip.html#paraphernalia.torch.clip.CLIP.encode_text">encode_text() (CLIP method)</a>
+</li>
+      <li><a href="generated/paraphernalia.utils.html#paraphernalia.utils.ensure_dir_exists">ensure_dir_exists() (in module paraphernalia.utils)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -576,13 +589,11 @@
 </li>
       <li><a href="generated/paraphernalia.torch.generator.html#paraphernalia.torch.generator.Generator">Generator (class in paraphernalia.torch.generator)</a>
 </li>
-      <li><a href="generated/paraphernalia.html#paraphernalia.get_cuda_version">get_cuda_version() (in module paraphernalia)</a>
-</li>
-      <li><a href="generated/paraphernalia.html#paraphernalia.get_gpu_name">get_gpu_name() (in module paraphernalia)</a>
-</li>
       <li><a href="generated/paraphernalia.torch.clip.html#paraphernalia.torch.clip.CLIP.get_macro">get_macro() (CLIP method)</a>
 </li>
       <li><a href="generated/paraphernalia.torch.clip.html#paraphernalia.torch.clip.CLIP.get_micro">get_micro() (CLIP method)</a>
+</li>
+      <li><a href="generated/paraphernalia.utils.html#paraphernalia.utils.get_seed">get_seed() (in module paraphernalia.utils)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -837,8 +848,6 @@
         <li><a href="generated/paraphernalia.torch.lightning.html#module-paraphernalia.torch.lightning">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     paraphernalia.torch.modules
 
@@ -846,6 +855,8 @@
         <li><a href="generated/paraphernalia.torch.modules.html#module-paraphernalia.torch.modules">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     paraphernalia.torch.noise
 
@@ -874,8 +885,12 @@
         <li><a href="generated/paraphernalia.utils.html#module-paraphernalia.utils">module</a>
 </li>
       </ul></li>
-      <li><a href="generated/paraphernalia.review.html#paraphernalia.review.Review.path">path (Review property)</a>
+      <li><a href="generated/paraphernalia.html#paraphernalia.Project.path">path (Project attribute)</a>
+
+      <ul>
+        <li><a href="generated/paraphernalia.review.html#paraphernalia.review.Review.path">(Review property)</a>
 </li>
+      </ul></li>
       <li><a href="generated/paraphernalia.torch.noise.html#paraphernalia.torch.noise.perlin">perlin() (in module paraphernalia.torch.noise)</a>
 </li>
       <li>
@@ -904,6 +919,10 @@
       <li><a href="generated/paraphernalia.review.html#paraphernalia.review.Review.previous">previous() (Review method)</a>
 </li>
       <li><a href="generated/paraphernalia.review.html#paraphernalia.review.Review.progress">progress (Review property)</a>
+</li>
+      <li><a href="generated/paraphernalia.html#paraphernalia.project">project() (in module paraphernalia)</a>
+</li>
+      <li><a href="generated/paraphernalia.html#paraphernalia.Settings.project_home">project_home (Settings attribute)</a>
 </li>
       <li><a href="generated/paraphernalia.colors.html#paraphernalia.colors.C64.PURPLE">PURPLE (C64 attribute)</a>
 </li>
@@ -971,17 +990,17 @@
 </li>
       <li><a href="generated/paraphernalia.colors.html#paraphernalia.colors.Palette.rgb">rgb() (Palette method)</a>
 </li>
-      <li><a href="generated/paraphernalia.signature.html#paraphernalia.signature.XMP.rights">rights (XMP property)</a>
+      <li><a href="generated/paraphernalia.html#paraphernalia.Project.rights">rights (Project attribute)</a>
+
+      <ul>
+        <li><a href="generated/paraphernalia.html#paraphernalia.Settings.rights">(Settings attribute)</a>
 </li>
+        <li><a href="generated/paraphernalia.signature.html#paraphernalia.signature.XMP.rights">(XMP property)</a>
+</li>
+      </ul></li>
       <li><a href="generated/paraphernalia.review.html#paraphernalia.review.ReviewApp.run">run() (ReviewApp method)</a>
 </li>
       <li><a href="generated/paraphernalia.jupyter.html#paraphernalia.jupyter.run_once">run_once() (in module paraphernalia.jupyter)</a>
-</li>
-      <li><a href="generated/paraphernalia.html#paraphernalia.running_in_colab">running_in_colab() (in module paraphernalia)</a>
-</li>
-      <li><a href="generated/paraphernalia.html#paraphernalia.running_in_github_action">running_in_github_action() (in module paraphernalia)</a>
-</li>
-      <li><a href="generated/paraphernalia.html#paraphernalia.running_in_jupyter">running_in_jupyter() (in module paraphernalia)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -999,15 +1018,19 @@
 </li>
       <li><a href="generated/paraphernalia.review.html#paraphernalia.review.Review.scan">scan() (Review method)</a>
 </li>
-      <li><a href="generated/paraphernalia.html#paraphernalia.seed">seed() (in module paraphernalia)</a>
+      <li><a href="generated/paraphernalia.html#paraphernalia.Project.seed">seed (Project attribute)</a>
+
+      <ul>
+        <li><a href="generated/paraphernalia.html#paraphernalia.Settings.seed">(Settings attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="generated/paraphernalia.utils.html#paraphernalia.utils.set_seed">set_seed() (in module paraphernalia.utils)</a>
 </li>
       <li><a href="generated/paraphernalia.torch.modules.html#paraphernalia.torch.modules.WeightedSum.set_weight">set_weight() (WeightedSum method)</a>
 </li>
+      <li><a href="generated/paraphernalia.html#paraphernalia.settings">settings() (in module paraphernalia)</a>
+</li>
       <li><a href="generated/paraphernalia.html#paraphernalia.setup">setup() (in module paraphernalia)</a>
-</li>
-      <li><a href="generated/paraphernalia.html#paraphernalia.setup_banner">setup_banner() (in module paraphernalia)</a>
-</li>
-      <li><a href="generated/paraphernalia.html#paraphernalia.setup_colab">setup_colab() (in module paraphernalia)</a>
 </li>
       <li><a href="generated/paraphernalia.html#paraphernalia.setup_logging">setup_logging() (in module paraphernalia)</a>
 </li>
@@ -1048,6 +1071,8 @@
 </li>
       <li><a href="generated/paraphernalia.torch.siren.html#paraphernalia.torch.siren.Siren">Siren (class in paraphernalia.torch.siren)</a>
 </li>
+      <li><a href="generated/paraphernalia.html#paraphernalia.Project.slug">slug (Project attribute)</a>
+</li>
       <li><a href="generated/paraphernalia.utils.html#paraphernalia.utils.slugify">slugify() (in module paraphernalia.utils)</a>
 </li>
       <li>
@@ -1065,8 +1090,14 @@
 <h2 id="T">T</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="generated/paraphernalia.signature.html#paraphernalia.signature.XMP.tags">tags (XMP property)</a>
+      <li><a href="generated/paraphernalia.html#paraphernalia.Project.tags">tags (Project attribute)</a>
+
+      <ul>
+        <li><a href="generated/paraphernalia.html#paraphernalia.Settings.tags">(Settings attribute)</a>
 </li>
+        <li><a href="generated/paraphernalia.signature.html#paraphernalia.signature.XMP.tags">(XMP property)</a>
+</li>
+      </ul></li>
       <li><a href="generated/paraphernalia.torch.taming.html#paraphernalia.torch.taming.Taming">Taming (class in paraphernalia.torch.taming)</a>
 </li>
       <li><a href="generated/paraphernalia.torch.taming.html#paraphernalia.torch.taming.TamingModel">TamingModel (class in paraphernalia.torch.taming)</a>
@@ -1082,8 +1113,12 @@
 </li>
       <li><a href="generated/paraphernalia.torch.html#paraphernalia.torch.tile">tile() (in module paraphernalia.torch)</a>
 </li>
-      <li><a href="generated/paraphernalia.signature.html#paraphernalia.signature.XMP.title">title (XMP property)</a>
+      <li><a href="generated/paraphernalia.html#paraphernalia.Project.title">title (Project attribute)</a>
+
+      <ul>
+        <li><a href="generated/paraphernalia.signature.html#paraphernalia.signature.XMP.title">(XMP property)</a>
 </li>
+      </ul></li>
       <li><a href="generated/paraphernalia.torch.modules.html#paraphernalia.torch.modules.AdaptiveMultiLoss.training">training (AdaptiveMultiLoss attribute)</a>
 
       <ul>
@@ -1124,6 +1159,8 @@
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="generated/paraphernalia.html#paraphernalia.Settings.use_rich">use_rich (Settings attribute)</a>
+</li>
       <li><a href="generated/paraphernalia.torch.clip.html#paraphernalia.torch.clip.CLIP.use_tiling">use_tiling (CLIP attribute)</a>
 </li>
   </ul></td>
@@ -1220,7 +1257,7 @@
     
     <div class="footer-item">
       <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.3.1.<br>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.2.0.<br>
 </p>
     </div>
     

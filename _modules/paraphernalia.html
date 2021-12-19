@@ -24,6 +24,7 @@
     
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/css/blank.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="../_static/paraphernalia.css" />
     
   <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
@@ -150,11 +151,11 @@
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">subprocess</span>
 <span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">time</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span>
 
-<span class="kn">import</span> <span class="nn">xdg</span>
+<span class="kn">from</span> <span class="nn">paraphernalia._project</span> <span class="kn">import</span> <span class="n">Project</span><span class="p">,</span> <span class="n">project</span>
+<span class="kn">from</span> <span class="nn">paraphernalia._settings</span> <span class="kn">import</span> <span class="n">Settings</span><span class="p">,</span> <span class="n">settings</span>
 
 <span class="c1"># TODO: Shift to poetry-version-plugin, once that&#39;s bedded in?</span>
 <span class="k">try</span><span class="p">:</span>
@@ -162,11 +163,11 @@
 <span class="k">except</span> <span class="ne">ModuleNotFoundError</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">importlib_metadata</span>
 
+
 <span class="n">__version__</span> <span class="o">=</span> <span class="n">importlib_metadata</span><span class="o">.</span><span class="n">version</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 <span class="n">_LOG</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
-<span class="n">_BANNER</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;Welcome to...</span>
-
+<span class="n">_BANNER</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">                           .-.                      .-.  _</span>
 <span class="s2">                           : :                      : : :_;</span>
 <span class="s2"> .---. .--. .--. .--. .---.: `-. .--..--.,-.,-..--. : : .-..--.</span>
@@ -179,6 +180,9 @@
 <span class="s2">&quot;&quot;&quot;</span>
 
 
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;setup&quot;</span><span class="p">,</span> <span class="s2">&quot;settings&quot;</span><span class="p">,</span> <span class="s2">&quot;project&quot;</span><span class="p">,</span> <span class="s2">&quot;setup_logging&quot;</span><span class="p">,</span> <span class="s2">&quot;Settings&quot;</span><span class="p">,</span> <span class="s2">&quot;Project&quot;</span><span class="p">]</span>
+
+
 <div class="viewcode-block" id="setup"><a class="viewcode-back" href="../generated/paraphernalia.html#paraphernalia.setup">[docs]</a><span class="k">def</span> <span class="nf">setup</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Set up the library for interactive use by:</span>
@@ -188,22 +192,23 @@
 <span class="sd">    - (If running in Colaboratory) calling :func:`setup_colab`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">setup_logging</span><span class="p">()</span>
-
     <span class="n">setup_banner</span><span class="p">()</span>
 
     <span class="k">if</span> <span class="n">running_in_colab</span><span class="p">():</span>
         <span class="n">setup_colab</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="setup_logging"><a class="viewcode-back" href="../generated/paraphernalia.html#paraphernalia.setup_logging">[docs]</a><span class="k">def</span> <span class="nf">setup_logging</span><span class="p">(</span><span class="n">use_rich</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="setup_logging"><a class="viewcode-back" href="../generated/paraphernalia.html#paraphernalia.setup_logging">[docs]</a><span class="k">def</span> <span class="nf">setup_logging</span><span class="p">(</span><span class="n">use_rich</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Basic logging setup</span>
+<span class="sd">    Setup basic logging.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        use_rich (bool, optional): If True (the default) use the pretty rich log handler</span>
+<span class="sd">        use_rich (bool, optional): use the pretty rich log handler if available. Defaults to value in settings.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">handlers</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">fmt</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%(asctime)s</span><span class="s2"> </span><span class="si">%(levelname)s</span><span class="s2"> </span><span class="si">%(name)s</span><span class="s2"> : </span><span class="si">%(message)s</span><span class="s2">&quot;</span>
+
+    <span class="n">use_rich</span> <span class="o">=</span> <span class="n">settings</span><span class="p">()</span><span class="o">.</span><span class="n">use_rich</span> <span class="k">if</span> <span class="n">use_rich</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">use_rich</span>
 
     <span class="k">if</span> <span class="n">use_rich</span><span class="p">:</span>
         <span class="k">try</span><span class="p">:</span>
@@ -222,16 +227,19 @@
     <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="setup_banner"><a class="viewcode-back" href="../generated/paraphernalia.html#paraphernalia.setup_banner">[docs]</a><span class="k">def</span> <span class="nf">setup_banner</span><span class="p">():</span>
+<span class="k">def</span> <span class="nf">setup_banner</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;Log a banner and some system information&quot;&quot;&quot;</span>
+
     <span class="n">_LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">_BANNER</span><span class="p">)</span>
     <span class="n">python_version</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">version</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">)</span>
-    <span class="n">_LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Python: </span><span class="si">{</span><span class="n">python_version</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="n">_LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   GPU: </span><span class="si">{</span><span class="n">get_gpu_name</span><span class="p">()</span><span class="si">}</span><span class="s2"> (CUDA: </span><span class="si">{</span><span class="n">get_cuda_version</span><span class="p">()</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
-    <span class="n">_LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Seed: </span><span class="si">{</span><span class="n">seed</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+    <span class="n">_LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Python: </span><span class="si">{</span><span class="n">python_version</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">_LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;     GPU: </span><span class="si">{</span><span class="n">get_gpu_name</span><span class="p">()</span><span class="si">}</span><span class="s2"> (CUDA: </span><span class="si">{</span><span class="n">get_cuda_version</span><span class="p">()</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+    <span class="n">_LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    Seed: </span><span class="si">{</span><span class="n">settings</span><span class="p">()</span><span class="o">.</span><span class="n">seed</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">_LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot; Creator: </span><span class="si">{</span><span class="n">settings</span><span class="p">()</span><span class="o">.</span><span class="n">creator</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">_LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Projects: </span><span class="si">{</span><span class="n">settings</span><span class="p">()</span><span class="o">.</span><span class="n">project_home</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="setup_colab"><a class="viewcode-back" href="../generated/paraphernalia.html#paraphernalia.setup_colab">[docs]</a><span class="k">def</span> <span class="nf">setup_colab</span><span class="p">():</span>  <span class="c1"># pragma: no cover</span>
+<span class="k">def</span> <span class="nf">setup_colab</span><span class="p">():</span>  <span class="c1"># pragma: no cover</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Standard setup for Colaboratory:</span>
 
@@ -243,122 +251,16 @@
     <span class="kn">from</span> <span class="nn">google.colab</span> <span class="kn">import</span> <span class="n">drive</span>
 
     <span class="n">drive</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="s2">&quot;/content/drive&quot;</span><span class="p">)</span>
-    <span class="n">data_home</span><span class="p">(</span><span class="s2">&quot;/content/drive/MyDrive/Paraphernalia&quot;</span><span class="p">)</span>
+    <span class="n">settings</span><span class="o">.</span><span class="n">data_home</span> <span class="o">=</span> <span class="s2">&quot;/content/drive/MyDrive/Paraphernalia&quot;</span>
 
     <span class="c1"># Load extensions</span>
     <span class="kn">from</span> <span class="nn">IPython</span> <span class="kn">import</span> <span class="n">get_ipython</span>
 
     <span class="n">get_ipython</span><span class="p">()</span><span class="o">.</span><span class="n">magic</span><span class="p">(</span><span class="s2">&quot;load_ext google.colab.data_table&quot;</span><span class="p">)</span>
-    <span class="n">get_ipython</span><span class="p">()</span><span class="o">.</span><span class="n">magic</span><span class="p">(</span><span class="s2">&quot;load_ext tensorboard&quot;</span><span class="p">)</span></div>
+    <span class="n">get_ipython</span><span class="p">()</span><span class="o">.</span><span class="n">magic</span><span class="p">(</span><span class="s2">&quot;load_ext tensorboard&quot;</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="seed"><a class="viewcode-back" href="../generated/paraphernalia.html#paraphernalia.seed">[docs]</a><span class="k">def</span> <span class="nf">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Get the current random seed i.e. the last seed that was set.</span>
-
-<span class="sd">    Alternatively, when a seed is provided, set all known random number generators</span>
-<span class="sd">    using it. Currently:</span>
-
-<span class="sd">    - `random.seed()`</span>
-<span class="sd">    - `numpy.random.seed()`</span>
-<span class="sd">    - `torch.manual_seed()`</span>
-<span class="sd">    - `torch.cuda.manual_seed_all()`</span>
-
-<span class="sd">    .. note::</span>
-
-<span class="sd">        - On load this module sets the random seed to the current time in seconds</span>
-<span class="sd">          since the epoch.</span>
-<span class="sd">        - Provided seeds are hashed before use. This allows you to pass in e.g. a string.</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        seed (Optional[Any]): The seed. Defaults to None.</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        int: The current random seed</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">global</span> <span class="n">_seed</span>
-
-    <span class="k">if</span> <span class="n">seed</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">_seed</span> <span class="o">=</span> <span class="nb">hash</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
-        <span class="n">_LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Setting global random seed to </span><span class="si">{</span><span class="n">_seed</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-        <span class="kn">import</span> <span class="nn">random</span>
-
-        <span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">_seed</span><span class="p">)</span>
-
-        <span class="c1"># Numpy</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="kn">import</span> <span class="nn">numpy</span>
-
-            <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">_seed</span><span class="p">)</span>
-        <span class="k">except</span><span class="p">:</span>
-            <span class="k">pass</span>
-
-        <span class="c1"># Torch</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="kn">import</span> <span class="nn">torch</span>
-
-            <span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="n">_seed</span><span class="p">)</span>
-            <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">manual_seed_all</span><span class="p">(</span><span class="n">_seed</span><span class="p">)</span>
-        <span class="k">except</span><span class="p">:</span>
-            <span class="k">pass</span>
-
-    <span class="k">return</span> <span class="n">_seed</span></div>
-
-
-<span class="n">_seed</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="n">seed</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="p">()))</span>
-
-
-<div class="viewcode-block" id="cache_home"><a class="viewcode-back" href="../generated/paraphernalia.html#paraphernalia.cache_home">[docs]</a><span class="k">def</span> <span class="nf">cache_home</span><span class="p">(</span><span class="n">cache_home</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Get the cache home for paraphernalia ensuring it exists.</span>
-<span class="sd">    Defaults to $XDG_CACHE_HOME/paraphernalia</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        cache_home (Optional[str]): If present sets the cache home. Defaults to None.</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        Path: path for the cache home</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">global</span> <span class="n">_cache_home</span>
-    <span class="k">if</span> <span class="n">cache_home</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">_LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Setting cache home to </span><span class="si">{</span><span class="n">cache_home</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="n">_cache_home</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">cache_home</span><span class="p">)</span>
-    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">_cache_home</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">_cache_home</span></div>
-
-
-<span class="n">_cache_home</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="n">cache_home</span><span class="p">(</span><span class="n">xdg</span><span class="o">.</span><span class="n">xdg_cache_home</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;paraphernalia&quot;</span><span class="p">)</span>
-
-
-<div class="viewcode-block" id="data_home"><a class="viewcode-back" href="../generated/paraphernalia.html#paraphernalia.data_home">[docs]</a><span class="k">def</span> <span class="nf">data_home</span><span class="p">(</span><span class="n">data_home</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Get the data directory for paraphernalia ensuring it exists.</span>
-<span class="sd">    Defaults to $XDG_DATA_HOME/paraphernalia</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        data_home (Optional[str]): If present sets the data home. Defaults to None.</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        Path: path for the data home</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">global</span> <span class="n">_data_home</span>
-    <span class="k">if</span> <span class="n">data_home</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">_LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Setting data home to </span><span class="si">{</span><span class="n">data_home</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="n">_data_home</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">data_home</span><span class="p">)</span>
-    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">_data_home</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">_data_home</span></div>
-
-
-<span class="n">_data_home</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="n">data_home</span><span class="p">(</span><span class="n">xdg</span><span class="o">.</span><span class="n">xdg_data_home</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;paraphernalia&quot;</span><span class="p">)</span>
-
-
-<div class="viewcode-block" id="running_in_colab"><a class="viewcode-back" href="../generated/paraphernalia.html#paraphernalia.running_in_colab">[docs]</a><span class="k">def</span> <span class="nf">running_in_colab</span><span class="p">():</span>
+<span class="k">def</span> <span class="nf">running_in_colab</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    True if running in Colaboratory.</span>
 
@@ -373,20 +275,20 @@
         <span class="kn">from</span> <span class="nn">IPython</span> <span class="kn">import</span> <span class="n">get_ipython</span>
     <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">False</span>
-    <span class="k">return</span> <span class="s2">&quot;google.colab&quot;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">get_ipython</span><span class="p">())</span></div>
+    <span class="k">return</span> <span class="s2">&quot;google.colab&quot;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">get_ipython</span><span class="p">())</span>
 
 
-<div class="viewcode-block" id="running_in_github_action"><a class="viewcode-back" href="../generated/paraphernalia.html#paraphernalia.running_in_github_action">[docs]</a><span class="k">def</span> <span class="nf">running_in_github_action</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">running_in_github_action</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    True if running as Github Action.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        bool: True if running in a Github action</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;GITHUB_ACTIONS&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">))</span></div>
+    <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;GITHUB_ACTIONS&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">))</span>
 
 
-<div class="viewcode-block" id="running_in_jupyter"><a class="viewcode-back" href="../generated/paraphernalia.html#paraphernalia.running_in_jupyter">[docs]</a><span class="k">def</span> <span class="nf">running_in_jupyter</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">running_in_jupyter</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    True if running within Jupyter, and *not*:</span>
 
@@ -416,10 +318,10 @@
         <span class="k">return</span> <span class="kc">False</span>
 
     <span class="k">else</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
-        <span class="k">return</span> <span class="kc">True</span></div>
+        <span class="k">return</span> <span class="kc">True</span>
 
 
-<div class="viewcode-block" id="get_cuda_version"><a class="viewcode-back" href="../generated/paraphernalia.html#paraphernalia.get_cuda_version">[docs]</a><span class="k">def</span> <span class="nf">get_cuda_version</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="k">def</span> <span class="nf">get_cuda_version</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns:</span>
 <span class="sd">        the CUDA/nvcc version string e.g. 10.0, or None</span>
@@ -433,10 +335,10 @@
             <span class="k">if</span> <span class="n">s</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;release&quot;</span><span class="p">)</span>
         <span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
     <span class="k">except</span><span class="p">:</span>
-        <span class="k">return</span> <span class="kc">None</span></div>
+        <span class="k">return</span> <span class="kc">None</span>
 
 
-<div class="viewcode-block" id="get_gpu_name"><a class="viewcode-back" href="../generated/paraphernalia.html#paraphernalia.get_gpu_name">[docs]</a><span class="k">def</span> <span class="nf">get_gpu_name</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="k">def</span> <span class="nf">get_gpu_name</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns:</span>
 <span class="sd">        the name of the GPU if available, or None.</span>
@@ -446,7 +348,11 @@
 
         <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">get_device_name</span><span class="p">()</span>
     <span class="k">except</span><span class="p">:</span>
-        <span class="k">return</span> <span class="kc">None</span></div>
+        <span class="k">return</span> <span class="kc">None</span>
+
+
+<span class="k">if</span> <span class="n">settings</span><span class="p">()</span><span class="o">.</span><span class="n">auto_setup</span><span class="p">:</span>
+    <span class="n">setup</span><span class="p">()</span>
 </pre></div>
 
               </div>
@@ -474,7 +380,7 @@
     
     <div class="footer-item">
       <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.3.1.<br>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.2.0.<br>
 </p>
     </div>
     
