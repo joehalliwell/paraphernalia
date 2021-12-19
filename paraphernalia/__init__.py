@@ -5,11 +5,11 @@ import logging
 import os
 import subprocess
 import sys
-from pathlib import Path
 from time import time
 from typing import Any, Optional
 
-import xdg
+from paraphernalia._project import Project, project
+from paraphernalia._settings import Settings, settings
 
 # TODO: Shift to poetry-version-plugin, once that's bedded in?
 try:
@@ -17,11 +17,11 @@ try:
 except ModuleNotFoundError:
     import importlib_metadata
 
+
 __version__ = importlib_metadata.version(__name__)
 
 _LOG = logging.getLogger(__name__)
-_BANNER = f"""Welcome to...
-
+_BANNER = f"""
                            .-.                      .-.  _
                            : :                      : : :_;
  .---. .--. .--. .--. .---.: `-. .--..--.,-.,-..--. : : .-..--.
@@ -34,6 +34,9 @@ _BANNER = f"""Welcome to...
 """
 
 
+__all__ = ["setup", "settings", "project", "setup_logging", "Settings", "Project"]
+
+
 def setup() -> None:
     """
     Set up the library for interactive use by:
@@ -43,22 +46,23 @@ def setup() -> None:
     - (If running in Colaboratory) calling :func:`setup_colab`
     """
     setup_logging()
-
     setup_banner()
 
     if running_in_colab():
         setup_colab()
 
 
-def setup_logging(use_rich=True) -> None:
+def setup_logging(use_rich: Optional[bool] = None) -> None:
     """
-    Basic logging setup
+    Setup basic logging.
 
     Args:
-        use_rich (bool, optional): If True (the default) use the pretty rich log handler
+        use_rich (bool, optional): use the pretty rich log handler if available. Defaults to value in settings.
     """
     handlers = None
     fmt = "%(asctime)s %(levelname)s %(name)s : %(message)s"
+
+    use_rich = settings().use_rich if use_rich is None else use_rich
 
     if use_rich:
         try:
@@ -79,11 +83,14 @@ def setup_logging(use_rich=True) -> None:
 
 def setup_banner():
     """Log a banner and some system information"""
+
     _LOG.info(_BANNER)
     python_version = sys.version.replace("\n", " ")
-    _LOG.info(f"Python: {python_version}")
-    _LOG.info(f"   GPU: {get_gpu_name()} (CUDA: {get_cuda_version()})")
-    _LOG.info(f"  Seed: {seed()}")
+    _LOG.info(f"  Python: {python_version}")
+    _LOG.info(f"     GPU: {get_gpu_name()} (CUDA: {get_cuda_version()})")
+    _LOG.info(f"    Seed: {settings().seed}")
+    _LOG.info(f" Creator: {settings().creator}")
+    _LOG.info(f"Projects: {settings().project_home}")
 
 
 def setup_colab():  # pragma: no cover
@@ -98,119 +105,13 @@ def setup_colab():  # pragma: no cover
     from google.colab import drive
 
     drive.mount("/content/drive")
-    data_home("/content/drive/MyDrive/Paraphernalia")
+    settings.data_home = "/content/drive/MyDrive/Paraphernalia"
 
     # Load extensions
     from IPython import get_ipython
 
     get_ipython().magic("load_ext google.colab.data_table")
     get_ipython().magic("load_ext tensorboard")
-
-
-def seed(seed: Optional[Any] = None) -> int:
-
-    """
-    Get the current random seed i.e. the last seed that was set.
-
-    Alternatively, when a seed is provided, set all known random number generators
-    using it. Currently:
-
-    - `random.seed()`
-    - `numpy.random.seed()`
-    - `torch.manual_seed()`
-    - `torch.cuda.manual_seed_all()`
-
-    .. note::
-
-        - On load this module sets the random seed to the current time in seconds
-          since the epoch.
-        - Provided seeds are hashed before use. This allows you to pass in e.g. a string.
-
-    Args:
-        seed (Optional[Any]): The seed. Defaults to None.
-
-    Returns:
-        int: The current random seed
-    """
-    global _seed
-
-    if seed is not None:
-        _seed = hash(seed)
-        _LOG.info(f"Setting global random seed to {_seed}")
-
-        import random
-
-        random.seed(_seed)
-
-        # Numpy
-        try:
-            import numpy
-
-            numpy.random.seed(_seed)
-        except:
-            pass
-
-        # Torch
-        try:
-            import torch
-
-            torch.manual_seed(_seed)
-            torch.cuda.manual_seed_all(_seed)
-        except:
-            pass
-
-    return _seed
-
-
-_seed = None
-seed(int(time()))
-
-
-def cache_home(cache_home: Optional[str] = None) -> Path:
-    """
-    Get the cache home for paraphernalia ensuring it exists.
-    Defaults to $XDG_CACHE_HOME/paraphernalia
-
-    Args:
-        cache_home (Optional[str]): If present sets the cache home. Defaults to None.
-
-    Returns:
-        Path: path for the cache home
-
-    """
-    global _cache_home
-    if cache_home is not None:
-        _LOG.info(f"Setting cache home to {cache_home}")
-        _cache_home = Path(cache_home)
-    os.makedirs(_cache_home, exist_ok=True)
-    return _cache_home
-
-
-_cache_home = None
-cache_home(xdg.xdg_cache_home() / "paraphernalia")
-
-
-def data_home(data_home: Optional[str] = None) -> Path:
-    """
-    Get the data directory for paraphernalia ensuring it exists.
-    Defaults to $XDG_DATA_HOME/paraphernalia
-
-    Args:
-        data_home (Optional[str]): If present sets the data home. Defaults to None.
-
-    Returns:
-        Path: path for the data home
-    """
-    global _data_home
-    if data_home is not None:
-        _LOG.info(f"Setting data home to {data_home}")
-        _data_home = Path(data_home)
-    os.makedirs(_data_home, exist_ok=True)
-    return _data_home
-
-
-_data_home = None
-data_home(xdg.xdg_data_home() / "paraphernalia")
 
 
 def running_in_colab():
@@ -302,3 +203,7 @@ def get_gpu_name() -> Optional[str]:
         return torch.cuda.get_device_name()
     except:
         return None
+
+
+if settings().auto_setup:
+    setup()

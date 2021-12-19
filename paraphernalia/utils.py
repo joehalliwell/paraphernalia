@@ -8,12 +8,11 @@ import re
 import urllib.request
 from datetime import datetime
 from pathlib import Path
-from typing import Iterable, List
+from time import time
+from typing import Any, Iterable, List
 from urllib.parse import urlparse
 
 from tqdm import tqdm
-
-from paraphernalia import cache_home
 
 _LOG = logging.getLogger(__name__)
 
@@ -93,6 +92,71 @@ def slugify(*bits) -> str:
     return "_".join(slugify(bit) for bit in bits)
 
 
+def set_seed(seed: Any) -> None:
+
+    """
+    Reset all known random number generators to use the provided seed. Currently:
+
+    - `random.seed()`
+    - `numpy.random.seed()`
+    - `torch.manual_seed()`
+    - `torch.cuda.manual_seed_all()`
+
+    .. note::
+        - Provided seeds are hashed before use. This allows you to pass in e.g. a string.
+
+    Args:
+        seed (Any): The seed to use
+
+    """
+    global _seed
+    _seed = hash(seed)
+    _LOG.info(f"Setting global random seed to {_seed}")
+
+    import random
+
+    random.seed(_seed)
+
+    # Numpy
+    try:
+        import numpy
+
+        numpy.random.seed(_seed)
+    except:
+        pass
+
+    # Torch
+    try:
+        import torch
+
+        torch.manual_seed(_seed)
+        torch.cuda.manual_seed_all(_seed)
+    except:
+        pass
+
+    return _seed
+
+
+def get_seed():
+    return _seed
+
+
+_seed = None
+
+set_seed(int(time()))
+
+
+def ensure_dir_exists(path: Path) -> Path:
+    if not path.exists():
+        _LOG.info(f"Creating {path}")
+        os.makedirs(path, exist_ok=True)
+
+    if path.is_dir() and os.access(path, os.R_OK | os.W_OK):
+        return path
+
+    raise Exception(f"{path} already exists or is not writable")
+
+
 def download(url: str, target: Path = None, overwrite: bool = False) -> Path:
     """
     Download ``url`` to local disk and return the Path to which it was written.
@@ -110,9 +174,12 @@ def download(url: str, target: Path = None, overwrite: bool = False) -> Path:
         Path: the file that was written
     """
     if target is None:
+        # Defer import to allow this module to be used freely
+        from paraphernalia import settings
+
         name = urlparse(url).path
         name = os.path.basename(name)
-        target = cache_home() / name
+        target = settings().cache_home / name
     if target.is_dir():
         raise Exception(f"Download target '{target}' is a directory")
     if not target.exists() or overwrite:

@@ -18,7 +18,7 @@ from omegaconf import OmegaConf
 from taming.models.vqgan import GumbelVQ, VQModel
 from torch.functional import Tensor
 
-from paraphernalia import cache_home
+from paraphernalia import settings
 from paraphernalia.torch import clamp_with_grad
 from paraphernalia.torch.generator import Generator
 from paraphernalia.utils import download
@@ -79,11 +79,13 @@ class Taming(Generator):
 
         # TODO: Can we trade for a lighter dep?
         config = OmegaConf.load(
-            download(model_spec.config_url, cache_home() / f"{model_spec.name}.yaml")
+            download(
+                model_spec.config_url, settings().cache_home / f"{model_spec.name}.yaml"
+            )
         )
         # print(config)
         checkpoint = download(
-            model_spec.checkpoint_url, cache_home() / f"{model_spec.name}.ckpt"
+            model_spec.checkpoint_url, settings().cache_home / f"{model_spec.name}.ckpt"
         )
 
         if model_spec.is_gumbel:
@@ -141,9 +143,9 @@ class Taming(Generator):
         z = (z + 1.0) / 2.0
         return z
 
-    def encode(self, img: Union[PIL.Image.Image, torch.Tensor]):
+    def encode(self, img: Union[PIL.Image.Image, Tensor]) -> Tensor:
         """
-        Encode an image or tensor.
+        Encode an image.
         """
 
         if isinstance(img, PIL.Image.Image):
