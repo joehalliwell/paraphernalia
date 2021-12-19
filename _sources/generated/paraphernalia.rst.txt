@@ -44,4 +44,3 @@ Package contents
 .. automodule:: paraphernalia
    :members:
    :undoc-members:
-   :show-inheritance:

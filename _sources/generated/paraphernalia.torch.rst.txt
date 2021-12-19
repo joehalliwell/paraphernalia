@@ -39,4 +39,3 @@ Package contents
 .. automodule:: paraphernalia.torch
    :members:
    :undoc-members:
-   :show-inheritance:
