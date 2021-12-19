@@ -266,7 +266,8 @@ class CLIP(torch.nn.Module):
         """
         Returns a similarity (0, 1) for each image in the provided batch.
 
-        TODO:
+        TODO::
+
           - Enable micro/macro weighting beyond what we get naturally from chops
           - Add some kind of masking
 

@@ -80,7 +80,7 @@ class Constant(nn.Module):
         super().__init__()
         self.value = value.detach().clone()
 
-    def forward(self, *ignored):
+    def forward(self, *ignored) -> Tensor:
         """
         Return the constant value, ignoring any inputs.
 
@@ -110,7 +110,7 @@ class WeightedSum(nn.Module):
         self.weights = {name: 1.0 for name in components}
         self.total_weight = len(components)
 
-    def set_weight(self, name: str, value: float):
+    def set_weight(self, name: str, value: float) -> None:
         """
         Set the weight associated with a module
 

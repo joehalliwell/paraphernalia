@@ -34,6 +34,7 @@ extensions = [
     "sphinx.ext.viewcode",
     "sphinx.ext.napoleon",  # Google-style docstrings
     "sphinx_click",  # Generate docs for click programs
+    "sphinxcontrib.autodoc_pydantic",  # Nicer docs for pydantic models
 ]
 
 napoleon_include_init_with_doc = False
@@ -101,3 +102,7 @@ html_context = {
     "github_version": "main",
     "doc_path": "docs/source",
 }
+
+
+autodoc_pydantic_model_show_json = True
+autodoc_pydantic_settings_show_json = False
