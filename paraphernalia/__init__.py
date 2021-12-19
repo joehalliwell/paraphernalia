@@ -15,7 +15,8 @@ from paraphernalia._settings import Settings, settings
 try:
     import importlib.metadata as importlib_metadata
 except ModuleNotFoundError:
-    import importlib_metadata
+    import importlib_metadata  # type: ignore
+
 
 _LOG = logging.getLogger(__name__)
 
@@ -112,7 +113,7 @@ def setup_colab():  # pragma: no cover
     - Adds the ``data_table`` and and ``tensorboard`` extensions
     """
     # Mount drive and use it
-    from google.colab import drive
+    from google.colab import drive  # type: ignore
 
     drive.mount("/content/drive")
     settings.data_home = "/content/drive/MyDrive/Paraphernalia"

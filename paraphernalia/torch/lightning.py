@@ -12,7 +12,7 @@ from pathlib import Path
 from torch.functional import Tensor
 
 try:
-    import ipywidgets as widgets
+    import ipywidgets as widgets  # type: ignore
 except ImportError:
     warnings.warn("Could not import ipywidgets. Some functionality won't work")
     widgets = None
