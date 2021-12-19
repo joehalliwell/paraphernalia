@@ -93,6 +93,7 @@ html_theme_options = {
             "icon": "fab fa-github-square",
         },
     ],
+    "footer_items": [],
 }
 
 # For "Edit this Page" button
