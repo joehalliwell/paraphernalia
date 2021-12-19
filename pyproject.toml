@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "paraphernalia"
-version = "0.1.1"
+version = "0.2.0"
 description = "A collection of tools for making art"
 authors = ["Joe Halliwell <joe.halliwell@gmail.com>"]
 license = "GPLv3"

@@ -48,7 +48,7 @@ def step_down(steps, iterations):
     """
     Step down generator
 
-    .. deprecated:: future
+    .. deprecated:: 0.2.0
         This will be removed
 
     .. note::
