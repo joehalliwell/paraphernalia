@@ -268,77 +268,8 @@
               
               <div>
                 
-  <section id="module-paraphernalia.torch.generator">
-<span id="paraphernalia-torch-generator-module"></span><h1>paraphernalia.torch.generator module<a class="headerlink" href="#module-paraphernalia.torch.generator" title="Permalink to this headline">¶</a></h1>
-<p>Base class and utility types for image generators.</p>
-<dl class="py function">
-<dt class="sig sig-object py" id="paraphernalia.torch.generator.clamp_with_grad">
-<span class="sig-name descname"><span class="pre">clamp_with_grad</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#paraphernalia.torch.generator.clamp_with_grad" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="paraphernalia.torch.generator.Generator">
-<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">Generator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">512</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quantize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch/generator.html#Generator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.generator.Generator" title="Permalink to this definition">¶</a></dt>
-<dd><p>Base class for (image) generators.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>batch_size</strong> (<em>int</em><em>, </em><em>optional</em>) – The number of images per batch. Defaults to 1.</p></li>
-<li><p><strong>size</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>Tuple</em><em>[</em><em>int</em><em>, </em><em>int</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – The size of the image
-either a (width, height) tuple or a single size for a square
-image. Defaults to 512.</p></li>
-<li><p><strong>quantize</strong> (<em>int</em><em>, </em><em>optional</em>) – Model-specific quantizing. Defaults to 1.</p></li>
-<li><p><strong>device</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>str</em><em>, </em><em>torch.device</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – The device
-name or device on which to run. Defaults to None.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Raises</dt>
-<dd class="field-even"><p><strong>ValueError</strong> – if any parameter is invalid</p>
-</dd>
-</dl>
-<dl class="py property">
-<dt class="sig sig-object py" id="paraphernalia.torch.generator.Generator.width">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">width</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#paraphernalia.torch.generator.Generator.width" title="Permalink to this definition">¶</a></dt>
-<dd><p>The width of the generated image</p>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="paraphernalia.torch.generator.Generator.height">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">height</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#paraphernalia.torch.generator.Generator.height" title="Permalink to this definition">¶</a></dt>
-<dd><p>The height of the generated image</p>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="paraphernalia.torch.generator.Generator.z">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">z</span></span><em class="property"><span class="pre">:</span> <span class="pre">torch.Tensor</span></em><a class="headerlink" href="#paraphernalia.torch.generator.Generator.z" title="Permalink to this definition">¶</a></dt>
-<dd><p>The latent tensor associated with this model. Often but not always (b, c, h, w).</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="paraphernalia.torch.generator.Generator.generate_image">
-<span class="sig-name descname"><span class="pre">generate_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch/generator.html#Generator.generate_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.generator.Generator.generate_image" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convenience to generate a single PIL image (which may be a grid of
-images if <cite>batch_size</cite> &gt; 1) within a <cite>no_grad()</cite> block.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>index</strong> (<em>int</em>) – Specify which image of a batch to generate</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>A generated image</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Image</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="paraphernalia.torch.generator.Generator.training">
-<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="pre">:</span> <span class="pre">bool</span></em><a class="headerlink" href="#paraphernalia.torch.generator.Generator.training" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
+  <section id="paraphernalia-torch-generator-module">
+<h1>paraphernalia.torch.generator module<a class="headerlink" href="#paraphernalia-torch-generator-module" title="Permalink to this headline">¶</a></h1>
 </section>
 
 
