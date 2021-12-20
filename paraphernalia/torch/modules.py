@@ -1,6 +1,4 @@
-"""
-A collection of utility PyTorch modules.
-"""
+"""A collection of utility PyTorch modules."""
 
 from typing import List
 
@@ -18,7 +16,6 @@ class AdaptiveMultiLoss(nn.Module):
     .. seealso::
 
         - https://arxiv.org/abs/1705.07115
-
     """
 
     def __init__(self, num_losses: int):
@@ -46,10 +43,8 @@ class AdaptiveMultiLoss(nn.Module):
 
 
 class Parallel(nn.Module):
-    """
-    A module that runs a number of submodule in parallel and collects their
-    outputs into a list.
-    """
+    """A module that runs a number of submodule in parallel and collects their
+    outputs into a list."""
 
     def __init__(self, components):
         """
@@ -71,9 +66,7 @@ class Parallel(nn.Module):
 
 
 class Constant(nn.Module):
-    """
-    A module that returns a constant value, ignoring any inputs.
-    """
+    """A module that returns a constant value, ignoring any inputs."""
 
     def __init__(self, value: Tensor):
         super().__init__()
@@ -93,16 +86,15 @@ class Constant(nn.Module):
 
 
 class WeightedSum(nn.Module):
-    """
-    More or less a weighted sum of named module outputs, but with special
-    handling for negative weights.
-    """
+    """More or less a weighted sum of named module outputs, but with special
+    handling for negative weights."""
 
     def __init__(self, **components: nn.Module):
         """
         In order for the weighting to make sense, the components needs outputs
-        with the same shape and meaning. For loss functions outputs should be
-        in the range [0,1]
+        with the same shape and meaning.
+
+        For loss functions outputs should be in the range [0,1]
         """
         super().__init__()
         self.submodules = nn.ModuleDict(modules=components)
@@ -111,7 +103,7 @@ class WeightedSum(nn.Module):
 
     def set_weight(self, name: str, value: float) -> None:
         """
-        Set the weight associated with a module
+        Set the weight associated with a module.
 
         Args:
             name (str): the name of the module
@@ -122,9 +114,7 @@ class WeightedSum(nn.Module):
         self.total_weight = sum(self.weights[name] for name in self.weights)
 
     def forward(self, x: Tensor):
-        """
-        Compute the weighted loss
-        """
+        """Compute the weighted loss."""
         result = sum(
             m(x) * self.weights[n]
             for n, m in self.submodules.items()
@@ -135,9 +125,7 @@ class WeightedSum(nn.Module):
 
 
 class SimilarTo(nn.Module):
-    """
-    Cosine similarity test with mean pooling.
-    """
+    """Cosine similarity test with mean pooling."""
 
     def __init__(self, targets: Tensor):
         """
@@ -157,9 +145,7 @@ class SimilarTo(nn.Module):
 
 
 class SimilarToAny(SimilarTo):
-    """
-    Cosine similarity test with max pooling.
-    """
+    """Cosine similarity test with max pooling."""
 
     def __init__(self, targets: Tensor):
         super().__init__(targets)

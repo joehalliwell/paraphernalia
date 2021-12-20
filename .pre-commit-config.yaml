@@ -18,6 +18,11 @@ repos:
     rev: 3.7.9
     hooks:
     - id: flake8
+  - repo: https://github.com/myint/docformatter
+    rev: v1.3.1
+    hooks:
+    - id: docformatter
+      args: [--in-place,--pre-summary-newline]
   - repo: https://github.com/econchick/interrogate
     rev: 1.4.0 # or master if you're bold
     hooks:

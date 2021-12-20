@@ -1,6 +1,4 @@
-"""
-Sign and tag images.
-"""
+"""Sign and tag images."""
 
 import warnings
 from pathlib import Path
@@ -32,12 +30,11 @@ class XMP:
     >>> with XMP("test.png") as xmp:
     ...     print(xmp.creator)
     Leonardo
-
     """
 
     def __init__(self, path: str) -> None:
         """
-        Create a new Signature for a file
+        Create a new Signature for a file.
 
         Args:
             path: The file with which to work
@@ -50,9 +47,7 @@ class XMP:
         self._path = str(path)
 
     def clear(self) -> None:
-        """
-        Clear all metadata.
-        """
+        """Clear all metadata."""
         self.creators = []
         self.title = ""
         self.tags = []
@@ -75,7 +70,7 @@ class XMP:
 
     @property
     def creator(self) -> str:
-        "The creator of this object"
+        """The creator of this object."""
         return self.creators[0] if self.creators else None
 
     @creator.setter
@@ -84,9 +79,7 @@ class XMP:
 
 
 def _make_seq_property(name):
-    """
-    Make a property wrapping an XMP array.
-    """
+    """Make a property wrapping an XMP array."""
 
     def _getter(self) -> List[str]:
         if not self._xmp.does_property_exist(DC, name):
@@ -117,9 +110,7 @@ def _make_seq_property(name):
 
 
 def _make_lang_property(name, generic_lang="", specific_lang="en"):
-    """
-    Make a Python property wrapping an XMP alt language attribute.
-    """
+    """Make a Python property wrapping an XMP alt language attribute."""
 
     def _getter(self) -> str:
         if not self._xmp.does_property_exist(DC, name):
@@ -164,9 +155,8 @@ def sign(
     description: Optional[str] = None,
     rights: Optional[str] = None,
 ):
-    """
-    Manipulate basic XMP/Dublin Core metadata in PNG, JPG and TIFF images.
-    """
+    """Manipulate basic XMP/Dublin Core metadata in PNG, JPG and TIFF
+    images."""
     with XMP(target) as sig:
         if clear:
             sig.clear()

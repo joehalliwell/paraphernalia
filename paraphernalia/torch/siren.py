@@ -19,7 +19,8 @@ from paraphernalia.torch.generator import Generator
 
 
 class Siren(Generator):
-    """Siren image generator.
+    """
+    Siren image generator.
 
     Args:
         size: Target size (square for now)

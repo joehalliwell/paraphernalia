@@ -1,6 +1,4 @@
-"""
-Paraphernalia is a collection of tools for making digital art.
-"""
+"""Paraphernalia is a collection of tools for making digital art."""
 import logging
 import os
 import subprocess
@@ -93,7 +91,7 @@ def setup_logging(use_rich: Optional[bool] = None) -> None:
 
 
 def setup_banner():
-    """Log a banner and some system information"""
+    """Log a banner and some system information."""
 
     _LOG.info(_BANNER)
     python_version = sys.version.replace("\n", " ")

@@ -1,6 +1,4 @@
-"""
-Render GLSL fragment shaders to screen/video.
-"""
+"""Render GLSL fragment shaders to screen/video."""
 import logging
 import sys
 from pathlib import Path
@@ -23,7 +21,9 @@ _LOG.setLevel(logging.INFO)
 
 class FakeUniform:
     """
-    Used to provide a uniform, where a shader doesn't have one. Has no effect.
+    Used to provide a uniform, where a shader doesn't have one.
+
+    Has no effect.
     """
 
     value = None
@@ -45,10 +45,8 @@ VERTEX_SHADER = """
 
 
 class Renderer:
-    """
-    Core logic for rendering fragment shaders, shared across
-    render and preview functions.
-    """
+    """Core logic for rendering fragment shaders, shared across render and
+    preview functions."""
 
     def __init__(
         self, ctx, fragment_shader: str, resolution=(100, 100), duration=0
@@ -87,7 +85,8 @@ class Renderer:
         # TODO: buffers, absolute time
 
     def render(self, time):
-        """Draw to the currently bound framebuffer
+        """
+        Draw to the currently bound framebuffer.
 
         Args:
             time (float): Elapsed time in seconds
@@ -120,9 +119,7 @@ class Renderer:
 def preview(
     fragment_shader, width, height, duration, speed, watch, scale
 ):  # pragma: no cover
-    """
-    Show a fragment shader in a window.
-    """
+    """Show a fragment shader in a window."""
     loop = duration > 0
 
     fragment_shader = Path(fragment_shader)
@@ -203,9 +200,7 @@ def preview(
     "--quality", type=int, default=5, help="Encoder quality", show_default=True
 )
 def render(fragment_shader, output, width, height, fps, duration, quality):
-    """
-    Render a fragment shader to an MP4 file.
-    """
+    """Render a fragment shader to an MP4 file."""
 
     # TODO: Detect version and adapt
     # EGL

@@ -1,6 +1,4 @@
-"""
-Utilities for working with PyTorch
-"""
+"""Utilities for working with PyTorch."""
 
 import gc as _gc
 from typing import List, Tuple, Union
@@ -47,7 +45,9 @@ def grid(*steps: int) -> Tensor:
 
 def tile(img: Tensor, size: int) -> Tensor:
     """
-    Tile img with squares of side size. Any cut off at the edge is ignored.
+    Tile img with squares of side size.
+
+    Any cut off at the edge is ignored.
     TODO: Remove
     """
     b, c, h, w = img.shape
@@ -96,8 +96,8 @@ def overtile(
 
 def regroup(img: List[Tensor]) -> Tensor:
     """
-    Concatenate several image batches, regrouping them so that
-    a single image is contiguous in the resulting batch.
+    Concatenate several image batches, regrouping them so that a single image
+    is contiguous in the resulting batch.
 
     TODO: Is this part of torch under a different name?
 
@@ -141,10 +141,8 @@ def cosine_similarity(a, b):
 
 
 def make_palette_grid(colors, size=128):
-    """
-    Create an image to preview a set colours, provided as an iterable of RGB
-    tuples with each component in [0,1].
-    """
+    """Create an image to preview a set colours, provided as an iterable of RGB
+    tuples with each component in [0,1]."""
     swatches = []
     swatches = torch.cat(
         [torch.Tensor(c).view(1, 3, 1, 1).repeat([1, 1, size, size]) for c in colors]
@@ -155,8 +153,8 @@ def make_palette_grid(colors, size=128):
 def one_hot_noise(shape):
     """
     Generate a one-hot-encoded latent state suitable for use with a categorical
-    variational decoder. This is a hard one-hot tensor. Use `one_hot_normalize()`
-    if you want to soften.
+    variational decoder. This is a hard one-hot tensor. Use
+    `one_hot_normalize()` if you want to soften.
 
     Args:
         shape (Tuple): desired shape (batch_size, num_classes, height, width)
@@ -182,7 +180,6 @@ def one_hot_constant(shape, index):
 
     Returns:
         Tensor: one hot Tensor of dimension (batch_size, num_classes, height, width)
-
     """
     b, c, h, w = shape
     if index < 0:
@@ -199,15 +196,14 @@ def one_hot_constant(shape, index):
 
 def one_hot_normalize(z, tau=0.001):
     """
-    Normalized a log probability/one hot tensor, by locking in
-    modes then converting a slightly noisy log probability.
+    Normalized a log probability/one hot tensor, by locking in modes then
+    converting a slightly noisy log probability.
 
     Args:
         shape (Tuple): desired shape (batch_size, num_classes, height, width)
 
     Returns:
         Tensor: one hot Tensor of dimension (batch_size, num_classes, height, width)
-
     """
     b, c, h, w = z.shape
     z = torch.argmax(z, axis=1)
@@ -226,13 +222,13 @@ class ReplaceGrad(torch.autograd.Function):
 
     @staticmethod
     def forward(ctx, x_forward, x_backward):
-        """Replace the backward call"""
+        """Replace the backward call."""
         ctx.shape = x_backward.shape
         return x_forward
 
     @staticmethod
     def backward(ctx, grad_in):
-        """Compute the gradient at this function"""
+        """Compute the gradient at this function."""
         return None, grad_in.sum_to_size(ctx.shape)
 
 
@@ -244,14 +240,11 @@ class ClampWithGrad(torch.autograd.Function):
     Clamp an output but pass through gradients.
 
     FIXME: Not sure about this. Would a "leaky" clamp be better?
-
     """
 
     @staticmethod
     def forward(ctx, input: Tensor, min: float, max: float):
-        """
-        Clamp `input` between `min` and `max`
-        """
+        """Clamp `input` between `min` and `max`"""
         ctx.min = min
         ctx.max = max
         ctx.save_for_backward(input)
@@ -259,7 +252,7 @@ class ClampWithGrad(torch.autograd.Function):
 
     @staticmethod
     def backward(ctx, grad_in):
-        """Compute the gradient at this function"""
+        """Compute the gradient at this function."""
         (input,) = ctx.saved_tensors
         return (
             grad_in * (grad_in * (input - input.clamp(ctx.min, ctx.max)) >= 0),
@@ -288,18 +281,17 @@ def free(device=None):
 
 
 def gc():
-    """
-    Trigger a Python/PyTorch garbage collection.
-    """
+    """Trigger a Python/PyTorch garbage collection."""
     _gc.collect()
     torch.cuda.empty_cache()
 
 
 def make_random_resized_crop(src_size, dest_size, scale=(0.08, 1.0), interpolation=2):
     """
-    Returns a RandomResizedCrop transformation that will produce
-    crops of `dest_size` from images of `src_size` with scale
-    in the range indicated. Sizes are both torchvision style (h, w).
+    Returns a RandomResizedCrop transformation that will produce crops of
+    `dest_size` from images of `src_size` with scale in the range indicated.
+
+    Sizes are both torchvision style (h, w).
     """
 
     natural_ratio = src_size[1] / src_size[0] * dest_size[0] / dest_size[1]

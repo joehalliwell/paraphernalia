@@ -1,6 +1,4 @@
-"""
-Noise generating functions.
-"""
+"""Noise generating functions."""
 from math import ceil, pi
 
 import torch

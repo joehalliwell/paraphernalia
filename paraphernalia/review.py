@@ -12,7 +12,6 @@ TODO:
 - Move fully processed directories to lose
 - Notebook mode?
 - Add filename filtering
-
 """
 
 import imghdr
@@ -66,7 +65,7 @@ void main() {
 class ReviewApp:
     def __init__(self, review, fullscreen=True):
         """
-        Barebones GL-based review application
+        Barebones GL-based review application.
 
         Args:
             review (Review): the review instance (see below)
@@ -90,7 +89,11 @@ class ReviewApp:
         self.window = None
 
     def run(self):
-        """Main event loop. Blocking."""
+        """
+        Main event loop.
+
+        Blocking.
+        """
         self.window = mglw.create_window_from_settings()
         self.window.key_event_func = self.key_event
 
@@ -109,7 +112,7 @@ class ReviewApp:
         self.window.destroy()
 
     def load(self):
-        """Load and display the specified image"""
+        """Load and display the specified image."""
         # Load the image with PIL
         _LOG.info(f"Loading {self.review.path}")
         img = PIL.Image.open(self.review.path)
@@ -124,7 +127,7 @@ class ReviewApp:
         self.texture.filter = (moderngl.NEAREST, moderngl.NEAREST)
 
     def render(self):
-        """Render callback"""
+        """Render callback."""
         # Setup for rendering
         self.window.use()
         self.window.ctx.clear()
@@ -162,7 +165,7 @@ class ReviewApp:
         )
 
     def _print(self, lines):
-        """Helper method to display a set of lines"""
+        """Helper method to display a set of lines."""
         font_size = 24
         x = font_size // 2
         y = font_size // 2
@@ -172,7 +175,7 @@ class ReviewApp:
             y += font_size
 
     def key_event(self, key, action, modifiers):
-        """Key handler"""
+        """Key handler."""
         keys = self.window.keys
         if action != keys.ACTION_PRESS:
             return
@@ -248,17 +251,17 @@ class Review:
 
     @property
     def path(self) -> Path:
-        """The current path to review"""
+        """The current path to review."""
         return self.source_path / self.todo[self.index]
 
     @property
     def verdict(self):
-        """The verdict on the current path"""
+        """The verdict on the current path."""
         return self.verdicts[self.index]
 
     @verdict.setter
     def verdict(self, value):
-        """Set the verdict on the current path"""
+        """Set the verdict on the current path."""
         _LOG.info(f"{self.path} = {value}")
         self.verdicts[self.index] = value
 
@@ -279,23 +282,24 @@ class Review:
                 break
 
     def next(self, verdict=None):
-        """Switch to next object in the sequence, subject to the filters"""
+        """Switch to next object in the sequence, subject to the filters."""
         self.scan(1, verdict)
 
     def previous(self, verdict=None):
-        """Switch to previous object in the sequence, subject to the filters"""
+        """Switch to previous object in the sequence, subject to the
+        filters."""
         self.scan(-1, verdict)
 
     def clear(self):
-        """Clear the verdict on the current object"""
+        """Clear the verdict on the current object."""
         self.verdict = TODO
 
     def keep(self):
-        """Mark the current object to be kept"""
+        """Mark the current object to be kept."""
         self.verdict = KEEP
 
     def lose(self):
-        """Mark the current object to be removed"""
+        """Mark the current object to be removed."""
         self.verdict = LOSE
 
     @property
@@ -304,7 +308,7 @@ class Review:
         return counter[TODO], counter[KEEP], counter[LOSE]
 
     def _todo(self, source):
-        """Find candidates within a parent path"""
+        """Find candidates within a parent path."""
         files = [
             Path(parent) / file
             for (parent, _dirs, files) in os.walk(source)
@@ -317,7 +321,7 @@ class Review:
         return todo
 
     def _move(self, src: Path, dst: Path):
-        """Safely move a file from src to dst"""
+        """Safely move a file from src to dst."""
         assert src.exists()
         assert src.is_file()
         assert not dst.exists()
@@ -330,7 +334,7 @@ class Review:
         os.rename(src, dst)
 
     def commit(self):
-        """Move any empty source directories to lose"""
+        """Move any empty source directories to lose."""
         _LOG.info(f"Committing {self.progress} changes")
         for (path, verdict) in zip(self.todo, self.verdicts):
             if verdict is TODO:

@@ -1,6 +1,4 @@
-"""
-Miscellaneous utility functions.
-"""
+"""Miscellaneous utility functions."""
 import logging
 import math
 import os
@@ -18,8 +16,8 @@ _LOG = logging.getLogger(__name__)
 
 def divide(whole: int, part: int, min_overlap: int = 0) -> List[int]:
     """
-    Divide ``whole`` into several ``part``-sized chunks which overlap by
-    at least ``min_overlap``.
+    Divide ``whole`` into several ``part``-sized chunks which overlap by at
+    least ``min_overlap``.
 
     Args:
         whole (int): The total to subdivide
@@ -46,7 +44,7 @@ def divide(whole: int, part: int, min_overlap: int = 0) -> List[int]:
 
 def step_down(steps, iterations):
     """
-    Step down generator
+    Step down generator.
 
     .. deprecated:: 0.2.0
         This will be removed
@@ -75,10 +73,8 @@ _FORBIDDEN = re.compile(r"[^a-z0-9_-]+")
 
 
 def slugify(*bits) -> str:
-    """
-    Make a lower-case alphanumeric representation of the arguments by stripping
-    other characters and replacing spaces with hyphens.
-    """
+    """Make a lower-case alphanumeric representation of the arguments by
+    stripping other characters and replacing spaces with hyphens."""
     # Single item
     if len(bits) == 1:
         bit = bits[0]

@@ -1,6 +1,4 @@
-"""
-Global settings.
-"""
+"""Global settings."""
 import logging
 from pathlib import Path
 from time import time
@@ -20,9 +18,9 @@ _settings = None
 
 def settings(reload=False) -> "Settings":
     """
-    Get the global settings object. Configuration is read from the
-    environment and (optionally) a `paraphernalia.env` file in the user's
-    configuration directory.
+    Get the global settings object. Configuration is read from the environment
+    and (optionally) a `paraphernalia.env` file in the user's configuration
+    directory.
 
     Example:
 
@@ -43,7 +41,9 @@ def settings(reload=False) -> "Settings":
 
 class Settings(BaseSettings):
     """
-    Global settings object. Access via :func:`paraphernalia.settings`.
+    Global settings object.
+
+    Access via :func:`paraphernalia.settings`.
     """
 
     auto_setup: bool = Field(default=False, allow_mutation=False)

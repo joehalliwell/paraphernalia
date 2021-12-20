@@ -1,6 +1,4 @@
-"""
-Tools for managing projects/metadata.
-"""
+"""Tools for managing projects/metadata."""
 import logging
 from datetime import datetime
 from pathlib import Path
@@ -29,7 +27,9 @@ def project() -> Optional["Project"]:
 
 class Project(BaseModel):
     """
-    Data model for projects. Access the current project via
+    Data model for projects.
+
+    Access the current project via
     :func:`paraphernalia.project`.
     """
 

@@ -92,9 +92,7 @@ def test_cosine_similarity():
 
 
 def test_random_resized_crop():
-    """
-    Trick to test as RandomResizedCrop falls back to a centre-crop.
-    """
+    """Trick to test as RandomResizedCrop falls back to a centre-crop."""
     # Square -> square
     t = make_random_resized_crop((400, 400), (100, 100))
     assert t.ratio == (1.0, 1.0)

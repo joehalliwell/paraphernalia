@@ -1,6 +1,4 @@
-"""
-Tools for notebook-based work.
-"""
+"""Tools for notebook-based work."""
 import time
 
 from IPython.display import Javascript, display

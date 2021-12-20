@@ -1,6 +1,4 @@
-"""
-Generate images "directly" i.e. without a latent space.
-"""
+"""Generate images "directly" i.e. without a latent space."""
 
 from typing import Optional, Union
 
@@ -15,9 +13,7 @@ from paraphernalia.torch.generator import Generator
 
 
 class Direct(Generator):
-    """
-    A direct generator i.e. a directly trainable RGB tensor.
-    """
+    """A direct generator i.e. a directly trainable RGB tensor."""
 
     def __init__(self, start=None, scale=1, **kwargs):
         """
@@ -44,9 +40,7 @@ class Direct(Generator):
         self._z = torch.nn.Parameter(z)
 
     def forward(self):
-        """
-        Generate a batch of images.
-        """
+        """Generate a batch of images."""
         img = torch.sigmoid(self._z)
         return T.functional.resize(
             img, size=(self.height, self.width), interpolation=PIL.Image.NEAREST
@@ -54,9 +48,8 @@ class Direct(Generator):
 
 
 class DirectPalette(Generator):
-    """
-    A palettized generator using gumbel sampling versus a provided palette.
-    """
+    """A palettized generator using gumbel sampling versus a provided
+    palette."""
 
     def __init__(
         self,
@@ -87,9 +80,7 @@ class DirectPalette(Generator):
         self._z = torch.nn.Parameter(z)
 
     def forward(self, tau=None, hard=None):
-        """
-        Generate a batch of images.
-        """
+        """Generate a batch of images."""
         if tau is None:
             tau = self.tau
         if hard is None:
@@ -101,9 +92,7 @@ class DirectPalette(Generator):
         )
 
     def encode(self, img: Union[PIL.Image.Image, torch.Tensor]):
-        """
-        Encode an image or tensor.
-        """
+        """Encode an image or tensor."""
 
         img = PIL.ImageOps.pad(
             img, (self.width // self.scale, self.height // self.scale)
@@ -123,6 +112,7 @@ class DirectPalette(Generator):
 class DirectTileset(Generator):
     """
     A generator using gumbel sampling versus a provided tile atlas.
+
     Suggested learning rate: 0.8
     """
 
@@ -171,9 +161,7 @@ class DirectTileset(Generator):
         self._z = torch.nn.Parameter(z)
 
     def forward(self, tau=None, hard=None):
-        """
-        Generate a batch of images.
-        """
+        """Generate a batch of images."""
         if tau is None:
             tau = self.tau
         if hard is None:

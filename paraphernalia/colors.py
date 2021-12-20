@@ -1,6 +1,4 @@
-"""
-Colour and colour palette utilities.
-"""
+"""Colour and colour palette utilities."""
 from enum import Enum
 from typing import List, Tuple
 
@@ -8,9 +6,7 @@ from PIL import ImageColor
 
 
 class Palette(Enum):
-    """
-    A palette of colours.
-    """
+    """A palette of colours."""
 
     def rgb(self) -> Tuple:
         """
@@ -30,20 +26,18 @@ class Palette(Enum):
     @classmethod
     def as_rgb(cls) -> List[Tuple]:
         """Convert this palette to a list of (r, g, b) tuples where each
-        component is 0-255"""
+        component is 0-255."""
         return [c.rgb() for c in cls]
 
     @classmethod
     def as_unit_rgb(cls) -> List[Tuple]:
         """Convert this palette to a list of (r, g, b) tuples where each
-        component is 0-1"""
+        component is 0-1."""
         return [c.unit_rgb() for c in cls]
 
 
 class BW(Palette):
-    """
-    A simple black and white palette.
-    """
+    """A simple black and white palette."""
 
     BLACK = "#000000"
     WHITE = "#FFFFFF"
@@ -51,7 +45,9 @@ class BW(Palette):
 
 class C64(Palette):
     """
-    The Commodore 64 palette. Taken from https://www.c64-wiki.com/wiki/Color
+    The Commodore 64 palette.
+
+    Taken from https://www.c64-wiki.com/wiki/Color
     """
 
     BLACK = "#000000"
@@ -74,7 +70,9 @@ class C64(Palette):
 
 class ZX_SPECTRUM(Palette):
     """
-    The Sinclair ZX Spectrum palette. Taken from
+    The Sinclair ZX Spectrum palette.
+
+    Taken from
     https://en.wikipedia.org/wiki/ZX_Spectrum_graphic_modes
     """
 

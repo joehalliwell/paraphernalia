@@ -1,10 +1,10 @@
 """
-Generate images with `Taming Transformers <https://github.com/CompVis/taming-transformers>`_.
+Generate images with `Taming Transformers <https://github.com/CompVis/taming-
+transformers>`_.
 
 See also:
 
 - <https://colab.research.google.com/github/CompVis/taming-transformers/blob/master/scripts/reconstruction_usage.ipynb>
-
 """  # noqa
 
 from dataclasses import dataclass
@@ -26,9 +26,7 @@ from paraphernalia.utils import download
 
 @dataclass
 class TamingModel:
-    """
-    Specification for a published Taming Transformers model.
-    """
+    """Specification for a published Taming Transformers model."""
 
     name: str
     "Slug for this model e.g. vqgan_gumbel_f8"
@@ -60,9 +58,7 @@ VQGAN_IMAGENET_F16_16384 = TamingModel(
 
 
 class Taming(Generator):
-    """
-    Image generator based on a Taming Transformers model.
-    """
+    """Image generator based on a Taming Transformers model."""
 
     def __init__(
         self, model_spec: TamingModel = VQGAN_IMAGENET_F16_16384, start=None, **kwargs
@@ -130,7 +126,7 @@ class Taming(Generator):
 
     def forward(self, z=None) -> Tensor:
         """
-        Generate a batch of images
+        Generate a batch of images.
 
         Returns:
             Tensor: An image batch tensor
@@ -145,9 +141,7 @@ class Taming(Generator):
         return z
 
     def encode(self, img: Union[PIL.Image.Image, Tensor]) -> Tensor:
-        """
-        Encode an image.
-        """
+        """Encode an image."""
 
         if isinstance(img, PIL.Image.Image):
             img = PIL.ImageOps.pad(

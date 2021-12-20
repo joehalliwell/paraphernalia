@@ -1,6 +1,4 @@
-"""
-Evaluate images with CLIP.
-"""
+"""Evaluate images with CLIP."""
 import logging
 from typing import List, Optional, Set, Tuple, Union
 
@@ -18,8 +16,8 @@ TextOrTexts = Union[str, List[str]]
 
 class CLIP(torch.nn.Module):
     """
-    A CLIP-based perceptor that evaluates how well an image fits with
-    on or more target text prompts.
+    A CLIP-based perceptor that evaluates how well an image fits with on or
+    more target text prompts.
 
     The underlying model is limited to (224, 224) resolution, so this
     class presents it with multiple perspectives on an image:
@@ -149,7 +147,9 @@ class CLIP(torch.nn.Module):
 
     def encode_text(self, text_or_texts: str) -> Tensor:
         """
-        Encode text. Returns a detached tensor.
+        Encode text.
+
+        Returns a detached tensor.
         """
         token_batch = clip.tokenize(text_or_texts).to(self.device)
         encoded = self.encoder.encode_text(token_batch)
@@ -159,7 +159,9 @@ class CLIP(torch.nn.Module):
 
     def encode_image(self, batch: Tensor) -> Tensor:
         """
-        Encode an image. Does not detach.
+        Encode an image.
+
+        Does not detach.
         """
         batch = self.transform(batch)
         return self.encoder.encode_image(batch)
@@ -229,8 +231,8 @@ class CLIP(torch.nn.Module):
         self, img: Tensor, prompts: Tensor, batch_size: int, match="all"
     ) -> Tensor:
         """
-        Compute the average similarity between a combined but contiguous
-        batch of images and set of prompts.
+        Compute the average similarity between a combined but contiguous batch
+        of images and set of prompts.
 
         Args:
             imgs (Tensor): A combined-but-contiguous image batch with shape

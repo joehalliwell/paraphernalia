@@ -1,6 +1,4 @@
-"""
-Generate images with the discrete VAE component of DALL-E.
-"""
+"""Generate images with the discrete VAE component of DALL-E."""
 from typing import Optional, Union
 
 import dall_e
@@ -70,7 +68,7 @@ class DALL_E(Generator):
 
     def forward(self, z=None, tau=None, hard=None) -> Tensor:
         """
-        Generate a batch of images
+        Generate a batch of images.
 
         Returns:
             Tensor: An image batch tensor
@@ -90,9 +88,7 @@ class DALL_E(Generator):
         return buf
 
     def encode(self, img: Union[PIL.Image.Image, torch.Tensor]):
-        """
-        Encode an image or tensor.
-        """
+        """Encode an image or tensor."""
         if isinstance(img, PIL.Image.Image):
             img = PIL.ImageOps.pad(img, (self.width, self.height))
             img = torch.unsqueeze(T.functional.to_tensor(img), 0)

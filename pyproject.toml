@@ -59,6 +59,7 @@ isort = "^5.8.0"
 black = "^20.8b1"
 flake8 = "^4.0.1"
 interrogate = "^1.4.0"
+docformatter = "^1.4"
 
 [tool.poetry.extras]
 openai = ["regex", "ftfy", "clip", "dall-e"]

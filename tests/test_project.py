@@ -2,9 +2,7 @@ from paraphernalia import Project, get_seed, project, set_seed, settings
 
 
 def test_basic_usage(monkeypatch, tmpdir):
-    """
-    Test output directory creation, and activate flag
-    """
+    """Test output directory creation, and activate flag."""
     monkeypatch.setattr(settings(), "project_home", tmpdir)
 
     p1 = Project(title="Project #1")
@@ -41,7 +39,7 @@ def test_project_seed(monkeypatch, tmpdir):
 
 
 def test_default_seed():
-    """Check that seed defaults to the global"""
+    """Check that seed defaults to the global."""
     set_seed(654321)
     p = Project(title="Project #1")
 
