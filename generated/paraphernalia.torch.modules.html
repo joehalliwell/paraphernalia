@@ -383,8 +383,8 @@ outputs into a list.</p>
 <dd><p>More or less a weighted sum of named module outputs, but with special
 handling for negative weights.</p>
 <p>In order for the weighting to make sense, the components needs outputs
-with the same shape and meaning. For loss functions outputs should be
-in the range [0,1]</p>
+with the same shape and meaning.</p>
+<p>For loss functions outputs should be in the range [0,1]</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>components</strong> (<em>torch.nn.modules.module.Module</em>) – </p>
@@ -393,7 +393,7 @@ in the range [0,1]</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="paraphernalia.torch.modules.WeightedSum.set_weight">
 <span class="sig-name descname"><span class="pre">set_weight</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch/modules.html#WeightedSum.set_weight"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.modules.WeightedSum.set_weight" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set the weight associated with a module</p>
+<dd><p>Set the weight associated with a module.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -410,7 +410,7 @@ in the range [0,1]</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="paraphernalia.torch.modules.WeightedSum.forward">
 <span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch/modules.html#WeightedSum.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.modules.WeightedSum.forward" title="Permalink to this definition">¶</a></dt>
-<dd><p>Compute the weighted loss</p>
+<dd><p>Compute the weighted loss.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>x</strong> (<em>torch.Tensor</em>) – </p>

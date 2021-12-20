@@ -144,9 +144,7 @@
               <div>
                 
   <h1>Source code for paraphernalia.torch.modules</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">A collection of utility PyTorch modules.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;A collection of utility PyTorch modules.&quot;&quot;&quot;</span>
 
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
 
@@ -164,7 +162,6 @@
 <span class="sd">    .. seealso::</span>
 
 <span class="sd">        - https://arxiv.org/abs/1705.07115</span>
-
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_losses</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
@@ -192,10 +189,8 @@
 
 
 <div class="viewcode-block" id="Parallel"><a class="viewcode-back" href="../../../generated/paraphernalia.torch.modules.html#paraphernalia.torch.modules.Parallel">[docs]</a><span class="k">class</span> <span class="nc">Parallel</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    A module that runs a number of submodule in parallel and collects their</span>
-<span class="sd">    outputs into a list.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;A module that runs a number of submodule in parallel and collects their</span>
+<span class="sd">    outputs into a list.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">components</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -217,9 +212,7 @@
 
 
 <div class="viewcode-block" id="Constant"><a class="viewcode-back" href="../../../generated/paraphernalia.torch.modules.html#paraphernalia.torch.modules.Constant">[docs]</a><span class="k">class</span> <span class="nc">Constant</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    A module that returns a constant value, ignoring any inputs.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;A module that returns a constant value, ignoring any inputs.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
@@ -239,16 +232,15 @@
 
 
 <div class="viewcode-block" id="WeightedSum"><a class="viewcode-back" href="../../../generated/paraphernalia.torch.modules.html#paraphernalia.torch.modules.WeightedSum">[docs]</a><span class="k">class</span> <span class="nc">WeightedSum</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    More or less a weighted sum of named module outputs, but with special</span>
-<span class="sd">    handling for negative weights.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;More or less a weighted sum of named module outputs, but with special</span>
+<span class="sd">    handling for negative weights.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">components</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        In order for the weighting to make sense, the components needs outputs</span>
-<span class="sd">        with the same shape and meaning. For loss functions outputs should be</span>
-<span class="sd">        in the range [0,1]</span>
+<span class="sd">        with the same shape and meaning.</span>
+
+<span class="sd">        For loss functions outputs should be in the range [0,1]</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">submodules</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ModuleDict</span><span class="p">(</span><span class="n">modules</span><span class="o">=</span><span class="n">components</span><span class="p">)</span>
@@ -257,7 +249,7 @@
 
 <div class="viewcode-block" id="WeightedSum.set_weight"><a class="viewcode-back" href="../../../generated/paraphernalia.torch.modules.html#paraphernalia.torch.modules.WeightedSum.set_weight">[docs]</a>    <span class="k">def</span> <span class="nf">set_weight</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Set the weight associated with a module</span>
+<span class="sd">        Set the weight associated with a module.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            name (str): the name of the module</span>
@@ -268,9 +260,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">total_weight</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">weights</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">weights</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="WeightedSum.forward"><a class="viewcode-back" href="../../../generated/paraphernalia.torch.modules.html#paraphernalia.torch.modules.WeightedSum.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Compute the weighted loss</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Compute the weighted loss.&quot;&quot;&quot;</span>
         <span class="n">result</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span>
             <span class="n">m</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">weights</span><span class="p">[</span><span class="n">n</span><span class="p">]</span>
             <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">submodules</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
@@ -281,9 +271,7 @@
 
 
 <div class="viewcode-block" id="SimilarTo"><a class="viewcode-back" href="../../../generated/paraphernalia.torch.modules.html#paraphernalia.torch.modules.SimilarTo">[docs]</a><span class="k">class</span> <span class="nc">SimilarTo</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Cosine similarity test with mean pooling.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Cosine similarity test with mean pooling.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">targets</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -303,9 +291,7 @@
 
 
 <div class="viewcode-block" id="SimilarToAny"><a class="viewcode-back" href="../../../generated/paraphernalia.torch.modules.html#paraphernalia.torch.modules.SimilarToAny">[docs]</a><span class="k">class</span> <span class="nc">SimilarToAny</span><span class="p">(</span><span class="n">SimilarTo</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Cosine similarity test with max pooling.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Cosine similarity test with max pooling.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">targets</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">targets</span><span class="p">)</span>

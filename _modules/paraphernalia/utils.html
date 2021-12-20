@@ -144,9 +144,7 @@
               <div>
                 
   <h1>Source code for paraphernalia.utils</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Miscellaneous utility functions.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;Miscellaneous utility functions.&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">import</span> <span class="nn">os</span>
@@ -164,8 +162,8 @@
 
 <div class="viewcode-block" id="divide"><a class="viewcode-back" href="../../generated/paraphernalia.utils.html#paraphernalia.utils.divide">[docs]</a><span class="k">def</span> <span class="nf">divide</span><span class="p">(</span><span class="n">whole</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">part</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">min_overlap</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Divide ``whole`` into several ``part``-sized chunks which overlap by</span>
-<span class="sd">    at least ``min_overlap``.</span>
+<span class="sd">    Divide ``whole`` into several ``part``-sized chunks which overlap by at</span>
+<span class="sd">    least ``min_overlap``.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        whole (int): The total to subdivide</span>
@@ -192,7 +190,7 @@
 
 <div class="viewcode-block" id="step_down"><a class="viewcode-back" href="../../generated/paraphernalia.utils.html#paraphernalia.utils.step_down">[docs]</a><span class="k">def</span> <span class="nf">step_down</span><span class="p">(</span><span class="n">steps</span><span class="p">,</span> <span class="n">iterations</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Step down generator</span>
+<span class="sd">    Step down generator.</span>
 
 <span class="sd">    .. deprecated:: 0.2.0</span>
 <span class="sd">        This will be removed</span>
@@ -221,10 +219,8 @@
 
 
 <div class="viewcode-block" id="slugify"><a class="viewcode-back" href="../../generated/paraphernalia.utils.html#paraphernalia.utils.slugify">[docs]</a><span class="k">def</span> <span class="nf">slugify</span><span class="p">(</span><span class="o">*</span><span class="n">bits</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Make a lower-case alphanumeric representation of the arguments by stripping</span>
-<span class="sd">    other characters and replacing spaces with hyphens.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Make a lower-case alphanumeric representation of the arguments by</span>
+<span class="sd">    stripping other characters and replacing spaces with hyphens.&quot;&quot;&quot;</span>
     <span class="c1"># Single item</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">bits</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
         <span class="n">bit</span> <span class="o">=</span> <span class="n">bits</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>

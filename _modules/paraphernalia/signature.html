@@ -144,9 +144,7 @@
               <div>
                 
   <h1>Source code for paraphernalia.signature</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Sign and tag images.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;Sign and tag images.&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
@@ -178,12 +176,11 @@
 <span class="sd">    &gt;&gt;&gt; with XMP(&quot;test.png&quot;) as xmp:</span>
 <span class="sd">    ...     print(xmp.creator)</span>
 <span class="sd">    Leonardo</span>
-
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Create a new Signature for a file</span>
+<span class="sd">        Create a new Signature for a file.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            path: The file with which to work</span>
@@ -196,9 +193,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_path</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 
 <div class="viewcode-block" id="XMP.clear"><a class="viewcode-back" href="../../generated/paraphernalia.signature.html#paraphernalia.signature.XMP.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Clear all metadata.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Clear all metadata.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">creators</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tags</span> <span class="o">=</span> <span class="p">[]</span>
@@ -221,7 +216,7 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">creator</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="s2">&quot;The creator of this object&quot;</span>
+        <span class="sd">&quot;&quot;&quot;The creator of this object.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">creators</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">creators</span> <span class="k">else</span> <span class="kc">None</span>
 
     <span class="nd">@creator</span><span class="o">.</span><span class="n">setter</span>
@@ -230,9 +225,7 @@
 
 
 <span class="k">def</span> <span class="nf">_make_seq_property</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Make a property wrapping an XMP array.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Make a property wrapping an XMP array.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">_getter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_xmp</span><span class="o">.</span><span class="n">does_property_exist</span><span class="p">(</span><span class="n">DC</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
@@ -263,9 +256,7 @@
 
 
 <span class="k">def</span> <span class="nf">_make_lang_property</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">generic_lang</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">specific_lang</span><span class="o">=</span><span class="s2">&quot;en&quot;</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Make a Python property wrapping an XMP alt language attribute.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Make a Python property wrapping an XMP alt language attribute.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">_getter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_xmp</span><span class="o">.</span><span class="n">does_property_exist</span><span class="p">(</span><span class="n">DC</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
@@ -310,9 +301,8 @@
     <span class="n">description</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">rights</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Manipulate basic XMP/Dublin Core metadata in PNG, JPG and TIFF images.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Manipulate basic XMP/Dublin Core metadata in PNG, JPG and TIFF</span>
+<span class="sd">    images.&quot;&quot;&quot;</span>
     <span class="k">with</span> <span class="n">XMP</span><span class="p">(</span><span class="n">target</span><span class="p">)</span> <span class="k">as</span> <span class="n">sig</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">clear</span><span class="p">:</span>
             <span class="n">sig</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>

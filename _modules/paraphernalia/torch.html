@@ -144,9 +144,7 @@
               <div>
                 
   <h1>Source code for paraphernalia.torch</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Utilities for working with PyTorch</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;Utilities for working with PyTorch.&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">gc</span> <span class="k">as</span> <span class="nn">_gc</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
@@ -193,7 +191,9 @@
 
 <div class="viewcode-block" id="tile"><a class="viewcode-back" href="../../generated/paraphernalia.torch.html#paraphernalia.torch.tile">[docs]</a><span class="k">def</span> <span class="nf">tile</span><span class="p">(</span><span class="n">img</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Tile img with squares of side size. Any cut off at the edge is ignored.</span>
+<span class="sd">    Tile img with squares of side size.</span>
+
+<span class="sd">    Any cut off at the edge is ignored.</span>
 <span class="sd">    TODO: Remove</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">shape</span>
@@ -242,8 +242,8 @@
 
 <div class="viewcode-block" id="regroup"><a class="viewcode-back" href="../../generated/paraphernalia.torch.html#paraphernalia.torch.regroup">[docs]</a><span class="k">def</span> <span class="nf">regroup</span><span class="p">(</span><span class="n">img</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Concatenate several image batches, regrouping them so that</span>
-<span class="sd">    a single image is contiguous in the resulting batch.</span>
+<span class="sd">    Concatenate several image batches, regrouping them so that a single image</span>
+<span class="sd">    is contiguous in the resulting batch.</span>
 
 <span class="sd">    TODO: Is this part of torch under a different name?</span>
 
@@ -287,10 +287,8 @@
 
 
 <div class="viewcode-block" id="make_palette_grid"><a class="viewcode-back" href="../../generated/paraphernalia.torch.html#paraphernalia.torch.make_palette_grid">[docs]</a><span class="k">def</span> <span class="nf">make_palette_grid</span><span class="p">(</span><span class="n">colors</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">128</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Create an image to preview a set colours, provided as an iterable of RGB</span>
-<span class="sd">    tuples with each component in [0,1].</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Create an image to preview a set colours, provided as an iterable of RGB</span>
+<span class="sd">    tuples with each component in [0,1].&quot;&quot;&quot;</span>
     <span class="n">swatches</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">swatches</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span>
         <span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">c</span><span class="p">)</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">repeat</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">size</span><span class="p">])</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">colors</span><span class="p">]</span>
@@ -301,8 +299,8 @@
 <div class="viewcode-block" id="one_hot_noise"><a class="viewcode-back" href="../../generated/paraphernalia.torch.html#paraphernalia.torch.one_hot_noise">[docs]</a><span class="k">def</span> <span class="nf">one_hot_noise</span><span class="p">(</span><span class="n">shape</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Generate a one-hot-encoded latent state suitable for use with a categorical</span>
-<span class="sd">    variational decoder. This is a hard one-hot tensor. Use `one_hot_normalize()`</span>
-<span class="sd">    if you want to soften.</span>
+<span class="sd">    variational decoder. This is a hard one-hot tensor. Use</span>
+<span class="sd">    `one_hot_normalize()` if you want to soften.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        shape (Tuple): desired shape (batch_size, num_classes, height, width)</span>
@@ -328,7 +326,6 @@
 
 <span class="sd">    Returns:</span>
 <span class="sd">        Tensor: one hot Tensor of dimension (batch_size, num_classes, height, width)</span>
-
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">shape</span>
     <span class="k">if</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
@@ -345,15 +342,14 @@
 
 <div class="viewcode-block" id="one_hot_normalize"><a class="viewcode-back" href="../../generated/paraphernalia.torch.html#paraphernalia.torch.one_hot_normalize">[docs]</a><span class="k">def</span> <span class="nf">one_hot_normalize</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">tau</span><span class="o">=</span><span class="mf">0.001</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Normalized a log probability/one hot tensor, by locking in</span>
-<span class="sd">    modes then converting a slightly noisy log probability.</span>
+<span class="sd">    Normalized a log probability/one hot tensor, by locking in modes then</span>
+<span class="sd">    converting a slightly noisy log probability.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        shape (Tuple): desired shape (batch_size, num_classes, height, width)</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        Tensor: one hot Tensor of dimension (batch_size, num_classes, height, width)</span>
-
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">shape</span>
     <span class="n">z</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
@@ -372,13 +368,13 @@
 
 <div class="viewcode-block" id="ReplaceGrad.forward"><a class="viewcode-back" href="../../generated/paraphernalia.torch.html#paraphernalia.torch.ReplaceGrad.forward">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">x_forward</span><span class="p">,</span> <span class="n">x_backward</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Replace the backward call&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Replace the backward call.&quot;&quot;&quot;</span>
         <span class="n">ctx</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="n">x_backward</span><span class="o">.</span><span class="n">shape</span>
         <span class="k">return</span> <span class="n">x_forward</span></div>
 
 <div class="viewcode-block" id="ReplaceGrad.backward"><a class="viewcode-back" href="../../generated/paraphernalia.torch.html#paraphernalia.torch.ReplaceGrad.backward">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">backward</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">grad_in</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Compute the gradient at this function&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Compute the gradient at this function.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="n">grad_in</span><span class="o">.</span><span class="n">sum_to_size</span><span class="p">(</span><span class="n">ctx</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span></div></div>
 
 
@@ -390,14 +386,11 @@
 <span class="sd">    Clamp an output but pass through gradients.</span>
 
 <span class="sd">    FIXME: Not sure about this. Would a &quot;leaky&quot; clamp be better?</span>
-
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="ClampWithGrad.forward"><a class="viewcode-back" href="../../generated/paraphernalia.torch.html#paraphernalia.torch.ClampWithGrad.forward">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="nb">min</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">max</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Clamp `input` between `min` and `max`</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Clamp `input` between `min` and `max`&quot;&quot;&quot;</span>
         <span class="n">ctx</span><span class="o">.</span><span class="n">min</span> <span class="o">=</span> <span class="nb">min</span>
         <span class="n">ctx</span><span class="o">.</span><span class="n">max</span> <span class="o">=</span> <span class="nb">max</span>
         <span class="n">ctx</span><span class="o">.</span><span class="n">save_for_backward</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span>
@@ -405,7 +398,7 @@
 
 <div class="viewcode-block" id="ClampWithGrad.backward"><a class="viewcode-back" href="../../generated/paraphernalia.torch.html#paraphernalia.torch.ClampWithGrad.backward">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">backward</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">grad_in</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Compute the gradient at this function&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Compute the gradient at this function.&quot;&quot;&quot;</span>
         <span class="p">(</span><span class="nb">input</span><span class="p">,)</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">saved_tensors</span>
         <span class="k">return</span> <span class="p">(</span>
             <span class="n">grad_in</span> <span class="o">*</span> <span class="p">(</span><span class="n">grad_in</span> <span class="o">*</span> <span class="p">(</span><span class="nb">input</span> <span class="o">-</span> <span class="nb">input</span><span class="o">.</span><span class="n">clamp</span><span class="p">(</span><span class="n">ctx</span><span class="o">.</span><span class="n">min</span><span class="p">,</span> <span class="n">ctx</span><span class="o">.</span><span class="n">max</span><span class="p">))</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">),</span>
@@ -434,18 +427,17 @@
 
 
 <div class="viewcode-block" id="gc"><a class="viewcode-back" href="../../generated/paraphernalia.torch.html#paraphernalia.torch.gc">[docs]</a><span class="k">def</span> <span class="nf">gc</span><span class="p">():</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Trigger a Python/PyTorch garbage collection.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Trigger a Python/PyTorch garbage collection.&quot;&quot;&quot;</span>
     <span class="n">_gc</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
     <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">empty_cache</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="make_random_resized_crop"><a class="viewcode-back" href="../../generated/paraphernalia.torch.html#paraphernalia.torch.make_random_resized_crop">[docs]</a><span class="k">def</span> <span class="nf">make_random_resized_crop</span><span class="p">(</span><span class="n">src_size</span><span class="p">,</span> <span class="n">dest_size</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="p">(</span><span class="mf">0.08</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span> <span class="n">interpolation</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Returns a RandomResizedCrop transformation that will produce</span>
-<span class="sd">    crops of `dest_size` from images of `src_size` with scale</span>
-<span class="sd">    in the range indicated. Sizes are both torchvision style (h, w).</span>
+<span class="sd">    Returns a RandomResizedCrop transformation that will produce crops of</span>
+<span class="sd">    `dest_size` from images of `src_size` with scale in the range indicated.</span>
+
+<span class="sd">    Sizes are both torchvision style (h, w).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">natural_ratio</span> <span class="o">=</span> <span class="n">src_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">src_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">dest_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">dest_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>

@@ -144,9 +144,7 @@
               <div>
                 
   <h1>Source code for paraphernalia.torch.clip</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Evaluate images with CLIP.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;Evaluate images with CLIP.&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
 
@@ -164,8 +162,8 @@
 
 <div class="viewcode-block" id="CLIP"><a class="viewcode-back" href="../../../generated/paraphernalia.torch.clip.html#paraphernalia.torch.clip.CLIP">[docs]</a><span class="k">class</span> <span class="nc">CLIP</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    A CLIP-based perceptor that evaluates how well an image fits with</span>
-<span class="sd">    on or more target text prompts.</span>
+<span class="sd">    A CLIP-based perceptor that evaluates how well an image fits with on or</span>
+<span class="sd">    more target text prompts.</span>
 
 <span class="sd">    The underlying model is limited to (224, 224) resolution, so this</span>
 <span class="sd">    class presents it with multiple perspectives on an image:</span>
@@ -295,7 +293,9 @@
 
 <div class="viewcode-block" id="CLIP.encode_text"><a class="viewcode-back" href="../../../generated/paraphernalia.torch.clip.html#paraphernalia.torch.clip.CLIP.encode_text">[docs]</a>    <span class="k">def</span> <span class="nf">encode_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text_or_texts</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Encode text. Returns a detached tensor.</span>
+<span class="sd">        Encode text.</span>
+
+<span class="sd">        Returns a detached tensor.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">token_batch</span> <span class="o">=</span> <span class="n">clip</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="n">text_or_texts</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
         <span class="n">encoded</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoder</span><span class="o">.</span><span class="n">encode_text</span><span class="p">(</span><span class="n">token_batch</span><span class="p">)</span>
@@ -305,7 +305,9 @@
 
 <div class="viewcode-block" id="CLIP.encode_image"><a class="viewcode-back" href="../../../generated/paraphernalia.torch.clip.html#paraphernalia.torch.clip.CLIP.encode_image">[docs]</a>    <span class="k">def</span> <span class="nf">encode_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Encode an image. Does not detach.</span>
+<span class="sd">        Encode an image.</span>
+
+<span class="sd">        Does not detach.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">batch</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoder</span><span class="o">.</span><span class="n">encode_image</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span></div>
@@ -375,8 +377,8 @@
         <span class="bp">self</span><span class="p">,</span> <span class="n">img</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">prompts</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">match</span><span class="o">=</span><span class="s2">&quot;all&quot;</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Compute the average similarity between a combined but contiguous</span>
-<span class="sd">        batch of images and set of prompts.</span>
+<span class="sd">        Compute the average similarity between a combined but contiguous batch</span>
+<span class="sd">        of images and set of prompts.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            imgs (Tensor): A combined-but-contiguous image batch with shape</span>

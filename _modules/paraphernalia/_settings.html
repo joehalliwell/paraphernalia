@@ -144,9 +144,7 @@
               <div>
                 
   <h1>Source code for paraphernalia._settings</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Global settings.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;Global settings.&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">time</span>
@@ -166,9 +164,9 @@
 
 <div class="viewcode-block" id="settings"><a class="viewcode-back" href="../../generated/paraphernalia.html#paraphernalia.settings">[docs]</a><span class="k">def</span> <span class="nf">settings</span><span class="p">(</span><span class="n">reload</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Settings&quot;</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Get the global settings object. Configuration is read from the</span>
-<span class="sd">    environment and (optionally) a `paraphernalia.env` file in the user&#39;s</span>
-<span class="sd">    configuration directory.</span>
+<span class="sd">    Get the global settings object. Configuration is read from the environment</span>
+<span class="sd">    and (optionally) a `paraphernalia.env` file in the user&#39;s configuration</span>
+<span class="sd">    directory.</span>
 
 <span class="sd">    Example:</span>
 
@@ -189,7 +187,9 @@
 
 <div class="viewcode-block" id="Settings"><a class="viewcode-back" href="../../generated/paraphernalia.html#paraphernalia.Settings">[docs]</a><span class="k">class</span> <span class="nc">Settings</span><span class="p">(</span><span class="n">BaseSettings</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Global settings object. Access via :func:`paraphernalia.settings`.</span>
+<span class="sd">    Global settings object.</span>
+
+<span class="sd">    Access via :func:`paraphernalia.settings`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">auto_setup</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">allow_mutation</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>

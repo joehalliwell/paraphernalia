@@ -274,8 +274,8 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="paraphernalia.torch.clip.CLIP">
 <em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">CLIP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prompt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">anti_prompt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detail</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_tiling</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">macro</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chops</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">64</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ViT-B/32'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch/clip.html#CLIP"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.clip.CLIP" title="Permalink to this definition">¶</a></dt>
-<dd><p>A CLIP-based perceptor that evaluates how well an image fits with
-on or more target text prompts.</p>
+<dd><p>A CLIP-based perceptor that evaluates how well an image fits with on or
+more target text prompts.</p>
 <p>The underlying model is limited to (224, 224) resolution, so this
 class presents it with multiple perspectives on an image:</p>
 <ul class="simple">
@@ -327,7 +327,8 @@ mix</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="paraphernalia.torch.clip.CLIP.encode_text">
 <span class="sig-name descname"><span class="pre">encode_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text_or_texts</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch/clip.html#CLIP.encode_text"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.clip.CLIP.encode_text" title="Permalink to this definition">¶</a></dt>
-<dd><p>Encode text. Returns a detached tensor.</p>
+<dd><p>Encode text.</p>
+<p>Returns a detached tensor.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>text_or_texts</strong> (<em>str</em>) – </p>
@@ -341,7 +342,8 @@ mix</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="paraphernalia.torch.clip.CLIP.encode_image">
 <span class="sig-name descname"><span class="pre">encode_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch/clip.html#CLIP.encode_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.clip.CLIP.encode_image" title="Permalink to this definition">¶</a></dt>
-<dd><p>Encode an image. Does not detach.</p>
+<dd><p>Encode an image.</p>
+<p>Does not detach.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>batch</strong> (<em>torch.Tensor</em>) – </p>
@@ -389,8 +391,8 @@ mix</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="paraphernalia.torch.clip.CLIP.get_similarity">
 <span class="sig-name descname"><span class="pre">get_similarity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prompts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">match</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch/clip.html#CLIP.get_similarity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.clip.CLIP.get_similarity" title="Permalink to this definition">¶</a></dt>
-<dd><p>Compute the average similarity between a combined but contiguous
-batch of images and set of prompts.</p>
+<dd><p>Compute the average similarity between a combined but contiguous batch
+of images and set of prompts.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">

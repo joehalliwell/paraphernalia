@@ -299,7 +299,7 @@
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="paraphernalia.torch.html#module-paraphernalia.torch" title="paraphernalia.torch"><code class="xref py py-obj docutils literal notranslate"><span class="pre">paraphernalia.torch</span></code></a></p></td>
-<td><p>Utilities for working with PyTorch</p></td>
+<td><p>Utilities for working with PyTorch.</p></td>
 </tr>
 </tbody>
 </table>
@@ -417,9 +417,9 @@ e.g. a string.</p></li>
 <dl class="py function">
 <dt class="sig sig-object py" id="paraphernalia.settings">
 <span class="sig-name descname"><span class="pre">settings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reload</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/_settings.html#settings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.settings" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the global settings object. Configuration is read from the
-environment and (optionally) a <cite>paraphernalia.env</cite> file in the user’s
-configuration directory.</p>
+<dd><p>Get the global settings object. Configuration is read from the environment
+and (optionally) a <cite>paraphernalia.env</cite> file in the user’s configuration
+directory.</p>
 <p>Example:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">paraphernalia</span> <span class="k">as</span> <span class="nn">pa</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pa</span><span class="o">.</span><span class="n">settings</span><span class="p">()</span><span class="o">.</span><span class="n">project_home</span> <span class="o">=</span> <span class="s2">&quot;Projects&quot;</span>
@@ -455,7 +455,8 @@ configuration directory.</p>
 <dl class="py pydantic_settings">
 <dt class="sig sig-object py" id="paraphernalia.Settings">
 <em class="property"><span class="pre">pydantic</span> <span class="pre">settings</span> </em><span class="sig-name descname"><span class="pre">Settings</span></span><a class="reference internal" href="../_modules/paraphernalia/_settings.html#Settings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.Settings" title="Permalink to this definition">¶</a></dt>
-<dd><p>Global settings object. Access via <a class="reference internal" href="#paraphernalia.settings" title="paraphernalia.settings"><code class="xref py py-func docutils literal notranslate"><span class="pre">paraphernalia.settings()</span></code></a>.</p>
+<dd><p>Global settings object.</p>
+<p>Access via <a class="reference internal" href="#paraphernalia.settings" title="paraphernalia.settings"><code class="xref py py-func docutils literal notranslate"><span class="pre">paraphernalia.settings()</span></code></a>.</p>
 <p>Create a new model by parsing and validating input data from keyword arguments.</p>
 <p>Raises ValidationError if the input data cannot be parsed to form a valid model.</p>
 <dl class="field-list simple">
@@ -559,7 +560,8 @@ Defaults to true.</p>
 <dl class="py pydantic_model">
 <dt class="sig sig-object py" id="paraphernalia.Project">
 <em class="property"><span class="pre">pydantic</span> <span class="pre">model</span> </em><span class="sig-name descname"><span class="pre">Project</span></span><a class="reference internal" href="../_modules/paraphernalia/_project.html#Project"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.Project" title="Permalink to this definition">¶</a></dt>
-<dd><p>Data model for projects. Access the current project via
+<dd><p>Data model for projects.</p>
+<p>Access the current project via
 <a class="reference internal" href="#paraphernalia.project" title="paraphernalia.project"><code class="xref py py-func docutils literal notranslate"><span class="pre">paraphernalia.project()</span></code></a>.</p>
 <p>Example:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">paraphernalia</span> <span class="kn">import</span> <span class="n">project</span><span class="p">(),</span> <span class="n">Project</span>
@@ -589,7 +591,7 @@ on construction:</p>
 <p><details  class="autodoc_pydantic_collapsable_json">
 <summary>Show JSON schema</summary><div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
    <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Project&quot;</span><span class="p">,</span>
-   <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Data model for projects. Access the current project via\n:func:`paraphernalia.project`.&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Data model for projects.\n\nAccess the current project via\n:func:`paraphernalia.project`.&quot;</span><span class="p">,</span>
    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
    <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
       <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="p">{</span>

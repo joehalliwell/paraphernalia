@@ -144,9 +144,7 @@
               <div>
                 
   <h1>Source code for paraphernalia.colors</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Colour and colour palette utilities.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;Colour and colour palette utilities.&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span>
 
@@ -154,9 +152,7 @@
 
 
 <div class="viewcode-block" id="Palette"><a class="viewcode-back" href="../../generated/paraphernalia.colors.html#paraphernalia.colors.Palette">[docs]</a><span class="k">class</span> <span class="nc">Palette</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    A palette of colours.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;A palette of colours.&quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="Palette.rgb"><a class="viewcode-back" href="../../generated/paraphernalia.colors.html#paraphernalia.colors.Palette.rgb">[docs]</a>    <span class="k">def</span> <span class="nf">rgb</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -176,20 +172,18 @@
 <div class="viewcode-block" id="Palette.as_rgb"><a class="viewcode-back" href="../../generated/paraphernalia.colors.html#paraphernalia.colors.Palette.as_rgb">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">as_rgb</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;Convert this palette to a list of (r, g, b) tuples where each</span>
-<span class="sd">        component is 0-255&quot;&quot;&quot;</span>
+<span class="sd">        component is 0-255.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">rgb</span><span class="p">()</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="bp">cls</span><span class="p">]</span></div>
 
 <div class="viewcode-block" id="Palette.as_unit_rgb"><a class="viewcode-back" href="../../generated/paraphernalia.colors.html#paraphernalia.colors.Palette.as_unit_rgb">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">as_unit_rgb</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;Convert this palette to a list of (r, g, b) tuples where each</span>
-<span class="sd">        component is 0-1&quot;&quot;&quot;</span>
+<span class="sd">        component is 0-1.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">unit_rgb</span><span class="p">()</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="bp">cls</span><span class="p">]</span></div></div>
 
 
 <div class="viewcode-block" id="BW"><a class="viewcode-back" href="../../generated/paraphernalia.colors.html#paraphernalia.colors.BW">[docs]</a><span class="k">class</span> <span class="nc">BW</span><span class="p">(</span><span class="n">Palette</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    A simple black and white palette.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;A simple black and white palette.&quot;&quot;&quot;</span>
 
     <span class="n">BLACK</span> <span class="o">=</span> <span class="s2">&quot;#000000&quot;</span>
     <span class="n">WHITE</span> <span class="o">=</span> <span class="s2">&quot;#FFFFFF&quot;</span></div>
@@ -197,7 +191,9 @@
 
 <div class="viewcode-block" id="C64"><a class="viewcode-back" href="../../generated/paraphernalia.colors.html#paraphernalia.colors.C64">[docs]</a><span class="k">class</span> <span class="nc">C64</span><span class="p">(</span><span class="n">Palette</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    The Commodore 64 palette. Taken from https://www.c64-wiki.com/wiki/Color</span>
+<span class="sd">    The Commodore 64 palette.</span>
+
+<span class="sd">    Taken from https://www.c64-wiki.com/wiki/Color</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">BLACK</span> <span class="o">=</span> <span class="s2">&quot;#000000&quot;</span>
@@ -220,7 +216,9 @@
 
 <div class="viewcode-block" id="ZX_SPECTRUM"><a class="viewcode-back" href="../../generated/paraphernalia.colors.html#paraphernalia.colors.ZX_SPECTRUM">[docs]</a><span class="k">class</span> <span class="nc">ZX_SPECTRUM</span><span class="p">(</span><span class="n">Palette</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    The Sinclair ZX Spectrum palette. Taken from</span>
+<span class="sd">    The Sinclair ZX Spectrum palette.</span>
+
+<span class="sd">    Taken from</span>
 <span class="sd">    https://en.wikipedia.org/wiki/ZX_Spectrum_graphic_modes</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
