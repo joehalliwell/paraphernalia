@@ -44,10 +44,6 @@ For developers: `poetry install`
 - Support all Shadertoy uniforms (see https://github.com/iY0Yi/ShaderBoy)
 - Support buffers
 
-### project
-
-- Easy organization of project resources (inputs/outputs/checkpoints)
-
 #### clip
 
 - Is anti-prompt logic actually working?
@@ -64,7 +60,7 @@ For developers: `poetry install`
 - Fix clamp_with_grad and add tests
 - Add BigGAN generators
 - Add soft_permutation()
-- Add ZX Spectrum style generator
+- Add ZX Spectrum/C64 Standard Mode generator
 - Main entry point for generator+CLIP?
 - Add standard description string/slug to generators
 - Add Diffusion generator
