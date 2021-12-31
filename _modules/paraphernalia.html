@@ -222,9 +222,11 @@
 
     <span class="k">if</span> <span class="n">use_rich</span><span class="p">:</span>
         <span class="k">try</span><span class="p">:</span>
+            <span class="kn">import</span> <span class="nn">rich</span>
             <span class="kn">from</span> <span class="nn">rich.highlighter</span> <span class="kn">import</span> <span class="n">NullHighlighter</span>
             <span class="kn">from</span> <span class="nn">rich.logging</span> <span class="kn">import</span> <span class="n">RichHandler</span>
 
+            <span class="n">rich</span><span class="o">.</span><span class="n">get_console</span><span class="p">()</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="mi">120</span>  <span class="c1"># Default is 93, which is too small</span>
             <span class="n">fmt</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%(message)s</span><span class="s2">&quot;</span>
             <span class="n">handlers</span> <span class="o">=</span> <span class="p">[</span>
                 <span class="n">RichHandler</span><span class="p">(</span><span class="n">highlighter</span><span class="o">=</span><span class="n">NullHighlighter</span><span class="p">(),</span> <span class="n">rich_tracebacks</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
