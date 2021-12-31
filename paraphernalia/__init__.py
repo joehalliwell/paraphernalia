@@ -54,10 +54,11 @@ def setup() -> None:
     - (If running in Colaboratory) calling :func:`setup_colab`
     """
     setup_logging()
-    setup_banner()
 
     if running_in_colab():
         setup_colab()
+
+    setup_banner()
 
 
 def setup_logging(use_rich: Optional[bool] = None) -> None:
@@ -114,7 +115,7 @@ def setup_colab():  # pragma: no cover
     from google.colab import drive  # type: ignore
 
     drive.mount("/content/drive")
-    settings.data_home = "/content/drive/MyDrive/Paraphernalia"
+    settings().project_home = "/content/drive/MyDrive/Paraphernalia"
 
     # Load extensions
     from IPython import get_ipython
