@@ -76,9 +76,11 @@ def setup_logging(use_rich: Optional[bool] = None) -> None:
 
     if use_rich:
         try:
+            import rich
             from rich.highlighter import NullHighlighter
             from rich.logging import RichHandler
 
+            rich.get_console().width = 120  # Default is 93, which is too small
             fmt = "%(message)s"
             handlers = [
                 RichHandler(highlighter=NullHighlighter(), rich_tracebacks=True)
