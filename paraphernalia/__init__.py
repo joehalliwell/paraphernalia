@@ -77,14 +77,11 @@ def setup_logging(use_rich: Optional[bool] = None) -> None:
     if use_rich:
         try:
             import rich
-            from rich.highlighter import NullHighlighter
             from rich.logging import RichHandler
 
             rich.get_console().width = 120  # Default is 93, which is too small
             fmt = "%(message)s"
-            handlers = [
-                RichHandler(highlighter=NullHighlighter(), rich_tracebacks=True)
-            ]
+            handlers = [RichHandler(rich_tracebacks=True)]
         except ImportError:
             pass
 
@@ -96,7 +93,7 @@ def setup_logging(use_rich: Optional[bool] = None) -> None:
 def setup_banner():
     """Log a banner and some system information."""
 
-    _LOG.info(_BANNER)
+    _LOG.info(_BANNER, extra={"highlighter": None})
     python_version = sys.version.replace("\n", " ")
     _LOG.info(f"  Python: {python_version}")
     _LOG.info(f"     GPU: {get_gpu_name()} (CUDA: {get_cuda_version()})")
