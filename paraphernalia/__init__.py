@@ -110,7 +110,7 @@ def setup_colab():  # pragma: no cover
     Standard setup for Colaboratory:
 
     - Ensures Google drive is mounted under `/content/drive`
-    - Configures :func:`data_home` to use it
+    - Configures :func:`project_home` to use it
     - Adds the ``data_table`` and and ``tensorboard`` extensions
     """
     # Mount drive and use it
