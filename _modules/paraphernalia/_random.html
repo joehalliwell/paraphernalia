@@ -183,7 +183,7 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">global</span> <span class="n">_seed</span>
-    <span class="n">_seed</span> <span class="o">=</span> <span class="nb">hash</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+    <span class="n">_seed</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="nb">hash</span><span class="p">(</span><span class="n">seed</span><span class="p">))</span> <span class="o">%</span> <span class="p">(</span><span class="mi">2</span> <span class="o">**</span> <span class="mi">32</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
     <span class="n">_LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Setting global random seed to </span><span class="si">{</span><span class="n">_seed</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="kn">import</span> <span class="nn">random</span>
