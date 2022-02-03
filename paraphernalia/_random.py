@@ -37,7 +37,7 @@ def set_seed(seed: Any) -> int:
 
     """
     global _seed
-    _seed = hash(seed)
+    _seed = abs(hash(seed)) % (2 ** 32 - 1)
     _LOG.info(f"Setting global random seed to {_seed}")
 
     import random

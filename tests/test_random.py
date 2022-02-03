@@ -8,3 +8,7 @@ def test_seed():
 
     set_seed(s1 + 1)
     assert s1 != get_seed()
+
+
+def test_negative_seed():
+    set_seed(-3612378101266877635)
