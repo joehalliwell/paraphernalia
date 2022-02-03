@@ -3,6 +3,7 @@ import logging
 import os
 import subprocess
 import sys
+from pathlib import Path
 from typing import Optional
 
 from paraphernalia._project import Project, project
@@ -106,21 +107,25 @@ def setup_colab():  # pragma: no cover
     """
     Standard setup for Colaboratory:
 
+    - Adds the ``data_table`` and and ``tensorboard`` extensions
     - Ensures Google drive is mounted under `/content/drive`
     - Configures :func:`project_home` to use it
-    - Adds the ``data_table`` and and ``tensorboard`` extensions
     """
-    # Mount drive and use it
-    from google.colab import drive  # type: ignore
-
-    drive.mount("/content/drive")
-    settings().project_home = "/content/drive/MyDrive/Paraphernalia"
-
     # Load extensions
     from IPython import get_ipython
 
     get_ipython().magic("load_ext google.colab.data_table")
     get_ipython().magic("load_ext tensorboard")
+
+    # Ensure drive is mounted
+    from google.colab import drive  # type: ignore
+
+    drive_mount_point = Path("/content/drive")
+    if not drive_mount_point.exists():
+        drive.mount(drive_mount_point)  # NB Raises an error if user declines
+
+    # Use it as project dir
+    settings().project_home = drive_mount_point / "MyDrive" / "Paraphernalia"
 
 
 def running_in_colab():
