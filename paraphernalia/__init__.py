@@ -121,8 +121,10 @@ def setup_colab():  # pragma: no cover
     from google.colab import drive  # type: ignore
 
     drive_mount_point = Path("/content/drive")
-    if not drive_mount_point.exists():
-        drive.mount(drive_mount_point)  # NB Raises an error if user declines
+    if drive_mount_point.exists():
+        _LOG.info(f"Assuming Google Drive already mounted at {drive_mount_point}")
+    else:
+        drive.mount(str(drive_mount_point))  # NB Raises an error if user declines
 
     # Use it as project dir
     settings().project_home = drive_mount_point / "MyDrive" / "Paraphernalia"
