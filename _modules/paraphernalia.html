@@ -267,8 +267,10 @@
     <span class="kn">from</span> <span class="nn">google.colab</span> <span class="kn">import</span> <span class="n">drive</span>  <span class="c1"># type: ignore</span>
 
     <span class="n">drive_mount_point</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;/content/drive&quot;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">drive_mount_point</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
-        <span class="n">drive</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="n">drive_mount_point</span><span class="p">)</span>  <span class="c1"># NB Raises an error if user declines</span>
+    <span class="k">if</span> <span class="n">drive_mount_point</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+        <span class="n">_LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Assuming Google Drive already mounted at </span><span class="si">{</span><span class="n">drive_mount_point</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">drive</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">drive_mount_point</span><span class="p">))</span>  <span class="c1"># NB Raises an error if user declines</span>
 
     <span class="c1"># Use it as project dir</span>
     <span class="n">settings</span><span class="p">()</span><span class="o">.</span><span class="n">project_home</span> <span class="o">=</span> <span class="n">drive_mount_point</span> <span class="o">/</span> <span class="s2">&quot;MyDrive&quot;</span> <span class="o">/</span> <span class="s2">&quot;Paraphernalia&quot;</span>
