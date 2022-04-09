@@ -1,6 +1,8 @@
 """Random number generator utilities."""
 
 import logging
+import os
+import random
 from typing import Any
 
 _LOG = logging.getLogger(__name__)
@@ -40,9 +42,8 @@ def set_seed(seed: Any) -> int:
     _seed = abs(hash(seed)) % (2 ** 32 - 1)
     _LOG.info(f"Setting global random seed to {_seed}")
 
-    import random
-
     random.seed(_seed)
+    os.environ["PYTHONHASHSEED"] = str(_seed)
 
     # Numpy
     try:
@@ -58,6 +59,7 @@ def set_seed(seed: Any) -> int:
 
         torch.manual_seed(_seed)
         torch.cuda.manual_seed_all(_seed)
+        torch.backends.cudnn.deterministic = True
     except ImportError:
         pass
 
