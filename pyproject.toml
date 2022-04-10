@@ -20,25 +20,23 @@ include = [
 
 [tool.poetry.dependencies]
 python = "^3.7"
-moderngl = "^5.6.4"
-moderngl-window = {git = "https://github.com/moderngl/moderngl-window.git"}
 click = "^7.1.2"
-pyrr = "^0.10.3"
-pydantic = {extras = ["dotenv"], version = "^1.8.2"}
-tqdm = "^4.59.0"
 imageio = "^2.9.0"
 imageio-ffmpeg = "^0.4.3"
+importlib-metadata = {version = "^1.0", python= "<3.8"}
+moderngl = "^5.6.4"
+moderngl-window = "^2.4.1"
+pyrr = "^0.10.3"
+pydantic = {extras = ["dotenv"], version = "^1.8.2"}
 torch = "^1.7.1"
 torchtext = "^0.8.0" # HACK: Force downgrade for Colab
 torchvision = "^0.8.2"
+tqdm = "^4.59.0"
 xdg = "^5.1.0"
 einops = "^0.3.0"
-importlib-metadata = {version = "^1.0", python= "<3.8"}
 ipython = "^7.25.0"
 pytorch-lightning = "1.5.0rc0"
 python-xmp-toolkit = "^2.0.1"
-dall-e = {git = "https://github.com/openai/DALL-E.git", optional = true}
-clip = {git = "https://github.com/openai/CLIP.git", rev = "main", optional = true}
 regex = {version = "^2021.7.1", optional = true}
 ftfy = {version = "^6.0.3", optional = true}
 taming-transformers = {git = "https://github.com/joehalliwell/taming-transformers.git", optional=true}
@@ -48,6 +46,8 @@ sphinx = {version="4.2.0", optional=true} # Pinned for theme compatibility
 pydata-sphinx-theme = {version = "^0.7.1", optional = true}
 sphinx-click = {version = "^3.0.1", optional = true}
 autodoc-pydantic = {version="^1.5.1", optional=true}
+clip = {git = "https://github.com/openai/CLIP.git", rev = "main", optional = true}
+DALL-E = {version="^0.1", optional=true}
 
 
 [tool.poetry.dev-dependencies]
@@ -62,7 +62,7 @@ interrogate = "^1.4.0"
 docformatter = "^1.4"
 
 [tool.poetry.extras]
-openai = ["regex", "ftfy", "clip", "dall-e"]
+openai = ["regex", "ftfy", "clip", "DALL-E"]
 taming = ["taming-transformers", "omegaconf", "pytorch-lightning"]
 docs = ["sphinx", "pydata-sphinx-theme", "sphinx-click", "autodoc-pydantic"]
 rich = ["rich"]
