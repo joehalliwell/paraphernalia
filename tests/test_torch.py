@@ -1,6 +1,6 @@
 import pytest
 import torch
-from torch.tensor import Tensor
+from torch import Tensor
 
 from paraphernalia.torch import (
     cosine_similarity,

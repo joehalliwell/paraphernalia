@@ -2,7 +2,7 @@ import pytest
 import torch
 from PIL.Image import Image
 
-from paraphernalia.torch.dall_e import DALL_E
+# from paraphernalia.torch.dall_e import DALL_E
 from paraphernalia.torch.direct import Direct, DirectPalette, DirectTileset
 from paraphernalia.torch.siren import Siren
 from paraphernalia.torch.taming import Taming
@@ -11,7 +11,7 @@ from paraphernalia.torch.taming import Taming
 @pytest.fixture(
     scope="module",
     params=[
-        DALL_E,
+        # DALL_E, # Skip DALL-E until backwards-compatibility lands in latest Torch
         Direct,
         DirectPalette,
         DirectTileset,
