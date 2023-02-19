@@ -172,7 +172,7 @@
 
 <div class="viewcode-block" id="TamingModel"><a class="viewcode-back" href="../../../generated/paraphernalia.torch.taming.html#paraphernalia.torch.taming.TamingModel">[docs]</a><span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">TamingModel</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Specification for a published Taming Transformers model.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Specification for a published Taming Transformers model.&quot;&quot;&quot;</span>
 
     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
     <span class="s2">&quot;Slug for this model e.g. vqgan_gumbel_f8&quot;</span>
@@ -204,12 +204,12 @@
 
 
 <div class="viewcode-block" id="Taming"><a class="viewcode-back" href="../../../generated/paraphernalia.torch.taming.html#paraphernalia.torch.taming.Taming">[docs]</a><span class="k">class</span> <span class="nc">Taming</span><span class="p">(</span><span class="n">Generator</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Image generator based on a Taming Transformers model.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Image generator based on a Taming Transformers model.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">model_spec</span><span class="p">:</span> <span class="n">TamingModel</span> <span class="o">=</span> <span class="n">VQGAN_IMAGENET_F16_16384</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
 <span class="sd">            model_spec (TamingModel, optional): Defaults to</span>
 <span class="sd">                VQGAN_IMAGENET_F16_16384.</span>
@@ -271,7 +271,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_z</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Taming.forward"><a class="viewcode-back" href="../../../generated/paraphernalia.torch.taming.html#paraphernalia.torch.taming.Taming.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generate a batch of images.</span>
 
 <span class="sd">        Returns:</span>
@@ -287,7 +287,7 @@
         <span class="k">return</span> <span class="n">z</span></div>
 
 <div class="viewcode-block" id="Taming.encode"><a class="viewcode-back" href="../../../generated/paraphernalia.torch.taming.html#paraphernalia.torch.taming.Taming.encode">[docs]</a>    <span class="k">def</span> <span class="nf">encode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">img</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">PIL</span><span class="o">.</span><span class="n">Image</span><span class="o">.</span><span class="n">Image</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Encode an image.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Encode an image.&quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">PIL</span><span class="o">.</span><span class="n">Image</span><span class="o">.</span><span class="n">Image</span><span class="p">):</span>
             <span class="n">img</span> <span class="o">=</span> <span class="n">PIL</span><span class="o">.</span><span class="n">ImageOps</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span>

@@ -181,12 +181,12 @@
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
 <p>At the moment, it’s best to install directly from github as follows:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>%%bash
-<span class="k">if</span> ! <span class="k">$(</span>python -c <span class="s2">&quot;import paraphernalia&quot;</span> <span class="p">&amp;</span>&gt; /dev/null<span class="k">)</span><span class="p">;</span> <span class="k">then</span>
-    pip install git+https://github.com/joehalliwell/paraphernalia.git#egg<span class="o">=</span>paraphernalia<span class="o">[</span>openai,taming<span class="o">]</span>
-    pip uninstall --yes torchtext
+<span class="k">if</span><span class="w"> </span>!<span class="w"> </span><span class="k">$(</span>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import paraphernalia&quot;</span><span class="w"> </span><span class="p">&amp;</span>&gt;<span class="w"> </span>/dev/null<span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span>pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/joehalliwell/paraphernalia.git#egg<span class="o">=</span>paraphernalia<span class="o">[</span>openai,taming<span class="o">]</span>
+<span class="w">    </span>pip<span class="w"> </span>uninstall<span class="w"> </span>--yes<span class="w"> </span>torchtext
 <span class="k">fi</span>
 <span class="c1"># Refresh</span>
-pip install --upgrade --force-reinstall --no-deps git+https://github.com/joehalliwell/paraphernalia.git#egg<span class="o">=</span>paraphernalia<span class="o">[</span>openai,taming<span class="o">]</span>
+pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>--force-reinstall<span class="w"> </span>--no-deps<span class="w"> </span>git+https://github.com/joehalliwell/paraphernalia.git#egg<span class="o">=</span>paraphernalia<span class="o">[</span>openai,taming<span class="o">]</span>
 </pre></div>
 </div>
 <section id="optional-dependencies">

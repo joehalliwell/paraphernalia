@@ -210,7 +210,7 @@
 
 <div class="viewcode-block" id="ReviewApp"><a class="viewcode-back" href="../../generated/paraphernalia.review.html#paraphernalia.review.ReviewApp">[docs]</a><span class="k">class</span> <span class="nc">ReviewApp</span><span class="p">:</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">review</span><span class="p">,</span> <span class="n">fullscreen</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Barebones GL-based review application.</span>
 
 <span class="sd">        Args:</span>
@@ -235,7 +235,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">window</span> <span class="o">=</span> <span class="kc">None</span>
 
 <div class="viewcode-block" id="ReviewApp.run"><a class="viewcode-back" href="../../generated/paraphernalia.review.html#paraphernalia.review.ReviewApp.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Main event loop.</span>
 
 <span class="sd">        Blocking.</span>
@@ -258,7 +258,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="ReviewApp.load"><a class="viewcode-back" href="../../generated/paraphernalia.review.html#paraphernalia.review.ReviewApp.load">[docs]</a>    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Load and display the specified image.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Load and display the specified image.&quot;&quot;&quot;</span>
         <span class="c1"># Load the image with PIL</span>
         <span class="n">_LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loading </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">review</span><span class="o">.</span><span class="n">path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">img</span> <span class="o">=</span> <span class="n">PIL</span><span class="o">.</span><span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">review</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
@@ -273,7 +273,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">texture</span><span class="o">.</span><span class="n">filter</span> <span class="o">=</span> <span class="p">(</span><span class="n">moderngl</span><span class="o">.</span><span class="n">NEAREST</span><span class="p">,</span> <span class="n">moderngl</span><span class="o">.</span><span class="n">NEAREST</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="ReviewApp.render"><a class="viewcode-back" href="../../generated/paraphernalia.review.html#paraphernalia.review.ReviewApp.render">[docs]</a>    <span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Render callback.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Render callback.&quot;&quot;&quot;</span>
         <span class="c1"># Setup for rendering</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">use</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">ctx</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
@@ -311,7 +311,7 @@
         <span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">_print</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lines</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Helper method to display a set of lines.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Helper method to display a set of lines.&quot;&quot;&quot;</span>
         <span class="n">font_size</span> <span class="o">=</span> <span class="mi">24</span>
         <span class="n">x</span> <span class="o">=</span> <span class="n">font_size</span> <span class="o">//</span> <span class="mi">2</span>
         <span class="n">y</span> <span class="o">=</span> <span class="n">font_size</span> <span class="o">//</span> <span class="mi">2</span>
@@ -321,7 +321,7 @@
             <span class="n">y</span> <span class="o">+=</span> <span class="n">font_size</span>
 
 <div class="viewcode-block" id="ReviewApp.key_event"><a class="viewcode-back" href="../../generated/paraphernalia.review.html#paraphernalia.review.ReviewApp.key_event">[docs]</a>    <span class="k">def</span> <span class="nf">key_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">modifiers</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Key handler.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Key handler.&quot;&quot;&quot;</span>
         <span class="n">keys</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">keys</span>
         <span class="k">if</span> <span class="n">action</span> <span class="o">!=</span> <span class="n">keys</span><span class="o">.</span><span class="n">ACTION_PRESS</span><span class="p">:</span>
             <span class="k">return</span>
@@ -358,7 +358,7 @@
 
 <div class="viewcode-block" id="Review"><a class="viewcode-back" href="../../generated/paraphernalia.review.html#paraphernalia.review.Review">[docs]</a><span class="k">class</span> <span class="nc">Review</span><span class="p">:</span>
 
-    <span class="sd">&quot;&quot;&quot;Core review logic that could potentially be shared across different</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Core review logic that could potentially be shared across different</span>
 <span class="sd">    front-ends.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
@@ -397,22 +397,22 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">path</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;The current path to review.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The current path to review.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">source_path</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">todo</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">]</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">verdict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;The verdict on the current path.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The verdict on the current path.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">verdicts</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">]</span>
 
     <span class="nd">@verdict</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">verdict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Set the verdict on the current path.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the verdict on the current path.&quot;&quot;&quot;</span>
         <span class="n">_LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="si">}</span><span class="s2"> = </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">verdicts</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
 
 <div class="viewcode-block" id="Review.scan"><a class="viewcode-back" href="../../generated/paraphernalia.review.html#paraphernalia.review.Review.scan">[docs]</a>    <span class="k">def</span> <span class="nf">scan</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">direction</span><span class="p">,</span> <span class="n">verdict</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Scan to the next item matching verdict (`None` matches any)</span>
 
 <span class="sd">        Args:</span>
@@ -428,24 +428,24 @@
                 <span class="k">break</span></div>
 
 <div class="viewcode-block" id="Review.next"><a class="viewcode-back" href="../../generated/paraphernalia.review.html#paraphernalia.review.Review.next">[docs]</a>    <span class="k">def</span> <span class="nf">next</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verdict</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Switch to next object in the sequence, subject to the filters.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Switch to next object in the sequence, subject to the filters.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">scan</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">verdict</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Review.previous"><a class="viewcode-back" href="../../generated/paraphernalia.review.html#paraphernalia.review.Review.previous">[docs]</a>    <span class="k">def</span> <span class="nf">previous</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verdict</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Switch to previous object in the sequence, subject to the</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Switch to previous object in the sequence, subject to the</span>
 <span class="sd">        filters.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">scan</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">verdict</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Review.clear"><a class="viewcode-back" href="../../generated/paraphernalia.review.html#paraphernalia.review.Review.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Clear the verdict on the current object.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Clear the verdict on the current object.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">verdict</span> <span class="o">=</span> <span class="n">TODO</span></div>
 
 <div class="viewcode-block" id="Review.keep"><a class="viewcode-back" href="../../generated/paraphernalia.review.html#paraphernalia.review.Review.keep">[docs]</a>    <span class="k">def</span> <span class="nf">keep</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Mark the current object to be kept.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Mark the current object to be kept.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">verdict</span> <span class="o">=</span> <span class="n">KEEP</span></div>
 
 <div class="viewcode-block" id="Review.lose"><a class="viewcode-back" href="../../generated/paraphernalia.review.html#paraphernalia.review.Review.lose">[docs]</a>    <span class="k">def</span> <span class="nf">lose</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Mark the current object to be removed.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Mark the current object to be removed.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">verdict</span> <span class="o">=</span> <span class="n">LOSE</span></div>
 
     <span class="nd">@property</span>
@@ -454,7 +454,7 @@
         <span class="k">return</span> <span class="n">counter</span><span class="p">[</span><span class="n">TODO</span><span class="p">],</span> <span class="n">counter</span><span class="p">[</span><span class="n">KEEP</span><span class="p">],</span> <span class="n">counter</span><span class="p">[</span><span class="n">LOSE</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">_todo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Find candidates within a parent path.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Find candidates within a parent path.&quot;&quot;&quot;</span>
         <span class="n">files</span> <span class="o">=</span> <span class="p">[</span>
             <span class="n">Path</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span> <span class="o">/</span> <span class="n">file</span>
             <span class="k">for</span> <span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">_dirs</span><span class="p">,</span> <span class="n">files</span><span class="p">)</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
@@ -467,7 +467,7 @@
         <span class="k">return</span> <span class="n">todo</span>
 
     <span class="k">def</span> <span class="nf">_move</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">src</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">dst</span><span class="p">:</span> <span class="n">Path</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Safely move a file from src to dst.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Safely move a file from src to dst.&quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="n">src</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span>
         <span class="k">assert</span> <span class="n">src</span><span class="o">.</span><span class="n">is_file</span><span class="p">()</span>
         <span class="k">assert</span> <span class="ow">not</span> <span class="n">dst</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span>
@@ -480,7 +480,7 @@
         <span class="n">os</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Review.commit"><a class="viewcode-back" href="../../generated/paraphernalia.review.html#paraphernalia.review.Review.commit">[docs]</a>    <span class="k">def</span> <span class="nf">commit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Move any empty source directories to lose.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Move any empty source directories to lose.&quot;&quot;&quot;</span>
         <span class="n">_LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Committing </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">progress</span><span class="si">}</span><span class="s2"> changes&quot;</span><span class="p">)</span>
         <span class="k">for</span> <span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">verdict</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">todo</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">verdicts</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">verdict</span> <span class="ow">is</span> <span class="n">TODO</span><span class="p">:</span>
@@ -505,7 +505,7 @@
 <span class="p">)</span>
 <span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;--dryrun&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Don&#39;t move files around&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">is_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">review</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">dryrun</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Review images in SOURCE.</span>
 
 <span class="sd">    Keymap:</span>

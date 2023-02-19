@@ -155,7 +155,7 @@
 
 
 <div class="viewcode-block" id="run_once"><a class="viewcode-back" href="../../generated/paraphernalia.jupyter.html#paraphernalia.jupyter.run_once">[docs]</a><span class="k">def</span> <span class="nf">run_once</span><span class="p">(</span><span class="n">js</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">10000</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Utility to run a snippet of javascript once.</span>
 
 <span class="sd">    Args:</span>
@@ -169,7 +169,7 @@
 
 
 <div class="viewcode-block" id="ding"><a class="viewcode-back" href="../../generated/paraphernalia.jupyter.html#paraphernalia.jupyter.ding">[docs]</a><span class="k">def</span> <span class="nf">ding</span><span class="p">(</span><span class="n">url</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DEFAULT_DING</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Play a sound in a notebook.</span>
 
 <span class="sd">    Args:</span>
@@ -180,7 +180,7 @@
 
 
 <div class="viewcode-block" id="say"><a class="viewcode-back" href="../../generated/paraphernalia.jupyter.html#paraphernalia.jupyter.say">[docs]</a><span class="k">def</span> <span class="nf">say</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Say a provided text using the Web Speech API.</span>
 
 <span class="sd">    Args:</span>
@@ -191,12 +191,12 @@
     <span class="n">text</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">text</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&#39;&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\&#39;&quot;</span><span class="p">)</span>
     <span class="n">run_once</span><span class="p">(</span>
         <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">        if (window.speechSynthesis) </span><span class="se">{{</span><span class="s2"></span>
+<span class="s2">        if (window.speechSynthesis) </span><span class="se">{{</span>
 <span class="s2">            let u = new SpeechSynthesisUtterance(&#39;</span><span class="si">{</span><span class="n">text</span><span class="si">}</span><span class="s2">&#39;);</span>
 <span class="s2">            u.voice = window.speechSynthesis.getVoices().filter(v =&gt; v.lang.search(&quot;US&quot;) != -1)[0] || null;</span>
 <span class="s2">            u.pitch = 0.8;</span>
 <span class="s2">            window.speechSynthesis.speak(u);</span>
-<span class="s2">        </span><span class="se">}}</span><span class="s2"></span>
+<span class="s2">        </span><span class="se">}}</span>
 <span class="s2">        &quot;&quot;&quot;</span>  <span class="c1"># noqa</span>
     <span class="p">)</span></div>
 </pre></div>

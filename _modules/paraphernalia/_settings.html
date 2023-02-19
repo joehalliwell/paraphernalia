@@ -163,7 +163,7 @@
 
 
 <div class="viewcode-block" id="settings"><a class="viewcode-back" href="../../generated/paraphernalia.html#paraphernalia.settings">[docs]</a><span class="k">def</span> <span class="nf">settings</span><span class="p">(</span><span class="n">reload</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Settings&quot;</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Get the global settings object. Configuration is read from the environment</span>
 <span class="sd">    and (optionally) a `paraphernalia.env` file in the user&#39;s configuration</span>
 <span class="sd">    directory.</span>
@@ -186,38 +186,38 @@
 
 
 <div class="viewcode-block" id="Settings"><a class="viewcode-back" href="../../generated/paraphernalia.html#paraphernalia.Settings">[docs]</a><span class="k">class</span> <span class="nc">Settings</span><span class="p">(</span><span class="n">BaseSettings</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Global settings object.</span>
 
 <span class="sd">    Access via :func:`paraphernalia.settings`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">auto_setup</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">allow_mutation</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="sd">&quot;&quot;&quot;If true, run :func:`paraphernalia.setup` on load. Defaults to false.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;If true, run :func:`paraphernalia.setup` on load. Defaults to false.&quot;&quot;&quot;</span>
 
     <span class="n">use_rich</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">allow_mutation</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="sd">&quot;&quot;&quot;If true, use the rich console handling library where possible.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;If true, use the rich console handling library where possible.</span>
 <span class="sd">    Defaults to true.&quot;&quot;&quot;</span>
 
     <span class="n">initial_seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="p">()),</span> <span class="n">allow_mutation</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="sd">&quot;&quot;&quot;The initial random number generator seed. Defaults to the number of</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The initial random number generator seed. Defaults to the number of</span>
 <span class="sd">    complete seconds since the epoch.&quot;&quot;&quot;</span>
 
     <span class="n">cache_home</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="n">XDG_CACHE_HOME</span> <span class="o">/</span> <span class="s2">&quot;paraphernalia&quot;</span>
-    <span class="sd">&quot;&quot;&quot;A writeable directory for cacheing files e.g. model artifacts.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A writeable directory for cacheing files e.g. model artifacts.&quot;&quot;&quot;</span>
 
     <span class="n">project_home</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="n">XDG_DATA_HOME</span> <span class="o">/</span> <span class="s2">&quot;paraphernalia&quot;</span>
-    <span class="sd">&quot;&quot;&quot;A writeable directory for project outputs.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A writeable directory for project outputs.&quot;&quot;&quot;</span>
 
     <span class="c1"># Project defaults</span>
     <span class="n">creator</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Anonymous&quot;</span>
-    <span class="sd">&quot;&quot;&quot;Default creator for projects.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Default creator for projects.&quot;&quot;&quot;</span>
 
     <span class="n">tags</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;paraphernalia&quot;</span><span class="p">}</span>
-    <span class="sd">&quot;&quot;&quot;Default tag set for projects.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Default tag set for projects.&quot;&quot;&quot;</span>
 
     <span class="n">rights</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;All rights reserved&quot;</span>
-    <span class="sd">&quot;&quot;&quot;Default license for projects.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Default license for projects.&quot;&quot;&quot;</span>
 
     <span class="n">_ensure_dir_exists</span> <span class="o">=</span> <span class="n">validator</span><span class="p">(</span><span class="s2">&quot;cache_home&quot;</span><span class="p">,</span> <span class="s2">&quot;project_home&quot;</span><span class="p">,</span> <span class="n">allow_reuse</span><span class="o">=</span><span class="kc">True</span><span class="p">)(</span>
         <span class="n">ensure_dir_exists</span>

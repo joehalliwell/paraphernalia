@@ -482,7 +482,12 @@ directory.</p>
 </ul>
 </dd>
 <dt class="field-odd">Validators</dt>
-<dd class="field-odd"><p></p></dd>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference internal" href="paraphernalia.utils.html#paraphernalia.utils.ensure_dir_exists" title="paraphernalia.utils.ensure_dir_exists"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ensure_dir_exists</span></code></a> » <code class="xref py py-obj docutils literal notranslate"><span class="pre">cache_home</span></code></p></li>
+<li><p><a class="reference internal" href="paraphernalia.utils.html#paraphernalia.utils.ensure_dir_exists" title="paraphernalia.utils.ensure_dir_exists"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ensure_dir_exists</span></code></a> » <code class="xref py py-obj docutils literal notranslate"><span class="pre">project_home</span></code></p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_seed</span></code> » <code class="xref py py-obj docutils literal notranslate"><span class="pre">initial_seed</span></code></p></li>
+</ul>
+</dd>
 </dl>
 <dl class="py attribute pydantic_field">
 <dt class="sig sig-object py" id="paraphernalia.Settings.auto_setup">
@@ -497,7 +502,7 @@ directory.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Validated by</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">ensure_dir_exists</span></code></p></li>
+<li><p><a class="reference internal" href="paraphernalia.utils.html#paraphernalia.utils.ensure_dir_exists" title="paraphernalia.utils.ensure_dir_exists"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ensure_dir_exists</span></code></a></p></li>
 </ul>
 </dd>
 </dl>
@@ -511,7 +516,7 @@ directory.</p>
 
 <dl class="py attribute pydantic_field">
 <dt class="sig sig-object py" id="paraphernalia.Settings.initial_seed">
-<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">initial_seed</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><em class="property"> <span class="pre">=</span> <span class="pre">PydanticUndefined</span></em><a class="headerlink" href="#paraphernalia.Settings.initial_seed" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">initial_seed</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><em class="property"> <span class="pre">[Optional]</span></em><a class="headerlink" href="#paraphernalia.Settings.initial_seed" title="Permalink to this definition">¶</a></dt>
 <dd><p>The initial random number generator seed. Defaults to the number of
 complete seconds since the epoch.</p>
 <dl class="field-list simple">
@@ -530,7 +535,7 @@ complete seconds since the epoch.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Validated by</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">ensure_dir_exists</span></code></p></li>
+<li><p><a class="reference internal" href="paraphernalia.utils.html#paraphernalia.utils.ensure_dir_exists" title="paraphernalia.utils.ensure_dir_exists"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ensure_dir_exists</span></code></a></p></li>
 </ul>
 </dd>
 </dl>
@@ -589,58 +594,58 @@ on construction:</p>
 </dd>
 </dl>
 <p><details  class="autodoc_pydantic_collapsable_json">
-<summary>Show JSON schema</summary><div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
-<span class="w">   </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Project&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">   </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Data model for projects.\n\nAccess the current project via\n:func:`paraphernalia.project`.&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">   </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;object&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">   </span><span class="nt">&quot;properties&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Title&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="p">},</span><span class="w"></span>
-<span class="w">      </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Description&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="p">},</span><span class="w"></span>
-<span class="w">      </span><span class="nt">&quot;creator&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Creator&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="p">},</span><span class="w"></span>
-<span class="w">      </span><span class="nt">&quot;tags&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Tags&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;array&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">         </span><span class="nt">&quot;items&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="w"></span>
-<span class="w">         </span><span class="p">},</span><span class="w"></span>
-<span class="w">         </span><span class="nt">&quot;uniqueItems&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
-<span class="w">      </span><span class="p">},</span><span class="w"></span>
-<span class="w">      </span><span class="nt">&quot;rights&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Rights&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="p">},</span><span class="w"></span>
-<span class="w">      </span><span class="nt">&quot;created&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Created&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">         </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;date-time&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="p">},</span><span class="w"></span>
-<span class="w">      </span><span class="nt">&quot;seed&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Seed&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;integer&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="p">},</span><span class="w"></span>
-<span class="w">      </span><span class="nt">&quot;slug&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Slug&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="p">},</span><span class="w"></span>
-<span class="w">      </span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Path&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">         </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;path&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="p">}</span><span class="w"></span>
-<span class="w">   </span><span class="p">},</span><span class="w"></span>
-<span class="w">   </span><span class="nt">&quot;required&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">      </span><span class="s2">&quot;title&quot;</span><span class="w"></span>
-<span class="w">   </span><span class="p">]</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<summary>Show JSON schema</summary><div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">   </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Project&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Data model for projects.\n\nAccess the current project via\n:func:`paraphernalia.project`.&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;properties&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Title&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Description&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;creator&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Creator&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;tags&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Tags&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;array&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;items&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span>
+<span class="w">         </span><span class="p">},</span>
+<span class="w">         </span><span class="nt">&quot;uniqueItems&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;rights&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Rights&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;created&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Created&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;date-time&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;seed&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Seed&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;integer&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;slug&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Slug&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Path&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;path&quot;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">   </span><span class="p">},</span>
+<span class="w">   </span><span class="nt">&quot;required&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="s2">&quot;title&quot;</span>
+<span class="w">   </span><span class="p">]</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </details></p><dl class="field-list simple">
@@ -685,41 +690,41 @@ Format: 1024x1024 PNG”. Optional.</p>
 
 <dl class="py attribute pydantic_field">
 <dt class="sig sig-object py" id="paraphernalia.Project.creator">
-<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">creator</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><em class="property"> <span class="pre">=</span> <span class="pre">PydanticUndefined</span></em><a class="headerlink" href="#paraphernalia.Project.creator" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">creator</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><em class="property"> <span class="pre">[Optional]</span></em><a class="headerlink" href="#paraphernalia.Project.creator" title="Permalink to this definition">¶</a></dt>
 <dd><p>The creator of the project.
 Defaults to the value provided by <a class="reference internal" href="#paraphernalia.settings" title="paraphernalia.settings"><code class="xref py py-func docutils literal notranslate"><span class="pre">settings()</span></code></a>.</p>
 </dd></dl>
 
 <dl class="py attribute pydantic_field">
 <dt class="sig sig-object py" id="paraphernalia.Project.tags">
-<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">tags</span></span><em class="property"><span class="pre">:</span> <span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">=</span> <span class="pre">PydanticUndefined</span></em><a class="headerlink" href="#paraphernalia.Project.tags" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">tags</span></span><em class="property"><span class="pre">:</span> <span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">[Optional]</span></em><a class="headerlink" href="#paraphernalia.Project.tags" title="Permalink to this definition">¶</a></dt>
 <dd><p>A set of tags for the project.
 Defaults to the value provided by <a class="reference internal" href="#paraphernalia.settings" title="paraphernalia.settings"><code class="xref py py-func docutils literal notranslate"><span class="pre">settings()</span></code></a>.</p>
 </dd></dl>
 
 <dl class="py attribute pydantic_field">
 <dt class="sig sig-object py" id="paraphernalia.Project.rights">
-<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">rights</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><em class="property"> <span class="pre">=</span> <span class="pre">PydanticUndefined</span></em><a class="headerlink" href="#paraphernalia.Project.rights" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">rights</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><em class="property"> <span class="pre">[Optional]</span></em><a class="headerlink" href="#paraphernalia.Project.rights" title="Permalink to this definition">¶</a></dt>
 <dd><p>The license for project outputs.
 Defaults to the value provided by <a class="reference internal" href="#paraphernalia.settings" title="paraphernalia.settings"><code class="xref py py-func docutils literal notranslate"><span class="pre">settings()</span></code></a>.</p>
 </dd></dl>
 
 <dl class="py attribute pydantic_field">
 <dt class="sig sig-object py" id="paraphernalia.Project.created">
-<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">created</span></span><em class="property"><span class="pre">:</span> <span class="pre">datetime.datetime</span></em><em class="property"> <span class="pre">=</span> <span class="pre">PydanticUndefined</span></em><a class="headerlink" href="#paraphernalia.Project.created" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">created</span></span><em class="property"><span class="pre">:</span> <span class="pre">datetime.datetime</span></em><em class="property"> <span class="pre">[Optional]</span></em><a class="headerlink" href="#paraphernalia.Project.created" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creation timestamp. Defaults to the current time.</p>
 </dd></dl>
 
 <dl class="py attribute pydantic_field">
 <dt class="sig sig-object py" id="paraphernalia.Project.seed">
-<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">seed</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><em class="property"> <span class="pre">=</span> <span class="pre">PydanticUndefined</span></em><a class="headerlink" href="#paraphernalia.Project.seed" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">seed</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><em class="property"> <span class="pre">[Optional]</span></em><a class="headerlink" href="#paraphernalia.Project.seed" title="Permalink to this definition">¶</a></dt>
 <dd><p>Random number generator seed.
 Defaults to the value provided by <a class="reference internal" href="#paraphernalia.settings" title="paraphernalia.settings"><code class="xref py py-func docutils literal notranslate"><span class="pre">settings()</span></code></a>.</p>
 </dd></dl>
 
 <dl class="py attribute pydantic_field">
 <dt class="sig sig-object py" id="paraphernalia.Project.slug">
-<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">slug</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><em class="property"> <span class="pre">=</span> <span class="pre">PydanticUndefined</span></em><a class="headerlink" href="#paraphernalia.Project.slug" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">slug</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><em class="property"> <span class="pre">[Optional]</span></em><a class="headerlink" href="#paraphernalia.Project.slug" title="Permalink to this definition">¶</a></dt>
 <dd><p>A short, filesystem-safe name for the project.
 Defaults to the date and slugified title if not specified.</p>
 <dl class="field-list simple">
@@ -733,7 +738,7 @@ Defaults to the date and slugified title if not specified.</p>
 
 <dl class="py attribute pydantic_field">
 <dt class="sig sig-object py" id="paraphernalia.Project.path">
-<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">path</span></span><em class="property"><span class="pre">:</span> <span class="pre">pathlib.Path</span></em><em class="property"> <span class="pre">=</span> <span class="pre">PydanticUndefined</span></em><a class="headerlink" href="#paraphernalia.Project.path" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">path</span></span><em class="property"><span class="pre">:</span> <span class="pre">pathlib.Path</span></em><em class="property"> <span class="pre">[Optional]</span></em><a class="headerlink" href="#paraphernalia.Project.path" title="Permalink to this definition">¶</a></dt>
 <dd><p>Directory in which to store project outputs. Defaults to a directory
 called <cite>slug</cite> in the project home provided by <a class="reference internal" href="#paraphernalia.settings" title="paraphernalia.settings"><code class="xref py py-func docutils literal notranslate"><span class="pre">settings()</span></code></a></p>
 <dl class="field-list simple">

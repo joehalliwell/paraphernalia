@@ -161,7 +161,7 @@
 
 
 <div class="viewcode-block" id="CLIP"><a class="viewcode-back" href="../../../generated/paraphernalia.torch.clip.html#paraphernalia.torch.clip.CLIP">[docs]</a><span class="k">class</span> <span class="nc">CLIP</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A CLIP-based perceptor that evaluates how well an image fits with on or</span>
 <span class="sd">    more target text prompts.</span>
 
@@ -269,7 +269,7 @@
         <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_encode_texts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text_or_texts</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">what</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Helper method used to initialize prompts.</span>
 
 <span class="sd">        Args:</span>
@@ -292,7 +292,7 @@
         <span class="k">return</span> <span class="n">encoded</span><span class="p">,</span> <span class="n">text_or_texts</span>
 
 <div class="viewcode-block" id="CLIP.encode_text"><a class="viewcode-back" href="../../../generated/paraphernalia.torch.clip.html#paraphernalia.torch.clip.CLIP.encode_text">[docs]</a>    <span class="k">def</span> <span class="nf">encode_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text_or_texts</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Encode text.</span>
 
 <span class="sd">        Returns a detached tensor.</span>
@@ -304,7 +304,7 @@
         <span class="k">return</span> <span class="n">encoded</span></div>
 
 <div class="viewcode-block" id="CLIP.encode_image"><a class="viewcode-back" href="../../../generated/paraphernalia.torch.clip.html#paraphernalia.torch.clip.CLIP.encode_image">[docs]</a>    <span class="k">def</span> <span class="nf">encode_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Encode an image.</span>
 
 <span class="sd">        Does not detach.</span>
@@ -313,7 +313,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoder</span><span class="o">.</span><span class="n">encode_image</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="CLIP.get_macro"><a class="viewcode-back" href="../../../generated/paraphernalia.torch.clip.html#paraphernalia.torch.clip.CLIP.get_macro">[docs]</a>    <span class="k">def</span> <span class="nf">get_macro</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">img</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get a set of high-level views on an image batch.</span>
 
 <span class="sd">        Args:</span>
@@ -338,7 +338,7 @@
         <span class="k">return</span> <span class="n">regroup</span><span class="p">([</span><span class="n">macro_transform</span><span class="p">(</span><span class="n">img</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)])</span></div>
 
 <div class="viewcode-block" id="CLIP.get_micro"><a class="viewcode-back" href="../../../generated/paraphernalia.torch.clip.html#paraphernalia.torch.clip.CLIP.get_micro">[docs]</a>    <span class="k">def</span> <span class="nf">get_micro</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">img</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get a set of detailed (near pixel-perfect) views on an image batch.</span>
 
 <span class="sd">        Args:</span>
@@ -376,7 +376,7 @@
 <div class="viewcode-block" id="CLIP.get_similarity"><a class="viewcode-back" href="../../../generated/paraphernalia.torch.clip.html#paraphernalia.torch.clip.CLIP.get_similarity">[docs]</a>    <span class="k">def</span> <span class="nf">get_similarity</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">img</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">prompts</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">match</span><span class="o">=</span><span class="s2">&quot;all&quot;</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Compute the average similarity between a combined but contiguous batch</span>
 <span class="sd">        of images and set of prompts.</span>
 
@@ -412,7 +412,7 @@
         <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">means</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="CLIP.forward"><a class="viewcode-back" href="../../../generated/paraphernalia.torch.clip.html#paraphernalia.torch.clip.CLIP.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">img</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a similarity (0, 1) for each image in the provided batch.</span>
 
 <span class="sd">        TODO::</span>
