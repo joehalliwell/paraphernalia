@@ -1,4 +1,3 @@
-import time
 
 import paraphernalia as pa
 

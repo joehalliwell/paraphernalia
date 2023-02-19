@@ -2,7 +2,7 @@ from datetime import datetime
 
 import pytest
 
-from paraphernalia.utils import *
+from paraphernalia.utils import download, slugify
 
 
 @pytest.mark.parametrize(

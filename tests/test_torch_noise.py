@@ -1,4 +1,4 @@
-from paraphernalia.torch.noise import fractal, perlin
+from paraphernalia.torch.noise import perlin
 
 
 def test_perlin():

@@ -57,7 +57,7 @@ jobs:
       # install root project
       #----------------------------------------------
       - name: Install library
-        run: poetry install --no-interaction
+        run: poetry install --extras "openai taming docs" --no-interaction
       #----------------------------------------------
       #              run test suite
       #----------------------------------------------
