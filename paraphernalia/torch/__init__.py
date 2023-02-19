@@ -39,7 +39,7 @@ def grid(*steps: int) -> Tensor:
     if isinstance(steps, int):
         steps = (steps,)
     axes = [torch.linspace(-1, 1, s) if s > 1 else Tensor([0]) for s in steps]
-    grid = torch.stack(torch.meshgrid(*axes), dim=-1)
+    grid = torch.stack(torch.meshgrid(*axes, indexing="ij"), dim=-1)
     return grid
 
 
