@@ -59,6 +59,11 @@ jobs:
       - name: Install library
         run: poetry install --extras "openai taming docs" --no-interaction
       #----------------------------------------------
+      #              lint
+      #----------------------------------------------
+      - name: Lint with ruff
+        uses: jpetrucciani/ruff-check@main
+      #----------------------------------------------
       #              run test suite
       #----------------------------------------------
       - name: Run tests
