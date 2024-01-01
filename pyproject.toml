@@ -13,21 +13,19 @@ classifiers = [
     "Operating System :: OS Independent",
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
-include = [
-    "LICENSE",
-]
+include = ["LICENSE"]
 
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = "^3.10"
 click = "^7.1.2"
 imageio = "^2.9.0"
 imageio-ffmpeg = "^0.4.3"
-importlib-metadata = {version = "^1.0", python= "<3.8"}
+importlib-metadata = { version = "^1.0", python = "<3.8" }
 moderngl = "^5.6.4"
 moderngl-window = "^2.4.1"
 pyrr = "^0.10.3"
-pydantic = {extras = ["dotenv"], version = "^1.8.2"}
+pydantic = { extras = ["dotenv"], version = "^1.8.2" }
 torch = "^1.11.0"
 # torchtext = "^0.8.0" # HACK: Force downgrade for Colab
 tqdm = "^4.59.0"
@@ -36,18 +34,18 @@ einops = "^0.3.0"
 ipython = "^7.25.0"
 pytorch-lightning = "1.5.0rc0"
 python-xmp-toolkit = "^2.0.1"
-regex = {version = "^2021.7.1", optional = true}
-ftfy = {version = "^6.0.3", optional = true}
-taming-transformers = {git = "https://github.com/joehalliwell/taming-transformers.git", optional=true}
-omegaconf = {version = "^2.1.0", optional = true}
-rich = {version = "^10.15.2", optional = true}
-sphinx = {version="4.2.0", optional=true} # Pinned for theme compatibility
-pydata-sphinx-theme = {version = "^0.7.1", optional = true}
-sphinx-click = {version = "^3.0.1", optional = true}
-autodoc-pydantic = {version="^1.5.1", optional=true}
+regex = { version = "^2021.7.1", optional = true }
+ftfy = { version = "^6.0.3", optional = true }
+taming-transformers = { git = "https://github.com/joehalliwell/taming-transformers.git", optional = true }
+omegaconf = { version = "^2.1.0", optional = true }
+rich = { version = "^10.15.2", optional = true }
+sphinx = { version = "4.2.0", optional = true }                                                            # Pinned for theme compatibility
+pydata-sphinx-theme = { version = "^0.7.1", optional = true }
+sphinx-click = { version = "^3.0.1", optional = true }
+autodoc-pydantic = { version = "^1.5.1", optional = true }
 # clip = {git = "https://github.com/openai/CLIP.git", rev = "main", optional = true}
-DALL-E = {version="^0.1", optional=true}
-clip-anytorch = {version="^2.4.0", optional=true}
+DALL-E = { version = "^0.1", optional = true }
+clip-anytorch = { version = "^2.4.0", optional = true }
 torchvision = "^0.14.1"
 
 
@@ -74,10 +72,10 @@ requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
-render='paraphernalia.glsl:render'
-preview='paraphernalia.glsl:preview'
-sign='paraphernalia.signature:sign'
-review='paraphernalia.review:review'
+render = 'paraphernalia.glsl:render'
+preview = 'paraphernalia.glsl:preview'
+sign = 'paraphernalia.signature:sign'
+review = 'paraphernalia.review:review'
 
 [tool.interrogate]
 ignore-init-method = true
