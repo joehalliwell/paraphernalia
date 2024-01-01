@@ -87,7 +87,7 @@ def setup_logging(use_rich: Optional[bool] = None) -> None:
             pass
 
     logging.basicConfig(
-        level=logging.INFO, format=fmt, datefmt="[%X]", handlers=handlers
+        level=logging.INFO, format=fmt, datefmt="[%X]", handlers=handlers, force=True
     )
 
 
