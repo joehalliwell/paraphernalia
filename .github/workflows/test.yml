@@ -16,10 +16,8 @@ jobs:
 
     steps:
       #----------------------------------------------
-      # check-out repo and install OS deps
+      # Setup OS
       #----------------------------------------------
-      - name: Check out repository
-        uses: actions/checkout@v2
       - name: Setup OpenGL
         run: |
           sudo apt-get update
@@ -30,7 +28,15 @@ jobs:
           sudo apt-get install libexempi8
 
       #----------------------------------------------
-      # setup python
+      # Check-out repo
+      #----------------------------------------------
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      #----------------------------------------------
+      # Setup python
       #----------------------------------------------
       - name: "Set up Python"
         uses: actions/setup-python@v5
@@ -38,7 +44,7 @@ jobs:
           python-version-file: ".python-version"
 
       #----------------------------------------------
-      # install uv and get it setup
+      # Install uv and get it setup
       #----------------------------------------------
       - name: Install uv
         uses: astral-sh/setup-uv@v6
@@ -47,19 +53,19 @@ jobs:
           version: "0.8.17"
 
       #----------------------------------------------
-      # install the project
+      # Install the project
       #----------------------------------------------
       - name: Install the project
         run: uv sync --locked --all-extras --dev
 
       #----------------------------------------------
-      # lint
+      # Lint
       #----------------------------------------------
       - name: Lint with ruff
         uses: jpetrucciani/ruff-check@main
 
       #----------------------------------------------
-      # run test suite
+      # Run test suite
       #----------------------------------------------
       - name: Run tests
         # For example, using `pytest`
