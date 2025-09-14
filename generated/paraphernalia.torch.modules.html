@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
@@ -33,13 +33,14 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="paraphernalia.torch.noise module" href="paraphernalia.torch.noise.html" />
     <link rel="prev" title="paraphernalia.torch.lightning module" href="paraphernalia.torch.lightning.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -269,11 +270,11 @@
               <div>
                 
   <section id="module-paraphernalia.torch.modules">
-<span id="paraphernalia-torch-modules-module"></span><h1>paraphernalia.torch.modules module<a class="headerlink" href="#module-paraphernalia.torch.modules" title="Permalink to this headline">¶</a></h1>
+<span id="paraphernalia-torch-modules-module"></span><h1>paraphernalia.torch.modules module<a class="headerlink" href="#module-paraphernalia.torch.modules" title="Permalink to this heading">¶</a></h1>
 <p>A collection of utility PyTorch modules.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="paraphernalia.torch.modules.AdaptiveMultiLoss">
-<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">AdaptiveMultiLoss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_losses</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch/modules.html#AdaptiveMultiLoss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.modules.AdaptiveMultiLoss" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">AdaptiveMultiLoss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_losses</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch/modules.html#AdaptiveMultiLoss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.modules.AdaptiveMultiLoss" title="Permalink to this definition">¶</a></dt>
 <dd><p>Automatic loss balancing.</p>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
@@ -309,7 +310,7 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="paraphernalia.torch.modules.Parallel">
-<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">Parallel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">components</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch/modules.html#Parallel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.modules.Parallel" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Parallel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">components</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch/modules.html#Parallel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.modules.Parallel" title="Permalink to this definition">¶</a></dt>
 <dd><p>A module that runs a number of submodule in parallel and collects their
 outputs into a list.</p>
 <dl class="field-list simple">
@@ -335,12 +336,12 @@ outputs into a list.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="paraphernalia.torch.modules.Constant">
-<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">Constant</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch/modules.html#Constant"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.modules.Constant" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Constant</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch/modules.html#Constant"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.modules.Constant" title="Permalink to this definition">¶</a></dt>
 <dd><p>A module that returns a constant value, ignoring any inputs.</p>
 <p>Initializes internal Module state, shared by both nn.Module and ScriptModule.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>value</strong> (<em>torch.Tensor</em>) – </p>
+<dd class="field-odd"><p><strong>value</strong> (<em>Tensor</em>) – </p>
 </dd>
 </dl>
 <dl class="py method">
@@ -364,7 +365,7 @@ outputs into a list.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="paraphernalia.torch.modules.WeightedSum">
-<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">WeightedSum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">components</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch/modules.html#WeightedSum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.modules.WeightedSum" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">WeightedSum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">components</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch/modules.html#WeightedSum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.modules.WeightedSum" title="Permalink to this definition">¶</a></dt>
 <dd><p>More or less a weighted sum of named module outputs, but with special
 handling for negative weights.</p>
 <p>In order for the weighting to make sense, the components needs outputs
@@ -372,7 +373,7 @@ with the same shape and meaning.</p>
 <p>For loss functions outputs should be in the range [0,1]</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>components</strong> (<em>torch.nn.modules.module.Module</em>) – </p>
+<dd class="field-odd"><p><strong>components</strong> (<em>Module</em>) – </p>
 </dd>
 </dl>
 <dl class="py method">
@@ -398,7 +399,7 @@ with the same shape and meaning.</p>
 <dd><p>Compute the weighted loss.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>x</strong> (<em>torch.Tensor</em>) – </p>
+<dd class="field-odd"><p><strong>x</strong> (<em>Tensor</em>) – </p>
 </dd>
 </dl>
 </dd></dl>
@@ -407,11 +408,11 @@ with the same shape and meaning.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="paraphernalia.torch.modules.SimilarTo">
-<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">SimilarTo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">targets</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch/modules.html#SimilarTo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.modules.SimilarTo" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">SimilarTo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">targets</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch/modules.html#SimilarTo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.modules.SimilarTo" title="Permalink to this definition">¶</a></dt>
 <dd><p>Cosine similarity test with mean pooling.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>targets</strong> (<em>torch.Tensor</em>) – A tensor of dimension (targets, channels)</p>
+<dd class="field-odd"><p><strong>targets</strong> (<em>Tensor</em>) – A tensor of dimension (targets, channels)</p>
 </dd>
 </dl>
 <dl class="py method">
@@ -428,11 +429,11 @@ with the same shape and meaning.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="paraphernalia.torch.modules.SimilarToAny">
-<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">SimilarToAny</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">targets</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch/modules.html#SimilarToAny"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.modules.SimilarToAny" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">SimilarToAny</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">targets</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch/modules.html#SimilarToAny"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.modules.SimilarToAny" title="Permalink to this definition">¶</a></dt>
 <dd><p>Cosine similarity test with max pooling.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>targets</strong> (<em>torch.Tensor</em>) – A tensor of dimension (targets, channels)</p>
+<dd class="field-odd"><p><strong>targets</strong> (<em>Tensor</em>) – A tensor of dimension (targets, channels)</p>
 </dd>
 </dl>
 <dl class="py method">

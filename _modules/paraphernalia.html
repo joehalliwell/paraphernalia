@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -32,11 +32,12 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -145,22 +146,23 @@
                 
   <h1>Source code for paraphernalia</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Paraphernalia is a collection of tools for making digital art.&quot;&quot;&quot;</span>
-<span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">subprocess</span>
-<span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
 
-<span class="kn">from</span> <span class="nn">paraphernalia._project</span> <span class="kn">import</span> <span class="n">Project</span><span class="p">,</span> <span class="n">project</span>
-<span class="kn">from</span> <span class="nn">paraphernalia._random</span> <span class="kn">import</span> <span class="n">get_seed</span><span class="p">,</span> <span class="n">set_seed</span>
-<span class="kn">from</span> <span class="nn">paraphernalia._settings</span> <span class="kn">import</span> <span class="n">Settings</span><span class="p">,</span> <span class="n">settings</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">subprocess</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">paraphernalia._project</span><span class="w"> </span><span class="kn">import</span> <span class="n">Project</span><span class="p">,</span> <span class="n">project</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">paraphernalia._random</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_seed</span><span class="p">,</span> <span class="n">set_seed</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">paraphernalia._settings</span><span class="w"> </span><span class="kn">import</span> <span class="n">Settings</span><span class="p">,</span> <span class="n">settings</span>
 
 <span class="c1"># TODO: Shift to poetry-version-plugin, once that&#39;s bedded in?</span>
 <span class="k">try</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">importlib.metadata</span> <span class="k">as</span> <span class="nn">importlib_metadata</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">importlib.metadata</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">importlib_metadata</span>
 <span class="k">except</span> <span class="ne">ModuleNotFoundError</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">importlib_metadata</span>  <span class="c1"># type: ignore</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">importlib_metadata</span>  <span class="c1"># type: ignore</span>
 
 
 <span class="n">_LOG</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
@@ -192,7 +194,7 @@
 <span class="p">]</span>
 
 
-<div class="viewcode-block" id="setup"><a class="viewcode-back" href="../generated/paraphernalia.html#paraphernalia.setup">[docs]</a><span class="k">def</span> <span class="nf">setup</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="setup"><a class="viewcode-back" href="../generated/paraphernalia.html#paraphernalia.setup">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">setup</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Set up the library for interactive use by:</span>
 
@@ -208,7 +210,7 @@
     <span class="n">setup_banner</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="setup_logging"><a class="viewcode-back" href="../generated/paraphernalia.html#paraphernalia.setup_logging">[docs]</a><span class="k">def</span> <span class="nf">setup_logging</span><span class="p">(</span><span class="n">use_rich</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="setup_logging"><a class="viewcode-back" href="../generated/paraphernalia.html#paraphernalia.setup_logging">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">setup_logging</span><span class="p">(</span><span class="n">use_rich</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Setup basic logging.</span>
 
@@ -223,8 +225,8 @@
 
     <span class="k">if</span> <span class="n">use_rich</span><span class="p">:</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="kn">import</span> <span class="nn">rich</span>
-            <span class="kn">from</span> <span class="nn">rich.logging</span> <span class="kn">import</span> <span class="n">RichHandler</span>
+            <span class="kn">import</span><span class="w"> </span><span class="nn">rich</span>
+            <span class="kn">from</span><span class="w"> </span><span class="nn">rich.logging</span><span class="w"> </span><span class="kn">import</span> <span class="n">RichHandler</span>
 
             <span class="n">rich</span><span class="o">.</span><span class="n">get_console</span><span class="p">()</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="mi">120</span>  <span class="c1"># Default is 93, which is too small</span>
             <span class="n">fmt</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%(message)s</span><span class="s2">&quot;</span>
@@ -237,7 +239,7 @@
     <span class="p">)</span></div>
 
 
-<span class="k">def</span> <span class="nf">setup_banner</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">setup_banner</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Log a banner and some system information.&quot;&quot;&quot;</span>
 
     <span class="n">_LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">_BANNER</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;highlighter&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">})</span>
@@ -249,7 +251,7 @@
     <span class="n">_LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Projects: </span><span class="si">{</span><span class="n">settings</span><span class="p">()</span><span class="o">.</span><span class="n">project_home</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">setup_colab</span><span class="p">():</span>  <span class="c1"># pragma: no cover</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">setup_colab</span><span class="p">():</span>  <span class="c1"># pragma: no cover</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Standard setup for Colaboratory:</span>
 
@@ -258,13 +260,13 @@
 <span class="sd">    - Configures :func:`project_home` to use it</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Load extensions</span>
-    <span class="kn">from</span> <span class="nn">IPython</span> <span class="kn">import</span> <span class="n">get_ipython</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">IPython</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_ipython</span>
 
     <span class="n">get_ipython</span><span class="p">()</span><span class="o">.</span><span class="n">magic</span><span class="p">(</span><span class="s2">&quot;load_ext google.colab.data_table&quot;</span><span class="p">)</span>
     <span class="n">get_ipython</span><span class="p">()</span><span class="o">.</span><span class="n">magic</span><span class="p">(</span><span class="s2">&quot;load_ext tensorboard&quot;</span><span class="p">)</span>
 
     <span class="c1"># Ensure drive is mounted</span>
-    <span class="kn">from</span> <span class="nn">google.colab</span> <span class="kn">import</span> <span class="n">drive</span>  <span class="c1"># type: ignore</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">google.colab</span><span class="w"> </span><span class="kn">import</span> <span class="n">drive</span>  <span class="c1"># type: ignore</span>
 
     <span class="n">drive_mount_point</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;/content/drive&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">drive_mount_point</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
@@ -276,7 +278,7 @@
     <span class="n">settings</span><span class="p">()</span><span class="o">.</span><span class="n">project_home</span> <span class="o">=</span> <span class="n">drive_mount_point</span> <span class="o">/</span> <span class="s2">&quot;MyDrive&quot;</span> <span class="o">/</span> <span class="s2">&quot;Paraphernalia&quot;</span>
 
 
-<span class="k">def</span> <span class="nf">running_in_colab</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">running_in_colab</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    True if running in Colaboratory.</span>
 
@@ -288,13 +290,13 @@
 <span class="sd">        bool: True if running in Colaboratory</span>
 <span class="sd">    &quot;&quot;&quot;</span>  <span class="c1"># noqa</span>
     <span class="k">try</span><span class="p">:</span>
-        <span class="kn">from</span> <span class="nn">IPython</span> <span class="kn">import</span> <span class="n">get_ipython</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">IPython</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_ipython</span>
     <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">False</span>
     <span class="k">return</span> <span class="s2">&quot;google.colab&quot;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">get_ipython</span><span class="p">())</span>
 
 
-<span class="k">def</span> <span class="nf">running_in_github_action</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">running_in_github_action</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    True if running as Github Action.</span>
 
@@ -304,7 +306,7 @@
     <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;GITHUB_ACTIONS&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">))</span>
 
 
-<span class="k">def</span> <span class="nf">running_in_jupyter</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">running_in_jupyter</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    True if running within Jupyter, and *not*:</span>
 
@@ -316,7 +318,7 @@
 <span class="sd">        bool: True iff running in Jupyter</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
-        <span class="kn">from</span> <span class="nn">IPython</span> <span class="kn">import</span> <span class="n">get_ipython</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">IPython</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_ipython</span>
     <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">False</span>
 
@@ -337,7 +339,7 @@
         <span class="k">return</span> <span class="kc">True</span>
 
 
-<span class="k">def</span> <span class="nf">get_cuda_version</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_cuda_version</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns:</span>
 <span class="sd">        the CUDA/nvcc version string e.g. 10.0, or None</span>
@@ -354,13 +356,13 @@
         <span class="k">return</span> <span class="kc">None</span>
 
 
-<span class="k">def</span> <span class="nf">get_gpu_name</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_gpu_name</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns:</span>
 <span class="sd">        the name of the GPU if available, or None.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
-        <span class="kn">import</span> <span class="nn">torch</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 
         <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">get_device_name</span><span class="p">()</span>
     <span class="k">except</span> <span class="p">(</span><span class="ne">ImportError</span><span class="p">,</span> <span class="ne">RuntimeError</span><span class="p">):</span>

@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
@@ -33,13 +33,14 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="paraphernalia.torch.dall_e module" href="paraphernalia.torch.dall_e.html" />
     <link rel="prev" title="paraphernalia.torch package" href="paraphernalia.torch.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -269,11 +270,11 @@
               <div>
                 
   <section id="module-paraphernalia.torch.clip">
-<span id="paraphernalia-torch-clip-module"></span><h1>paraphernalia.torch.clip module<a class="headerlink" href="#module-paraphernalia.torch.clip" title="Permalink to this headline">¶</a></h1>
+<span id="paraphernalia-torch-clip-module"></span><h1>paraphernalia.torch.clip module<a class="headerlink" href="#module-paraphernalia.torch.clip" title="Permalink to this heading">¶</a></h1>
 <p>Evaluate images with CLIP.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="paraphernalia.torch.clip.CLIP">
-<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">CLIP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prompt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">anti_prompt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detail</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_tiling</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">macro</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chops</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">64</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ViT-B/32'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch/clip.html#CLIP"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.clip.CLIP" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">CLIP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prompt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">anti_prompt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detail</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_tiling</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">macro</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chops</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">64</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ViT-B/32'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch/clip.html#CLIP"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.clip.CLIP" title="Permalink to this definition">¶</a></dt>
 <dd><p>A CLIP-based perceptor that evaluates how well an image fits with on or
 more target text prompts.</p>
 <p>The underlying model is limited to (224, 224) resolution, so this
@@ -334,7 +335,7 @@ mix</p>
 <dd class="field-odd"><p><strong>text_or_texts</strong> (<em>str</em>) – </p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p>torch.Tensor</p>
+<dd class="field-even"><p><em>Tensor</em></p>
 </dd>
 </dl>
 </dd></dl>
@@ -346,10 +347,10 @@ mix</p>
 <p>Does not detach.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>batch</strong> (<em>torch.Tensor</em>) – </p>
+<dd class="field-odd"><p><strong>batch</strong> (<em>Tensor</em>) – </p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p>torch.Tensor</p>
+<dd class="field-even"><p><em>Tensor</em></p>
 </dd>
 </dl>
 </dd></dl>
@@ -401,7 +402,7 @@ of images and set of prompts.</p>
 <li><p><strong>prompts</strong> (<em>Tensor</em>) – A tensor of prompt embeddings with shape (n, 512)</p></li>
 <li><p><strong>batch_size</strong> (<em>int</em>) – The size of the original image batch</p></li>
 <li><p><strong>match</strong> (<em>str</em>) – Policy for multiple prompts. “any”, “all” or (in future) “one”</p></li>
-<li><p><strong>img</strong> (<em>torch.Tensor</em>) – </p></li>
+<li><p><strong>img</strong> (<em>Tensor</em>) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -418,7 +419,7 @@ of images and set of prompts.</p>
 <span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch/clip.html#CLIP.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.clip.CLIP.forward" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a similarity (0, 1) for each image in the provided batch.</p>
 <p>TODO:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span> <span class="n">Enable</span> <span class="n">micro</span><span class="o">/</span><span class="n">macro</span> <span class="n">weighting</span> <span class="n">beyond</span> <span class="n">what</span> <span class="n">we</span> <span class="n">get</span> <span class="n">naturally</span> <span class="kn">from</span> <span class="nn">chops</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span> <span class="n">Enable</span> <span class="n">micro</span><span class="o">/</span><span class="n">macro</span> <span class="n">weighting</span> <span class="n">beyond</span> <span class="n">what</span> <span class="n">we</span> <span class="n">get</span> <span class="n">naturally</span> <span class="kn">from</span><span class="w"> </span><span class="nn">chops</span>
 <span class="o">-</span> <span class="n">Add</span> <span class="n">some</span> <span class="n">kind</span> <span class="n">of</span> <span class="n">masking</span>
 </pre></div>
 </div>

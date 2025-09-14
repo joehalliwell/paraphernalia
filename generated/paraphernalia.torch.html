@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
@@ -33,13 +33,14 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="paraphernalia.torch.clip module" href="paraphernalia.torch.clip.html" />
     <link rel="prev" title="paraphernalia package" href="paraphernalia.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -284,10 +285,10 @@
               <div>
                 
   <section id="paraphernalia-torch-package">
-<h1>paraphernalia.torch package<a class="headerlink" href="#paraphernalia-torch-package" title="Permalink to this headline">¶</a></h1>
+<h1>paraphernalia.torch package<a class="headerlink" href="#paraphernalia-torch-package" title="Permalink to this heading">¶</a></h1>
 <section id="modules">
-<h2>Modules<a class="headerlink" href="#modules" title="Permalink to this headline">¶</a></h2>
-<table class="longtable table autosummary">
+<h2>Modules<a class="headerlink" href="#modules" title="Permalink to this heading">¶</a></h2>
+<table class="autosummary longtable table autosummary">
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 90%" />
@@ -326,7 +327,7 @@
 </div>
 </section>
 <section id="module-paraphernalia.torch">
-<span id="package-contents"></span><h2>Package contents<a class="headerlink" href="#module-paraphernalia.torch" title="Permalink to this headline">¶</a></h2>
+<span id="package-contents"></span><h2>Package contents<a class="headerlink" href="#module-paraphernalia.torch" title="Permalink to this heading">¶</a></h2>
 <p>Utilities for working with PyTorch.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="paraphernalia.torch.grid">
@@ -355,7 +356,7 @@ specified dimension.</p>
 themselves are in dimension -1.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>torch.Tensor</p>
+<dd class="field-odd"><p><em>Tensor</em></p>
 </dd>
 </dl>
 </dd></dl>
@@ -369,12 +370,12 @@ TODO: Remove</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>img</strong> (<em>torch.Tensor</em>) – </p></li>
+<li><p><strong>img</strong> (<em>Tensor</em>) – </p></li>
 <li><p><strong>size</strong> (<em>int</em>) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p>torch.Tensor</p>
+<dd class="field-even"><p><em>Tensor</em></p>
 </dd>
 </dl>
 </dd></dl>
@@ -387,7 +388,7 @@ Generate an overlapping tiling that covers <code class="docutils literal notrans
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>img</strong> (<em>torch.Tensor</em>) – An image tensor (b, c, h, w)</p></li>
+<li><p><strong>img</strong> (<em>Tensor</em>) – An image tensor (b, c, h, w)</p></li>
 <li><p><strong>tile_size</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>Tuple</em><em>[</em><em>int</em><em>, </em><em>int</em><em>]</em><em>]</em>) – The size of the tile, either a single int or a pair of them</p></li>
 <li><p><strong>overlap</strong> (<em>float</em>) – The <em>minimum</em> overlap as a fraction of tile size. Defaults to
 0.5, where two tiles cover every pixel except at the edges.</p></li>
@@ -510,18 +511,18 @@ converting a slightly noisy log probability.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="paraphernalia.torch.ReplaceGrad">
-<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">ReplaceGrad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch.html#ReplaceGrad"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.ReplaceGrad" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ReplaceGrad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch.html#ReplaceGrad"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.ReplaceGrad" title="Permalink to this definition">¶</a></dt>
 <dd><p>Replace one function’s gradient with another’s.</p>
 <p>FIXME: I don’t think this works.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="paraphernalia.torch.ReplaceGrad.forward">
-<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_forward</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_backward</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch.html#ReplaceGrad.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.ReplaceGrad.forward" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_forward</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_backward</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch.html#ReplaceGrad.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.ReplaceGrad.forward" title="Permalink to this definition">¶</a></dt>
 <dd><p>Replace the backward call.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="paraphernalia.torch.ReplaceGrad.backward">
-<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">backward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grad_in</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch.html#ReplaceGrad.backward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.ReplaceGrad.backward" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">backward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grad_in</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch.html#ReplaceGrad.backward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.ReplaceGrad.backward" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute the gradient at this function.</p>
 </dd></dl>
 
@@ -534,17 +535,17 @@ converting a slightly noisy log probability.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="paraphernalia.torch.ClampWithGrad">
-<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">ClampWithGrad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch.html#ClampWithGrad"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.ClampWithGrad" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ClampWithGrad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch.html#ClampWithGrad"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.ClampWithGrad" title="Permalink to this definition">¶</a></dt>
 <dd><p>Clamp an output but pass through gradients.</p>
 <p>FIXME: Not sure about this. Would a “leaky” clamp be better?</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="paraphernalia.torch.ClampWithGrad.forward">
-<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch.html#ClampWithGrad.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.ClampWithGrad.forward" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch.html#ClampWithGrad.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.ClampWithGrad.forward" title="Permalink to this definition">¶</a></dt>
 <dd><p>Clamp <cite>input</cite> between <cite>min</cite> and <cite>max</cite></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>input</strong> (<em>torch.Tensor</em>) – </p></li>
+<li><p><strong>input</strong> (<em>Tensor</em>) – </p></li>
 <li><p><strong>min</strong> (<em>float</em>) – </p></li>
 <li><p><strong>max</strong> (<em>float</em>) – </p></li>
 </ul>
@@ -554,7 +555,7 @@ converting a slightly noisy log probability.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="paraphernalia.torch.ClampWithGrad.backward">
-<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">backward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grad_in</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch.html#ClampWithGrad.backward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.ClampWithGrad.backward" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">backward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grad_in</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch.html#ClampWithGrad.backward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.ClampWithGrad.backward" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute the gradient at this function.</p>
 </dd></dl>
 

@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
@@ -33,13 +33,14 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="paraphernalia.utils module" href="paraphernalia.utils.html" />
     <link rel="prev" title="paraphernalia.review module" href="paraphernalia.review.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -269,11 +270,11 @@
               <div>
                 
   <section id="module-paraphernalia.signature">
-<span id="paraphernalia-signature-module"></span><h1>paraphernalia.signature module<a class="headerlink" href="#module-paraphernalia.signature" title="Permalink to this headline">¶</a></h1>
+<span id="paraphernalia-signature-module"></span><h1>paraphernalia.signature module<a class="headerlink" href="#module-paraphernalia.signature" title="Permalink to this heading">¶</a></h1>
 <p>Sign and tag images.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="paraphernalia.signature.XMP">
-<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">XMP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/signature.html#XMP"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.signature.XMP" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">XMP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/signature.html#XMP"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.signature.XMP" title="Permalink to this definition">¶</a></dt>
 <dd><p>Context manager for working with XMP metadata on files, with convenience
 accessors for some Dublin Core fields.</p>
 <p>For DC/XMP interactions see <a class="reference external" href="https://www.exiv2.org/tags-xmp-dc.html">https://www.exiv2.org/tags-xmp-dc.html</a></p>
@@ -296,9 +297,6 @@ accessors for some Dublin Core fields.</p>
 <dt class="field-even">Raises</dt>
 <dd class="field-even"><p><strong>ValueError</strong> – if the path does not exist</p>
 </dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>None</p>
-</dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="paraphernalia.signature.XMP.clear">
@@ -313,37 +311,37 @@ accessors for some Dublin Core fields.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="paraphernalia.signature.XMP.creator">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">creator</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#paraphernalia.signature.XMP.creator" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">creator</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#paraphernalia.signature.XMP.creator" title="Permalink to this definition">¶</a></dt>
 <dd><p>The creator of this object.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="paraphernalia.signature.XMP.creators">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">creators</span></span><em class="property"><span class="pre">:</span> <span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#paraphernalia.signature.XMP.creators" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">creators</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#paraphernalia.signature.XMP.creators" title="Permalink to this definition">¶</a></dt>
 <dd><p>The creator</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="paraphernalia.signature.XMP.description">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">description</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#paraphernalia.signature.XMP.description" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">description</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#paraphernalia.signature.XMP.description" title="Permalink to this definition">¶</a></dt>
 <dd><p>The description</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="paraphernalia.signature.XMP.rights">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">rights</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#paraphernalia.signature.XMP.rights" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">rights</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#paraphernalia.signature.XMP.rights" title="Permalink to this definition">¶</a></dt>
 <dd><p>The rights</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="paraphernalia.signature.XMP.tags">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">tags</span></span><em class="property"><span class="pre">:</span> <span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#paraphernalia.signature.XMP.tags" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">tags</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#paraphernalia.signature.XMP.tags" title="Permalink to this definition">¶</a></dt>
 <dd><p>The subject</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="paraphernalia.signature.XMP.title">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">title</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#paraphernalia.signature.XMP.title" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">title</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#paraphernalia.signature.XMP.title" title="Permalink to this definition">¶</a></dt>
 <dd><p>The title</p>
 </dd></dl>
 

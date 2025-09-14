@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
@@ -33,13 +33,14 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="paraphernalia.torch.lightning module" href="paraphernalia.torch.lightning.html" />
     <link rel="prev" title="paraphernalia.torch.direct module" href="paraphernalia.torch.direct.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -269,11 +270,11 @@
               <div>
                 
   <section id="module-paraphernalia.torch.generator">
-<span id="paraphernalia-torch-generator-module"></span><h1>paraphernalia.torch.generator module<a class="headerlink" href="#module-paraphernalia.torch.generator" title="Permalink to this headline">¶</a></h1>
+<span id="paraphernalia-torch-generator-module"></span><h1>paraphernalia.torch.generator module<a class="headerlink" href="#module-paraphernalia.torch.generator" title="Permalink to this heading">¶</a></h1>
 <p>Base class and utility types for image generators.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="paraphernalia.torch.generator.Generator">
-<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">Generator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">512</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quantize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch/generator.html#Generator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.generator.Generator" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Generator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">512</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quantize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch/generator.html#Generator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.generator.Generator" title="Permalink to this definition">¶</a></dt>
 <dd><p>Base class for (image) generators.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -293,19 +294,19 @@ name or device on which to run. Defaults to None.</p></li>
 </dl>
 <dl class="py property">
 <dt class="sig sig-object py" id="paraphernalia.torch.generator.Generator.width">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">width</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#paraphernalia.torch.generator.Generator.width" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">width</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#paraphernalia.torch.generator.Generator.width" title="Permalink to this definition">¶</a></dt>
 <dd><p>The width of the generated image.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="paraphernalia.torch.generator.Generator.height">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">height</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#paraphernalia.torch.generator.Generator.height" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">height</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#paraphernalia.torch.generator.Generator.height" title="Permalink to this definition">¶</a></dt>
 <dd><p>The height of the generated image.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="paraphernalia.torch.generator.Generator.z">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">z</span></span><em class="property"><span class="pre">:</span> <span class="pre">torch.Tensor</span></em><a class="headerlink" href="#paraphernalia.torch.generator.Generator.z" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">z</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tensor</span></em><a class="headerlink" href="#paraphernalia.torch.generator.Generator.z" title="Permalink to this definition">¶</a></dt>
 <dd><p>The latent tensor associated with this model.</p>
 <p>Often but not always (b, c, h, w).</p>
 </dd></dl>

@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
@@ -33,13 +33,14 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="paraphernalia.torch.taming module" href="paraphernalia.torch.taming.html" />
     <link rel="prev" title="paraphernalia.torch.noise module" href="paraphernalia.torch.noise.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -269,12 +270,12 @@
               <div>
                 
   <section id="module-paraphernalia.torch.siren">
-<span id="paraphernalia-torch-siren-module"></span><h1>paraphernalia.torch.siren module<a class="headerlink" href="#module-paraphernalia.torch.siren" title="Permalink to this headline">¶</a></h1>
+<span id="paraphernalia-torch-siren-module"></span><h1>paraphernalia.torch.siren module<a class="headerlink" href="#module-paraphernalia.torch.siren" title="Permalink to this heading">¶</a></h1>
 <p>Generate images using a network with <cite>sin</cite> activation functions.</p>
 <p>See <a class="reference external" href="https://vsitzmann.github.io/siren/">https://vsitzmann.github.io/siren/</a></p>
 <dl class="py class">
 <dt class="sig sig-object py" id="paraphernalia.torch.siren.Siren">
-<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">Siren</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">omega</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">64</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hidden_layers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch/siren.html#Siren"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.siren.Siren" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Siren</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">omega</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">64</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hidden_layers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch/siren.html#Siren"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.siren.Siren" title="Permalink to this definition">¶</a></dt>
 <dd><p>Siren image generator.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -286,7 +287,7 @@ generation. Defaults to 5.0.</p></li>
 <li><p><strong>features</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – [description]. Defaults to 64.</p></li>
 <li><p><strong>hidden_layers</strong> (<em>int</em><em>, </em><em>optional</em>) – [description]. Defaults to 8.</p></li>
 <li><p><strong>device</strong> (<em>[</em><em>type</em><em>]</em><em>, </em><em>optional</em>) – [description]. Defaults to None.</p></li>
-<li><p><strong>start</strong> (<em>Optional</em><em>[</em><em>PIL.Image.Image</em><em>]</em>) – </p></li>
+<li><p><strong>start</strong> (<em>Optional</em><em>[</em><em>Image</em><em>]</em>) – </p></li>
 </ul>
 </dd>
 </dl>
@@ -304,7 +305,7 @@ name or device on which to run. Defaults to None.</p></li>
 <li><p><strong>omega</strong> (<em>Optional</em><em>[</em><em>float</em><em>]</em>) – </p></li>
 <li><p><strong>features</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – </p></li>
 <li><p><strong>hidden_layers</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – </p></li>
-<li><p><strong>start</strong> (<em>Optional</em><em>[</em><em>PIL.Image.Image</em><em>]</em>) – </p></li>
+<li><p><strong>start</strong> (<em>Optional</em><em>[</em><em>Image</em><em>]</em>) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises</dt>
