@@ -139,9 +139,34 @@
               
               <div class="toc-item">
                 
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
 
 <nav id="bd-toc-nav">
-    
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#render">
+   render
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#preview">
+   preview
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#review">
+   review
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#sign">
+   sign
+  </a>
+ </li>
+</ul>
+
 </nav>
               </div>
               
@@ -172,6 +197,246 @@
 <h1>Command line programs<a class="headerlink" href="#command-line-programs" title="Permalink to this heading">¶</a></h1>
 <p>Paraphernalia ships with a few command line programs. These are self-documenting
 via the <code class="docutils literal notranslate"><span class="pre">--help</span></code> option.</p>
+<section id="render">
+<h2>render<a class="headerlink" href="#render" title="Permalink to this heading">¶</a></h2>
+<p>Render a fragment shader to an MP4 file.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>render<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>FRAGMENT_SHADER
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-render-o">
+<span id="cmdoption-render-output"></span><span class="sig-name descname"><span class="pre">-o</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output&gt;</span></span><a class="headerlink" href="#cmdoption-render-o" title="Permalink to this definition">¶</a></dt>
+<dd><p>Output file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>output.mp4</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-render-width">
+<span class="sig-name descname"><span class="pre">--width</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;width&gt;</span></span><a class="headerlink" href="#cmdoption-render-width" title="Permalink to this definition">¶</a></dt>
+<dd><p>Width in pixels</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>1024</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-render-height">
+<span class="sig-name descname"><span class="pre">--height</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;height&gt;</span></span><a class="headerlink" href="#cmdoption-render-height" title="Permalink to this definition">¶</a></dt>
+<dd><p>Height in pixels</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>1024</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-render-fps">
+<span class="sig-name descname"><span class="pre">--fps</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;fps&gt;</span></span><a class="headerlink" href="#cmdoption-render-fps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Frames per second</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>25.0</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-render-duration">
+<span class="sig-name descname"><span class="pre">--duration</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;duration&gt;</span></span><a class="headerlink" href="#cmdoption-render-duration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Duration in seconds</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>30.0</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-render-quality">
+<span class="sig-name descname"><span class="pre">--quality</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;quality&gt;</span></span><a class="headerlink" href="#cmdoption-render-quality" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encoder quality</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>5</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-render-arg-FRAGMENT_SHADER">
+<span id="cmdoption-render-arg-fragment-shader"></span><span class="sig-name descname"><span class="pre">FRAGMENT_SHADER</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-render-arg-FRAGMENT_SHADER" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</section>
+<section id="preview">
+<h2>preview<a class="headerlink" href="#preview" title="Permalink to this heading">¶</a></h2>
+<p>Show a fragment shader in a window.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>preview<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>FRAGMENT_SHADER
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-preview-width">
+<span class="sig-name descname"><span class="pre">--width</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;width&gt;</span></span><a class="headerlink" href="#cmdoption-preview-width" title="Permalink to this definition">¶</a></dt>
+<dd><p>Target width</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>1024</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-preview-height">
+<span class="sig-name descname"><span class="pre">--height</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;height&gt;</span></span><a class="headerlink" href="#cmdoption-preview-height" title="Permalink to this definition">¶</a></dt>
+<dd><p>Target height</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>1024</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-preview-duration">
+<span class="sig-name descname"><span class="pre">--duration</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;duration&gt;</span></span><a class="headerlink" href="#cmdoption-preview-duration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Target duration, loop if &gt; 0</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>30</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-preview-speed">
+<span class="sig-name descname"><span class="pre">--speed</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;speed&gt;</span></span><a class="headerlink" href="#cmdoption-preview-speed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Multiplier for elapsed time</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-preview-watch">
+<span id="cmdoption-preview-no-watch"></span><span class="sig-name descname"><span class="pre">--watch</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-watch</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-preview-watch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Automatically reload when shader changes on disk</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-preview-scale">
+<span class="sig-name descname"><span class="pre">--scale</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;scale&gt;</span></span><a class="headerlink" href="#cmdoption-preview-scale" title="Permalink to this definition">¶</a></dt>
+<dd><p>TODO</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>1.0</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-preview-arg-FRAGMENT_SHADER">
+<span id="cmdoption-preview-arg-fragment-shader"></span><span class="sig-name descname"><span class="pre">FRAGMENT_SHADER</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-preview-arg-FRAGMENT_SHADER" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</section>
+<section id="review">
+<h2>review<a class="headerlink" href="#review" title="Permalink to this heading">¶</a></h2>
+<p>Review images in SOURCE.</p>
+<p>Keymap:</p>
+<ul class="simple">
+<li><p><cite>K</cite>: keep the current image</p></li>
+<li><p><cite>L</cite>: lose the current image</p></li>
+<li><p><cite>T</cite>: (re)mark image as to-be-reviewed</p></li>
+<li><p><cite>LEFT</cite>: go to previous image</p></li>
+<li><p><cite>RIGHT</cite>: go to next unreviewed image</p></li>
+<li><p><cite>F</cite>: toggle fullscreen</p></li>
+<li><p><cite>S</cite>: toggle scaling mode</p></li>
+</ul>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>review<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span><span class="o">[</span>SOURCE<span class="o">]</span>
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-review-dryrun">
+<span class="sig-name descname"><span class="pre">--dryrun</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-review-dryrun" title="Permalink to this definition">¶</a></dt>
+<dd><p>Don’t move files around</p>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-review-arg-SOURCE">
+<span id="cmdoption-review-arg-source"></span><span class="sig-name descname"><span class="pre">SOURCE</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-review-arg-SOURCE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Optional argument</p>
+</dd></dl>
+
+</section>
+<section id="sign">
+<h2>sign<a class="headerlink" href="#sign" title="Permalink to this heading">¶</a></h2>
+<p>Manipulate basic XMP/Dublin Core metadata in PNG, JPG and TIFF
+images.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sign<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>TARGET
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sign-clear">
+<span id="cmdoption-sign-no-clear"></span><span class="sig-name descname"><span class="pre">--clear</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-clear</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sign-clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clear metadata.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sign-c">
+<span id="cmdoption-sign-creator"></span><span class="sig-name descname"><span class="pre">-c</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--creator</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;creators&gt;</span></span><a class="headerlink" href="#cmdoption-sign-c" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the creator(s).</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sign-title">
+<span class="sig-name descname"><span class="pre">--title</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;title&gt;</span></span><a class="headerlink" href="#cmdoption-sign-title" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the title.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sign-t">
+<span id="cmdoption-sign-tag"></span><span class="sig-name descname"><span class="pre">-t</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--tag</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;tags&gt;</span></span><a class="headerlink" href="#cmdoption-sign-t" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add one or more tags.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sign-d">
+<span id="cmdoption-sign-description"></span><span class="sig-name descname"><span class="pre">-d</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--description</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;description&gt;</span></span><a class="headerlink" href="#cmdoption-sign-d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the description.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sign-r">
+<span id="cmdoption-sign-rights"></span><span class="sig-name descname"><span class="pre">-r</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--rights</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;rights&gt;</span></span><a class="headerlink" href="#cmdoption-sign-r" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the statement of rights.</p>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-sign-arg-TARGET">
+<span id="cmdoption-sign-arg-target"></span><span class="sig-name descname"><span class="pre">TARGET</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sign-arg-TARGET" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</section>
 </section>
 
 

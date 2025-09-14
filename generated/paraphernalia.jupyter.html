@@ -269,8 +269,46 @@
               
               <div>
                 
-  <section id="paraphernalia-jupyter-module">
-<h1>paraphernalia.jupyter module<a class="headerlink" href="#paraphernalia-jupyter-module" title="Permalink to this heading">¶</a></h1>
+  <section id="module-paraphernalia.jupyter">
+<span id="paraphernalia-jupyter-module"></span><h1>paraphernalia.jupyter module<a class="headerlink" href="#module-paraphernalia.jupyter" title="Permalink to this heading">¶</a></h1>
+<p>Tools for notebook-based work.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="paraphernalia.jupyter.run_once">
+<span class="sig-name descname"><span class="pre">run_once</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">js</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10000</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/jupyter.html#run_once"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.jupyter.run_once" title="Permalink to this definition">¶</a></dt>
+<dd><p>Utility to run a snippet of javascript once.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>js</strong> (<em>str</em>) – A snippet of Javascript to run</p></li>
+<li><p><strong>timeout</strong> (<em>int</em><em>, </em><em>optional</em>) – Maximum permitted delay in milliseconds.
+Defaults to 10 seconds, which is reasonable for Colaboratory.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="paraphernalia.jupyter.ding">
+<span class="sig-name descname"><span class="pre">ding</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'https://freesound.org/data/previews/80/80921_1022651-lq.ogg'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/jupyter.html#ding"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.jupyter.ding" title="Permalink to this definition">¶</a></dt>
+<dd><p>Play a sound in a notebook.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>url</strong> (<em>str</em><em>, </em><em>optional</em>) – URL of the sound to play. Defaults to DEFAULT_DING.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="paraphernalia.jupyter.say">
+<span class="sig-name descname"><span class="pre">say</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/jupyter.html#say"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.jupyter.say" title="Permalink to this definition">¶</a></dt>
+<dd><p>Say a provided text using the Web Speech API.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>text</strong> (<em>str</em>) – The text to say</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 
 

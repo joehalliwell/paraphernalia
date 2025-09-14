@@ -269,8 +269,73 @@
               
               <div>
                 
-  <section id="paraphernalia-torch-dall-e-module">
-<h1>paraphernalia.torch.dall_e module<a class="headerlink" href="#paraphernalia-torch-dall-e-module" title="Permalink to this heading">¶</a></h1>
+  <section id="module-paraphernalia.torch.dall_e">
+<span id="paraphernalia-torch-dall-e-module"></span><h1>paraphernalia.torch.dall_e module<a class="headerlink" href="#module-paraphernalia.torch.dall_e" title="Permalink to this heading">¶</a></h1>
+<p>Generate images with the discrete VAE component of DALL-E.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="paraphernalia.torch.dall_e.DALL_E">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DALL_E</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tau</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hard</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch/dall_e.html#DALL_E"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.dall_e.DALL_E" title="Permalink to this definition">¶</a></dt>
+<dd><p>Image generator based on OpenAI’s release of the discrete VAE component
+of DALL-E. Many parameters can be overridden via method arguments, so
+are best considered defaults.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>start</strong> – Determines how to intitialize the hidden state.</p></li>
+<li><p><strong>tau</strong> (<em>Optional</em><em>[</em><em>float</em><em>]</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="paraphernalia.torch.dall_e.DALL_E.tau">
+<span class="sig-name descname"><span class="pre">tau</span></span><a class="headerlink" href="#paraphernalia.torch.dall_e.DALL_E.tau" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gumbel softmax temperature parameter. Larger values make
+the underlying distribution more uniform.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="paraphernalia.torch.dall_e.DALL_E.hard">
+<span class="sig-name descname"><span class="pre">hard</span></span><a class="headerlink" href="#paraphernalia.torch.dall_e.DALL_E.hard" title="Permalink to this definition">¶</a></dt>
+<dd><p>If true, then samples will be exactly one-hot</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="paraphernalia.torch.dall_e.DALL_E.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">z</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tau</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hard</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch/dall_e.html#DALL_E.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.dall_e.DALL_E.forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate a batch of images.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>An image batch tensor</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="paraphernalia.torch.dall_e.DALL_E.encode">
+<span class="sig-name descname"><span class="pre">encode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch/dall_e.html#DALL_E.encode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.dall_e.DALL_E.encode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encode an image or tensor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>img</strong> (<em>Union</em><em>[</em><em>Image</em><em>, </em><em>Tensor</em><em>]</em>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 
 
