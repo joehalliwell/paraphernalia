@@ -4,7 +4,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>paraphernalia.torch package &#8212; paraphernalia  documentation</title>
     
@@ -289,10 +289,6 @@
 <section id="modules">
 <h2>Modules<a class="headerlink" href="#modules" title="Permalink to this heading">¶</a></h2>
 <table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="paraphernalia.torch.clip.html#module-paraphernalia.torch.clip" title="paraphernalia.torch.clip"><code class="xref py py-obj docutils literal notranslate"><span class="pre">paraphernalia.torch.clip</span></code></a></p></td>
 <td><p>Evaluate images with CLIP.</p></td>
@@ -348,14 +344,14 @@ specified dimension.</p>
 </pre></div>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>steps</strong> (<em>int</em>) – number of steps per dimension</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A (rank <code class="docutils literal notranslate"><span class="pre">len(steps)</span> <span class="pre">+</span> <span class="pre">1</span></code>) tensor of the coordinates. The co-ordinates
 themselves are in dimension -1.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><em>Tensor</em></p>
 </dd>
 </dl>
@@ -368,13 +364,13 @@ themselves are in dimension -1.</p>
 <p>Any cut off at the edge is ignored.
 TODO: Remove</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>img</strong> (<em>Tensor</em>) – </p></li>
 <li><p><strong>size</strong> (<em>int</em>) – </p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><em>Tensor</em></p>
 </dd>
 </dl>
@@ -386,7 +382,7 @@ TODO: Remove</p>
 <dd><p>TODO: Rename
 Generate an overlapping tiling that covers <code class="docutils literal notranslate"><span class="pre">img</span></code>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>img</strong> (<em>Tensor</em>) – An image tensor (b, c, h, w)</p></li>
 <li><p><strong>tile_size</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>Tuple</em><em>[</em><em>int</em><em>, </em><em>int</em><em>]</em><em>]</em>) – The size of the tile, either a single int or a pair of them</p></li>
@@ -394,10 +390,10 @@ Generate an overlapping tiling that covers <code class="docutils literal notrans
 0.5, where two tiles cover every pixel except at the edges.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A list of image batches of size <code class="docutils literal notranslate"><span class="pre">tile_size</span></code> covering img</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>List[Tensor]</p>
 </dd>
 </dl>
@@ -410,10 +406,10 @@ Generate an overlapping tiling that covers <code class="docutils literal notrans
 is contiguous in the resulting batch.</p>
 <p>TODO: Is this part of torch under a different name?</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>img</strong> (<em>List</em><em>[</em><em>Tensor</em><em>]</em>) – a list of identically shaped image batches</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><dl class="simple">
 <dt>a concatenation into a single image batch grouped</dt><dd><p>so that each image in the source batches forms a contiguous block
 in the new batch</p>
@@ -421,7 +417,7 @@ in the new batch</p>
 </dl>
 </p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Tensor</p>
 </dd>
 </dl>
@@ -433,16 +429,16 @@ in the new batch</p>
 <dd><p>Compute the cosine similarity tensor.</p>
 <p>TODO: Explain restrictions</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>a</strong> (<em>Tensor</em>) – (A, N) tensor</p></li>
 <li><p><strong>b</strong> (<em>Tensor</em>) – (B, N) tensor</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>(A, B) tensor of similarities</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>[Tensor]</p>
 </dd>
 </dl>
@@ -462,13 +458,13 @@ tuples with each component in [0,1].</p>
 variational decoder. This is a hard one-hot tensor. Use
 <cite>one_hot_normalize()</cite> if you want to soften.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>shape</strong> (<em>Tuple</em>) – desired shape (batch_size, num_classes, height, width)</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>one hot Tensor of dimension (batch_size, num_classes, height, width)</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Tensor</p>
 </dd>
 </dl>
@@ -479,13 +475,13 @@ variational decoder. This is a hard one-hot tensor. Use
 <span class="sig-name descname"><span class="pre">one_hot_constant</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch.html#one_hot_constant"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.one_hot_constant" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate a latent state using a constant value.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>shape</strong> (<em>Tuple</em>) – desired shape (batch_size, num_classes, height, width)</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>one hot Tensor of dimension (batch_size, num_classes, height, width)</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Tensor</p>
 </dd>
 </dl>
@@ -497,13 +493,13 @@ variational decoder. This is a hard one-hot tensor. Use
 <dd><p>Normalized a log probability/one hot tensor, by locking in modes then
 converting a slightly noisy log probability.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>shape</strong> (<em>Tuple</em>) – desired shape (batch_size, num_classes, height, width)</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>one hot Tensor of dimension (batch_size, num_classes, height, width)</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Tensor</p>
 </dd>
 </dl>
@@ -543,7 +539,7 @@ converting a slightly noisy log probability.</p>
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch.html#ClampWithGrad.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.ClampWithGrad.forward" title="Permalink to this definition">¶</a></dt>
 <dd><p>Clamp <cite>input</cite> between <cite>min</cite> and <cite>max</cite></p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>input</strong> (<em>Tensor</em>) – </p></li>
 <li><p><strong>min</strong> (<em>float</em>) – </p></li>
@@ -571,13 +567,13 @@ converting a slightly noisy log probability.</p>
 <span class="sig-name descname"><span class="pre">free</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch.html#free"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.free" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute free memory on the specified device.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>device</strong> (<em>[</em><em>type</em><em>]</em><em>, </em><em>optional</em>) – the device to query</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>(total, used, free) in bytes</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Tuple</p>
 </dd>
 </dl>

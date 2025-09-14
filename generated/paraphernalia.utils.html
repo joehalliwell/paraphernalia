@@ -4,7 +4,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>paraphernalia.utils module &#8212; paraphernalia  documentation</title>
     
@@ -277,7 +277,7 @@
 <dd><p>Divide <code class="docutils literal notranslate"><span class="pre">whole</span></code> into several <code class="docutils literal notranslate"><span class="pre">part</span></code>-sized chunks which overlap by at
 least <code class="docutils literal notranslate"><span class="pre">min_overlap</span></code>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>whole</strong> (<em>int</em>) – The total to subdivide</p></li>
 <li><p><strong>part</strong> (<em>int</em>) – The size of the chunk</p></li>
@@ -285,10 +285,10 @@ least <code class="docutils literal notranslate"><span class="pre">min_overlap</
 Defaults to 0 i.e. chunks won’t overlap unless required.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A list of chunk offset</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>List[int]</p>
 </dd>
 </dl>
@@ -309,7 +309,7 @@ Defaults to 0 i.e. chunks won’t overlap unless required.</p></li>
 </ul>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>steps</strong> – the number of plateaus</p></li>
 <li><p><strong>iterations</strong> – the total number of iterations over which to step down from
@@ -325,7 +325,7 @@ Defaults to 0 i.e. chunks won’t overlap unless required.</p></li>
 <dd><p>Make a lower-case alphanumeric representation of the arguments by
 stripping other characters and replacing spaces with hyphens.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
 </dd>
 </dl>
@@ -335,10 +335,10 @@ stripping other characters and replacing spaces with hyphens.</p>
 <dt class="sig sig-object py" id="paraphernalia.utils.ensure_dir_exists">
 <span class="sig-name descname"><span class="pre">ensure_dir_exists</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/utils.html#ensure_dir_exists"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.utils.ensure_dir_exists" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>path</strong> (<em>Path</em>) – </p>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><em>Path</em></p>
 </dd>
 </dl>
@@ -349,7 +349,7 @@ stripping other characters and replacing spaces with hyphens.</p>
 <span class="sig-name descname"><span class="pre">download</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/utils.html#download"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.utils.download" title="Permalink to this definition">¶</a></dt>
 <dd><p>Download <code class="docutils literal notranslate"><span class="pre">url</span></code> to local disk and return the Path to which it was written.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>url</strong> (<em>str</em>) – the URL to fetch.</p></li>
 <li><p><strong>target</strong> (<em>Path</em><em>, </em><em>optional</em>) – The target path. Defaults to None.</p></li>
@@ -357,13 +357,13 @@ stripping other characters and replacing spaces with hyphens.</p>
 Defaults to False.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Raises</dt>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>Exception</strong> – if the download target is a directory</p>
 </dd>
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the file that was written</p>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>Path</p>
 </dd>
 </dl>

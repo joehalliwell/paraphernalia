@@ -4,7 +4,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>paraphernalia.torch.lightning module &#8212; paraphernalia  documentation</title>
     
@@ -285,7 +285,7 @@
 <li><p><cite>trainer</cite>: the Lightning trainer</p></li>
 </ul>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>path_template</strong> (<em>str</em>) – a path template as described above</p></li>
 <li><p><strong>interval</strong> (<em>int</em><em>, </em><em>optional</em>) – the checkpoint interval</p></li>
@@ -300,7 +300,7 @@ panel. Defaults to True.</p></li>
 <span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trainer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch/lightning.html#ImageCheckpoint.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.lightning.ImageCheckpoint.save" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save the image batch.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>batch</strong> (<em>Tensor</em>) – </p></li>
 <li><p><strong>trainer</strong> (<em>Trainer</em>) – </p></li>
@@ -314,7 +314,7 @@ panel. Defaults to True.</p></li>
 <dt class="sig sig-object py" id="paraphernalia.torch.lightning.ImageCheckpoint.save_frame">
 <span class="sig-name descname"><span class="pre">save_frame</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch/lightning.html#ImageCheckpoint.save_frame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.lightning.ImageCheckpoint.save_frame" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>batch</strong> (<em>Tensor</em>) – </p>
 </dd>
 </dl>
@@ -325,7 +325,7 @@ panel. Defaults to True.</p></li>
 <span class="sig-name descname"><span class="pre">preview</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch/lightning.html#ImageCheckpoint.preview"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.lightning.ImageCheckpoint.preview" title="Permalink to this definition">¶</a></dt>
 <dd><p>Preview the image batch if configured, otherwise do nothing.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>batch</strong> (<em>Tensor</em>) – </p>
 </dd>
 </dl>
@@ -336,7 +336,7 @@ panel. Defaults to True.</p></li>
 <span class="sig-name descname"><span class="pre">checkpoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trainer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/paraphernalia/torch/lightning.html#ImageCheckpoint.checkpoint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#paraphernalia.torch.lightning.ImageCheckpoint.checkpoint" title="Permalink to this definition">¶</a></dt>
 <dd><p>Main checkpoint function, called on epoch start and training end.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>trainer</strong> (<em>Trainer</em>) – </p></li>
 <li><p><strong>module</strong> (<em>LightningModule</em>) – </p></li>
@@ -351,13 +351,13 @@ panel. Defaults to True.</p></li>
 <dd><p>Called at the end of each batch.</p>
 <p>Checkpoints if a multiple of <cite>self.interval</cite>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>trainer</strong> (<em>Trainer</em>) – </p></li>
 <li><p><strong>module</strong> (<em>LightningModule</em>) – </p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>None</p>
 </dd>
 </dl>
@@ -369,7 +369,7 @@ panel. Defaults to True.</p></li>
 <dd><p>Called at the start of an epoch.</p>
 <p>Always checkpoints.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>trainer</strong> (<em>Trainer</em>) – </p></li>
 <li><p><strong>module</strong> (<em>LightningModule</em>) – </p></li>
@@ -384,7 +384,7 @@ panel. Defaults to True.</p></li>
 <dd><p>Called when training ends.</p>
 <p>Always checkpoints.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>trainer</strong> (<em>Trainer</em>) – </p></li>
 <li><p><strong>module</strong> (<em>LightningModule</em>) – </p></li>
