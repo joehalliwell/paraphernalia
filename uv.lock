@@ -1603,8 +1603,8 @@ requires-dist = [
     { name = "pytorch-lightning", marker = "extra == 'taming'", specifier = "==1.5.0rc0" },
     { name = "regex", marker = "extra == 'openai'", specifier = ">=2021.7.1,<2022" },
     { name = "rich", marker = "extra == 'rich'", specifier = ">=10.15.2,<11" },
-    { name = "sphinx", marker = "extra == 'docs'", specifier = "==4.2.0" },
-    { name = "sphinx-click", marker = "extra == 'docs'", specifier = ">=3.0.1,<4" },
+    { name = "sphinx", marker = "extra == 'docs'", specifier = "==5.0.2" },
+    { name = "sphinx-click", marker = "extra == 'docs'" },
     { name = "taming-transformers", marker = "extra == 'taming'", git = "https://github.com/joehalliwell/taming-transformers.git" },
     { name = "torch", specifier = ">=1.11.0,<2" },
     { name = "torchvision", specifier = ">=0.14.1,<0.15" },
@@ -2458,7 +2458,7 @@ wheels = [
 
 [[package]]
 name = "sphinx"
-version = "4.2.0"
+version = "5.0.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "alabaster" },
@@ -2470,7 +2470,6 @@ dependencies = [
     { name = "packaging" },
     { name = "pygments" },
     { name = "requests" },
-    { name = "setuptools" },
     { name = "snowballstemmer" },
     { name = "sphinxcontrib-applehelp" },
     { name = "sphinxcontrib-devhelp" },
@@ -2479,9 +2478,9 @@ dependencies = [
     { name = "sphinxcontrib-qthelp" },
     { name = "sphinxcontrib-serializinghtml" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/c4/55/38d9661f2eca2a0d4cf891de61d8f9bdc9e8711b473012f36d90009677c5/Sphinx-4.2.0.tar.gz", hash = "sha256:94078db9184491e15bce0a56d9186e0aec95f16ac20b12d00e06d4e36f1058a6", size = 6503692, upload-time = "2021-09-12T07:53:45.346Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/83/5f/0ebf0c94dffd7a848ebfeafc0d3147a784afffb44e2c6fcaeab7eadd67ad/Sphinx-5.0.2.tar.gz", hash = "sha256:b18e978ea7565720f26019c702cd85c84376e948370f1cd43d60265010e1c7b0", size = 6729086, upload-time = "2022-06-16T17:17:44.446Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/00/08/c037fa5d3794729fdc7967e5a174642c8e94e1988ae2bc950515e2902ca2/Sphinx-4.2.0-py3-none-any.whl", hash = "sha256:98a535c62a4fcfcc362528592f69b26f7caec587d32cd55688db580be0287ae0", size = 3061858, upload-time = "2021-09-12T07:53:38.28Z" },
+    { url = "https://files.pythonhosted.org/packages/fd/a2/3139e82a7caa2fb6954d0e63db206cc60e0ad6c67ae61ef9cf87dc70ade1/Sphinx-5.0.2-py3-none-any.whl", hash = "sha256:d3e57663eed1d7c5c50895d191fdeda0b54ded6f44d5621b50709466c338d1e8", size = 3125975, upload-time = "2022-06-16T17:17:39.291Z" },
 ]
 
 [[package]]

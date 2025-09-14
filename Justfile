@@ -18,5 +18,5 @@ makedocs:
     SPHINX_APIDOC_OPTIONS="members,undoc-members" sphinx-apidoc \
         --module-first --no-toc --separate \
         --templatedir=source/_templates -o source/generated \
-        ../paraphernalia
+        ../src/paraphernalia
     make clean html

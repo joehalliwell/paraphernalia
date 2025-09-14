@@ -43,9 +43,9 @@ taming = [
     "pytorch-lightning==1.5.0rc0",
 ]
 docs = [
-    "sphinx==4.2.0",
+    "sphinx==5.0.2",
     "pydata-sphinx-theme>=0.7.1,<0.8",
-    "sphinx-click>=3.0.1,<4",
+    "sphinx-click",
     "autodoc-pydantic>=1.5.1,<2",
 ]
 rich = ["rich>=10.15.2,<11"]
