@@ -3,15 +3,15 @@
 import logging
 import os
 import random
-from typing import Any
+from typing import Any, Optional
 
 _LOG = logging.getLogger(__name__)
 
 
-_seed = None
+_seed: Optional[int] = None
 
 
-def get_seed() -> int:
+def get_seed() -> Optional[int]:
     """
     Returns:
         int: the last seed passed to :func:`set_seed`
@@ -20,7 +20,6 @@ def get_seed() -> int:
 
 
 def set_seed(seed: Any) -> int:
-
     """
     Reset all known random number generators to use the provided seed.
     Currently:
@@ -39,7 +38,7 @@ def set_seed(seed: Any) -> int:
 
     """
     global _seed
-    _seed = abs(hash(seed)) % (2 ** 32 - 1)
+    _seed = abs(hash(seed)) % (2**32 - 1)
     _LOG.info(f"Setting global random seed to {_seed}")
 
     random.seed(_seed)
