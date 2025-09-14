@@ -15,13 +15,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       #----------------------------------------------
-      # check-out repo and install OS deps
+      # Check-out repo and install OS deps
       #----------------------------------------------
       - name: Check out repository
         uses: actions/checkout@v4
 
       #----------------------------------------------
-      # setup python
+      # Setup python
       #----------------------------------------------
       - name: "Set up Python"
         uses: actions/setup-python@v5
@@ -29,7 +29,7 @@ jobs:
           python-version-file: ".python-version"
 
       #----------------------------------------------
-      # install uv and get it setup
+      # Install uv and get it setup
       #----------------------------------------------
       - name: Install uv
         uses: astral-sh/setup-uv@v6
@@ -38,13 +38,13 @@ jobs:
           version: "0.8.17"
 
       #----------------------------------------------
-      # install the project
+      # Install the project
       #----------------------------------------------
       - name: Install the project
         run: uv sync --locked --all-extras --dev
 
       #----------------------------------------------
-      # build and publish Sphinx documentation
+      # Build and publish Sphinx documentation
       #----------------------------------------------
       - name: Build documentation
         run: |

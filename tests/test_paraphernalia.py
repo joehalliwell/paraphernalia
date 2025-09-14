@@ -2,7 +2,7 @@ import paraphernalia as pa
 
 
 def test_setup_function():
-    # NB: test_setup is called for every test
+    # NB test_setup is called for every test
     pa.setup()
 
 
