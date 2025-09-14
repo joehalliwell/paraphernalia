@@ -2,11 +2,11 @@ import torch
 from torch import Tensor
 
 from paraphernalia.torch.modules import (
+    AdaptiveMultiLoss,
     Constant,
+    Parallel,
     SimilarTo,
     SimilarToAny,
-    Parallel,
-    AdaptiveMultiLoss,
     WeightedSum,
 )
 
