@@ -1,4 +1,5 @@
 """Colour and colour palette utilities."""
+
 from enum import Enum
 from typing import List, Tuple
 

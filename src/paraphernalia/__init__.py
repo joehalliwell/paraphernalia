@@ -1,4 +1,5 @@
 """Paraphernalia is a collection of tools for making digital art."""
+
 import logging
 import os
 import subprocess

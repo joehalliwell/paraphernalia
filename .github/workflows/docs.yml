@@ -8,50 +8,43 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  workflow_dispatch:
 
 jobs:
   docs:
     runs-on: ubuntu-latest
     steps:
       #----------------------------------------------
-      #       check-out repo and install OS deps
+      # check-out repo and install OS deps
       #----------------------------------------------
       - name: Check out repository
-        uses: actions/checkout@v2
-      - name: Set up python
-        uses: actions/setup-python@v2
+        uses: actions/checkout@v4
+
+      #----------------------------------------------
+      # setup python
+      #----------------------------------------------
+      - name: "Set up Python"
+        uses: actions/setup-python@v5
         with:
-          python-version: 3.9
+          python-version-file: ".python-version"
+
       #----------------------------------------------
-      #  -----  install & configure poetry  -----
+      # install uv and get it setup
       #----------------------------------------------
-      - name: Install Poetry
-        uses: snok/install-poetry@v1
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
         with:
-          virtualenvs-create: true
-          virtualenvs-in-project: true
+          enable-cache: true
+          version: "0.8.17"
+
       #----------------------------------------------
-      #       load cached venv if cache exists
+      # install the project
       #----------------------------------------------
-      - name: Load cached venv
-        id: cached-poetry-dependencies
-        uses: actions/cache@v2
-        with:
-          path: .venv
-          key: venv-0-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
+      - name: Install the project
+        run: uv sync --locked --all-extras --dev
+
       #----------------------------------------------
-      # install dependencies if cache does not exist
-      #----------------------------------------------
-      - name: Install dependencies
-        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-        run: poetry install --extras "openai taming docs" --no-interaction --no-root
-      #----------------------------------------------
-      # install root project
-      #----------------------------------------------
-      - name: Install library
-        run: poetry install --extras "openai taming docs" --no-interaction
-      #----------------------------------------------
-      #    build and publish Sphinx documentation
+      # build and publish Sphinx documentation
       #----------------------------------------------
       - name: Build documentation
         run: |

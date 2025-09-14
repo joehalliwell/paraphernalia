@@ -152,11 +152,11 @@ class ReviewApp:
 
         self._print(
             [
-                f"{self.review.index+1:04d}/{self.review.total:04d}"
+                f"{self.review.index + 1:04d}/{self.review.total:04d}"
                 " [{self.review.verdict:4s}]"
                 " {self.review.path}"
                 " {self.img.size[0]}x{self.img.size[1]}",
-                f" Progress: {(done/self.review.total*100):.02f}%",
+                f" Progress: {(done / self.review.total * 100):.02f}%",
                 f"   [T]odo: {todo}",
                 f"   [K]eep: {keep}",
                 f"   [L]ose: {lose}",
@@ -211,7 +211,6 @@ ALL = "ALL"
 
 
 class Review:
-
     """Core review logic that could potentially be shared across different
     front-ends."""
 
@@ -336,7 +335,7 @@ class Review:
     def commit(self):
         """Move any empty source directories to lose."""
         _LOG.info(f"Committing {self.progress} changes")
-        for (path, verdict) in zip(self.todo, self.verdicts):
+        for path, verdict in zip(self.todo, self.verdicts):
             if verdict is TODO:
                 continue
             else:

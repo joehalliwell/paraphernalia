@@ -1,4 +1,5 @@
 """Noise generating functions."""
+
 from math import ceil, pi
 
 import torch
@@ -9,7 +10,7 @@ def perlin(
     width: int,
     height: int,
     frequency: float = 1.0,
-    fade=lambda t: 6 * t ** 5 - 15 * t ** 4 + 10 * t ** 3,
+    fade=lambda t: 6 * t**5 - 15 * t**4 + 10 * t**3,
     device=None,
 ) -> Tensor:
     """

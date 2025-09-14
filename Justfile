@@ -1,6 +1,14 @@
 test:
-    coverage run --source=paraphernalia -m pytest -v -rs --log-cli-level=INFO
-    coverage report
+    uv run coverage run --source src --module pytest tests/ -v -ra --log-cli-level=INFO
+    uv run coverage report -m
+
+publish:
+    rm -rf dist
+    uv build
+    uv publish
+
+sync:
+    uv sync --all-extras
 
 makedocs:
     #!/usr/bin/env bash

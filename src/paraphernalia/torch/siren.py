@@ -4,7 +4,6 @@ Generate images using a network with `sin` activation functions.
 See https://vsitzmann.github.io/siren/
 """
 
-
 import math
 import warnings
 from typing import Optional
@@ -38,7 +37,7 @@ class Siren(Generator):
         features: Optional[int] = 64,
         hidden_layers: Optional[int] = 8,
         start: Optional[Image] = None,
-        **kwargs
+        **kwargs,
     ):
         if start is not None:
             warnings.warn("Initial image is not supported")

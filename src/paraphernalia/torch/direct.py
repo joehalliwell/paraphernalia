@@ -58,7 +58,6 @@ class DirectPalette(Generator):
         scale=1,
         **kwargs,
     ):
-
         super().__init__(quantize=scale, **kwargs)
 
         if len(colors) > 256:

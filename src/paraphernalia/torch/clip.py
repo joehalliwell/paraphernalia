@@ -1,4 +1,5 @@
 """Evaluate images with CLIP."""
+
 import logging
 from typing import List, Optional, Set, Tuple, Union
 
@@ -304,7 +305,7 @@ class CLIP(torch.nn.Module):
         )
 
         # Boost macro depending on resolution. TODO: Explain if it works :)
-        macro_boost = (max(h, w) ** 2) / (self._WINDOW_SIZE ** 2)
+        macro_boost = (max(h, w) ** 2) / (self._WINDOW_SIZE**2)
         macro = self.macro * macro_boost / (1.0 + macro_boost)
 
         similarity = macro * prompt_similarity + (1 - macro) * detail_similarity

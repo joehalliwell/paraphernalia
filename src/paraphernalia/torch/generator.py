@@ -1,4 +1,5 @@
 """Base class and utility types for image generators."""
+
 import logging
 from abc import ABCMeta
 from typing import Optional, Tuple, Union

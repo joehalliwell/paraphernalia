@@ -1,4 +1,5 @@
 """Render GLSL fragment shaders to screen/video."""
+
 import logging
 import sys
 from pathlib import Path

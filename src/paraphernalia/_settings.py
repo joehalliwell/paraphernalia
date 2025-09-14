@@ -1,4 +1,5 @@
 """Global settings."""
+
 import logging
 from pathlib import Path
 from time import time
@@ -60,6 +61,8 @@ class Settings(BaseSettings):
     cache_home: Path = XDG_CACHE_HOME / "paraphernalia"
     """A writeable directory for cacheing files e.g. model artifacts."""
 
+    xcache_home: Path = XDG_CACHE_HOME / "foo"
+
     project_home: Path = XDG_DATA_HOME / "paraphernalia"
     """A writeable directory for project outputs."""
 
@@ -77,10 +80,10 @@ class Settings(BaseSettings):
         ensure_dir_exists
     )
 
-    _set_inital_seed = validator("initial_seed", allow_reuse=True)(set_seed)
+    _set_initial_seed = validator("initial_seed", allow_reuse=True)(set_seed)
 
     class Config:  # pragma: no cover
-        env_prefix = "pa_"
+        env_prefix = "paraphernalia_"
         env_file = XDG_CONFIG_HOME / "paraphernalia.env"
         env_file_encoding = "utf-8"
         allow_mutation = True

@@ -1,4 +1,5 @@
 """Generate images with the discrete VAE component of DALL-E."""
+
 from typing import Optional, Union
 
 import dall_e
@@ -13,7 +14,6 @@ from paraphernalia.utils import download
 
 
 class DALL_E(Generator):
-
     _NUM_CLASSES = 8192
     _SCALE = 8
 
